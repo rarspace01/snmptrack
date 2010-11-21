@@ -2,5 +2,8 @@
 <switchs>
 <switch ip="151.10.132.178"/>
 <switch ip="151.10.132.226"/>
-<switch ip="151.10.132.1"/>
+<switch ip="151.10.132.251"/>
+<switch ip="151.10.132.252"/>
+<switch ip="151.10.132.253"/>
+<switch ip="151.10.132.254"/>
 </switchs>
