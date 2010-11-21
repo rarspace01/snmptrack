@@ -1,0 +1,50 @@
+Ausleseplan:
+
+1. Hole Switch Infos 
+1.3.6.1.2.1.1.1.0:
+-Lese Switchhersteller, Modell und OS Version aus
+
+1.3.6.1.4.1.9.2.1.58:
+CPU Load auslesen
+
+DB: Aktualisiere Werte
+
+2. Hole Port infos:
+1.3.6.1.2.1.2.2.1.6 [WALK]:
+-Lese MAC der Ports aus
+
+1.3.6.1.2.1.2.2.1.8 [WALK]:
+-Lese Status der Ports
+
+1.3.6.1.4.1.9.9.68.1.2.2.1.2 [WALK]:
+-Lese VLANs zu den Ports aus
+
+1.3.6.1.2.1.31.1.1.1.1 [WALK]:
+-Lese Port Name aus
+
+1.3.6.1.2.1.31.1.1.1.18 [WALK]:
+-Lese Port Alias aus
+
+1.3.6.1.2.1.17.1.4.1.2 [WALK]:
+-hole VPortID
+
+1.3.6.1.2.1.17.4.3.1.2 [VLAN][WALK]:
+-MAC -> VPort zuordnung
+
+-hole zuerst non trunk vlans:
+	1.3.6.1.4.1.9.9.68.1.2.2.1.2
+	--> erhalte alle VLANs die "normale" ports enthalten
+	-1.3.6.1.2.1.17.4.3.1.2 hole alle MAC adressen und deren VPort (den umsetzten zu phport)
+	
+	snmpwalk -v 2c -c pdhoechst@[gefundene VLANIDs]  sw30401de 1.3.6.1.2.1.17.4.3.1.2
+	
+	
+	for each VLANID:
+	
+	snmpwalk -v 2c -c pdhoechst@44  sw30401de 1.3.6.1.2.1.17.4.3.1.2 
+	
+	--> trunk port einträge ausfiltern
+	
+	--> erhalte liste der macadressen und dazugehörigen vport
+	
+3. Reserve DNS request, reserve userlookup
