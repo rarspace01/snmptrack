@@ -1,12 +1,10 @@
 package org.dh.usertrack.snmptest;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
 import org.snmp4j.smi.Address;
-import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class SNMPTrack {
 
