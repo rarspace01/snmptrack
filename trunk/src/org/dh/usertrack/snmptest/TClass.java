@@ -26,34 +26,40 @@ public class TClass {
 	
 	public static void main(String[] args) {
 		
-		try {
+		for(int i=0; i<255; i++){
+			
+			try {
 
-			Hashtable env = new Hashtable();
+				Hashtable env = new Hashtable();
 
-			env.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
+				env.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
+				env.put("java.naming.provider.url",    "dns://151.10.136.202/. dns://151.10.136.70/.");
+				
+				
+				DirContext ctx = new InitialDirContext(env);
+	 
+				Attributes attrs = ctx.getAttributes(i+".132.10.151.in-addr.arpa",new String[] {"PTR"});
 
-			DirContext ctx = new InitialDirContext(env);
- 
-			Attributes attrs = ctx.getAttributes("151.10.132.226.in-addr.arpa",new String[] {"PTR"});
+				for (NamingEnumeration ae = attrs.getAll();ae.hasMoreElements();) {
 
-			for (NamingEnumeration ae = attrs.getAll();ae.hasMoreElements();) {
+					Attribute attr = (Attribute)ae.next();
 
-				Attribute attr = (Attribute)ae.next();
+					String attrId = attr.getID();
 
-				String attrId = attr.getID();
+					for (Enumeration vals = attr.getAll();vals.hasMoreElements(); System.out.println(attrId + ": " + vals.nextElement()));
 
-				for (Enumeration vals = attr.getAll();vals.hasMoreElements(); System.out.println(attrId + ": " + vals.nextElement()));
+				}
+
+				ctx.close();
+
+		 	}	
+
+			catch(Exception e) {
+
+				System.out.println("NO REVERSE DNS");
 
 			}
-
-			ctx.close();
-
-	 	}	
-
-		catch(Exception e) {
-
-			System.out.println("NO REVERSE DNS");
-
+			
 		}
 
 		
