@@ -16,19 +16,20 @@ public class Cisco {
 		if(sOID.contains(sPattern1))
 		{
 			sModell=sOID.substring(sOID.indexOf(sPatternS)+sPatternS.length(),sOID.indexOf(sPatternE));
-			sModell=sModell.trim();
 		}else if(sOID.contains(sPattern2)){
 			sModell=sOID.substring(sOID.indexOf(sPatternS)+sPatternS.length(),sOID.indexOf(sPatternE));
 			sModell=sModell.replace(sIOSTM, "");
-			sModell=sModell.trim();
-		
 		}else if(sOID.contains(sPattern3))
 		{	
 			sModell=sOID.substring(sOID.indexOf(sPattern3)+sPattern3.length(), sOID.indexOf(sPattern4));
 		}else{
-			System.out.println(sOID);
+			//System.out.println(sOID);
 		}
-		
+		sModell.trim();
+
+		sModell=sModell.replace("\r", "");
+		sModell=sModell.replace("\n", "");
+
 		if(sModell.contains("C6MSFC2-JSV-M"))
 		{
 			sModell="C6500-MSFC2-JSV-M";
@@ -39,7 +40,19 @@ public class Cisco {
 	
 	public static final String getIOSfromDescr(String sOID){
 		String sIOS="";
-				
+		
+		String sPattern1="Version";
+		
+		if(sOID.contains("Version"))
+		{
+			if(sOID.substring(sOID.indexOf(sPattern1)+sPattern1.length()).contains(","))
+			{
+				sIOS=sOID.substring(sOID.indexOf(sPattern1)+sPattern1.length(),sOID.indexOf(sPattern1)+sPattern1.length()+sOID.substring(sOID.indexOf(sPattern1)+sPattern1.length()).indexOf(","));
+			}else{
+				sIOS=sOID.substring(sOID.indexOf(sPattern1)+sPattern1.length(),sOID.indexOf(sPattern1)+sPattern1.length()+sOID.substring(sOID.indexOf(sPattern1)+sPattern1.length()).indexOf("\n"));
+			}
+		sIOS=sIOS.trim();
+		}
 		return sIOS;
 	}
 	
