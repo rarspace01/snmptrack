@@ -47,16 +47,7 @@ public class DNSReserve {
 
 			String attrId = attr.getID();
 
-			for (Enumeration vals = attr.getAll();vals.hasMoreElements();)
-			{
-			//System.out.println(attrId + ": " + vals.nextElement());
-				if(attrId.contains("PTR")){
-					sDNS=(String) vals.nextElement();
-				}else{
-					vals.nextElement();
-				}
-				//System.out.println("DEBUG: DNS: "+sDNS);
-			}
+			for (Enumeration vals = attr.getAll();vals.hasMoreElements(); System.out.println(attrId + ": " + vals.nextElement()));
 			
 		}
 
