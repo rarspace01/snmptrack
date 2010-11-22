@@ -51,9 +51,9 @@ public class SNMPTrack {
 		
 		for(int i=0; i<swList.size();i++)
 		{
-			if(getActiveThreads()>=HelperClass.getCPUCount())
+			if(getActiveThreads()>=SNMPConfig.getThreadmaxcount())
 			{
-				while(getActiveThreads()>=HelperClass.getCPUCount()){
+				while(getActiveThreads()>=SNMPConfig.getThreadmaxcount()){
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
@@ -64,7 +64,7 @@ public class SNMPTrack {
 			}
 			setActiveThreads(getActiveThreads()+1);	
 			
-			HelperClass.msgLog("[Scan][Switch]["+i+"][Start]");
+			//HelperClass.msgLog("[Scan][Switch]["+i+"][Start]");
 			SwitchWorkerThread t=new SwitchWorkerThread("Thread Switch Nr. "+i, this.snmp,this, swList.get(i).getsIP());
 		}
 		
