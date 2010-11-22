@@ -20,7 +20,7 @@ public class SNMPHandler {
 	public static String getOID(Snmp snmp, String OID, String Target, String Community){
 		String sOID="";
 		
-		System.out.println("DEBUG: GET OID FROM: "+Target);
+		//System.out.println("DEBUG: GET OID FROM: "+Target);
 		
 		Address targetAdress=GenericAddress.parse("udp:"+Target+"/161");
 		
@@ -62,7 +62,7 @@ public class SNMPHandler {
 				sOID="ERROR AT "+Target+" [null]";
 			}
 		
-			System.out.println("DEBUG: GOT OID FROM: "+Target);
+			//System.out.println("DEBUG: GOT OID FROM: "+Target);
 		
 		return sOID;
 	}
