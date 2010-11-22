@@ -14,7 +14,9 @@ public class DNSReserve {
 
 	public static final String lookupDNS(String IP){
 		
+		String sTMP="";
 		String sDNS="";
+		
 		
 		try{
 		
@@ -26,7 +28,9 @@ public class DNSReserve {
 	      for (int i=addr.length-1 ; i>=0; i--)
 	      { addrString += (addr[i] & 0xFF) + "."    ;
 	      }	
-			
+		
+	      //System.out.println("DEBUG: "+IP+"->"+addrString);
+	      
 		Hashtable env = new Hashtable();
 
 		env.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
@@ -35,7 +39,7 @@ public class DNSReserve {
 		
 		DirContext ctx = new InitialDirContext(env);
 
-		Attributes attrs = ctx.getAttributes(addrString+".in-addr.arpa",new String[] {"PTR"});
+		Attributes attrs = ctx.getAttributes(addrString+"in-addr.arpa",new String[] {"PTR"});
 
 		for (NamingEnumeration ae = attrs.getAll();ae.hasMoreElements();) {
 
@@ -46,7 +50,12 @@ public class DNSReserve {
 			for (Enumeration vals = attr.getAll();vals.hasMoreElements();)
 			{
 			//System.out.println(attrId + ": " + vals.nextElement());
-				sDNS=(String) vals.nextElement();
+				if(attrId.contains("PTR")){
+					sDNS=(String) vals.nextElement();
+				}else{
+					vals.nextElement();
+				}
+				//System.out.println("DEBUG: DNS: "+sDNS);
 			}
 			
 		}
