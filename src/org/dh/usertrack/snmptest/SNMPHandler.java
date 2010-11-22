@@ -1,6 +1,9 @@
 package org.dh.usertrack.snmptest;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Vector;
 
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
@@ -22,7 +25,7 @@ public class SNMPHandler {
 		
 		//System.out.println("DEBUG: GET OID FROM: "+Target);
 		
-		Address targetAdress=GenericAddress.parse("udp:"+Target+"/161");
+		Address targetAddress=GenericAddress.parse("udp:"+Target+"/161");
 		
 		OID targetOID = new OID(OID);
 		
@@ -33,7 +36,7 @@ public class SNMPHandler {
 		    
 		    CommunityTarget target = new CommunityTarget();
 		    target.setCommunity(new OctetString(Community));
-		    target.setAddress(targetAdress);
+		    target.setAddress(targetAddress);
 		    target.setVersion(SnmpConstants.version2c);
 
 
@@ -65,6 +68,69 @@ public class SNMPHandler {
 			//System.out.println("DEBUG: GOT OID FROM: "+Target);
 		
 		return sOID;
+	}
+
+	public static ArrayList<String> getOIDWalk(Snmp snmp, String OID, String Target, String Community){
+		ArrayList<String> resultList=new ArrayList<String>();
+		
+		Address targetAddress=GenericAddress.parse("udp:"+Target+"/161");
+		
+		OID targetOID = new OID(OID);
+		
+		PDU requestPDU = new PDU();
+	    requestPDU.add(new VariableBinding(targetOID));
+	    requestPDU.setType(PDU.GETBULK);
+	    
+	    requestPDU.setNonRepeaters(0);
+	    requestPDU.setMaxRepetitions(65535);
+	    
+	    CommunityTarget target = new CommunityTarget();
+	    target.setCommunity(new OctetString(Community));
+	    target.setAddress(targetAddress);
+	    
+	    target.setVersion(SnmpConstants.version2c);
+		
+			try {
+				
+				TransportMapping transport = new DefaultUdpTransportMapping();
+				snmp = new Snmp(transport);
+				
+			      transport.listen();
+
+			      Vector vb = null;
+			        
+			        ResponseEvent response = snmp.getBulk(requestPDU, target);
+			        if (response.getResponse() != null)
+			        {
+			        	//System.out.println("Received response from: "+response.getPeerAddress());
+			        	//System.out.println(sresponse);
+			        	
+			        	PDU responsePDU=response.getResponse();
+			        	
+			          vb = responsePDU.getVariableBindings();
+			          
+			          //System.out.println("Size: "+vb.size());
+
+			          Iterator iter = vb.iterator();
+
+			          while(iter.hasNext()){
+			       	  VariableBinding v = (VariableBinding) iter.next();
+			       	  
+			       	  
+			       	  resultList.add(v.getOid().toString()+"!"+v.getVariable().toString());
+			          }
+				
+			        }
+				
+			} catch (IOException e) {
+			
+				HelperClass.err(e);
+				
+			} catch (NullPointerException e2){
+				HelperClass.err(e2);
+			}
+		
+		return resultList;
 	}
 	
 }
