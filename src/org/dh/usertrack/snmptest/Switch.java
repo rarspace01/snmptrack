@@ -2,11 +2,9 @@ package org.dh.usertrack.snmptest;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
-import org.snmp4j.smi.IpAddress;
 
 public class Switch {
 
@@ -49,6 +47,8 @@ public class Switch {
 
 	public void refresh(){
 	
+	String sSQL="";	
+		
 	//Get switch info	
 		
 		
@@ -58,13 +58,13 @@ public class Switch {
 	sOID=SNMPHandler.getOID(snmp, "1.3.6.1.2.1.1.1.0", sIP, SNMPConfig.getReadCommunity());	
 		
 	if(sOID.contains("ERROR AT ")){
-		HelperClass.msgLog("SNMP not runnging on: ["+sIP+"]");
+		HelperClass.msgLog("SNMP not runnging on: ["+sIP+"]. Aborting Tracking.");
 	}else{
 	
 	//get DNS
  	sDNS=DNSHelperClass.getHostname(sIP);
 		
-	//is Cisco? -> Prüfe IOS/Modell
+	//is Cisco? -> Prï¿½fe IOS/Modell
 	if(sOID.toLowerCase().contains("cisco")){
 		svendor="Cisco";
 	
@@ -86,7 +86,7 @@ public class Switch {
 	
 	HelperClass.msgLog("["+sIP+"]DNS:["+sDNS+"] Vendor: ["+svendor+"] Model: ["+smodel+"] IOS: ["+sversion+"] LOC: ["+sLocation+"] Uptime: ["+sUptime+"] Alias: ["+sAlias+"]");
 
-	
+	sSQL="INSERT INTO st_switchs () VALUES ('"+sIP+"','"+sDNS+"','"+svendor+"','"+smodel+"';'"+sversion+"','"+sLocation+"','"+sUptime+"','"+sAlias+"')";
 	
 //	ArrayList<String> sAL=new ArrayList<String>();
 //	
