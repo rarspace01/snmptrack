@@ -1,6 +1,7 @@
 package org.dh.usertrack.snmptest;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -14,7 +15,6 @@ public class DNSReserve {
 
 	public static final String lookupDNS(String IP){
 		
-		String sTMP="";
 		String sDNS="";
 		
 		
@@ -34,7 +34,7 @@ public class DNSReserve {
 		Hashtable env = new Hashtable();
 
 		env.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
-		env.put("java.naming.provider.url",    "dns://151.10.136.202/. dns://151.10.136.70/.");
+		env.put("java.naming.provider.url",    "dns://151.10.136.202/. dns://151.10.136.70/. dns://192.168.1.1/.");
 		
 		
 		DirContext ctx = new InitialDirContext(env);
@@ -45,9 +45,19 @@ public class DNSReserve {
 
 			Attribute attr = (Attribute)ae.next();
 
-			String attrId = attr.getID();
-
-			for (Enumeration vals = attr.getAll();vals.hasMoreElements(); System.out.println(attrId + ": " + vals.nextElement()));
+			if (attr != null) {
+		        sDNS = (String) attr.get(0);
+		    }
+			
+//			String attrId = attr.getID();
+//
+//			Enumeration vals = attr.getAll();
+//			
+//			while(vals.hasMoreElements())
+//			{
+//				System.out.println(attrId + ": " + vals.nextElement());	
+//				//sDNS=""+vals.nextElement();
+//			}
 			
 		}
 
@@ -61,7 +71,7 @@ public class DNSReserve {
 
 	}
 		
-		return "";
+		return sDNS;
 		
 	}
 	
