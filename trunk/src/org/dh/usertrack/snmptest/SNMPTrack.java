@@ -1,5 +1,6 @@
 package org.dh.usertrack.snmptest;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.snmp4j.Snmp;
@@ -10,12 +11,8 @@ public class SNMPTrack {
 
 	private int ifinishedThreads=0;
 	private int activeThreads=0;
-	
 
-	
 	Snmp snmp;
-	
-	
 	
 	public int getActiveThreads() {
 		return activeThreads;
@@ -35,7 +32,6 @@ public class SNMPTrack {
 	
 	public SNMPTrack() {
 		// TODO Auto-generated constructor stub
-		
 		
 		HelperClass.msgLog("Starte SNMPTrack");
 		
@@ -87,7 +83,6 @@ public class SNMPTrack {
 		int iMax;
 		
 		  public SwitchWorkerThread(String threadName, Snmp snmp, SNMPTrack jm, String SwitchAdresse) {
-		    //this.targetAddress = GenericAddress.parse("udp:"+SwitchAdresse+"/161");
 		    
 			sIP=SwitchAdresse;  
 			  
