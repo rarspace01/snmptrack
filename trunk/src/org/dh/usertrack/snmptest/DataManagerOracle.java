@@ -76,6 +76,7 @@ public class DataManagerOracle {
                         i=stmt.executeUpdate(SQLString);
 
                 } catch (SQLException e) {
+                	System.out.println("DEBUGSQL:["+SQLString+"]");
                 	e.printStackTrace();
                 	HelperClass.err(e);
                 }
