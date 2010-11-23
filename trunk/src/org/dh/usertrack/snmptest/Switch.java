@@ -4,15 +4,14 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.snmp4j.Snmp;
-import org.snmp4j.TransportMapping;
 
 public class Switch {
 
 	private String sIP="";
 	private Snmp snmp;
-	private TransportMapping transport;
 	private String svendor="";
 	private String smodel="";
 	private String sversion="";
@@ -51,7 +50,8 @@ public class Switch {
 	public void refresh(){
 	
 	String sSQL="";	
-		
+	String sPuffer="";
+	
 	//Get switch info	
 		
 		
@@ -115,6 +115,8 @@ public class Switch {
 		e.printStackTrace();
 	}
 	
+	ArrayList<String> swPuffer=new ArrayList<String>();
+	
 	ArrayList<String> swMACs=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swStatus=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swVLANs=new ArrayList<String>(); //Liste der Mac Adressen
@@ -122,7 +124,8 @@ public class Switch {
 	ArrayList<String> swPortalias=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swVPort=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swHostMAC=new ArrayList<String>(); //Liste der Mac Adressen
-	
+	ArrayList<String> swCDP=new ArrayList<String>();
+	ArrayList<String> swVLANListe=new ArrayList<String>();
 	
 	swMACs=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.6", sIP, SNMPConfig.getReadCommunity());
 	swStatus=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.8", sIP, SNMPConfig.getReadCommunity());
@@ -130,13 +133,26 @@ public class Switch {
 	swPortname=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.31.1.1.1.1", sIP, SNMPConfig.getReadCommunity());
 	swPortalias=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.31.1.1.1.18", sIP, SNMPConfig.getReadCommunity());
 	swVPort=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.1.4.1.2", sIP, SNMPConfig.getReadCommunity());
+	swCDP=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.23.1.2.1.1.4", sIP, SNMPConfig.getReadCommunity());
 	
 	//get all the macs of the coresponding vlans
 	
-	for(int i=0;i<10;i++)
+	swVLANListe=getVLanList(swVLANs);
+	
+	//add All Macs to the "Global" Maccache-List
+	
+	for(int i=0;i<swVLANListe.size();i++)
 	{
-	swHostMAC=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.4.3.1.2", sIP, SNMPConfig.getReadCommunity());
+		swPuffer=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.4.3.1.2", sIP, SNMPConfig.getReadCommunity()+"@"+swVLANListe.get(i));
+		for(int j=0;j<swPuffer.size();j++){
+			swHostMAC.add(swPuffer.get(j));
+		}
+		swPuffer.clear();
 	}
+	
+	System.out.println("DEBUG: swMAC Size:"+swHostMAC.size());
+	
+	
 	
 	if(swMACs.size()==0){
 		System.out.println("ERROR swMAClist");
@@ -144,6 +160,28 @@ public class Switch {
 		for(int i=0;i<swMACs.size();i++){
 			if(swMACs.get(i).substring(swMACs.get(i).indexOf("!")+1).length()>0)
 			{
+				
+				Port p=new Port();
+				
+				
+				sPuffer=swMACs.get(i).substring(swMACs.get(i).indexOf("!")+1);
+				
+				p.sMAC=sPuffer;
+				p.SwitchIP=sIP;
+				p.PortID=Integer.parseInt(swMACs.get(i).substring(0,swMACs.get(i).indexOf("!")).replace("1.3.6.1.2.1.2.2.1.6.", ""));
+				
+				System.out.println(p.printAll());
+				
+			
+				
+				
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				//Beginne mit Port Bearbeitung				
 				
 				
@@ -166,6 +204,24 @@ public class Switch {
 		
 	}
 	
+	}
+	
+	public ArrayList<String> getVLanList(ArrayList<String> Liste){
+		String sTMP="";
+		ArrayList<String> vll=new ArrayList<String>();
+		
+		for(int i=0;i<Liste.size();i++)
+		{
+			//vereinfachen
+			sTMP=Liste.get(i).substring(Liste.get(i).indexOf("!")+1);
+			//prüfne ob in liste, bei bedarf hinzufügen
+			if(!vll.contains(sTMP))
+			{
+				vll.add(sTMP);
+			}
+		}
+		Collections.sort(vll);
+		return vll;
 	}
 	
 }
