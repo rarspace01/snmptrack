@@ -52,6 +52,16 @@ public class JMain {
 			
 			Address targetAddress=GenericAddress.parse("udp:151.10.132.226/161");
 
+			//TransportMapping transport;
+			try {
+				jm1.transport = new DefaultUdpTransportMapping();
+				jm1.snmp = new Snmp(jm1.transport);
+				jm1.transport.listen();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 
 			long lstart=System.currentTimeMillis();
 			   
@@ -153,9 +163,7 @@ class JMAINSwitchWorkerThread implements Runnable {
 			try {
 				
 				
-				TransportMapping transport = new DefaultUdpTransportMapping();
-			      Snmp snmp = new Snmp(transport);
-			      transport.listen();
+				
 				
 				//PDU responsePDU = snmp.sendPDU(requestPDU, target);			      
 				
