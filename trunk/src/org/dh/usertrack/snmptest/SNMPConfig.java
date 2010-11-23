@@ -4,7 +4,7 @@ public class SNMPConfig {
 
 	public static final int getThreadmaxcount(){
 		
-		return 4;
+		return 2;
 		
 		//return HelperClass.getCPUCount()*2;
 		
