@@ -1,5 +1,7 @@
 package org.dh.usertrack.snmptest;
 
+import java.util.ArrayList;
+
 public class Cisco {
 
 	public static final String getModelfromDescr(String sOID){
@@ -68,6 +70,10 @@ public class Cisco {
 	}
 
 	public static String getUptime(String oid) {
+		ArrayList<String> pList=new ArrayList<String>();
+		
+		long luptime=0;
+		
 		oid=oid.replace("1.3.6.1.2.1.1.3.0 = ", "");
 		
 		if(oid.contains("day"))
@@ -76,7 +82,42 @@ public class Cisco {
 		}else{
 			oid="0:"+oid;
 		}
-			
+		
+		// 242:19:11:11.36
+		
+//		while(oid.length()>0)
+//		{
+//			if(oid.contains(":")){
+//			pList.add(oid.substring(0, oid.indexOf(":")));
+//			oid=oid.substring(oid.indexOf(":")+1);
+//			}else{
+//				//finalparse				
+//			pList.add(oid);
+//			oid="";
+//			}
+//		}
+		
+//		for(int i=pList.size();i>0;i--)
+//		{
+//			//System.out.println("["+i+"]["+pList.get(i)+"]");
+//			if(i==pList.size())
+//			{
+//				luptime=(long)Integer.parseInt(pList.get(i));
+//			}
+//			if(i==pList.size()-1)
+//			{
+//				luptime=luptime+60*(long)Double.parseDouble(pList.get(i));
+//			}
+//			if(i==pList.size()-2)
+//			{
+//				luptime=luptime+60*60*(long)Double.parseDouble(pList.get(i));
+//			}
+//			if(i==pList.size()-3)
+//			{
+//				luptime=luptime+24*60*60*(long)Double.parseDouble(pList.get(i));
+//			}
+//		}
+		
 		return oid;
 	}
 
