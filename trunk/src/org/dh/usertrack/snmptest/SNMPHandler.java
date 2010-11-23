@@ -43,9 +43,9 @@ public class SNMPHandler {
 		
 			try {
 				
-				TransportMapping transport = new DefaultUdpTransportMapping();
-				snmp = new Snmp(transport);
-				transport.listen();
+//				TransportMapping transport = new DefaultUdpTransportMapping();
+//				snmp = new Snmp(transport);
+//				transport.listen();
 			      
 				//PDU responsePDU = snmp.sendPDU(requestPDU, target);			      
 				
@@ -92,10 +92,10 @@ public class SNMPHandler {
 		
 			try {
 				
-				TransportMapping transport = new DefaultUdpTransportMapping();
-				snmp = new Snmp(transport);
-				
-			      transport.listen();
+//				TransportMapping transport = new DefaultUdpTransportMapping();
+//				snmp = new Snmp(transport);
+//				
+//			      transport.listen();
 
 			      Vector vb = null;
 			        
