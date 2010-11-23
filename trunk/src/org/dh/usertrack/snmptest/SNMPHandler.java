@@ -116,9 +116,10 @@ public class SNMPHandler {
 			          while(iter.hasNext()){
 			       	  VariableBinding v = (VariableBinding) iter.next();
 			       	  
-			       	  
+			       	  if(v.getOid().toString().contains(OID)){
 			       	  resultList.add(v.getOid().toString()+"!"+v.getVariable().toString());
-			          }
+			       	  }
+			       	  }
 				
 			        }
 				
