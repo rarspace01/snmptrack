@@ -3,6 +3,7 @@ package org.dh.usertrack.snmptest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
@@ -114,17 +115,47 @@ public class Switch {
 		e.printStackTrace();
 	}
 	
-//	ArrayList<String> sAL=new ArrayList<String>();
-//	
-//	sAL=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.4.3.1.2", sIP, SNMPConfig.getReadCommunity());
-//	
-//	if(sAL.size()==0){
-//		System.out.println("ERROR AList");
-//	}else{
-//		for(int i=0;i<sAL.size();i++){
-//			System.out.println(sAL.get(i));;
-//		}
-//	}
+	ArrayList<String> swMACs=new ArrayList<String>(); //Liste der Mac Adressen
+	ArrayList<String> swStatus=new ArrayList<String>(); //Liste der Mac Adressen
+	ArrayList<String> swVLANs=new ArrayList<String>(); //Liste der Mac Adressen
+	ArrayList<String> swPortname=new ArrayList<String>(); //Liste der Mac Adressen
+	ArrayList<String> swPortalias=new ArrayList<String>(); //Liste der Mac Adressen
+	ArrayList<String> swVPort=new ArrayList<String>(); //Liste der Mac Adressen
+	ArrayList<String> swHostMAC=new ArrayList<String>(); //Liste der Mac Adressen
+	
+	
+	swMACs=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.6", sIP, SNMPConfig.getReadCommunity());
+	swStatus=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.8", sIP, SNMPConfig.getReadCommunity());
+	swVLANs=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.68.1.2.2.1.2", sIP, SNMPConfig.getReadCommunity());
+	swPortname=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.31.1.1.1.1", sIP, SNMPConfig.getReadCommunity());
+	swPortalias=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.31.1.1.1.18", sIP, SNMPConfig.getReadCommunity());
+	swVPort=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.1.4.1.2", sIP, SNMPConfig.getReadCommunity());
+	
+	//get all the macs of the coresponding vlans
+	
+	for(int i=0;i<10;i++)
+	{
+	swHostMAC=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.4.3.1.2", sIP, SNMPConfig.getReadCommunity());
+	}
+	
+	if(swMACs.size()==0){
+		System.out.println("ERROR swMAClist");
+	}else{
+		for(int i=0;i<swMACs.size();i++){
+			if(swMACs.get(i).substring(swMACs.get(i).indexOf("!")+1).length()>0)
+			{
+				//Beginne mit Port Bearbeitung				
+				
+				
+				
+				//System.out.println(swMACs.get(i));
+				//has mac
+//				System.out.println("Hat ne Mac");
+			}
+		}
+	}
+	
+	HelperClass.msgLog("FIN: "+sIP);
 	
 	//in Boerse-project:
 	//
