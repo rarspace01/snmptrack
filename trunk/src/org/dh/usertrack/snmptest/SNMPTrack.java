@@ -36,6 +36,13 @@ public class SNMPTrack {
 	public SNMPTrack() {
 		// TODO Auto-generated constructor stub
 		//TransportMapping transport;
+		
+		
+		
+		HelperClass.msgLog("Starte SNMPTrack");
+		
+		HelperClass.msgLog("Initialisiere SNMP");
+		
 		try {
 			transport = new DefaultUdpTransportMapping();
 			snmp = new Snmp(transport);
@@ -44,10 +51,6 @@ public class SNMPTrack {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
-		
-		HelperClass.msgLog("Starte SNMPTrack");
 		
 		HelperClass.msgLog("Lade aktuelle Switchliste");
 		
