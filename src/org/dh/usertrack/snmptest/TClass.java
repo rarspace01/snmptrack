@@ -1,5 +1,6 @@
 package org.dh.usertrack.snmptest;
 
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -10,6 +11,8 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 
 import org.snmp4j.Snmp;
+import org.snmp4j.TransportMapping;
+import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class TClass {
 	
@@ -28,7 +31,19 @@ public class TClass {
 	
 	public static void main(String[] args) {
 		
-		Switch sw1=new Switch("151.10.132.226", new Snmp());
+		TransportMapping transport;
+		Snmp snmp = null;
+		
+		try {
+			transport = new DefaultUdpTransportMapping();
+			snmp = new Snmp(transport);
+			transport.listen();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Switch sw1=new Switch("151.10.132.226", snmp);
 		sw1.refresh();
 		
 		//System.out.println("DNS:"+DNSHelperClass.getHostname("192.168.1.1"));
