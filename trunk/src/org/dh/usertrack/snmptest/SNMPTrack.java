@@ -1,17 +1,20 @@
 package org.dh.usertrack.snmptest;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
 import org.snmp4j.smi.Address;
+import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class SNMPTrack {
 
 	private int ifinishedThreads=0;
 	private int activeThreads=0;
 
+	TransportMapping transport;
 	Snmp snmp;
 	
 	public int getActiveThreads() {
@@ -32,6 +35,17 @@ public class SNMPTrack {
 	
 	public SNMPTrack() {
 		// TODO Auto-generated constructor stub
+		//TransportMapping transport;
+		try {
+			transport = new DefaultUdpTransportMapping();
+			snmp = new Snmp(transport);
+			transport.listen();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		
 		HelperClass.msgLog("Starte SNMPTrack");
 		
