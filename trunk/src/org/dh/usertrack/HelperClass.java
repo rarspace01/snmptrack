@@ -1,4 +1,4 @@
-package org.dh.usertrack.snmptest;
+package org.dh.usertrack;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

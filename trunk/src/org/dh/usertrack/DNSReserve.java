@@ -1,4 +1,4 @@
-package org.dh.usertrack.snmptest;
+package org.dh.usertrack;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
