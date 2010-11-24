@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import org.snmp4j.Snmp;
-import org.snmp4j.smi.IpAddress;
 
 public class Switch {
 
@@ -51,6 +50,8 @@ public class Switch {
 	public void refresh(){
 	
 	String sSQL="";	
+	ArrayList<String> sSQLList=new ArrayList<String>();	
+	
 	String sPuffer="";
 	
 	boolean supportsCiscoDuplex=false;
@@ -130,6 +131,8 @@ public class Switch {
 	ArrayList<String> swCDP=new ArrayList<String>();
 	ArrayList<String> swVLANListe=new ArrayList<String>();
 	ArrayList<String> swSpeed=new ArrayList<String>();
+	ArrayList<String> swHostMacIps=new ArrayList<String>();
+	
 	//only for selected cisco switchs
 	ArrayList<String> swCiscoPort=new ArrayList<String>();
 	ArrayList<String> swCiscoDuplex=new ArrayList<String>();	
@@ -143,6 +146,10 @@ public class Switch {
 	swVPort=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.1.4.1.2", sIP, SNMPConfig.getReadCommunity());
 	swCDP=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.23.1.2.1.1.4", sIP, SNMPConfig.getReadCommunity());
 	swSpeed=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.5", sIP, SNMPConfig.getReadCommunity());
+	swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, "1.3.6.1.2.1.4.22.1.2", SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
+	
+	System.out.println("DEBUG: "+swHostMacIps.size());
+	
 	swCiscoPort = SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.87.1.4.1.1.25", sIP, SNMPConfig.getReadCommunity());
 	
 	if(swCiscoPort.size()>0){
@@ -179,6 +186,9 @@ public class Switch {
 	
 	//System.out.println("DEBUG: swMAC Size:"+swHostMAC.size());
 	
+	//is needed for SQL summary
+	sSQL="";
+	
 	if(swMACs.size()==0){
 		System.out.println("ERROR swMAClist");
 	}else{
@@ -194,74 +204,128 @@ public class Switch {
 				p.sMAC=sPuffer;
 				p.SwitchIP=sIP;
 				p.PortID=Integer.parseInt(swMACs.get(i).substring(0,swMACs.get(i).indexOf("!")).replace("1.3.6.1.2.1.2.2.1.6.", ""));
+				p.VPortID=getVPortID(swVPort, p.PortID);
+				
+				
 				p.name=getOIDListEntry(swPortname,i+1).substring(getOIDListEntry(swPortname,i+1).indexOf("!")+1);
 				p.alias=getOIDListEntry(swPortalias,i+1).substring(getOIDListEntry(swPortalias,i+1).indexOf("!")+1);
 				p.vlan=getOIDListEntry(swVLANs,i+1).substring(getOIDListEntry(swVLANs,i+1).indexOf("!")+1);
 				
-				//get cstatus of port
-				
-				sPuffer=getOIDListEntry(swStatus, i+1).substring(getOIDListEntry(swStatus, i+1).indexOf("!")+1);
-				
-				if(sPuffer.contains("1"))
-				{
-				p.cstatus=true;
-				
-				p.Speed=getOIDListEntry(swSpeed, i+1).substring(getOIDListEntry(swSpeed, i+1).indexOf("!")+1);
-				
-				}else{
-				p.cstatus=false;	
-				
-				p.Speed="0";
-				}
-			
-				//Duplex Erkennung - nur für spezielle Cisco Switchs möglich
-				
-				if(supportsCiscoDuplex)
-				{
-					sPuffer=getDuplexSTate(swDuplex,p.PortID).substring(sPuffer.indexOf("!")+1);
+					//get cstatus of port
 					
-					if(sPuffer.contains("2")&&p.cstatus)
+					sPuffer=getOIDListEntry(swStatus, i+1).substring(getOIDListEntry(swStatus, i+1).indexOf("!")+1);
+					
+					if(sPuffer.contains("1"))
 					{
-					p.Duplex="HalfDuplex";
-					}else if(sPuffer.contains("1")&&p.cstatus)
-					{
-					p.Duplex="FullDuplex";
+					p.cstatus=true;
+					
+					p.Speed=getOIDListEntry(swSpeed, i+1).substring(getOIDListEntry(swSpeed, i+1).indexOf("!")+1);
+					
 					}else{
-						p.Duplex="";
+					p.cstatus=false;	
+					
+					p.Speed="0";
 					}
-					sPuffer="";
-				}
 				
-				//Prüfe ob Uplink Port + Setzte Uplink IP sofern möglich
+					//Duplex Erkennung - nur für spezielle Cisco Switchs möglich
+					
+					if(supportsCiscoDuplex)
+					{
+						sPuffer=getDuplexSTate(swDuplex,p.PortID).substring(sPuffer.indexOf("!")+1);
+						
+						if(sPuffer.contains("2")&&p.cstatus)
+						{
+						p.Duplex="HalfDuplex";
+						}else if(sPuffer.contains("1")&&p.cstatus)
+						{
+						p.Duplex="FullDuplex";
+						}else{
+							p.Duplex="";
+						}
+						sPuffer="";
+					}
+					
+					//Prüfe ob Uplink Port + Setzte Uplink IP sofern möglich
+					
+					if(isUplinkport(swCDP, p.PortID, p.vlan))
+					{
+						p.isUplink=true;
+						p.UplinkIP=getUplinkIP(swCDP, p.PortID, p.vlan);
+					}
+					//
+					
+					
+					//save Port
+					sSQLList.add(p.getDBString());
+					
+					System.out.println("FIN PORTS");
+					
+					//p.saveinDB();
+					
+					if(!p.isUplink){
+						
+					//get Hosts on this port
+					ArrayList<String> alHosts=null;
+						
+						
+					if(p.VPortID<0)
+					{
+					alHosts=getHostsOfPort(swHostMAC,p.PortID);
+					}else{
+					alHosts=getHostsOfPort(swHostMAC,p.VPortID);	
+					}
+					
+					System.out.println("Before Host");
+					
+					if(alHosts.size()>0)
+					{
+						for(int j=0; j<alHosts.size();j++)
+						{
+							if(alHosts.get(j).length()>0)
+							{
+								if(!HexToDec.getSimpleHex(p.sMAC).contains(alHosts.get(j)))
+								{
+									System.out.println("start sub");
+									System.out.println("MAC: ["+alHosts.get(j)+"] IP: "+getIPfromMAC(swHostMacIps,alHosts.get(j)));
+									System.out.println("end sub");
+								}
+							}
+						}
+					}
+					System.out.println("After Host");
+					
+	
+					}
+	
+					System.out.println(p.printAll());
+					
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				
-				if(isUplinkport(swCDP, p.PortID, p.vlan))
-				{
-					p.isUplink=true;
-					p.UplinkIP=getUplinkIP(swCDP, p.PortID, p.vlan);
-				}
-				//
-				
-				//System.out.println(p.printAll());
-				
-			
 				
 				
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				//Beginne mit Port Bearbeitung				
-				
-				
-				
-				//System.out.println(swMACs.get(i));
-				//has mac
-//				System.out.println("Hat ne Mac");
 			}
 		}
+		
+		//save in DB
+		
+		try {
+			
+			for(int i=0;i<sSQLList.size();i++)
+			{
+				DataManagerOracle.getInstance().execute(sSQLList.get(i));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	HelperClass.msgLog("FIN: "+sIP);
@@ -275,6 +339,73 @@ public class Switch {
 		
 	}
 	
+	}
+	
+	private String getIPfromMAC(ArrayList<String> swHostMacIps, String sMAC) {
+		//System.out.println("D0: "+sMAC);
+		
+		sMAC=HexToDec.getADVfromSimple(sMAC);
+		
+		String sPuffer="";
+		String sOID="1.3.6.1.2.1.4.22.1.2";
+		
+		//System.out.println("D1: "+sMAC);
+		
+//		System.out.println(swHostMacIps.contains(sMAC));
+		
+		//System.out.println(swHostMacIps.size());
+		
+		
+		for(int i=0; i<swHostMacIps.size();i++)
+		{
+	
+			if(swHostMacIps.get(i).substring(swHostMacIps.get(i).indexOf("=")).contains(sMAC)){
+				sPuffer=swHostMacIps.get(i).substring(sOID.length(),swHostMacIps.get(i).indexOf("=")+1);
+			}
+		
+		}
+		//System.out.println(sPuffer);
+		sPuffer=sPuffer.substring(sPuffer.indexOf(".")+1,sPuffer.lastIndexOf(" "));
+		sPuffer=sPuffer.substring(sPuffer.indexOf(".")+1);
+		return sPuffer;
+	}
+
+	private ArrayList<String> getHostsOfPort(ArrayList<String> swHostMAC, int vPortID) {
+		ArrayList<String> alportHost=new ArrayList<String>();
+		String sOID="1.3.6.1.2.1.17.4.3.1.2.";
+		
+		
+		
+		for(int i=0;i<swHostMAC.size();i++){
+			if(Integer.parseInt(swHostMAC.get(i).substring(swHostMAC.get(i).indexOf("!")+1))==vPortID)
+			{
+
+				alportHost.add(HexToDec.getHex(
+					swHostMAC.get(i).substring(
+												sOID.length(),
+												swHostMAC.get(i).indexOf("!")
+												)
+											)
+					);	
+			}
+		}
+		return alportHost;
+	}
+
+	private int getVPortID(ArrayList<String> swVPort, int PortID){
+		int iVPort=-1;
+		String sOID="1.3.6.1.2.1.17.1.4.1.2.";
+		
+		for(int i=0;i<swVPort.size();i++){
+			
+			if(Integer.parseInt(swVPort.get(i).substring(swVPort.get(i).indexOf("!")+1))==PortID){
+				
+				iVPort=Integer.parseInt(swVPort.get(i).substring(swVPort.get(i).indexOf(sOID)+sOID.length(),swVPort.get(i).indexOf("!")));
+				
+			}
+			
+		}
+		return iVPort;
 	}
 	
 	private String getUplinkIP(ArrayList<String> swCDP, int portID, String vlan) {

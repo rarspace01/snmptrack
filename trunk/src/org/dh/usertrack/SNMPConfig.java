@@ -4,7 +4,7 @@ public class SNMPConfig {
 
 	public static final int getThreadmaxcount(){
 		
-		return 2;
+		return 32;
 		
 		//return HelperClass.getCPUCount()*2;
 		
@@ -14,6 +14,10 @@ public class SNMPConfig {
 		
 		return "pdhoechst";
 		
+	}
+	
+	public static final String getRouter(){
+		return "151.10.155.1";
 	}
 	
 }

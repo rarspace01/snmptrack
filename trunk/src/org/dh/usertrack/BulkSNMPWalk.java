@@ -28,13 +28,13 @@ public class BulkSNMPWalk
   //
   public static void main(String[] args)
   {
-    Address targetAddress = new UdpAddress("sw30401de/161");
-    OID targetOID         = new OID("1.3.6.1.2.1.17.4.3.1.2");
+    Address targetAddress = new UdpAddress("151.10.155.1/161");
+    OID targetOID         = new OID("1.3.6.1.2.1.4.22.1.2");
 //    OID targetOID         = new OID("1.3.6.1.4.1.517");
 
     //
    
-    int iReqc=50;
+    int iReqc=1;
     
     long lstart=System.currentTimeMillis();
     
@@ -78,7 +78,7 @@ public class BulkSNMPWalk
         {
         	//System.out.println("Received response from: "+response.getPeerAddress());
         	sresponse=response.getResponse().toString();
-        	//System.out.println(sresponse);
+        	System.out.println(sresponse);
         	
         	PDU responsePDU=response.getResponse();
         	
@@ -90,7 +90,7 @@ public class BulkSNMPWalk
 
           while(iter.hasNext()){
        	  VariableBinding v = (VariableBinding) iter.next();
-       	  //System.out.println(v.getOid()+"\n"+v.getVariable().toString());
+       	  System.out.println(v.getOid()+"\n"+v.getVariable().toString());
           }
 
           

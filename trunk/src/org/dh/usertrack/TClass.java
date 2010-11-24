@@ -1,6 +1,7 @@
 package org.dh.usertrack;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
@@ -23,6 +24,7 @@ public class TClass {
 	
 	public static void main(String[] args) {
 		
+		
 		TransportMapping transport;
 		Snmp snmp = null;
 		
@@ -35,7 +37,8 @@ public class TClass {
 			e1.printStackTrace();
 		}
 		
-		Switch sw1=new Switch("151.10.132.226", snmp);
+		//Switch sw1=new Switch("151.10.132.226", snmp);
+		Switch sw1=new Switch("151.10.132.240", snmp);
 		sw1.refresh();
 		
 		//System.out.println("DNS:"+DNSHelperClass.getHostname("192.168.1.1"));

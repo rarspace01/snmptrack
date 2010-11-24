@@ -13,6 +13,7 @@ import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.Address;
 import org.snmp4j.smi.GenericAddress;
+import org.snmp4j.smi.Integer32;
 import org.snmp4j.smi.OID;
 import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.VariableBinding;
@@ -119,6 +120,78 @@ public class SNMPHandler {
 			       	  if(v.getOid().toString().contains(OID)){
 			       	  resultList.add(v.getOid().toString()+"!"+v.getVariable().toString());
 			       	  }
+//			       	  else{
+//			       		  System.out.println("WEGWURF: "+v.getOid().toString()+"!"+v.getVariable().toString());
+//			       	  }
+			       	  
+			       	  }
+				
+			        }
+				
+			} catch (IOException e) {
+			
+				HelperClass.err(e);
+				
+			} catch (NullPointerException e2){
+				HelperClass.err(e2);
+			}
+		
+		return resultList;
+	}
+	
+	public static ArrayList<String> getOIDWalknonBluk(Snmp snmp, String OID, String Target, String Community){
+		ArrayList<String> resultList=new ArrayList<String>();
+		
+		Address targetAddress=GenericAddress.parse("udp:"+Target+"/161");
+		
+		OID targetOID = new OID(OID);
+		
+		PDU requestPDU = new PDU();
+	    requestPDU.add(new VariableBinding(targetOID));
+	    requestPDU.setType(PDU.GETNEXT);
+	    
+	    requestPDU.setNonRepeaters(0);
+	    requestPDU.setMaxRepetitions(65535);
+	    
+	    CommunityTarget target = new CommunityTarget();
+	    target.setCommunity(new OctetString(Community));
+	    target.setAddress(targetAddress);
+	    
+	    target.setVersion(SnmpConstants.version2c);
+		
+			try {
+				
+//				TransportMapping transport = new DefaultUdpTransportMapping();
+//				snmp = new Snmp(transport);
+//				
+//			      transport.listen();
+
+				boolean finished=false;
+				
+				while(!finished)
+				{
+				
+			      Vector vb = null;
+			        
+			        ResponseEvent response = snmp.getNext(requestPDU, target);
+			        if (response.getResponse() != null)
+			        {
+			        	//System.out.println("Received response from: "+response.getPeerAddress());
+			        	//System.out.println(sresponse);
+			        	
+			        	PDU responsePDU=response.getResponse();
+			        	
+			         
+			       	  if(responsePDU.toString().contains(OID)){
+			       		  //System.out.println(responsePDU.toString().contains(OID));
+			       		 //System.out.println(responsePDU.get(0).toString());
+			       		  resultList.add(responsePDU.get(0).toString());
+			       		  requestPDU.setRequestID(new Integer32(0));
+			       		requestPDU.set(0,responsePDU.get(0));
+			       	  }else{
+			       		finished=true;
+			       	  }
+			       	  
 			       	  }
 				
 			        }
