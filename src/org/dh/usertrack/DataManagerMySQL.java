@@ -1,4 +1,4 @@
-package org.dh.usertrack.snmptest;
+package org.dh.usertrack;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,18 +9,19 @@ import java.util.Calendar;
 
 
 /**Die Klasse DataManager dient zum Verwalten der Verbindungen mit der Datenbank*/
-public class DataManagerOracle {
-        private static DataManagerOracle uniqueInstance = null;
+public class DataManagerMySQL {
+        private static DataManagerMySQL uniqueInstance = null;
         
         private static long lLastAccessed=0;
         
         private java.sql.Connection conn;
         private Statement stmt;
         
-        private DataManagerOracle() {
+        private DataManagerMySQL() {
                 try {
-                        Class.forName("oracle.jdbc.driver.OracleDriver"); 
-                        conn = DriverManager.getConnection("jdbc:oracle:thin:@octopus:1521:USRTRACK","USRTRACK","TrackIt");
+                        Class.forName("com.mysql.jdbc.Driver"); 
+                        conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/boerse?" +
+                                   "user=wwi08b&password=ant0n&useDynamicCharsetInfo=false&autoReconnect=true&holdResultsOpenOverStatementClose=true");
                         stmt = conn.createStatement();
                         
                 } catch (SQLException e) {
@@ -34,12 +35,12 @@ public class DataManagerOracle {
                 uniqueInstance = this;
         }
 
-        public static DataManagerOracle getInstance()
+        public static DataManagerMySQL getInstance()
         {
                         if(uniqueInstance== null||Calendar.getInstance().getTimeInMillis()>(lLastAccessed+(999*1000)))
                         {
                     	uniqueInstance=null;
-                        new DataManagerOracle();
+                        new DataManagerMySQL();
                         }
                         lLastAccessed=Calendar.getInstance().getTimeInMillis();
                 return uniqueInstance;  
@@ -50,7 +51,7 @@ public class DataManagerOracle {
                 uniqueInstance=null;
         }
         
-        //Methode f�r normale Select Operationen
+        //Methode für normale Select Operationen
         public ResultSet select(String SQLString) throws SQLException
         {
                 ResultSet rs=null;
@@ -66,7 +67,7 @@ public class DataManagerOracle {
                 return rs;
         }
 
-        //Methode f�r alles außer select Operationen
+        //Methode für alles außer select Operationen
         public int execute(String SQLString) throws SQLException
         {
                 int i=-1;
@@ -76,7 +77,6 @@ public class DataManagerOracle {
                         i=stmt.executeUpdate(SQLString);
 
                 } catch (SQLException e) {
-                	System.out.println("DEBUGSQL:["+SQLString+"]");
                 	e.printStackTrace();
                 	HelperClass.err(e);
                 }

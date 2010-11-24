@@ -1,14 +1,6 @@
-package org.dh.usertrack.snmptest;
+package org.dh.usertrack;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Hashtable;
-
-import javax.naming.NamingEnumeration;
-import javax.naming.directory.Attribute;
-import javax.naming.directory.Attributes;
-import javax.naming.directory.DirContext;
-import javax.naming.directory.InitialDirContext;
 
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
