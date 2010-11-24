@@ -5,8 +5,9 @@ public class Port {
 	public String SwitchIP;
 	public int PortID;
 	public int VPortID;
+	public String name;
 	public String alias;
-	public int vlan;
+	public String vlan;
 	public long LastUpdate;
 	public boolean astatus;
 	public boolean cstatus;
@@ -21,19 +22,20 @@ public class Port {
 
 	public String printAll() {
 		// TODO Auto-generated method stub
-		return sMAC+" "+
-		SwitchIP+" "+
-		PortID+" "+
-		VPortID+" "+
-		alias+" "+
-		vlan+" "+
-		LastUpdate+" "+
-		astatus+" "+
-		cstatus+" "+
-		Speed+" "+
-		Duplex+" "+
-		isUplink+" "+
-		UplinkIP+" ";
+		return "["+sMAC+"] ["+
+		SwitchIP+"] ["+
+		PortID+"] ["+
+		VPortID+"] ["+
+		name+"] ["+
+		alias+"] ["+
+		vlan+"] ["+
+		LastUpdate+"] ["+
+		astatus+"] ["+
+		cstatus+"] ["+
+		Speed+"] ["+
+		Duplex+"] ["+
+		isUplink+"] ["+
+		UplinkIP+"] ";
 	}
 	
 	
