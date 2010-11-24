@@ -67,7 +67,7 @@ public class DNSReserve {
 
 	catch(Exception e) {
 
-		System.out.println("ERROR: NO REVERSE DNS");
+		HelperClass.msgLog("ERROR: NO REVERSE DNS for: "+IP);
 
 	}
 		
