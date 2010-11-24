@@ -26,8 +26,8 @@ public class SNMPWalk
   //
   public static void main(String[] args)
   {
-    Address targetAddress = new UdpAddress("sw30401de/161");
-    OID targetOID         = new OID("1.3.6.1.2.1.17.4.3.1.2");
+    Address targetAddress = new UdpAddress("151.10.155.1/161");
+    OID targetOID         = new OID("1.3.6.1.2.1.4.22.1.2");
 //    OID targetOID         = new OID("1.3.6.1.4.1.517");
 
 
