@@ -227,7 +227,7 @@ public class Switch {
 					p.Speed="0";
 					}
 				
-					//Duplex Erkennung - nur für spezielle Cisco Switchs möglich
+					//Duplex Erkennung - nur fï¿½r spezielle Cisco Switchs mï¿½glich
 					
 					if(supportsCiscoDuplex)
 					{
@@ -245,7 +245,7 @@ public class Switch {
 						sPuffer="";
 					}
 					
-					//Prüfe ob Uplink Port + Setzte Uplink IP sofern möglich
+					//Prï¿½fe ob Uplink Port + Setzte Uplink IP sofern mï¿½glich
 					
 					if(isUplinkport(swCDP, p.PortID, p.vlan))
 					{
@@ -288,6 +288,15 @@ public class Switch {
 									System.out.println("start sub");
 									System.out.println("MAC: ["+alHosts.get(j)+"] IP: "+getIPfromMAC(swHostMacIps,alHosts.get(j)));
 									System.out.println("end sub");
+									Host h=new Host();
+									h.MAC=alHosts.get(j);
+									h.IP=getIPfromMAC(swHostMacIps,h.MAC);
+									h.hostname=DNSHelperClass.getHostname(h.IP);
+									h.Duplex=p.Duplex;
+									h.Speed=p.Speed;
+									
+									//save Host
+									sSQLList.add(h.getDBString());
 								}
 							}
 						}
@@ -458,7 +467,7 @@ public class Switch {
 		{
 			//vereinfachen
 			sTMP=Liste.get(i).substring(Liste.get(i).indexOf("!")+1);
-			//prüfne ob in liste, bei bedarf hinzufügen
+			//prï¿½fne ob in liste, bei bedarf hinzufï¿½gen
 			if(!vll.contains(sTMP))
 			{
 				vll.add(sTMP);
