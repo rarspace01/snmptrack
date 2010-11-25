@@ -10,6 +10,8 @@ import org.snmp4j.Snmp;
 
 public class Switch {
 
+	private ArrayList<String> swHostMacIps=new ArrayList<String>();
+	
 	private String sIP="";
 	private Snmp snmp;
 	private String svendor="";
@@ -28,19 +30,22 @@ public class Switch {
 			iaSwitch=InetAddress.getByName(sAdr);
 			sIP=iaSwitch.getHostAddress();
 			
+			
+			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public Switch(String sAdr, Snmp snmp) {
+	public Switch(String sAdr, Snmp snmp, ArrayList<String> alARP) {
 		// TODO Auto-generated constructor stub
 		
 		this.sIP=sAdr;
 		
 		this.snmp=snmp;
 		
+		swHostMacIps=alARP;
 	}
 	
 	public String getsIP() {
@@ -131,7 +136,6 @@ public class Switch {
 	ArrayList<String> swCDP=new ArrayList<String>();
 	ArrayList<String> swVLANListe=new ArrayList<String>();
 	ArrayList<String> swSpeed=new ArrayList<String>();
-	ArrayList<String> swHostMacIps=new ArrayList<String>();
 	
 	//only for selected cisco switchs
 	ArrayList<String> swCiscoPort=new ArrayList<String>();
@@ -146,7 +150,6 @@ public class Switch {
 	swVPort=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.1.4.1.2", sIP, SNMPConfig.getReadCommunity());
 	swCDP=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.23.1.2.1.1.4", sIP, SNMPConfig.getReadCommunity());
 	swSpeed=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.5", sIP, SNMPConfig.getReadCommunity());
-	swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, "1.3.6.1.2.1.4.22.1.2", SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
 	
 	//System.out.println("DEBUG: "+swHostMacIps.size());
 	
@@ -179,6 +182,7 @@ public class Switch {
 	{
 		swPuffer=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.4.3.1.2", sIP, SNMPConfig.getReadCommunity()+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
+			//System.out.println(swPuffer.get(j));
 			swHostMAC.add(swPuffer.get(j));
 		}
 		swPuffer.clear();
@@ -206,24 +210,24 @@ public class Switch {
 				p.PortID=Integer.parseInt(swMACs.get(i).substring(0,swMACs.get(i).indexOf("!")).replace("1.3.6.1.2.1.2.2.1.6.", ""));
 				p.VPortID=getVPortID(swVPort, p.PortID);
 				
+				p.name=getOIDListEntry(swPortname,p.PortID).substring(getOIDListEntry(swPortname,p.PortID).indexOf("!")+1);
 				
-				p.name=getOIDListEntry(swPortname,i+1).substring(getOIDListEntry(swPortname,i+1).indexOf("!")+1);
 				
 				if(!p.name.toLowerCase().contains("vl1"))
 				{
 					
-				p.alias=getOIDListEntry(swPortalias,i+1).substring(getOIDListEntry(swPortalias,i+1).indexOf("!")+1);
-				p.vlan=getOIDListEntry(swVLANs,i+1).substring(getOIDListEntry(swVLANs,i+1).indexOf("!")+1);
+				p.alias=getOIDListEntry(swPortalias,p.PortID).substring(getOIDListEntry(swPortalias,p.PortID).indexOf("!")+1);
+				p.vlan=getOIDListEntry(swVLANs,p.PortID).substring(getOIDListEntry(swVLANs,p.PortID).indexOf("!")+1);
 				
 					//get cstatus of port
 					
-					sPuffer=getOIDListEntry(swStatus, i+1).substring(getOIDListEntry(swStatus, i+1).indexOf("!")+1);
+					sPuffer=getOIDListEntry(swStatus, p.PortID).substring(getOIDListEntry(swStatus, p.PortID).indexOf("!")+1);
 					
 					if(sPuffer.contains("1"))
 					{
 					p.cstatus=true;
 					
-					p.Speed=getOIDListEntry(swSpeed, i+1).substring(getOIDListEntry(swSpeed, i+1).indexOf("!")+1);
+					p.Speed=getOIDListEntry(swSpeed, p.PortID).substring(getOIDListEntry(swSpeed, p.PortID).indexOf("!")+1);
 					
 					}else{
 					p.cstatus=false;	
@@ -247,6 +251,8 @@ public class Switch {
 							p.Duplex="";
 						}
 						sPuffer="";
+					}else{//hier evtl andere Abfrage verwenden
+						p.Duplex="";
 					}
 					
 					//Pr�fe ob Uplink Port + Setzte Uplink IP sofern m�glich
@@ -255,10 +261,13 @@ public class Switch {
 					{
 						p.isUplink=true;
 						p.UplinkIP=getUplinkIP(swCDP, p.PortID, p.vlan);
+					}else{
+						p.isUplink=false;
+						p.UplinkIP="";
 					}
 					//
 					
-					
+					//System.out.println(p.printAll());
 					//save Port
 					sSQLList.add(p.getDBString());
 					
@@ -280,6 +289,9 @@ public class Switch {
 					}
 					
 					
+					
+					int hostcount=0;
+					
 					if(alHosts.size()>0)
 					{
 						for(int j=0; j<alHosts.size();j++)
@@ -296,9 +308,12 @@ public class Switch {
 									h.PortMAC=p.sMAC;
 									h.IP=getIPfromMAC(swHostMacIps,h.MAC);
 									
+									
+									
 									if(h.IP.length()>0){
 									
 									h.hostname=DNSHelperClass.getHostname(h.IP);
+									
 									h.Duplex=p.Duplex;
 									h.Speed=p.Speed;
 									
@@ -306,12 +321,16 @@ public class Switch {
 									
 									//save Host
 									sSQLList.add(h.getDBString());
-									
+									hostcount++;
 								}
 							}
 						}
 					}
 					
+					if(alHosts.size()>hostcount)
+					{
+					System.out.println("H["+alHosts.size()+"]G["+hostcount+"]");
+					}
 	
 					}
 	
@@ -326,42 +345,23 @@ public class Switch {
 				
 				
 				
-			}
+			} //wenn kein virtueller Port
 				
-			} //
+			} //wenn Mac Adresse vorhanden
 			
 		} //port
 		
 		//save in DB
 		
-		try {
-			
-			for(int i=0;i<sSQLList.size();i++)
-			{
-				DataManagerOracle.getInstance().execute(sSQLList.get(i));
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		DBComitterThread dbc=new DBComitterThread(sIP,sSQLList);
 		
-		HelperClass.msgLog("Finished: ["+sIP+"]");
-	}
-	
-//	HelperClass.msgLog("FIN: "+sIP);
-	
-	//in Boerse-project:
-	//
-	//String sSQL="INSERT INTO kurs (wkn,stamptime,kurswert) VALUES ('"+swkn+"','"+timestamp+"','"+iKurs+"') ON DUPLICATE KEY UPDATE kurswert="+iKurs+";";
-	
+		HelperClass.msgLog("FIN SW Readout ["+sIP+"]");
 		
-	//String sSQL="INSERT ";	
-		
-	}
+	} //wenn macliste leer
 	
-	}
+	}//IF abfrage ob SNMP geht
+	
+	}//Funkstionsende 
 	
 	private String getIPfromMAC(ArrayList<String> swHostMacIps, String sMAC) {
 		
