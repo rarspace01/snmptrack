@@ -148,7 +148,7 @@ public class Switch {
 	swSpeed=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.5", sIP, SNMPConfig.getReadCommunity());
 	swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, "1.3.6.1.2.1.4.22.1.2", SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
 	
-	System.out.println("DEBUG: "+swHostMacIps.size());
+	//System.out.println("DEBUG: "+swHostMacIps.size());
 	
 	swCiscoPort = SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.87.1.4.1.1.25", sIP, SNMPConfig.getReadCommunity());
 	
@@ -190,7 +190,7 @@ public class Switch {
 	sSQL="";
 	
 	if(swMACs.size()==0){
-		System.out.println("ERROR swMAClist");
+		HelperClass.msgLog("["+sIP+"] ERROR swMAClist");
 	}else{
 		for(int i=0;i<swMACs.size();i++){
 			if(swMACs.get(i).substring(swMACs.get(i).indexOf("!")+1).length()>0)
@@ -208,6 +208,10 @@ public class Switch {
 				
 				
 				p.name=getOIDListEntry(swPortname,i+1).substring(getOIDListEntry(swPortname,i+1).indexOf("!")+1);
+				
+				if(!p.name.toLowerCase().contains("vl1"))
+				{
+					
 				p.alias=getOIDListEntry(swPortalias,i+1).substring(getOIDListEntry(swPortalias,i+1).indexOf("!")+1);
 				p.vlan=getOIDListEntry(swVLANs,i+1).substring(getOIDListEntry(swVLANs,i+1).indexOf("!")+1);
 				
@@ -258,7 +262,7 @@ public class Switch {
 					//save Port
 					sSQLList.add(p.getDBString());
 					
-					System.out.println("FIN PORTS");
+					//System.out.println("FIN PORTS");
 					
 					//p.saveinDB();
 					
@@ -275,7 +279,6 @@ public class Switch {
 					alHosts=getHostsOfPort(swHostMAC,p.VPortID);	
 					}
 					
-					System.out.println("Before Host");
 					
 					if(alHosts.size()>0)
 					{
@@ -285,40 +288,49 @@ public class Switch {
 							{
 								if(!HexToDec.getSimpleHex(p.sMAC).contains(alHosts.get(j)))
 								{
-									System.out.println("start sub");
-									System.out.println("MAC: ["+alHosts.get(j)+"] IP: "+getIPfromMAC(swHostMacIps,alHosts.get(j)));
-									System.out.println("end sub");
+//									System.out.println("start sub");
+//									System.out.println("MAC: ["+alHosts.get(j)+"] IP: "+getIPfromMAC(swHostMacIps,alHosts.get(j)));
+//									System.out.println("end sub");
 									Host h=new Host();
 									h.MAC=alHosts.get(j);
+									h.PortMAC=p.sMAC;
 									h.IP=getIPfromMAC(swHostMacIps,h.MAC);
+									
+									if(h.IP.length()>0){
+									
 									h.hostname=DNSHelperClass.getHostname(h.IP);
 									h.Duplex=p.Duplex;
 									h.Speed=p.Speed;
 									
+									}
+									
 									//save Host
 									sSQLList.add(h.getDBString());
+									
 								}
 							}
 						}
 					}
-					System.out.println("After Host");
 					
 	
 					}
 	
-					System.out.println(p.printAll());
+					//System.out.println(p.printAll());
 					
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+//					try {
+//						Thread.sleep(100);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
 				
 				
 				
 			}
-		}
+				
+			} //
+			
+		} //port
 		
 		//save in DB
 		
@@ -335,9 +347,10 @@ public class Switch {
 			e.printStackTrace();
 		}
 		
+		HelperClass.msgLog("Finished: ["+sIP+"]");
 	}
 	
-	HelperClass.msgLog("FIN: "+sIP);
+//	HelperClass.msgLog("FIN: "+sIP);
 	
 	//in Boerse-project:
 	//
@@ -351,19 +364,13 @@ public class Switch {
 	}
 	
 	private String getIPfromMAC(ArrayList<String> swHostMacIps, String sMAC) {
-		//System.out.println("D0: "+sMAC);
 		
 		sMAC=HexToDec.getADVfromSimple(sMAC);
 		
 		String sPuffer="";
 		String sOID="1.3.6.1.2.1.4.22.1.2";
 		
-		//System.out.println("D1: "+sMAC);
-		
-//		System.out.println(swHostMacIps.contains(sMAC));
-		
-		//System.out.println(swHostMacIps.size());
-		
+		if(sMAC.length()>0){
 		
 		for(int i=0; i<swHostMacIps.size();i++)
 		{
@@ -373,9 +380,13 @@ public class Switch {
 			}
 		
 		}
-		//System.out.println(sPuffer);
-		sPuffer=sPuffer.substring(sPuffer.indexOf(".")+1,sPuffer.lastIndexOf(" "));
-		sPuffer=sPuffer.substring(sPuffer.indexOf(".")+1);
+		if(sPuffer.length()>0){
+			sPuffer=sPuffer.substring(sPuffer.indexOf(".")+1,sPuffer.lastIndexOf(" "));
+			sPuffer=sPuffer.substring(sPuffer.indexOf(".")+1);
+		}
+		
+		}
+		
 		return sPuffer;
 	}
 
