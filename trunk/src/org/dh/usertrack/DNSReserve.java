@@ -13,7 +13,7 @@ import javax.naming.directory.InitialDirContext;
 
 public class DNSReserve {
 
-	public static final String lookupDNS(String IP){
+	public static final String lookupDNS(String DNSserver, String IP){
 		
 		String sDNS="";
 		
@@ -34,7 +34,7 @@ public class DNSReserve {
 		Hashtable env = new Hashtable();
 
 		env.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
-		env.put("java.naming.provider.url",    "dns://151.10.136.202/. dns://151.10.136.70/. dns://192.168.1.1/.");
+		env.put("java.naming.provider.url",    "dns://"+DNSserver+"/."); // dns://151.10.136.70/. dns://192.168.1.1/.
 		
 		
 		DirContext ctx = new InitialDirContext(env);
@@ -49,16 +49,6 @@ public class DNSReserve {
 		        sDNS = (String) attr.get(0);
 		    }
 			
-//			String attrId = attr.getID();
-//
-//			Enumeration vals = attr.getAll();
-//			
-//			while(vals.hasMoreElements())
-//			{
-//				System.out.println(attrId + ": " + vals.nextElement());	
-//				//sDNS=""+vals.nextElement();
-//			}
-			
 		}
 
 		ctx.close();
@@ -67,7 +57,9 @@ public class DNSReserve {
 
 	catch(Exception e) {
 
-		HelperClass.msgLog("ERROR: NO REVERSE DNS for: "+IP);
+		//HelperClass.msgLog("ERROR: NO REVERSE DNS for: "+IP);
+		
+		return "NODNS";
 
 	}
 		
