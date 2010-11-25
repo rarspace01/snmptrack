@@ -17,7 +17,7 @@ public class SNMPConfig {
 	}
 	
 	public static final String getRouter(){
-		return "151.10.155.1";
+		return "151.10.132.2";
 	}
 	
 }
