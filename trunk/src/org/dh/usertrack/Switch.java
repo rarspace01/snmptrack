@@ -151,7 +151,7 @@ public class Switch {
 	swCDP=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.23.1.2.1.1.4", sIP, SNMPConfig.getReadCommunity());
 	swSpeed=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.5", sIP, SNMPConfig.getReadCommunity());
 	
-	//System.out.println("DEBUG: "+swHostMacIps.size());
+	//System.out.println("["+sIP+"]swHostMacIps.size(): "+swHostMacIps.size());
 	
 	swCiscoPort = SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.87.1.4.1.1.25", sIP, SNMPConfig.getReadCommunity());
 	
@@ -159,9 +159,11 @@ public class Switch {
 	swCiscoDuplex = SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.87.1.4.1.1.32", sIP, SNMPConfig.getReadCommunity());
 	supportsCiscoDuplex=true;
 	
-	for(int i=0;i<swCiscoPort.size()||i<swCiscoDuplex.size();i++)
-	{
 	
+	//TODO hier muss unterschieden werden zwischen CiscoPort+Cisco Duplex, Port ID?
+	for(int i=0;i<swCiscoPort.size()&&i<swCiscoDuplex.size();i++)
+	{
+		
 		swDuplex.add(swCiscoPort.get(i).substring(swCiscoPort.get(i).indexOf("!")+1)
 				+"!"+swCiscoDuplex.get(i).substring(swCiscoDuplex.get(i).indexOf("!")+1)
 				);
@@ -178,17 +180,27 @@ public class Switch {
 	
 	//add All Macs to the "Global" Maccache-List
 	
+	//normal
+	swPuffer=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.4.3.1.2", sIP, SNMPConfig.getReadCommunity());
+	for(int j=0;j<swPuffer.size();j++){
+		//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
+		swHostMAC.add(swPuffer.get(j));
+	}
+	swPuffer.clear();
+	
+	
+	//for vlans
 	for(int i=0;i<swVLANListe.size();i++)
 	{
 		swPuffer=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.4.3.1.2", sIP, SNMPConfig.getReadCommunity()+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
-			//System.out.println(swPuffer.get(j));
+			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
 			swHostMAC.add(swPuffer.get(j));
 		}
 		swPuffer.clear();
 	}
 	
-	//System.out.println("DEBUG: swMAC Size:"+swHostMAC.size());
+	//System.out.println("["+sIP+"]: swHostMAC Size:"+swHostMAC.size());
 	
 	//is needed for SQL summary
 	sSQL="";
@@ -239,7 +251,7 @@ public class Switch {
 					
 					if(supportsCiscoDuplex)
 					{
-						sPuffer=getDuplexSTate(swDuplex,p.PortID).substring(sPuffer.indexOf("!")+1);
+						sPuffer=getDuplexState(swDuplex,p.PortID).substring(sPuffer.indexOf("!")+1);
 						
 						if(sPuffer.contains("2")&&p.cstatus)
 						{
@@ -276,6 +288,8 @@ public class Switch {
 					//p.saveinDB();
 					
 					if(!p.isUplink){
+					
+					//System.out.println("PID:"+p.PortID+" is no Uplink");	
 						
 					//get Hosts on this port
 					ArrayList<String> alHosts=null;
@@ -288,9 +302,14 @@ public class Switch {
 					alHosts=getHostsOfPort(swHostMAC,p.VPortID);	
 					}
 					
+//					try {
+//						Thread.sleep(3000);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
 					
-					
-					int hostcount=0;
+					//System.out.println("alHosts.size(): "+alHosts.size());
 					
 					if(alHosts.size()>0)
 					{
@@ -320,18 +339,15 @@ public class Switch {
 									}
 									
 									//save Host
+									
+									//System.out.println("D:[SW]"+p.printAll()+"[H]"+h.getDBString());
+									
 									sSQLList.add(h.getDBString());
-									hostcount++;
 								}
 							}
 						}
 					}
 					
-					if(alHosts.size()>hostcount)
-					{
-					System.out.println("H["+alHosts.size()+"]G["+hostcount+"]");
-					}
-	
 					}
 	
 					//System.out.println(p.printAll());
@@ -355,7 +371,7 @@ public class Switch {
 		
 		DBComitterThread dbc=new DBComitterThread(sIP,sSQLList);
 		
-		HelperClass.msgLog("FIN SW Readout ["+sIP+"]");
+		//HelperClass.msgLog("FIN SW Readout ["+sIP+"]");
 		
 	} //wenn macliste leer
 	
@@ -394,7 +410,15 @@ public class Switch {
 		ArrayList<String> alportHost=new ArrayList<String>();
 		String sOID="1.3.6.1.2.1.17.4.3.1.2.";
 		
+		//Bei speziellen Cisco Switchs wird eine ID>100 zurückgegeben typischerweise 10101,10102, etc
+		//Dies wird hier abgefangen
 		
+		if(vPortID>10000)
+		{
+			vPortID=vPortID-10100;
+		}
+		
+		//System.out.println("swHostMAC.size():"+swHostMAC.size());
 		
 		for(int i=0;i<swHostMAC.size();i++){
 			if(Integer.parseInt(swHostMAC.get(i).substring(swHostMAC.get(i).indexOf("!")+1))==vPortID)
@@ -407,6 +431,9 @@ public class Switch {
 												)
 											)
 					);	
+			}else{
+			//	System.out.println("Zahl an der Stelle:"+Integer.parseInt(swHostMAC.get(i).substring(swHostMAC.get(i).indexOf("!")+1)));
+			//	System.out.println("Gesucht war aber: "+vPortID);
 			}
 		}
 		return alportHost;
@@ -458,7 +485,7 @@ public class Switch {
 		return isUplink;
 	}
 
-	private String getDuplexSTate(ArrayList<String> swDuplex, int portID) {
+	private String getDuplexState(ArrayList<String> swDuplex, int portID) {
 		String sPuffer="";
 		
 		for (int i=0;i<swDuplex.size(); i++)
