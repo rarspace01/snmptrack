@@ -1,5 +1,7 @@
 package org.dh.usertrack;
 
+import java.util.ArrayList;
+
 public class SNMPConfig {
 
 	public static final int getThreadmaxcount(){
@@ -18,6 +20,15 @@ public class SNMPConfig {
 	
 	public static final String getRouter(){
 		return "151.10.132.2";
+	}
+	
+	public static final ArrayList<String> getRouters(){
+		ArrayList<String> lRouter=new ArrayList<String>();
+
+		lRouter.add("151.10.132.2");
+		
+		
+		return lRouter;
 	}
 	
 }
