@@ -16,6 +16,9 @@ public class SNMPTrack {
 
 	TransportMapping transport;
 	Snmp snmp;
+
+	ArrayList<String> swHostMacIps=new ArrayList<String>();
+	
 	
 	public int getActiveThreads() {
 		return activeThreads;
@@ -34,10 +37,6 @@ public class SNMPTrack {
 	}
 	
 	public SNMPTrack() {
-		// TODO Auto-generated constructor stub
-		//TransportMapping transport;
-		
-		
 		
 		HelperClass.msgLog("Starte SNMPTrack");
 		
@@ -60,6 +59,12 @@ public class SNMPTrack {
 		
 		swList=sws.getSwitchList();
 		
+		HelperClass.msgLog("Lade ARP Cache");
+		
+		swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, "1.3.6.1.2.1.4.22.1.2", SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
+		
+		HelperClass.msgLog("Gefundene ARP Einträge: "+swHostMacIps.size());
+		
 		HelperClass.msgLog("Beginne mit Auslese Prozess.");
 		
 		for(int i=0; i<swList.size();i++)
@@ -70,14 +75,11 @@ public class SNMPTrack {
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 			}
 			setActiveThreads(getActiveThreads()+1);	
-			
-			//HelperClass.msgLog("[Scan][Switch]["+i+"][Start]");
 			SwitchWorkerThread t=new SwitchWorkerThread("Thread Switch Nr. "+i, this.snmp,this, swList.get(i).getsIP());
 		}
 		
@@ -85,9 +87,14 @@ public class SNMPTrack {
 	
 	public static void main(String[] args) {
 	
+		long time1=(long)System.currentTimeMillis()/1000;
+		System.out.println("SNMP:SART:"+time1);
+		
 		new SNMPTrack();
 		
-		
+		long time2=(long)System.currentTimeMillis()/1000;
+		System.out.println("SNMP:STP:"+(long)System.currentTimeMillis()/1000);
+		System.out.println("SNMP:DIF:"+(time2-time1));
 	}
 	
 	class SwitchWorkerThread implements Runnable {
@@ -111,7 +118,7 @@ public class SNMPTrack {
 
 		  public void run() {
 
-			Switch workerSwitch=new Switch(sIP, this.snmp);
+			Switch workerSwitch=new Switch(sIP, this.snmp, jm.swHostMacIps);
 			
 			workerSwitch.refresh();
 				
