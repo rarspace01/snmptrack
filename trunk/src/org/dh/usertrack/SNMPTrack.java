@@ -43,7 +43,14 @@ public class SNMPTrack {
 		HelperClass.msgLog("Initialisiere SNMP");
 		
 		try {
-			transport = new DefaultUdpTransportMapping();
+			DefaultUdpTransportMapping dutm=new DefaultUdpTransportMapping();
+			
+			//System.out.println(dutm.getReceiveBufferSize());
+			
+			dutm.setReceiveBufferSize(2^24);
+			
+			transport = dutm;
+			
 			snmp = new Snmp(transport);
 			transport.listen();
 		} catch (IOException e1) {
