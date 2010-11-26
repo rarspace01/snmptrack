@@ -21,17 +21,7 @@ public class DBComitterThread implements Runnable{
 	@Override
 	public void run() {
 
-	try{
-		
-		for(int i=0;i<sSQL_List.size();i++)
-		{
-			DataManagerOracle.getInstance().execute(sSQL_List.get(i));
-		}
-		
-		
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
+	DataManagerOracleMulti.execute(this.sSQL_List);
 	
 	HelperClass.msgLog("[DBT][FIN]["+sIP+"]");
 	
