@@ -6,12 +6,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import oracle.net.ano.CryptoDataPacket;
+
 import org.snmp4j.Snmp;
 
 public class Switch {
 
 	private ArrayList<String> swHostMacIps=new ArrayList<String>();
-	
+
 	private String sIP="";
 	private Snmp snmp;
 	private String svendor="";
@@ -136,6 +138,9 @@ public class Switch {
 	ArrayList<String> swCDP=new ArrayList<String>();
 	ArrayList<String> swVLANListe=new ArrayList<String>();
 	ArrayList<String> swSpeed=new ArrayList<String>();
+	ArrayList<String> swType=new ArrayList<String>();
+	ArrayList<String> swTypeCisco=new ArrayList<String>();
+	ArrayList<String> swSTP=new ArrayList<String>();
 	
 	//only for selected cisco switchs
 	ArrayList<String> swCiscoPort=new ArrayList<String>();
@@ -150,6 +155,10 @@ public class Switch {
 	swVPort=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.1.4.1.2", sIP, SNMPConfig.getReadCommunity());
 	swCDP=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.23.1.2.1.1.4", sIP, SNMPConfig.getReadCommunity());
 	swSpeed=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.5", sIP, SNMPConfig.getReadCommunity());
+	swType=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.3", sIP, SNMPConfig.getReadCommunity());
+	swTypeCisco=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.5.1.4.1.1.5", sIP, SNMPConfig.getReadCommunity());
+	swSTP=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.2.2.1.1.102", sIP, SNMPConfig.getReadCommunity());
+	
 	
 	//System.out.println("["+sIP+"]swHostMacIps.size(): "+swHostMacIps.size());
 	
@@ -225,7 +234,7 @@ public class Switch {
 				p.name=getOIDListEntry(swPortname,p.PortID).substring(getOIDListEntry(swPortname,p.PortID).indexOf("!")+1);
 				
 				
-				if(!p.name.toLowerCase().contains("vl1"))
+				if(getType(swType,p.PortID)==6&&!p.name.toLowerCase().contains("vl"))
 				{
 					
 				p.alias=getOIDListEntry(swPortalias,p.PortID).substring(getOIDListEntry(swPortalias,p.PortID).indexOf("!")+1);
@@ -269,13 +278,56 @@ public class Switch {
 					
 					//Pr�fe ob Uplink Port + Setzte Uplink IP sofern m�glich
 					
-					if(isUplinkport(swCDP, p.PortID, p.vlan))
+//					if(swTypeCisco.size()<1)
+//					{
+//						HelperClass.msgLog("NO Type Cisco @"+sIP);
+//					}
+					
+					p.isUplink=false;
+					p.UplinkIP="";
+					
+					if(isUplinkportCDP(swCDP, p.PortID, p.vlan))
 					{
 						p.isUplink=true;
 						p.UplinkIP=getUplinkIP(swCDP, p.PortID, p.vlan);
 					}else{
-						p.isUplink=false;
-						p.UplinkIP="";
+						
+						if(getSTPCount(swSTP, p.PortID)>0)
+						{
+						p.isUplink=true;	
+						}else{
+						
+						if(swTypeCisco.size()>0){
+
+							if((!getOIDListEntry(swTypeCisco, 1).contains("28")||!getOIDListEntry(swTypeCisco, 1).contains("27"))&&(getOIDListEntry(swTypeCisco, p.PortID).contains("28")||getOIDListEntry(swTypeCisco, p.PortID).contains("27")))
+							{
+								//System.out.println("["+sIP+"/"+sDNS+"/"+smodel+"]Not worked with STP but with Type");
+								p.isUplink=true;
+							}else{
+								
+								if(getOIDListEntry(swTypeCisco, p.PortID).contains("61")&&!getOIDListEntry(swTypeCisco, 1).contains("61"))
+								{
+									//System.out.println("["+sIP+"/"+sDNS+"/"+smodel+"]Not worked with STP but with Type [61]");
+									p.isUplink=true;	
+								}
+//								else{					
+//								
+//									if(!getOIDListEntry(swTypeCisco, p.PortID).contains("18")&&getOIDListEntry(swTypeCisco, p.PortID).length()>0)
+//									{
+//									System.out.println("Unkown Type on Switch["+sIP+"/"+sDNS+"/"+smodel+"]: "+getOIDListEntry(swTypeCisco, p.PortID));
+//									System.out.println("1:"+getOIDListEntry(swTypeCisco, 1));
+//									System.out.println("2:"+getOIDListEntry(swTypeCisco, 2));
+//									}
+//								}
+	
+								
+								
+							}
+						
+						}
+						
+						}
+						
 					}
 					//
 					
@@ -287,7 +339,7 @@ public class Switch {
 					
 					//p.saveinDB();
 					
-					if(!p.isUplink){
+					if(!p.isUplink&&p.cstatus==true){
 					
 					//System.out.println("PID:"+p.PortID+" is no Uplink");	
 						
@@ -369,6 +421,7 @@ public class Switch {
 		
 		//save in DB
 		
+		
 		DBComitterThread dbc=new DBComitterThread(sIP,sSQLList);
 		
 		//HelperClass.msgLog("FIN SW Readout ["+sIP+"]");
@@ -378,6 +431,37 @@ public class Switch {
 	}//IF abfrage ob SNMP geht
 	
 	}//Funkstionsende 
+	
+	private int getType(ArrayList<String> swType, int portID) {
+		
+		String sPuffer="";
+		
+		sPuffer=getOIDListEntry(swType,portID).substring(getOIDListEntry(swType,portID).indexOf("!")+1);
+		
+		if(sPuffer.length()>0)
+		{
+			return Integer.parseInt(sPuffer);
+		}else{
+			return 0;
+		}
+		
+			
+	}
+
+	private long getSTPCount(ArrayList<String> swSTP, int portID){
+	
+		String sPuffer="";
+		
+		sPuffer=getOIDListEntry(swSTP,portID).substring(getOIDListEntry(swSTP,portID).indexOf("!")+1);
+		
+		if(sPuffer.length()>0)
+		{
+			return Long.parseLong(sPuffer);
+		}else{
+			return 0;
+		}
+		
+	}
 	
 	private String getIPfromMAC(ArrayList<String> swHostMacIps, String sMAC) {
 		
@@ -431,10 +515,11 @@ public class Switch {
 												)
 											)
 					);	
-			}else{
-			//	System.out.println("Zahl an der Stelle:"+Integer.parseInt(swHostMAC.get(i).substring(swHostMAC.get(i).indexOf("!")+1)));
-			//	System.out.println("Gesucht war aber: "+vPortID);
 			}
+//			else{
+//			//	System.out.println("Zahl an der Stelle:"+Integer.parseInt(swHostMAC.get(i).substring(swHostMAC.get(i).indexOf("!")+1)));
+//			//	System.out.println("Gesucht war aber: "+vPortID);
+//			}
 		}
 		return alportHost;
 	}
@@ -471,7 +556,7 @@ public class Switch {
 		return sPuffer;
 	}
 
-	private boolean isUplinkport(ArrayList<String> swCDP, int portID, String vlan) {
+	private boolean isUplinkportCDP(ArrayList<String> swCDP, int portID, String vlan) {
 		boolean isUplink=false;
 		
 		for(int i=0;i<swCDP.size();i++){
@@ -481,6 +566,10 @@ public class Switch {
 			isUplink=true;
 			}
 		}
+		
+		//DEBUG
+		//isUplink=true;
+		//
 		
 		return isUplink;
 	}
