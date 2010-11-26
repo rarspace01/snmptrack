@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import oracle.net.ano.CryptoDataPacket;
-
 import org.snmp4j.Snmp;
 
 public class Switch {
@@ -136,6 +134,7 @@ public class Switch {
 	ArrayList<String> swVPort=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swHostMAC=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swCDP=new ArrayList<String>();
+	ArrayList<String> swCDPC=new ArrayList<String>();
 	ArrayList<String> swVLANListe=new ArrayList<String>();
 	ArrayList<String> swSpeed=new ArrayList<String>();
 	ArrayList<String> swType=new ArrayList<String>();
@@ -154,6 +153,7 @@ public class Switch {
 	swPortalias=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.31.1.1.1.18", sIP, SNMPConfig.getReadCommunity());
 	swVPort=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.17.1.4.1.2", sIP, SNMPConfig.getReadCommunity());
 	swCDP=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.23.1.2.1.1.4", sIP, SNMPConfig.getReadCommunity());
+	swCDPC=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.9.23.1.2.1.1.9", sIP, SNMPConfig.getReadCommunity());
 	swSpeed=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.5", sIP, SNMPConfig.getReadCommunity());
 	swType=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.2.1.2.2.1.3", sIP, SNMPConfig.getReadCommunity());
 	swTypeCisco=SNMPHandler.getOIDWalk(snmp, "1.3.6.1.4.1.9.5.1.4.1.1.5", sIP, SNMPConfig.getReadCommunity());
@@ -561,15 +561,11 @@ public class Switch {
 		
 		for(int i=0;i<swCDP.size();i++){
 
-			if(swCDP.get(i).contains("1.3.6.1.4.1.9.9.23.1.2.1.1.4."+portID)&&vlan.length()==0)
+			if(swCDP.get(i).contains("1.3.6.1.4.1.9.9.23.1.2.1.1.4."+portID))
 			{
 			isUplink=true;
 			}
 		}
-		
-		//DEBUG
-		//isUplink=true;
-		//
 		
 		return isUplink;
 	}
