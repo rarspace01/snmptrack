@@ -13,6 +13,7 @@ public class Switch {
 	private ArrayList<String> swHostMacIps=new ArrayList<String>();
 
 	private String sIP="";
+	private String sReadcommunity="";
 	private Snmp snmp;
 	private String svendor="";
 	private String smodel="";
@@ -24,12 +25,12 @@ public class Switch {
 	private int iTimestamp=0;
 	
 	
-	public Switch(String sAdr){
+	public Switch(String sAdr, String sReadc){
 		try {
 			InetAddress iaSwitch;
 			iaSwitch=InetAddress.getByName(sAdr);
 			sIP=iaSwitch.getHostAddress();
-			
+			sReadcommunity=sReadc;
 			
 			
 		} catch (UnknownHostException e) {
@@ -67,10 +68,10 @@ public class Switch {
 	//Parse SystemDesc && Test if SNMP is working
 	String 	sOID="";
 		
-	sOID=SNMPHandler.getOID(snmp, OID.sysDescr0, sIP, SNMPConfig.getReadCommunity());	
+	sOID=SNMPHandler.getOID(snmp, OID.sysDescr0, sIP, sReadcommunity);	
 		
 	if(sOID.contains("ERROR AT ")){
-		HelperClass.msgLog("SNMP not runnging on: ["+sIP+"]. Aborting Tracking.");
+		HelperClass.msgLog("No valid SNMP response from: ["+sIP+"]["+sOID+"]. Aborting Tracking.");
 	}else{
 	
 	//get DNS
@@ -84,12 +85,12 @@ public class Switch {
 		
 		sversion=Cisco.getIOSfromDescr(sOID);
 		
-		sLocation=Cisco.getLocation(SNMPHandler.getOID(snmp, OID.sysLocation0, sIP, SNMPConfig.getReadCommunity()));
+		sLocation=Cisco.getLocation(SNMPHandler.getOID(snmp, OID.sysLocation0, sIP, sReadcommunity));
 
-		iUptime=Cisco.getUptime(SNMPHandler.getOID(snmp, OID.sysUpTimeInstance, sIP, SNMPConfig.getReadCommunity()));
+		iUptime=Cisco.getUptime(SNMPHandler.getOID(snmp, OID.sysUpTimeInstance, sIP, sReadcommunity));
 		//HelperClass.msgLog("SOID:["+sOID+"]");
 		
-		sAlias=Cisco.getAlias(SNMPHandler.getOID(snmp, OID.sysName0, sIP, SNMPConfig.getReadCommunity()));
+		sAlias=Cisco.getAlias(SNMPHandler.getOID(snmp, OID.sysName0, sIP, sReadcommunity));
 		
 	}else{
 		
@@ -135,6 +136,7 @@ public class Switch {
 	ArrayList<String> swHostMAC=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swCDP=new ArrayList<String>();
 	ArrayList<String> swCDPC=new ArrayList<String>();
+	ArrayList<String> swCDPDI=new ArrayList<String>();
 	ArrayList<String> swVLANListe=new ArrayList<String>();
 	ArrayList<String> swSpeed=new ArrayList<String>();
 	ArrayList<String> swType=new ArrayList<String>();
@@ -146,26 +148,27 @@ public class Switch {
 	ArrayList<String> swCiscoDuplex=new ArrayList<String>();	
 	ArrayList<String> swDuplex=new ArrayList<String>();
 	
-	swMACs=SNMPHandler.getOIDWalk(snmp, OID.ifPhysAddress, sIP, SNMPConfig.getReadCommunity());
-	swStatus=SNMPHandler.getOIDWalk(snmp, OID.ifOperStatus, sIP, SNMPConfig.getReadCommunity());
-	swVLANs=SNMPHandler.getOIDWalk(snmp, OID.vmVlan, sIP, SNMPConfig.getReadCommunity());
-	swPortname=SNMPHandler.getOIDWalk(snmp, OID.ifName, sIP, SNMPConfig.getReadCommunity());
-	swPortalias=SNMPHandler.getOIDWalk(snmp, OID.ifAlias, sIP, SNMPConfig.getReadCommunity());
-	swVPort=SNMPHandler.getOIDWalk(snmp, OID.dot1dBasePortIfIndex, sIP, SNMPConfig.getReadCommunity());
-	swCDP=SNMPHandler.getOIDWalk(snmp, OID.cdpCacheAddress, sIP, SNMPConfig.getReadCommunity());
-	swCDPC=SNMPHandler.getOIDWalk(snmp, OID.cdpCacheCapabilities, sIP, SNMPConfig.getReadCommunity());
-	swSpeed=SNMPHandler.getOIDWalk(snmp, OID.ifSpeed, sIP, SNMPConfig.getReadCommunity());
-	swType=SNMPHandler.getOIDWalk(snmp, OID.ifType, sIP, SNMPConfig.getReadCommunity());
-	swTypeCisco=SNMPHandler.getOIDWalk(snmp, OID.portType, sIP, SNMPConfig.getReadCommunity());
-	swSTP=SNMPHandler.getOIDWalk(snmp, OID.locIfspanInPkts, sIP, SNMPConfig.getReadCommunity());
+	swMACs=SNMPHandler.getOIDWalk(snmp, OID.ifPhysAddress, sIP, sReadcommunity);
+	swStatus=SNMPHandler.getOIDWalk(snmp, OID.ifOperStatus, sIP, sReadcommunity);
+	swVLANs=SNMPHandler.getOIDWalk(snmp, OID.vmVlan, sIP, sReadcommunity);
+	swPortname=SNMPHandler.getOIDWalk(snmp, OID.ifName, sIP, sReadcommunity);
+	swPortalias=SNMPHandler.getOIDWalk(snmp, OID.ifAlias, sIP, sReadcommunity);
+	swVPort=SNMPHandler.getOIDWalk(snmp, OID.dot1dBasePortIfIndex, sIP, sReadcommunity);
+	swCDP=SNMPHandler.getOIDWalk(snmp, OID.cdpCacheAddress, sIP, sReadcommunity);
+	swCDPC=SNMPHandler.getOIDWalk(snmp, OID.cdpCacheCapabilities, sIP, sReadcommunity);
+	swCDPDI=SNMPHandler.getOIDWalk(snmp, OID.cdpCacheDeviceId, sIP, sReadcommunity);
+	swSpeed=SNMPHandler.getOIDWalk(snmp, OID.ifSpeed, sIP, sReadcommunity);
+	swType=SNMPHandler.getOIDWalk(snmp, OID.ifType, sIP, sReadcommunity);
+	swTypeCisco=SNMPHandler.getOIDWalk(snmp, OID.portType, sIP, sReadcommunity);
+	swSTP=SNMPHandler.getOIDWalk(snmp, OID.locIfspanInPkts, sIP, sReadcommunity);
 	
 	
 	//System.out.println("["+sIP+"]swHostMacIps.size(): "+swHostMacIps.size());
 	
-	swCiscoPort = SNMPHandler.getOIDWalk(snmp, OID.c2900PortIfIndex, sIP, SNMPConfig.getReadCommunity());
+	swCiscoPort = SNMPHandler.getOIDWalk(snmp, OID.c2900PortIfIndex, sIP, sReadcommunity);
 	
 	if(swCiscoPort.size()>0){
-	swCiscoDuplex = SNMPHandler.getOIDWalk(snmp, OID.c2900PortDuplexStatus, sIP, SNMPConfig.getReadCommunity());
+	swCiscoDuplex = SNMPHandler.getOIDWalk(snmp, OID.c2900PortDuplexStatus, sIP, sReadcommunity);
 	supportsCiscoDuplex=true;
 	
 	
@@ -193,7 +196,7 @@ public class Switch {
 	//add All Macs to the "Global" Maccache-List
 	
 	//normal
-	swPuffer=SNMPHandler.getOIDWalk(snmp, OID.dot1dTpFdbPort, sIP, SNMPConfig.getReadCommunity());
+	swPuffer=SNMPHandler.getOIDWalk(snmp, OID.dot1dTpFdbPort, sIP, sReadcommunity);
 	for(int j=0;j<swPuffer.size();j++){
 		//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
 		swHostMAC.add(swPuffer.get(j));
@@ -204,7 +207,7 @@ public class Switch {
 	//for vlans
 	for(int i=0;i<swVLANListe.size();i++)
 	{
-		swPuffer=SNMPHandler.getOIDWalk(snmp, OID.dot1dTpFdbPort, sIP, SNMPConfig.getReadCommunity()+"@"+swVLANListe.get(i));
+		swPuffer=SNMPHandler.getOIDWalk(snmp, OID.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
 			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
 			swHostMAC.add(swPuffer.get(j));
@@ -286,77 +289,79 @@ public class Switch {
 					//zurücksetzung der Erkennungsvariablen
 					
 					p.isUplink=false;
+					p.hasCDPN=false;
 					p.UplinkIP="";
+					p.CDPDeviceID="";
 										
 					//Prüfe zuerst per STP
 					if(getSTPCount(swSTP, p.PortID)>0)
 					{
 						p.isUplink=true;	
-					}else if(isUplinkportCDP(swCDP, p.PortID))
+					}else if(isUplinkportCDP(swCDP, swCDPC, p.PortID))
 					{
 						p.isUplink=true;
 						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] Kein STP aber CDP");
 					}
 					
-					if(p.isUplink&&isUplinkportCDP(swCDP, p.PortID))
+					if(p.isUplink)
 					{
-						p.UplinkIP=getUplinkIP(swCDP, p.PortID, p.vlan);
+						p.UplinkIP=getUplinkCDPIP(swCDP, swCDPC, p.PortID);
 					}
+					
+					if(isCDP(swCDP, p.PortID)){
+						p.hasCDPN=true;
+						p.CDPDeviceID=getCDPDI(swCDPDI, p.PortID);
+					}
+					
 					
 					//save Port
 					sSQLList.add(p.getDBString());
 					
 					//wenn kein Uplink und Interface up, dann erfasse Host
 					if(!p.isUplink&&p.cstatus==true){
-					
-					//get Hosts on this port
-					ArrayList<String> alHosts=null;
+						if(p.hasCDPN){
+						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] CDP_ID:["+p.CDPDeviceID+"]["+getCDPIP(swCDP, p.PortID)+"]");
+						}
+						//get Hosts on this port
+						ArrayList<String> alHosts=null;
+							
+						//sofern vorhanden verwende VPortID	
 						
-					//sofern vorhanden verwende VPortID	
-					
-					if(p.PortID>100){
-						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] PortID>100");
-	
-					}
-					
-					if(p.VPortID>100){
-						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] VPortID>100");
-	
-					}
-					
-					if(p.VPortID<0)
-					{
-					alHosts=getHostsOfPort(swHostMAC,p.PortID);
-					}else{
-					alHosts=getHostsOfPort(swHostMAC,p.VPortID);	
-					}
-					
-					if(alHosts.size()>0)
-					{
-						for(int j=0; j<alHosts.size();j++)
+						if(p.VPortID<0)
 						{
-							if(alHosts.get(j).length()>0)
+						alHosts=getHostsOfPort(swHostMAC,p.PortID);
+						}else{
+						alHosts=getHostsOfPort(swHostMAC,p.VPortID);	
+						}
+						
+						if(alHosts.size()>0)
+						{
+							for(int j=0; j<alHosts.size();j++)
 							{
-								if(!HexToDec.getSimpleHex(p.sMAC).contains(alHosts.get(j)))
+								if(alHosts.get(j).length()>0)
 								{
-									Host h=new Host();
-									h.MAC=alHosts.get(j);
-									h.PortMAC=p.sMAC;
-									h.IP=getIPfromMAC(swHostMacIps,h.MAC);
-									h.Duplex=p.Duplex;
-									h.Speed=p.Speed;
-
-									//sofern IP erhalten, löse DNS auf
-									if(h.IP.length()>0){
-									h.hostname=DNSHelperClass.getHostname(h.IP);
+									if(!HexToDec.getSimpleHex(p.sMAC).contains(alHosts.get(j)))
+									{
+										Host h=new Host();
+										h.MAC=alHosts.get(j);
+										h.PortMAC=p.sMAC;
+										h.IP=getIPfromMAC(swHostMacIps,h.MAC);
+										h.Duplex=p.Duplex;
+										h.Speed=p.Speed;
+	
+										//sofern IP erhalten, löse DNS auf
+										if(h.IP.length()>0){
+										h.hostname=DNSHelperClass.getHostname(h.IP);
+										}
+										
+										//Frage CDP Sachen ab
+										
+										//save Host
+										sSQLList.add(h.getDBString());
 									}
-									
-									//save Host
-									sSQLList.add(h.getDBString());
 								}
 							}
 						}
-					}
 					
 					}
 	
@@ -375,6 +380,35 @@ public class Switch {
 	
 	}//Funkstionsende 
 	
+	private String getCDPDI(ArrayList<String> swCDPDI, int portID) {
+		String sPuffer="";
+		String[] sHexpuffer;
+		
+		for(int i=0;i<swCDPDI.size();i++){
+
+			if(swCDPDI.get(i).contains(OID.cdpCacheDeviceId+"."+portID+"."))
+			{
+			sPuffer=swCDPDI.get(i).substring(swCDPDI.get(i).indexOf("!")+1);
+			}
+		}
+		
+		if(sPuffer.contains(":")){
+			sHexpuffer=sPuffer.split(":");
+			sPuffer="";
+			for(String a:sHexpuffer){
+				int c = Integer.parseInt(a,16);
+				if(c!=0){
+				  char chr = (char)c;
+				  sPuffer+=(chr);
+				  }
+
+			}
+			
+		}
+		
+		return sPuffer;
+	}
+
 	private int getType(ArrayList<String> swType, int portID) {
 		
 		String sPuffer="";
@@ -442,7 +476,10 @@ public class Switch {
 		
 		if(vPortID>10000)
 		{
-			vPortID=vPortID-10100;
+			vPortID=vPortID-10000;
+		}
+		if(vPortID>100){
+			vPortID=vPortID-100;
 		}
 		
 		for(int i=0;i<swHostMAC.size();i++){
@@ -477,12 +514,29 @@ public class Switch {
 		return iVPort;
 	}
 	
-	private String getUplinkIP(ArrayList<String> swCDP, int portID, String vlan) {
+	private String getUplinkCDPIP(ArrayList<String> swCDP, ArrayList<String> swCDPC, int portID) {
+		String sPuffer="";
+		
+		for(int i=0;i<swCDP.size();i++){
+			
+				if(swCDP.get(i).contains(OID.cdpCacheAddress+"."+portID+".")&&isCDPswitch(swCDPC.get(i)))
+				{
+				sPuffer=swCDP.get(i).substring(swCDP.get(i).indexOf("!")+1);
+				}
+				
+		}
+		
+		sPuffer=HexToDec.getDec(sPuffer);
+		
+		return sPuffer;
+	}
+
+	private String getCDPIP(ArrayList<String> swCDP, int portID) {
 		String sPuffer="";
 		
 		for(int i=0;i<swCDP.size();i++){
 
-			if(swCDP.get(i).contains(OID.cdpCacheAddress+"."+portID)&&vlan.length()==0)
+			if(swCDP.get(i).contains(OID.cdpCacheAddress+"."+portID+"."))
 			{
 			sPuffer=swCDP.get(i).substring(swCDP.get(i).indexOf("!")+1);
 			}
@@ -492,19 +546,82 @@ public class Switch {
 		
 		return sPuffer;
 	}
-
-	private boolean isUplinkportCDP(ArrayList<String> swCDP, int portID) {
-		boolean isUplink=false;
+	
+	private boolean isCDP(ArrayList<String> swCDP, int portID) {
+		boolean isCDP=false;
 		
 		for(int i=0;i<swCDP.size();i++){
 
-			if(swCDP.get(i).contains(OID.cdpCacheAddress+"."+portID))
+			if(swCDP.get(i).contains(OID.cdpCacheAddress+"."+portID+"."))
 			{
-			isUplink=true;
+			isCDP=true;
+			
+			}
+		}
+		
+		return isCDP;
+	}
+	
+	private boolean isUplinkportCDP(ArrayList<String> swCDP, ArrayList<String> swCDPC, int portID) {
+		boolean isUplink=false;
+		boolean isCDP=false;
+		
+		for(int i=0;i<swCDP.size();i++){
+
+			if(swCDP.get(i).contains(OID.cdpCacheAddress+"."+portID+"."))
+			{
+			isCDP=true;
+			
+			if(isCDPswitch(swCDPC.get(i))){
+				isUplink=true;
+			}
+			
 			}
 		}
 		
 		return isUplink;
+	}
+
+	private boolean isCDPswitch(String CDPC) {
+		// TODO Auto-generated method stub
+		/*
+		 *
+		 *	sw10305de-132.122# sh cdp neigh
+		Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+		                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone
+		
+		Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+		AP10302DE-132.17 Fas 0/24           151           T       AP1020    enet		00 00 00 02 -> 000010 
+		ro00066de        Fas 0/12           125           R       3725      Fas 0/0		00 00 00 01 -> 000001
+		ro00012de        Fas 0/23           136           R       2610      Eth 0/0		00 00 00 01 -> 000001
+		sw10304de-132.121														   010000
+		                 Gig 0/1            176           S       WS-C3550-2Gig 0/2		00 00 00 08 -> 001000
+		TBM05453534      Gig 0/2            142         T S I     WS-C6509  3/8			00 00 00 2A	-> 101010
+		sw10305de-132.122#													   						   IHSBTR
+		 * 
+		 */
+		
+		boolean isSwitch=false;
+		
+		int iPuffer;
+		
+		if(CDPC.length()>0)
+		{
+			CDPC=CDPC.substring(CDPC.indexOf("!")+1);
+			CDPC=CDPC.substring(CDPC.lastIndexOf(":")+1);
+			iPuffer=Integer.parseInt(CDPC,16);
+			CDPC=Integer.toBinaryString(iPuffer);
+			
+			while(CDPC.length()<8){
+				CDPC="0"+CDPC;
+			}
+			
+			if(CDPC.charAt(2)=='1'){
+				isSwitch=true;
+			}
+		}
+		
+		return isSwitch;
 	}
 
 	private String getDuplexState(ArrayList<String> swDuplex, int portID) {
@@ -527,7 +644,7 @@ public class Switch {
 		{
 			//vereinfachen
 			sTMP=Liste.get(i).substring(Liste.get(i).indexOf("!")+1);
-			//prï¿½fne ob in liste, bei bedarf hinzufï¿½gen
+			//pruefe ob in liste, bei bedarf hinzufï¿½gen
 			if(!vll.contains(sTMP))
 			{
 				vll.add(sTMP);
