@@ -23,7 +23,7 @@ public class DBComitterThread implements Runnable{
 
 	DataManagerOracleMulti.execute(this.sSQL_List);
 	
-	HelperClass.msgLog("[DBT][FIN]["+sIP+"]");
+	//HelperClass.msgLog("[DBT][FIN]["+sIP+"]");
 	
 	}
 
