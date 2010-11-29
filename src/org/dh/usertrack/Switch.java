@@ -39,7 +39,7 @@ public class Switch {
 		}
 	}
 	
-	public Switch(String sAdr, Snmp snmp, ArrayList<String> alARP) {
+	public Switch(String sAdr,String sReadc, Snmp snmp, ArrayList<String> alARP) {
 		// TODO Auto-generated constructor stub
 		
 		this.sIP=sAdr;
@@ -47,6 +47,8 @@ public class Switch {
 		this.snmp=snmp;
 		
 		swHostMacIps=alARP;
+		
+		sReadcommunity=sReadc;
 	}
 	
 	public String getsIP() {
@@ -317,8 +319,8 @@ public class Switch {
 					//save Port
 					sSQLList.add(p.getDBString());
 					
-					//wenn kein Uplink und Interface up, dann erfasse Host
-					if(!p.isUplink&&p.cstatus==true){
+					//wenn kein Uplink und Interface up und kein Switch, dann erfasse Host
+					if(!p.isUplink&&p.cstatus==true&&!SNMPTrackHelper.isinList(p.UplinkIP)){
 						if(p.hasCDPN){
 						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] CDP_ID:["+p.CDPDeviceID+"]["+getCDPIP(swCDP, p.PortID)+"]");
 						}
@@ -664,6 +666,11 @@ public class Switch {
 			}
 		}
 		return sPuffer;
+	}
+
+	public String readCommunity() {
+		// TODO Auto-generated method stub
+		return sReadcommunity;
 	}
 	
 }
