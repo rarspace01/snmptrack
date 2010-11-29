@@ -68,7 +68,7 @@ public class SNMPTrack {
 		
 		HelperClass.msgLog("Lade ARP Cache");
 		
-		swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, "1.3.6.1.2.1.4.22.1.2", SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
+		swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
 		
 		HelperClass.msgLog("Gefundene ARP Einträge: "+swHostMacIps.size());
 		
