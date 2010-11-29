@@ -18,6 +18,10 @@ public class SwitchListe {
 		// TODO Auto-generated constructor stub
 	
 		//Load Switchs from any src
+	
+		String sReadc="";
+		
+		sReadc=SNMPConfig.getReadCommunity();
 		
 		File file = new File("switchs.xml");
 		
@@ -49,7 +53,7 @@ public class SwitchListe {
 				
 				if(sLine.contains(sStart)&&sLine.contains(sEnde)){ 
 					
-					addsw(sLine.substring(sLine.indexOf(sStart)+sStart.length(), sLine.indexOf(sEnde)));
+					addsw(sLine.substring(sLine.indexOf(sStart)+sStart.length(), sLine.indexOf(sEnde)), sReadc);
 					
 				}
 				
@@ -89,9 +93,9 @@ public class SwitchListe {
 		
 	}
 	
-	private void addsw(String sAdrr){
+	private void addsw(String sAdrr, String sReadc){
 		
-		switchList.add(new Switch(sAdrr));
+		switchList.add(new Switch(sAdrr, sReadc));
 		
 	}
 	
