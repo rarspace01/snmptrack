@@ -66,6 +66,8 @@ public class SNMPTrack {
 		
 		swList=sws.getSwitchList();
 		
+		SNMPTrackHelper.switchListe=swList;
+		
 		HelperClass.msgLog("Lade ARP Cache");
 		
 		swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
@@ -87,7 +89,7 @@ public class SNMPTrack {
 				}
 			}
 			setActiveThreads(getActiveThreads()+1);	
-			SwitchWorkerThread t=new SwitchWorkerThread("Thread Switch Nr. "+i, this.snmp,this, swList.get(i).getsIP());
+			SwitchWorkerThread t=new SwitchWorkerThread("Thread Switch Nr. "+i, this.snmp,this, swList.get(i).getsIP(), swList.get(i).readCommunity());
 		}
 		
 	}
@@ -108,15 +110,17 @@ public class SNMPTrack {
 		Thread runner;
 		Address targetAddress;
 		String sIP;
+		String sReadc;
 		SNMPTrack jm;
 		Snmp snmp;
 		TransportMapping transport;
 		int iMax;
 		
-		  public SwitchWorkerThread(String threadName, Snmp snmp, SNMPTrack jm, String SwitchAdresse) {
+		  public SwitchWorkerThread(String threadName, Snmp snmp, SNMPTrack jm, String SwitchAdresse, String ReadCommunity) {
 		    
 			sIP=SwitchAdresse;  
-			  
+			sReadc=ReadCommunity; 
+			
 			this.jm = jm;
 		    this.snmp = snmp;
 		    runner = new Thread(this, threadName);
@@ -125,7 +129,7 @@ public class SNMPTrack {
 
 		  public void run() {
 
-			Switch workerSwitch=new Switch(sIP, this.snmp, jm.swHostMacIps);
+			Switch workerSwitch=new Switch(sIP, sReadc, this.snmp, jm.swHostMacIps);
 			
 			workerSwitch.refresh();
 				
