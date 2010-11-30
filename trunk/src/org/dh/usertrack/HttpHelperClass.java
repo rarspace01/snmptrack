@@ -1,10 +1,17 @@
-/*
- *	Author: Denis Hamann
- *	Name: Agent Class
- *	Description: Helper Class for HTTP gets
- */
-
 package org.dh.usertrack;
+
+/*********************************************************************
+ *	Helper Class for HTTP gets
+ * 
+ * @author
+ *    Denis Hamann
+ * @version
+ *    30.11.2010
+ * @license
+ *    EUPL
+ *    
+ *********************************************************************/
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 public class HttpHelperClass {
 
@@ -47,4 +55,43 @@ public class HttpHelperClass {
 				
 		return sPage;
 	}	
+	
+public static String getBasicAuthPage(String surl, String usr, String pwd){
+		
+		String sPage="";
+		
+		String userPassword = usr + ":" + pwd;
+		String encoding = Base64Converter.encode (userPassword.getBytes());
+		URLConnection connection = null;		
+		// Zerlegt einen String und fügt jeweils ein Zeilenende ein
+		try {			
+			URL urlpage=new URL(surl);			
+			connection = urlpage.openConnection();
+			connection.setRequestProperty("Authorization", "Basic " + encoding);
+			connection.setDoOutput(true);			
+                        BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			  
+			  String line = null;
+			  
+			  while ((line = rd.readLine()) != null && line.contains("</html>")) {
+				  //System.out.println(line);
+				  //sPage.add(line+System.getProperty("line.separator"));
+				  sPage+=line+System.getProperty("line.separator");
+				} 		
+			  
+		} catch (ConnectException e) {			
+			
+		} catch (UnknownHostException e) {			
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+				
+		return sPage;
+	}	
+
+
+
 }
