@@ -1,7 +1,6 @@
 package org.dh.usertrack;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.snmp4j.Snmp;
@@ -92,8 +91,27 @@ public class SNMPTrack {
 			SwitchWorkerThread t=new SwitchWorkerThread("Thread Switch Nr. "+i, this.snmp,this, swList.get(i).getsIP(), swList.get(i).readCommunity());
 		}
 		
+		while(getActiveThreads()>0){
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		HelperClass.msgLog("Starte Duplikat Erkennungs + Entfernungsmodus");
+		
+		cleanupDuplicates();
+		
 	}
 	
+	public void cleanupDuplicates() {
+		// TODO Auto-generated method stub
+		
+		
+		
+	}
+
 	public static void main(String[] args) {
 	
 		long time1=(long)System.currentTimeMillis()/1000;
