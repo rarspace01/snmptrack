@@ -118,14 +118,7 @@ public class Switch {
 	"WHEN NOT MATCHED "+
 	 "THEN INSERT (\"IP\",\"hostname\",\"vendor\",\"model\",\"osversion\",\"location\",\"alias\",\"uptime\",\"stamptime\") VALUES ('"+sIP+"','"+sDNS+"','"+svendor+"','"+smodel+"','"+sversion+"','"+sLocation+"','"+sAlias+"','"+iUptime+"',"+iTimestamp+")";
 
-	try {
-		
-		DataManagerOracle.getInstance().execute(sSQL);
-		
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	sSQLList.add(sSQL);
 	
 	ArrayList<String> swPuffer=new ArrayList<String>();
 	
@@ -375,7 +368,7 @@ public class Switch {
 		} //port
 		
 		//save in DB
-		DBComitterThread dbc=new DBComitterThread(sIP,sSQLList);
+		DBComitterThread dbc=new DBComitterThread(sSQLList);
 		
 	} //wenn macliste leer
 	
