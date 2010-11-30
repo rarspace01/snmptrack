@@ -19,10 +19,6 @@ public class SwitchListe {
 	
 		//Load Switchs from any src
 	
-		String sReadc="";
-		
-		sReadc=SNMPConfig.getReadCommunity();
-		
 		File file = new File("switchs.xml");
 		
 		if(file.exists())
@@ -49,12 +45,11 @@ public class SwitchListe {
 				// the console.
 				
 				String sStart="<switch ip=\"";
-				String sEnde="\"/>";
+				String sEnde1="\" rc=\"";
+				String sEnde2="\"/>";
 				
-				if(sLine.contains(sStart)&&sLine.contains(sEnde)){ 
-					
-					addsw(sLine.substring(sLine.indexOf(sStart)+sStart.length(), sLine.indexOf(sEnde)), sReadc);
-					
+				if(sLine.contains(sStart)&&sLine.contains(sEnde1)){ 
+					addsw(sLine.substring(sLine.indexOf(sStart)+sStart.length(), sLine.indexOf(sEnde1)), sLine.substring(sLine.indexOf(sEnde1)+sEnde1.length(), sLine.indexOf(sEnde2)));
 				}
 				
 				
