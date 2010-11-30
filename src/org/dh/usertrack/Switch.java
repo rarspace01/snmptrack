@@ -351,6 +351,7 @@ public class Switch {
 										h.Duplex=p.Duplex;
 										h.Speed=p.Speed;
 	
+										h.MAC=HexToDec.getADVfromSimple(h.MAC);
 										//sofern IP erhalten, löse DNS auf
 										if(h.IP.length()>0){
 										h.hostname=DNSHelperClass.getHostname(h.IP);
