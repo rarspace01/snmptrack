@@ -21,7 +21,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 public class HttpHelperClass {
 
@@ -73,9 +72,7 @@ public static String getBasicAuthPage(String surl, String usr, String pwd){
 			  
 			  String line = null;
 			  
-			  while ((line = rd.readLine()) != null && line.contains("</html>")) {
-				  //System.out.println(line);
-				  //sPage.add(line+System.getProperty("line.separator"));
+			  while ((line = rd.readLine()) != null) {
 				  sPage+=line+System.getProperty("line.separator");
 				} 		
 			  
