@@ -74,4 +74,31 @@ public class HelperClass {
             return "["+Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+"."+(Calendar.getInstance().get(Calendar.MONTH)+1)+"."+Calendar.getInstance().get(Calendar.YEAR)+"]["+Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+":"+Calendar.getInstance().get(Calendar.MINUTE)+":"+Calendar.getInstance().get(Calendar.SECOND)+"]";
     }
 
+    //checks if a given String is a IP
+    public static boolean isValidIP(String sIP){
+        String[] parts = sIP.split( "\\." );
+
+        if ( parts.length != 4 )
+        {
+            return false;
+        }
+
+        for ( String s : parts )
+        {
+        	try{
+        		
+        		int i = Integer.parseInt( s );
+
+	            if ( (i < 0) || (i > 255) )
+	            {
+	                return false;
+	            }
+        	}catch(NumberFormatException e){
+        		return false;
+        	}
+        }
+
+        return true;
+    }
+    
 }
