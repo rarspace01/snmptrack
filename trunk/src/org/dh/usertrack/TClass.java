@@ -24,6 +24,31 @@ public class TClass {
 	
 	public static void main(String[] args) {
 		
+		
+		long lstart=0;
+		long lstop=0;
+		
+		lstart=System.currentTimeMillis();
+		
+		SNMPTrackHelper.updateALevels();
+		
+		lstop=System.currentTimeMillis();
+		
+		System.out.println("DIF: "+(lstop-lstart));
+		
+//		System.out.println(sPuffer.length());
+//		
+//		System.out.println(saPuffer.length);
+//		
+//		System.out.println("SEITE:\n"+sPuffer);
+			try {
+			Thread.sleep(999999);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}	
+		
+		
 		TransportMapping transport;
 		Snmp snmp = null;
 		
@@ -48,12 +73,7 @@ public class TClass {
 		//System.out.println("DNS:"+DNSHelperClass.getHostname("192.168.1.1"));
 		
 		
-//		try {
-//			Thread.sleep(999999);
-//		} catch (InterruptedException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
+
 //		
 //		for(int i=0; i<255; i++){
 //			
