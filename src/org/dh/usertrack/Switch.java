@@ -73,7 +73,11 @@ public class Switch {
 	sOID=SNMPHandler.getOID(snmp, OID.sysDescr0, sIP, sReadcommunity);	
 		
 	if(sOID.contains("ERROR AT ")){
+		
+		if(SNMPConfig.getDebuglevel()>=1)
+		{
 		HelperClass.msgLog("No valid SNMP response from: ["+sIP+"]["+sOID+"]. Aborting Tracking.");
+		}
 	}else{
 	
 	//get DNS
@@ -148,7 +152,7 @@ public class Switch {
 	swVLANs=SNMPHandler.getOIDWalk(snmp, OID.vmVlan, sIP, sReadcommunity);
 	swPortname=SNMPHandler.getOIDWalk(snmp, OID.ifName, sIP, sReadcommunity);
 	swPortalias=SNMPHandler.getOIDWalk(snmp, OID.ifAlias, sIP, sReadcommunity);
-	swVPort=SNMPHandler.getOIDWalk(snmp, OID.dot1dBasePortIfIndex, sIP, sReadcommunity);
+	
 	swCDP=SNMPHandler.getOIDWalk(snmp, OID.cdpCacheAddress, sIP, sReadcommunity);
 	swCDPC=SNMPHandler.getOIDWalk(snmp, OID.cdpCacheCapabilities, sIP, sReadcommunity);
 	swCDPDI=SNMPHandler.getOIDWalk(snmp, OID.cdpCacheDeviceId, sIP, sReadcommunity);
@@ -181,7 +185,10 @@ public class Switch {
 	
 	}else{
 		//Keine Cisco Port SNMP unterstützt
+		if(SNMPConfig.getDebuglevel()>=2)
+		{
 		HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"] ERROR Keine Duplexerkennung moeglich.");
+		}
 	}
 	
 	//get all the macs of the coresponding vlans
@@ -202,16 +209,32 @@ public class Switch {
 	//for vlans
 	for(int i=0;i<swVLANListe.size();i++)
 	{
+		//for hosts
 		swPuffer=SNMPHandler.getOIDWalk(snmp, OID.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
 			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
 			swHostMAC.add(swPuffer.get(j));
 		}
 		swPuffer.clear();
+		
+		//for vportids
+		swPuffer=SNMPHandler.getOIDWalk(snmp, OID.dot1dBasePortIfIndex, sIP, sReadcommunity+"@"+swVLANListe.get(i));
+		for(int j=0;j<swPuffer.size();j++){
+			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
+			swVPort.add(swPuffer.get(j));
+		}
+		swPuffer.clear();
+
+		
 	}
 	
+	
+	
+	
 	if(swHostMAC.size()<1){
+		if(SNMPConfig.getDebuglevel()>=2)
 		HelperClass.msgLog("["+sIP+"] Keine Hosts am Gerät gefunden.");
+		
 	}
 	
 	//System.out.println("["+sIP+"]: swHostMAC Size:"+swHostMAC.size());
@@ -295,7 +318,9 @@ public class Switch {
 					}else if(isUplinkportCDP(swCDP, swCDPC, p.PortID))
 					{
 						p.isUplink=true;
+						if(SNMPConfig.getDebuglevel()>=2){
 						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] Kein STP aber CDP");
+						}
 					}
 					
 					if(p.isUplink)
@@ -314,7 +339,7 @@ public class Switch {
 					
 					//wenn kein Uplink und Interface up und kein Switch, dann erfasse Host
 					if(!p.isUplink&&p.cstatus==true&&!SNMPTrackHelper.isinList(p.UplinkIP)){
-						if(p.hasCDPN){
+						if(p.hasCDPN&&SNMPConfig.getDebuglevel()>=3){
 						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] CDP_ID:["+p.CDPDeviceID+"]["+getCDPIP(swCDP, p.PortID)+"]");
 						}
 						//get Hosts on this port
@@ -324,10 +349,21 @@ public class Switch {
 						
 						if(p.VPortID<0)
 						{
+						//prüfe ob PortID bereits in VPortID existent
+						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] CDP_ID:["+p.CDPDeviceID+"]["+getCDPIP(swCDP, p.PortID)+"] no vportid");
+						}
+						
+						alHosts=getHostsOfPort(swHostMAC,p.VPortID);	
+						
+						/*
+						if(p.VPortID<0)
+						{
 						alHosts=getHostsOfPort(swHostMAC,p.PortID);
 						}else{
 						alHosts=getHostsOfPort(swHostMAC,p.VPortID);	
 						}
+						
+						*/
 						
 						if(alHosts.size()>0)
 						{
@@ -470,12 +506,16 @@ public class Switch {
 		//Bei speziellen Cisco Switchs wird eine ID>100 zurückgegeben typischerweise 10101,10102, etc
 		//Dies wird hier abgefangen
 		
-		if(vPortID>10000)
-		{
-			vPortID=vPortID-10000;
-		}
+//		if(vPortID>10000)
+//		{
+//			vPortID=vPortID-10000;
+//		}
+//		if(vPortID>100){
+//			vPortID=vPortID-100;
+//		}
+		
 		if(vPortID>100){
-			vPortID=vPortID-100;
+		System.out.println("VPORT >100: "+vPortID);
 		}
 		
 		for(int i=0;i<swHostMAC.size();i++){
