@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class SNMPConfig {
 
+	public static final int getDebuglevel(){
+		return 0;
+	}
+	
 	public static final int getThreadmaxcount(){
 		
 		//return 24;
