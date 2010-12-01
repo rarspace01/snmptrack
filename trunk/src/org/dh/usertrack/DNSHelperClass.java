@@ -9,8 +9,8 @@ public class DNSHelperClass {
 		String sPuffer="NODNS";
 		int i=0;
 		
-		DNSServer.add("151.10.136.202");
 		DNSServer.add("151.10.136.70");
+		DNSServer.add("151.10.136.202");
 		
 		while(sPuffer.contains("NODNS")&&i<DNSServer.size())
 		{
