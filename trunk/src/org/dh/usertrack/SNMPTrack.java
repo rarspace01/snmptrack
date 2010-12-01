@@ -1,10 +1,7 @@
 package org.dh.usertrack;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
@@ -106,72 +103,11 @@ public class SNMPTrack {
 		
 		SNMPTrackHelper.updateALevels();
 		
-		cleanupDuplicates();
+		SNMPTrackHelper.cleanupDuplicates();
 		
 	}
 	
-	public void cleanupDuplicates() {
-		ArrayList<String> swListeComplete=new ArrayList<String>();
-		
-		String[] saPuffer;
-		String sPuffer="";
-		String sSQL="";
-		//list of duplicates
-		
-		try {
-			ResultSet rset= DataManagerOracle.getInstance().select("SELECT h.MAC, p.MAC AS PMAC, s.\"alias\" AS SName, s.\"alevel\"  FROM \"st_hosts\" h, \"st_ports\" p, \"st_switchs\" s WHERE h.\"PortMAC\"=p.MAC AND p.\"SwitchIP\"=s.\"IP\" AND h.MAC IN (SELECT MAC FROM \"USRTRACK\".\"st_hosts\" GROUP BY MAC HAVING COUNT(*)>1)");
-		
-			while(rset.next()){
-				
-				/*
-				System.out.println(rset.getString("MAC"));
-				System.out.println(rset.getString("PMAC"));
-				System.out.println(rset.getString("SNAME"));
-				System.out.println(rset.getString("alevel"));
-				*/
-				
-				if(swListeComplete.contains(rset.getString("MAC")))
-				{
-					
-				for(int i=0;i<swListeComplete.size();i++){
-					
-					if(swListeComplete.get(i).contains(rset.getString("MAC"))){
-						sPuffer=swListeComplete.get(i);
-						sPuffer=sPuffer.substring(sPuffer.lastIndexOf("!")+1);
-	
-						if(Integer.parseInt(sPuffer)<Integer.parseInt(rset.getString("alevel")))
-							{
-							sPuffer=swListeComplete.get(i);
-							
-							saPuffer=sPuffer.split("!");
-							
-							sSQL="DELETE FROM \"st_hosts\" WHERE MAC='"+saPuffer[0]+"' AND \"PortMAC\"='"+saPuffer[1]+"'";
-							System.out.println("DEL: ["+sSQL+"]");							
-							
-							swListeComplete.remove(i);
-							swListeComplete.add(rset.getString("MAC")+"!"+rset.getString("PMAC")+"!"+rset.getString("alevel"));
-							}
-					
-					}
-					
-				}
-				
-				}else{
-				swListeComplete.add(rset.getString("MAC")+"!"+rset.getString("PMAC")+"!"+rset.getString("alevel"));
-				}
-				
-			}
-		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		for(int i=0;i<swListeComplete.size(); i++){
-			System.out.println(swListeComplete.get(i));
-		}
-		
-	}
+
 
 	public static void main(String[] args) {
 	
