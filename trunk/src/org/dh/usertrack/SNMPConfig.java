@@ -30,7 +30,11 @@ public class SNMPConfig {
 	public static final ArrayList<String> getRouters(){
 		ArrayList<String> lRouter=new ArrayList<String>();
 
+		lRouter.add("151.10.132.1");
 		lRouter.add("151.10.132.2");
+		lRouter.add("151.10.132.3");
+		lRouter.add("151.10.132.4");
+		lRouter.add("151.10.132.5");
 		
 		
 		return lRouter;
