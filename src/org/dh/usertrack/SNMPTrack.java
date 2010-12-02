@@ -37,6 +37,8 @@ public class SNMPTrack {
 	
 	public SNMPTrack() {
 		
+		ArrayList<String> sPufferList=new ArrayList<String>();
+		
 		HelperClass.msgLog("Starte SNMPTrack");
 		
 		HelperClass.msgLog("Initialisiere SNMP");
@@ -70,6 +72,22 @@ public class SNMPTrack {
 		HelperClass.msgLog("Lade ARP Cache");
 		
 		swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
+//		for(int i=0; i<SNMPConfig.getRouters().size();i++){
+//			
+//			sPufferList=SNMPHandler.getOIDWalknonBluk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouters().get(i), SNMPConfig.getReadCommunity());
+//			
+//			for (int j=0; j<sPufferList.size();j++){
+//				
+//				if(!swHostMacIps.contains(sPufferList.get(j))){
+//					
+//					swHostMacIps.add(sPufferList.get(j));
+//					
+//				}
+//				
+//			}
+//			
+//		}
+		
 		
 		HelperClass.msgLog("Gefundene ARP Einträge: "+swHostMacIps.size());
 		
