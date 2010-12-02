@@ -11,7 +11,7 @@ public class SNMPConfig {
 	public static final int getThreadmaxcount(){
 		
 		//return 24;
-		return 8;
+		return 10;
 		
 		//return HelperClass.getCPUCount()*2;
 		
