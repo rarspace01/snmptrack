@@ -185,7 +185,7 @@ public class SNMPHandler {
 			       	  if(responsePDU.toString().contains(OID)){
 			       		  //System.out.println(responsePDU.toString().contains(OID));
 			       		 //System.out.println(responsePDU.get(0).toString());
-			       		  resultList.add(responsePDU.get(0).toString());
+			       		  resultList.add(responsePDU.get(0).toString().replace(" = ", "!"));
 			       		  requestPDU.setRequestID(new Integer32(0));
 			       		requestPDU.set(0,responsePDU.get(0));
 			       	  }else{
