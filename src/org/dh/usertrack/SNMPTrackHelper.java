@@ -95,6 +95,8 @@ public class SNMPTrackHelper {
 		String sLMACPort="";
 		String sLMACLevel="";
 		
+		int iDcount=0;
+		
 		//list of duplicates
 		
 		eSQL="SELECT h.MAC, p.MAC AS PMAC, s.\"alias\" AS SName, s.\"alevel\" AS A FROM \"st_hosts\" h, \"st_ports\" p, \"st_switchs\" s WHERE h.\"PortMAC\"=p.MAC AND p.\"SwitchIP\"=s.\"IP\" AND h.MAC IN (SELECT MAC FROM \"USRTRACK\".\"st_hosts\" GROUP BY MAC HAVING COUNT(*)>1)";
@@ -155,6 +157,7 @@ public class SNMPTrackHelper {
 						//
 						sSQL="DELETE FROM \"st_hosts\" WHERE \"MAC\"='"+sLMAC+"' AND \"PortMAC\"='"+sLMACPort+"'";
 						
+						iDcount++;
 
 						//System.out.println("["+sSQL+"]");
 						sSQLlist.add(sSQL);
@@ -170,6 +173,10 @@ public class SNMPTrackHelper {
 		}
 		
 		DataManagerOracleMulti.execute(sSQLlist);
+		
+		if (SNMPConfig.getDebuglevel()>=2) {
+			HelperClass.msgLog("DELETED "+iDcount+" Duplicates");
+		}
 		
 	}
 	
