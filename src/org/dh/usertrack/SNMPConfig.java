@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SNMPConfig {
 
 	public static final int getDebuglevel(){
-		return 0;
+		return 1;
 	}
 	
 	public static final int getThreadmaxcount(){
@@ -23,19 +23,12 @@ public class SNMPConfig {
 		
 	}
 	
-	public static final String getRouter(){
-		return "151.10.132.2";
-	}
-	
 	public static final ArrayList<String> getRouters(){
 		ArrayList<String> lRouter=new ArrayList<String>();
 
-		lRouter.add("151.10.132.1");
-		lRouter.add("151.10.132.2");
-		lRouter.add("151.10.132.3");
-		lRouter.add("151.10.132.4");
-		lRouter.add("151.10.132.5");
-		
+		lRouter.add("151.10.132.2!pdhoechst");
+		//lRouter.add("151.10.97.65!pirvienna");
+		lRouter.add("151.10.143.1!pdhoechst");
 		
 		return lRouter;
 	}
