@@ -11,6 +11,10 @@ public class DNSHelperClass {
 		
 		DNSServer.add("151.10.136.70");
 		DNSServer.add("151.10.136.202");
+//		DNSServer.add("151.10.142.35");
+//		DNSServer.add("151.10.17.8");
+//		DNSServer.add("151.10.17.14");
+		
 		
 		while(sPuffer.contains("NODNS")&&i<DNSServer.size())
 		{
