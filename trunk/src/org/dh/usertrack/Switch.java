@@ -130,6 +130,7 @@ public class Switch {
 	ArrayList<String> swMACs=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swStatus=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swVLANs=new ArrayList<String>(); //Liste der Mac Adressen
+	ArrayList<String> swVLANPorts=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swPortname=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swPortalias=new ArrayList<String>(); //Liste der Mac Adressen
 	ArrayList<String> swVPort=new ArrayList<String>(); //Liste der Mac Adressen
@@ -148,10 +149,11 @@ public class Switch {
 	ArrayList<String> swCiscoDuplex=new ArrayList<String>();	
 	ArrayList<String> swDuplex=new ArrayList<String>();
 	
-	swMACs=SNMPHandler.getOIDWalknonBluk(snmp, OID.ifPhysAddress, sIP, sReadcommunity);
+	swMACs=SNMPHandler.getOIDWalknonBulk(snmp, OID.ifPhysAddress, sIP, sReadcommunity);
 	swStatus=SNMPHandler.getOIDWalk(snmp, OID.ifOperStatus, sIP, sReadcommunity);
 	swVLANs=SNMPHandler.getOIDWalk(snmp, OID.vtpVlanState, sIP, sReadcommunity);
-	swPortname=SNMPHandler.getOIDWalk(snmp, OID.ifName, sIP, sReadcommunity);
+	swVLANPorts=SNMPHandler.getOIDWalk(snmp, OID.vmVlan, sIP, sReadcommunity);
+	swPortname=SNMPHandler.getOIDWalknonBulk(snmp, OID.ifName, sIP, sReadcommunity);
 	swPortalias=SNMPHandler.getOIDWalk(snmp, OID.ifAlias, sIP, sReadcommunity);
 	
 	swCDP=SNMPHandler.getOIDWalk(snmp, OID.cdpCacheAddress, sIP, sReadcommunity);
@@ -214,7 +216,7 @@ public class Switch {
 	{
 		
 		//for hosts
-		swPuffer=SNMPHandler.getOIDWalknonBluk(snmp, OID.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
+		swPuffer=SNMPHandler.getOIDWalknonBulk(snmp, OID.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
 			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
 			swHostMAC.add(swPuffer.get(j));
@@ -265,7 +267,7 @@ public class Switch {
 				{
 					
 				p.alias=getOIDListEntry(swPortalias,p.PortID).substring(getOIDListEntry(swPortalias,p.PortID).indexOf("!")+1);
-				p.vlan=getOIDListEntry(swVLANs,p.PortID).substring(getOIDListEntry(swVLANs,p.PortID).indexOf("!")+1);
+				p.vlan=getOIDListEntry(swVLANPorts,p.PortID).substring(getOIDListEntry(swVLANPorts,p.PortID).indexOf("!")+1);
 				
 				//get cstatus of port
 				
