@@ -7,19 +7,22 @@ public class DBComitterThread implements Runnable{
 
 	ArrayList<String> sSQL_List=new ArrayList<String>();
 	Thread runner;
+	String sName="";
 	
-	public DBComitterThread(ArrayList<String> ArrayListSQL) {
+	public DBComitterThread(String sName,ArrayList<String> ArrayListSQL) {
 
 		this.sSQL_List=ArrayListSQL;
 		
-	    runner = new Thread(this, "DB Thread: "+(int)Math.random()*1000);
+		this.sName=sName;
+		
+	    runner = new Thread(this, "DB Thread: "+sName);
 	    runner.start(); 
 	}
 	
 	@Override
 	public void run() {
 
-	DataManagerOracleMulti.execute(this.sSQL_List);
+	DataManagerOracleMulti.execute(this.sName,this.sSQL_List);
 	
 	//HelperClass.msgLog("[DBT][FIN]["+sIP+"]");
 	
