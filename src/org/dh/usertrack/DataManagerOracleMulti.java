@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**Die Klasse DataManager dient zum Verwalten der Verbindungen mit der Datenbank*/
 public class DataManagerOracleMulti {
 
-		public static final void execute(ArrayList<String> sSQLList){
+		public static final void execute(String sName, ArrayList<String> sSQLList){
 			
 			try {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -20,20 +20,66 @@ public class DataManagerOracleMulti {
 	        	
 	        	ArrayList<PreparedStatement> psL=new ArrayList<PreparedStatement>();
 	        	
-	        	for(int i=0;i<sSQLList.size();i++)
-	        	{
-	        		psL.add(conn.prepareStatement(sSQLList.get(i)));
-	        	}
+	        	int iTotalCount=0,iCount=0,iRemainCount=0, ipRemainCount=0;
 	        	
-	        	for(int i=0;i<psL.size();i++){
-	        		psL.get(i).executeUpdate();
-	        	}
-				
-                conn.commit();
+	        	iTotalCount=sSQLList.size();
+	        	iRemainCount=iTotalCount;
+	        	
+	        	while(iRemainCount>0)
+	        	{
+	        	
+	        	if(iRemainCount>100){
+	        		
+	        		for(int i=0;i<100;i++)
+	        		{
+	        			psL.add(conn.prepareStatement(sSQLList.get(i+iCount)));
+	        		}
+	        		
+	        		for(int i=0;i<100;i++){
+	        			psL.get(i+iCount).executeUpdate();
+	        		}
+	        		
+	        		conn.commit();
+	        		
+	        		for(int i=0;i<100;i++){
+	        			psL.get(i+iCount).close();
+	        		}
 
-                for(int i=0;i<psL.size();i++){
-            		psL.get(i).close();
-            	}
+	        		for(int i=0;i<100;i++)
+	        		{
+	        			iRemainCount--;
+	        			iCount++;
+	        		}
+	        		
+	        	}else{
+	        		
+	        		ipRemainCount=iRemainCount;
+	        		
+	        		for(int i=0;i<ipRemainCount;i++)
+	        		{
+	        			psL.add(conn.prepareStatement(sSQLList.get(i+iCount)));
+	        		}
+	        		
+	        		for(int i=0;i<ipRemainCount;i++){
+	        			psL.get(i+iCount).executeUpdate();
+	        		}
+	        		
+	        		conn.commit();
+	        		
+	        		for(int i=0;i<ipRemainCount;i++){
+	        			psL.get(i+iCount).close();
+	        		}
+
+	        		for(int i=0;i<ipRemainCount;i++)
+	        		{
+	        			iRemainCount--;
+	        			iCount++;
+	        		}
+	        		
+	        	}
+
+	        	}
+	        		
                 
                 conn.setAutoCommit(true);
 	        	
@@ -43,6 +89,7 @@ public class DataManagerOracleMulti {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (SQLException e) {
+				System.out.println("Error in : "+sName);
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
