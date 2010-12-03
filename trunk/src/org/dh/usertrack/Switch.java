@@ -56,6 +56,8 @@ public class Switch {
 
 	public void refresh(){
 	
+	HelperClass.msgLog("Start: "+sIP);	
+		
 	String sSQL="";	
 	ArrayList<String> sSQLList=new ArrayList<String>();	
 	
@@ -146,9 +148,9 @@ public class Switch {
 	ArrayList<String> swCiscoDuplex=new ArrayList<String>();	
 	ArrayList<String> swDuplex=new ArrayList<String>();
 	
-	swMACs=SNMPHandler.getOIDWalk(snmp, OID.ifPhysAddress, sIP, sReadcommunity);
+	swMACs=SNMPHandler.getOIDWalknonBluk(snmp, OID.ifPhysAddress, sIP, sReadcommunity);
 	swStatus=SNMPHandler.getOIDWalk(snmp, OID.ifOperStatus, sIP, sReadcommunity);
-	swVLANs=SNMPHandler.getOIDWalk(snmp, OID.vmVlan, sIP, sReadcommunity);
+	swVLANs=SNMPHandler.getOIDWalk(snmp, OID.vtpVlanState, sIP, sReadcommunity);
 	swPortname=SNMPHandler.getOIDWalk(snmp, OID.ifName, sIP, sReadcommunity);
 	swPortalias=SNMPHandler.getOIDWalk(snmp, OID.ifAlias, sIP, sReadcommunity);
 	
@@ -204,12 +206,12 @@ public class Switch {
 	}
 	swPuffer.clear();
 	
+	//vor den VLAN spezfischen Sachen
 	
 	
 	//for vlans
 	for(int i=0;i<swVLANListe.size();i++)
 	{
-		
 		
 		//for hosts
 		swPuffer=SNMPHandler.getOIDWalknonBluk(snmp, OID.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
@@ -218,7 +220,6 @@ public class Switch {
 			swHostMAC.add(swPuffer.get(j));
 		}
 		swPuffer.clear();
-		
 		//for vportids
 		swPuffer=SNMPHandler.getOIDWalk(snmp, OID.dot1dBasePortIfIndex, sIP, sReadcommunity+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
@@ -226,12 +227,8 @@ public class Switch {
 			swVPort.add(swPuffer.get(j));
 		}
 		swPuffer.clear();
-
 		
 	}
-	
-	
-	
 	
 	if(swHostMAC.size()<1){
 		if(SNMPConfig.getDebuglevel()>=2)
@@ -314,17 +311,18 @@ public class Switch {
 					p.CDPDeviceID="";
 										
 					//Prüfe zuerst per STP
-					if(getSTPCount(swSTP, p.PortID)>0)
+					if(getSTPCount(swSTP, p.PortID)>100)
 					{
 						p.isUplink=true;	
-					}else if(isUplinkportCDP(swCDP, swCDPC, p.PortID))
-					{
-						p.isUplink=true;
-						if(SNMPConfig.getDebuglevel()>=2){
-						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] Kein STP aber CDP");
-						}
 					}
-					
+//					else if(isUplinkportCDP(swCDP, swCDPC, p.PortID))
+//					{
+//						//p.isUplink=true;
+//						if(SNMPConfig.getDebuglevel()>=1){
+//						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] Kein STP aber CDP");
+//						}
+//					}
+//					
 					if(p.isUplink)
 					{
 						p.UplinkIP=getUplinkCDPIP(swCDP, swCDPC, p.PortID);
@@ -333,6 +331,7 @@ public class Switch {
 					if(isCDP(swCDP, p.PortID)){
 						p.hasCDPN=true;
 						p.CDPDeviceID=getCDPDI(swCDPDI, p.PortID);
+						p.UplinkIP=getCDPIP(swCDPDI, p.PortID);
 					}
 					
 
@@ -347,6 +346,7 @@ public class Switch {
 					}
 					
 					//save Port
+					//System.out.println(p.getDBString());
 					sSQLList.add(p.getDBString());
 
 					if(p.VPortID<0)
@@ -395,6 +395,28 @@ public class Switch {
 									}
 								}
 							}
+						}else if(!p.isUplink&&p.cstatus==true&&SNMPTrackHelper.isinList(p.UplinkIP)){
+							
+							System.out.println("Bekannter Switch auf ["+sIP+"]["+sAlias+"]["+p.name+"]");
+							//wenn Port bekannter Switch
+//							Host h=new Host();
+//							h.MAC=alHosts.get(j);
+//							h.PortMAC=p.sMAC;
+//							h.MAC=HexToDec.getADVfromSimple(h.MAC);
+//							h.IP=p.UplinkIP;
+//							h.Duplex=p.Duplex;
+//							h.Speed=p.Speed;
+//
+//							//sofern IP erhalten, löse DNS auf
+//							if(h.IP.length()>0){
+//							h.hostname=DNSHelperClass.getHostname(h.IP);
+//							}
+//							
+//							//Frage CDP Sachen ab
+//							
+//							//save Host
+//							sSQLList.add(h.getDBString());
+							
 						}
 					}
 	
@@ -405,12 +427,12 @@ public class Switch {
 		} //port
 		
 		//save in DB
-		DBComitterThread dbc=new DBComitterThread(sSQLList);
+		DBComitterThread dbc=new DBComitterThread(sIP, sSQLList);
 		
-		if(SNMPConfig.getDebuglevel()>=2)
-		{
+//		if(SNMPConfig.getDebuglevel()>=2)
+//		{
 		HelperClass.msgLog("[DEBUG] FIN:"+sIP);
-		}
+//		}
 		
 	} //wenn macliste leer
 	
@@ -523,9 +545,9 @@ public class Switch {
 		ArrayList<String> alportHost=new ArrayList<String>();
 		String sOID=OID.dot1dTpFdbPort+".";
 		
-		if(vPortID>100){
-		System.out.println("VPORT >100: "+vPortID);
-		}
+//		if(vPortID>100){
+//		System.out.println("VPORT >100: "+vPortID);
+//		}
 		
 		for(int i=0;i<swHostMAC.size();i++){
 			if(Integer.parseInt(swHostMAC.get(i).substring(swHostMAC.get(i).indexOf("!")+1))==vPortID)
@@ -688,11 +710,15 @@ public class Switch {
 		for(int i=0;i<Liste.size();i++)
 		{
 			//vereinfachen
-			sTMP=Liste.get(i).substring(Liste.get(i).indexOf("!")+1);
+			sTMP=Liste.get(i).substring(0,Liste.get(i).indexOf("!"));
+			sTMP=sTMP.substring(sTMP.lastIndexOf(".")+1);
 			//pruefe ob in liste, bei bedarf hinzufï¿½gen
 			if(!vll.contains(sTMP))
 			{
+				//System.out.println("ADD VLAN:"+sTMP);
+				if(Integer.parseInt(sTMP)<1000){
 				vll.add(sTMP);
+				}
 			}
 		}
 		Collections.sort(vll);
