@@ -8,7 +8,6 @@ import java.util.Vector;
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
 import org.snmp4j.Snmp;
-import org.snmp4j.TransportMapping;
 import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.Address;
@@ -17,7 +16,6 @@ import org.snmp4j.smi.Integer32;
 import org.snmp4j.smi.OID;
 import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.VariableBinding;
-import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class SNMPHandler {
 
@@ -157,6 +155,12 @@ public class SNMPHandler {
 	    target.setCommunity(new OctetString(Community));
 	    target.setAddress(targetAddress);
 	    
+	    target.setRetries(2);
+	    
+//	    System.out.println("Cur Timeout:"+target.getTimeout());
+//	    
+	    target.setTimeout(300);
+	    
 	    target.setVersion(SnmpConstants.version2c);
 		
 			try {
@@ -201,6 +205,9 @@ public class SNMPHandler {
 				HelperClass.err(e);
 				
 			} catch (NullPointerException e2){
+				
+				System.out.println("Null on ["+Community+"]"+OID);
+				
 				HelperClass.err(e2);
 			}
 		
