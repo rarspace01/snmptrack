@@ -36,11 +36,15 @@ public class SNMPTrackHelper {
 		ArrayList<String> swDistribution=new ArrayList<String>();
 		ArrayList<String> swCore=new ArrayList<String>();
 		ArrayList<String> swServer=new ArrayList<String>();
+		ArrayList<String> swVienna=new ArrayList<String>();
+		ArrayList<String> swMerzig=new ArrayList<String>();
 		
 		swAccess=Nagios.getHostsOfGroup("Access");		
 		swDistribution=Nagios.getHostsOfGroup("Distribution");		
 		swCore=Nagios.getHostsOfGroup("Core");
 		swServer=Nagios.getHostsOfGroup("Server_Switches");
+		swVienna=Nagios.getHostsOfGroup("SwitchesVie");
+		swMerzig=Nagios.getHostsOfGroup("SwitchesDCS");
 		
 		for (int i = 0; i < swAccess.size(); i++) {
 			
@@ -70,7 +74,21 @@ public class SNMPTrackHelper {
 			
 		}	
 		
-		DataManagerOracleMulti.execute(sSQLList);
+		for (int i = 0; i < swVienna.size(); i++) {
+			
+			sSQL="UPDATE USRTRACK.\"st_switchs\" SET \"alevel\"=2 WHERE IP LIKE '"+swVienna.get(i)+"'";
+			sSQLList.add(sSQL);
+			
+		}	
+		
+		for (int i = 0; i < swMerzig.size(); i++) {
+			
+			sSQL="UPDATE USRTRACK.\"st_switchs\" SET \"alevel\"=2 WHERE IP LIKE '"+swMerzig.get(i)+"'";
+			sSQLList.add(sSQL);
+			
+		}	
+		
+		DataManagerOracleMulti.execute("SNMP TRACKER HELPER",sSQLList);
 		
 	}
 	
@@ -172,7 +190,7 @@ public class SNMPTrackHelper {
 			
 		}
 		
-		DataManagerOracleMulti.execute(sSQLlist);
+		DataManagerOracleMulti.execute("SNPM TRacker helper",sSQLlist);
 		
 		if (SNMPConfig.getDebuglevel()>=2) {
 			HelperClass.msgLog("DELETED "+iDcount+" Duplicates");
