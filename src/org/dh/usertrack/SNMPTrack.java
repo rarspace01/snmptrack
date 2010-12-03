@@ -70,23 +70,24 @@ public class SNMPTrack {
 		SNMPTrackHelper.switchListe=swList;
 		
 		HelperClass.msgLog("Lade ARP Cache");
-		
-		swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
-//		for(int i=0; i<SNMPConfig.getRouters().size();i++){
-//			
-//			sPufferList=SNMPHandler.getOIDWalknonBluk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouters().get(i), SNMPConfig.getReadCommunity());
-//			
-//			for (int j=0; j<sPufferList.size();j++){
-//				
-//				if(!swHostMacIps.contains(sPufferList.get(j))){
-//					
-//					swHostMacIps.add(sPufferList.get(j));
-//					
-//				}
-//				
-//			}
-//			
-//		}
+
+//		old Method for ARP list
+//		swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
+		for(int i=0; i<SNMPConfig.getRouters().size();i++){
+			
+			sPufferList=SNMPHandler.getOIDWalknonBluk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouters().get(i).substring(0,SNMPConfig.getRouters().get(i).indexOf("!")), SNMPConfig.getRouters().get(i).substring(SNMPConfig.getRouters().get(i).indexOf("!")+1));
+			
+			for (int j=0; j<sPufferList.size();j++){
+				
+				if(!swHostMacIps.contains(sPufferList.get(j))){
+					
+					swHostMacIps.add(sPufferList.get(j));
+					
+				}
+				
+			}
+			
+		}
 		
 		
 		HelperClass.msgLog("Gefundene ARP Einträge: "+swHostMacIps.size());
