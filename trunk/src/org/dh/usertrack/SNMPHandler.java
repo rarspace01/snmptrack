@@ -81,7 +81,7 @@ public class SNMPHandler {
 	    requestPDU.setType(PDU.GETBULK);
 	    
 	    requestPDU.setNonRepeaters(0);
-	    requestPDU.setMaxRepetitions(65535);
+	    requestPDU.setMaxRepetitions(999);
 	    
 	    CommunityTarget target = new CommunityTarget();
 	    target.setCommunity(new OctetString(Community));
@@ -137,7 +137,7 @@ public class SNMPHandler {
 		return resultList;
 	}
 	
-	public static ArrayList<String> getOIDWalknonBluk(Snmp snmp, String OID, String Target, String Community){
+	public static ArrayList<String> getOIDWalknonBulk(Snmp snmp, String OID, String Target, String Community){
 		ArrayList<String> resultList=new ArrayList<String>();
 		
 		Address targetAddress=GenericAddress.parse("udp:"+Target+"/161");
@@ -149,7 +149,7 @@ public class SNMPHandler {
 	    requestPDU.setType(PDU.GETNEXT);
 	    
 	    requestPDU.setNonRepeaters(0);
-	    requestPDU.setMaxRepetitions(65535);
+	    requestPDU.setMaxRepetitions(999);
 	    
 	    CommunityTarget target = new CommunityTarget();
 	    target.setCommunity(new OctetString(Community));
