@@ -74,7 +74,7 @@ public class TClass {
 		HelperClass.msgLog("Lade ARP Cache");
 		
 		
-		ArrayList<String> swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, "1.3.6.1.2.1.4.22.1.2", SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
+		ArrayList<String> swHostMacIps = SNMPHandler.getOIDWalknonBulk(snmp, "1.3.6.1.2.1.4.22.1.2", SNMPConfig.getRouters().get(0), SNMPConfig.getReadCommunity());
 		
 		//Switch sw1=new Switch("151.10.132.226", snmp);
 		Switch sw1=new Switch("151.10.132.132", "pdhoechst", snmp, swHostMacIps);
