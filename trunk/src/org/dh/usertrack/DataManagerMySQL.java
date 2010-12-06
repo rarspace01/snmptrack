@@ -20,8 +20,8 @@ public class DataManagerMySQL {
         private DataManagerMySQL() {
                 try {
                         Class.forName("com.mysql.jdbc.Driver"); 
-                        conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/boerse?" +
-                                   "user=wwi08b&password=ant0n&useDynamicCharsetInfo=false&autoReconnect=true&holdResultsOpenOverStatementClose=true");
+                        conn = DriverManager.getConnection("jdbc:mysql://murmeltier/nagiosql3?" +
+                                   "user=usertracking&password=TrackIt&useDynamicCharsetInfo=false&autoReconnect=true&holdResultsOpenOverStatementClose=true");
                         stmt = conn.createStatement();
                         
                 } catch (SQLException e) {
