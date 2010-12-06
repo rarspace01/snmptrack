@@ -29,8 +29,9 @@ public class OID {
 
 	//CISCO-CDP-MIB - http://www.oidview.com/mibs/9/CISCO-CDP-MIB.html
 	public static final String cdpCacheAddress="1.3.6.1.4.1.9.9.23.1.2.1.1.4";
-	public static final String cdpCacheCapabilities="1.3.6.1.4.1.9.9.23.1.2.1.1.9";
 	public static final String cdpCacheDeviceId="1.3.6.1.4.1.9.9.23.1.2.1.1.6";
+	public static final String cdpCacheDevicePort="1.3.6.1.4.1.9.9.23.1.2.1.1.7";
+	public static final String cdpCacheCapabilities="1.3.6.1.4.1.9.9.23.1.2.1.1.9";
 	
 	//CISCO-STACK-MIB - http://www.oidview.com/mibs/9/CISCO-STACK-MIB.html
 	public static final String portType="1.3.6.1.4.1.9.5.1.4.1.1.5";
