@@ -48,6 +48,8 @@ public class HexToDec{
 		
 		String ip = "";
 		
+		if(sHex.length()>0){
+		
 		try{
 			if(sHex.length() == 8){
 				
@@ -64,6 +66,7 @@ public class HexToDec{
 		}
 		catch(NumberFormatException e){
 			System.out.println("String HEX errata");	
+		}
 		}
 		
 		return ip;
@@ -94,6 +97,8 @@ public class HexToDec{
 	public static String getADVfromSimple(String sHex){
 		String sPuffer="", sHexPuffer="";
 		
+		if(sHex.length()>0){
+		
 		while(sHex.length()>0)
 		{
 			if(sHex.contains(":")){
@@ -112,6 +117,7 @@ public class HexToDec{
 		}
 		
 		sPuffer=sPuffer.substring(0,sPuffer.lastIndexOf(":"));
+		}
 		
 		return sPuffer;
 		
@@ -120,6 +126,8 @@ public class HexToDec{
 	public static String getHex(String sDec)
 	{
 		String sPuffer="", sHexPuffer="";
+
+		if(sDec.length()>0){
 		
 		sDec+=":";
 		
@@ -137,6 +145,8 @@ public class HexToDec{
 		}
 		
 		sPuffer=sPuffer.substring(0,sPuffer.lastIndexOf(":"));
+		
+		}
 		
 		return sPuffer;
 	}
