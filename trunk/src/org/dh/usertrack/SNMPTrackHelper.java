@@ -39,12 +39,12 @@ public class SNMPTrackHelper {
 		ArrayList<String> swVienna=new ArrayList<String>();
 		ArrayList<String> swMerzig=new ArrayList<String>();
 		
-		swAccess=Nagios.getHostsOfGroup("Access");		
-		swDistribution=Nagios.getHostsOfGroup("Distribution");		
-		swCore=Nagios.getHostsOfGroup("Core");
-		swServer=Nagios.getHostsOfGroup("Server_Switches");
-		swVienna=Nagios.getHostsOfGroup("SwitchesVie");
-		swMerzig=Nagios.getHostsOfGroup("SwitchesDCS");
+		swAccess=Nagios.getHostsOfGroupOverDB("Access");		
+		swDistribution=Nagios.getHostsOfGroupOverDB("Distribution");		
+		swCore=Nagios.getHostsOfGroupOverDB("Core");
+		swServer=Nagios.getHostsOfGroupOverDB("Server_Switches");
+		swVienna=Nagios.getHostsOfGroupOverDB("SwitchesVie");
+		swMerzig=Nagios.getHostsOfGroupOverDB("SwitchesDCS");
 		
 		for (int i = 0; i < swAccess.size(); i++) {
 			
