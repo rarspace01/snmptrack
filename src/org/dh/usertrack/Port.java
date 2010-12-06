@@ -18,7 +18,7 @@ public class Port {
 	public boolean isUplink;
 	public String UplinkIP;
 	public boolean hasCDPN;
-	public String CDPDeviceID="";
+
 	
 	public String printAll() {
 		// TODO Auto-generated method stub
