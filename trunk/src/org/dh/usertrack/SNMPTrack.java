@@ -124,6 +124,8 @@ public class SNMPTrack {
 		
 		SNMPTrackHelper.cleanupDuplicates();
 		
+		SNMPTrackHelper.transferData();
+		
 	}
 	
 
