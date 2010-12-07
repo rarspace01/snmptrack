@@ -91,6 +91,12 @@ public class DataManagerOracleMulti {
 			} catch (SQLException e) {
 				System.out.println("Error in : "+sName);
 				// TODO Auto-generated catch block
+				
+				for(int i=0;i<sSQLList.size();i++)
+				{
+					System.out.println("["+sName+"]["+sSQLList.get(i)+"]");
+				}
+				
 				e.printStackTrace();
 			} 
 			
