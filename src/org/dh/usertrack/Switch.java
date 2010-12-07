@@ -440,6 +440,11 @@ public class Switch {
 											}	
 												
 											h.hostname=DNSHelperClass.getHostname(h.IP);
+											
+											if(h.hostname.length()>0){
+												h.lastuser=LDAP.getUser(h.hostname);
+											}
+											
 											}
 											
 											//Frage CDP Sachen ab
