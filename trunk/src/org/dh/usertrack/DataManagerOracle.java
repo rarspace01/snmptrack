@@ -83,6 +83,19 @@ public class DataManagerOracle {
                 return i;
         }
         
+        public int executenoexception(String SQLString) throws SQLException
+        {
+                int i=-1;
+                
+                try {
+                        
+                        i=stmt.executeUpdate(SQLString);
+
+                } catch (SQLException e) {
+                }
+                return i;
+        }
+        
     public Connection getConnection() {
         return conn;
     }
