@@ -177,7 +177,6 @@ public class SNMPTrackHelper {
 						
 						iDcount++;
 
-						//System.out.println("["+sSQL+"]");
 						sSQLlist.add(sSQL);
 
 						}
@@ -195,6 +194,27 @@ public class SNMPTrackHelper {
 		if (SNMPConfig.getDebuglevel()>=2) {
 			HelperClass.msgLog("DELETED "+iDcount+" Duplicates");
 		}
+		
+	}
+
+	public static void transferData() {
+
+		//DROP EXISTING TABLES
+		try {
+			
+			DataManagerOracle.getInstance().executenoexception("DROP TABLE hosts_live");
+			DataManagerOracle.getInstance().executenoexception("DROP TABLE switchs_live");
+			DataManagerOracle.getInstance().executenoexception("DROP TABLE ports_live");
+			
+			DataManagerOracle.getInstance().execute("CREATE TABLE hosts_live AS SELECT * FROM \"st_hosts\"");
+			DataManagerOracle.getInstance().execute("CREATE TABLE switchs_live AS SELECT * FROM \"st_switchs\"");
+			DataManagerOracle.getInstance().execute("CREATE TABLE ports_live AS SELECT * FROM \"st_ports\"");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 	
