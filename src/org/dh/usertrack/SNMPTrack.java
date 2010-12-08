@@ -122,9 +122,17 @@ public class SNMPTrack {
 		
 		SNMPTrackHelper.updateALevels();
 		
+		HelperClass.msgLog("Level geupdated");
+		
 		SNMPTrackHelper.cleanupDuplicates();
 		
+		HelperClass.msgLog("Duplikate entfernt");
+		
 		SNMPTrackHelper.transferData();
+		
+		HelperClass.msgLog("Datenbank fertig kopiert.");
+		
+		HelperClass.msgLog("SNMPTrack fertig.");
 		
 	}
 	
