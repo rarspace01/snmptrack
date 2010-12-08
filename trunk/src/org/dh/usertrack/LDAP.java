@@ -30,8 +30,10 @@ public class LDAP {
 	}
 	
 	public static String getUser(String DNS){
-	
 		String sPuffer="";
+	
+		if(DNS.length()>0){
+		
 		ArrayList<String> alDMCGroups=new ArrayList<String>();
 		int i=0;
 		
@@ -44,10 +46,14 @@ public class LDAP {
 		while(sPuffer.length()<1&&i<alDMCGroups.size()){
 			
 			sPuffer=getUser(alDMCGroups.get(i),DNS);
+			if(sPuffer.length()>0)
+			{
+				i=alDMCGroups.size();
+			}
 			i++;
 		}
 			
-		
+		}
 		
 		return sPuffer;
 	}
