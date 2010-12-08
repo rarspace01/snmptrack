@@ -17,7 +17,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
@@ -26,6 +28,9 @@ public class HttpHelperClass {
 
 	public static String getPage(String surl){
 		
+		//Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.com", 80));
+
+		
 		String sPage="";
 		
 		URLConnection connection = null;		
@@ -33,6 +38,7 @@ public class HttpHelperClass {
 		try {			
 			URL urlpage=new URL(surl);			
 			connection = urlpage.openConnection();
+			//connection = urlpage.openConnection(proxy);
 			connection.setDoOutput(true);			
                         BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			  
@@ -43,9 +49,9 @@ public class HttpHelperClass {
 				} 		
 			  
 		} catch (ConnectException e) {			
-			
+			e.printStackTrace();
 		} catch (UnknownHostException e) {			
-			
+			e.printStackTrace();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
