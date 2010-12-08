@@ -1,8 +1,10 @@
 package org.dh.usertrack;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import javax.naming.Context;
+import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
@@ -11,8 +13,10 @@ import javax.naming.directory.InitialDirContext;
 public class LDAP {
 
 	public static void main(String[] args) {
-		System.out.println(getUser("wk258-864de.emea.group.pirelli.com."));
+		System.out.println("DEBUG: "+getUser("wk262-32de.emea.group.pirelli.com."));
 	}
+	
+	
 	
 	public static String getDomainDNS(String DNS){
 
@@ -26,14 +30,33 @@ public class LDAP {
 	}
 	
 	public static String getUser(String DNS){
+	
+		String sPuffer="";
+		ArrayList<String> alDMCGroups=new ArrayList<String>();
+		int i=0;
+		
+		alDMCGroups.add("Hoechst");
+		alDMCGroups.add("Munich");
+		alDMCGroups.add("Pneumobil");
+		alDMCGroups.add("Merzig Offices");
+		alDMCGroups.add("Merzig");
+		
+		while(sPuffer.length()<1&&i<alDMCGroups.size()){
+			
+			sPuffer=getUser(alDMCGroups.get(i),DNS);
+			i++;
+		}
+			
+		
+		
+		return sPuffer;
+	}
+	
+	public static String getUser(String sDMGroup,String DNS){
 		String sWorkDNS="";
 		String sPuffer="";
 		
-		//System.out.println("Davor: "+DNS);
-		
 		sWorkDNS=getDomainDNS(DNS);
-		
-		//System.out.println("Danach: "+sWorkDNS);
 		
 		if(sWorkDNS.length()>0)
 		{
@@ -47,8 +70,8 @@ public class LDAP {
 		
 		// Authenticate as S. User and password "mysecret"
 		env.put(Context.SECURITY_AUTHENTICATION, "simple");
-		env.put(Context.SECURITY_PRINCIPAL, "emea\\hamande001");
-		env.put(Context.SECURITY_CREDENTIALS, getpwd());
+		env.put(Context.SECURITY_PRINCIPAL, "emea\\sa.ldapex01de");
+		env.put(Context.SECURITY_CREDENTIALS, "TrackIt10");
 
 
 		try {
@@ -60,31 +83,30 @@ public class LDAP {
 		}
 
 			
+		Attributes attrs=null;
 				try {
-					Attributes attrs;
-					attrs = ctx.getAttributes("CN="+sWorkDNS+",OU=DESKTOPS,OU=Hoechst,OU=DE,OU=APIS XP,DC=emea,DC=group,DC=pirelli,DC=com");
-					
+					attrs = ctx.getAttributes("CN="+sWorkDNS+",OU=DESKTOPS,OU="+sDMGroup+",OU=DE,OU=APIS XP,DC=emea,DC=group,DC=pirelli,DC=com");
+				} catch (NamingException e) {
+				}
+				
+				if(attrs != null){
+					sPuffer=""+attrs.get("pirelliPSILikelyRealOwner");
+					sPuffer=sPuffer.replace("pirelliPSILikelyRealOwner: ", "");
+				}else{
+					//CN=WK258-690DE,OU=LAPTOPS,OU=Hoechst,OU=DE,OU=APIS XP,DC=emea,DC=group,DC=pirelli,DC=com
+					try {
+					attrs = ctx.getAttributes("CN="+sWorkDNS+",OU=LAPTOPS,OU="+sDMGroup+",OU=DE,OU=APIS XP,DC=emea,DC=group,DC=pirelli,DC=com");
 					if(attrs.get("pirelliPSILikelyRealOwner") != null){
 						sPuffer=""+attrs.get("pirelliPSILikelyRealOwner");
 						sPuffer=sPuffer.replace("pirelliPSILikelyRealOwner: ", "");
+					}else{
 					}
-				} catch (NamingException e) {
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
+					} catch (NamingException e) {
+						// TODO Auto-generated catch block
+					}
 				}
 				
-				
-				
 		}
-		//System.out.println("GOT ["+sPuffer+"]");	
-		return sPuffer;
-	}
-
-	private static String getpwd() {
-		String sPuffer="";
-		
-
-		
 		return sPuffer;
 	}
 	
