@@ -13,6 +13,7 @@ public class Host {
 	public String CDPDeviceIP="";
 	public String CDPDevicePort="";
 	public String CDPDeviceTyp="";
+	public String sVHOST="";
 	
 	public String getDBString() {
 		
@@ -35,9 +36,10 @@ public class Host {
 		"\"CDPID\"='"+CDPDeviceID+"', "+
 		"\"CDPIP\"='"+CDPDeviceIP+"', "+
 		"\"CDPPORT\"='"+CDPDevicePort+"', "+
-		"\"CDPTYP\"='"+CDPDeviceTyp+"' "+
+		"\"CDPTYP\"='"+CDPDeviceTyp+"', "+
+		"\"VHOST\"='"+sVHOST+"' "+
 		"WHEN NOT MATCHED "+
-		 "THEN INSERT (\"MAC\",\"PortMAC\",\"IP\",\"hostname\",\"stamptime\",\"lastuser\",\"Speed\",\"Duplex\",\"CDPID\",\"CDPIP\",\"CDPPORT\",\"CDPTYP\") VALUES ('"+MAC+"','"+PortMAC+"','"+IP+"','"+hostname+"','"+iTimestamp+"','"+lastuser+"','"+Speed+"','"+Duplex+"','"+CDPDeviceID+"','"+CDPDeviceIP+"','"+CDPDevicePort+"','"+CDPDeviceTyp+"')";
+		 "THEN INSERT (\"MAC\",\"PortMAC\",\"IP\",\"hostname\",\"stamptime\",\"lastuser\",\"Speed\",\"Duplex\",\"CDPID\",\"CDPIP\",\"CDPPORT\",\"CDPTYP\",\"VHOST\") VALUES ('"+MAC+"','"+PortMAC+"','"+IP+"','"+hostname+"','"+iTimestamp+"','"+lastuser+"','"+Speed+"','"+Duplex+"','"+CDPDeviceID+"','"+CDPDeviceIP+"','"+CDPDevicePort+"','"+CDPDeviceTyp+"','"+sVHOST+"')";
 
 		return sSQL;
 	}
