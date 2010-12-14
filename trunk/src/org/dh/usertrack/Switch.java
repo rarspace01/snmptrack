@@ -419,6 +419,11 @@ public class Switch {
 											h.MAC=alHosts.get(j);
 											h.PortMAC=p.sMAC;
 											h.MAC=HexToDec.getADVfromSimple(h.MAC);
+											
+											if(isVMWareMAC(h.MAC)){
+												h.sVHOST="1";
+											}
+											
 											h.IP=getIPfromMAC(swHostMacIps,h.MAC);
 											h.Duplex=p.Duplex;
 											h.Speed=p.Speed;
@@ -510,6 +515,24 @@ public class Switch {
 	
 	}//Funkstionsende 
 	
+	private boolean isVMWareMAC(String sMAC) {
+		boolean isVhost=false;
+		ArrayList<String> alVMwareMACprefix=new ArrayList<String>();
+
+		alVMwareMACprefix.add("00:05:69");
+		alVMwareMACprefix.add("00:0C:29");
+		alVMwareMACprefix.add("00:1C:14");
+		alVMwareMACprefix.add("00:50:56");
+
+		for(int i=0;i<alVMwareMACprefix.size();i++){
+			if(sMAC.startsWith(alVMwareMACprefix.get(i))){
+				isVhost=true;
+			}
+		}
+		
+		return isVhost;
+	}
+
 	private String getMACfromIP(ArrayList<String> swHostMacIP, String uplinkIP) {
 		String sPuffer="";
 		for(int i=0;i<swHostMacIP.size();i++)
