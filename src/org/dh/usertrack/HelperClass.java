@@ -71,7 +71,42 @@ public class HelperClass {
 
   //liefert aktuelle Uhrzeit als String zurück
     public static String printClock(){
-            return "["+Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+"."+(Calendar.getInstance().get(Calendar.MONTH)+1)+"."+Calendar.getInstance().get(Calendar.YEAR)+"]["+Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+":"+Calendar.getInstance().get(Calendar.MINUTE)+":"+Calendar.getInstance().get(Calendar.SECOND)+"]";
+    	String sDay="",sMonth="",sYear="",sHour="",sMinute="",sSecond="";
+    	
+    		sDay=""+Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    		sMonth=""+(Calendar.getInstance().get(Calendar.MONTH)+1);
+    		sYear=""+Calendar.getInstance().get(Calendar.YEAR);    		
+    		sHour=""+Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+    		sMinute=""+Calendar.getInstance().get(Calendar.MINUTE);
+    		sSecond=""+Calendar.getInstance().get(Calendar.SECOND);
+    		
+    		while(sDay.length()<2){
+    			sDay="0"+sDay;
+    		}
+    		
+    		while(sMonth.length()<2){
+    			sMonth="0"+sMonth;
+    		}
+    		
+    		while(sHour.length()<2){
+    			sHour="0"+sHour;
+    		}
+    	
+    		while(sMinute.length()<2){
+    			sMinute="0"+sMinute;
+    		}
+    	
+    		while(sSecond.length()<2){
+    			sSecond="0"+sSecond;
+    		}
+    		
+            return "["
+            +sDay
+            +"."+sMonth
+            +"."+sYear
+            +"]["+sHour
+            +":"+sMinute
+            +":"+sSecond+"]";
     }
 
     //checks if a given String is a IP
