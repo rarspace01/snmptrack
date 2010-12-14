@@ -375,12 +375,12 @@ public class Switch {
 						if(h.MAC.length()>0){
 						sSQLList.add(h.getDBString());
 						}else{
-							System.out.println("CDP ERROR ON SW: "+h.getDBString());
+							HelperClass.msgLog("CDP ERROR ON SW: "+h.getDBString());
 						}
 						
 						
 						}else{
-							System.out.println("Uplink but no IP via CDP"+p.PortID);
+							HelperClass.msgLog("Uplink but no IP via CDP"+p.PortID);
 						}
 						
 						
@@ -457,7 +457,7 @@ public class Switch {
 							}
 						}else if(!p.isUplink&&p.cstatus==true&&SNMPTrackHelper.isinList(p.UplinkIP)){
 							
-							System.out.println("Bekannter Switch auf ["+sIP+"]["+sAlias+"]["+p.name+"]");
+							HelperClass.msgLog("Bekannter Switch auf ["+sIP+"]["+sAlias+"]["+p.name+"]");
 							//wenn Port bekannter Switch
 //							Host h=new Host();
 //							h.MAC=alHosts.get(j);
