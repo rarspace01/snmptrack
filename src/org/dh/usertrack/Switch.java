@@ -280,8 +280,8 @@ public class Switch {
 					p.Speed=getOIDListEntry(swSpeed, p.PortID).substring(getOIDListEntry(swSpeed, p.PortID).indexOf("!")+1);
 					
 					if(p.Speed.length()>0){
-						if(Integer.parseInt(p.Speed)>1000000){
-							p.Speed=""+(Integer.parseInt(p.Speed)/1000000);
+						if(Long.parseLong(p.Speed)>1000000){
+							p.Speed=""+(Long.parseLong(p.Speed)/1000000);
 						}
 					}
 					
