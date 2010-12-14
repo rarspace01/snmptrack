@@ -312,7 +312,7 @@ public class Switch {
 					p.UplinkIP="";
 										
 					//Prüfe zuerst per STP
-					if(getSTPCount(swSTP, p.PortID)>100)
+					if(getSTPCount(swSTP, p.PortID)>0)
 					{
 						p.isUplink=true;	
 					}else if(isUplinkportCDP(swCDP,swCDPC,p.PortID)){
@@ -322,6 +322,9 @@ public class Switch {
 					if(p.isUplink)
 					{
 						p.UplinkIP=getUplinkCDPIP(swCDP, p.PortID);
+						if(p.UplinkIP.length()<1){
+						p.isUplink=false;	
+						}
 					}
 					
 					if(isCDP(swCDP, p.PortID)){
@@ -814,7 +817,7 @@ public class Switch {
 			if(!vll.contains(sTMP))
 			{
 				//ignoriere Cisco spezifische VLANs
-				if(Integer.parseInt(sTMP)<1000){
+				if(Integer.parseInt(sTMP)<1002||Integer.parseInt(sTMP)>1005){
 				vll.add(sTMP);
 				}
 			}
