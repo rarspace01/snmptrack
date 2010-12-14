@@ -813,7 +813,7 @@ public class Switch {
 			//pruefe ob in liste, bei bedarf hinzuf�gen
 			if(!vll.contains(sTMP))
 			{
-				//System.out.println("ADD VLAN:"+sTMP);
+				//ignoriere Cisco spezifische VLANs
 				if(Integer.parseInt(sTMP)<1000){
 				vll.add(sTMP);
 				}
