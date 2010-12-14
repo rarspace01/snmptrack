@@ -140,14 +140,20 @@ public class SNMPTrack {
 
 	public static void main(String[] args) {
 	
+		System.out.println("ARGS:");
+		
+		for(int i=0;i<args.length;i++){
+		System.out.println(args[i]);	
+		}
+		
 		long time1=(long)System.currentTimeMillis()/1000;
-		System.out.println("SNMP:SART:"+time1);
+		HelperClass.msgLog("SNMP:SART:"+time1);
 		
 		new SNMPTrack();
 		
 		long time2=(long)System.currentTimeMillis()/1000;
-		System.out.println("SNMP:STP:"+(long)System.currentTimeMillis()/1000);
-		System.out.println("SNMP:DIF:"+(time2-time1));
+		HelperClass.msgLog("SNMP:STP:"+(long)System.currentTimeMillis()/1000);
+		HelperClass.msgLog("SNMP:DIF:"+(time2-time1));
 	}
 	
 	class SwitchWorkerThread implements Runnable {
