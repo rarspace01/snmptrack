@@ -71,8 +71,6 @@ public class SNMPTrack {
 		
 		HelperClass.msgLog("Lade ARP Cache");
 
-//		old Method for ARP list
-//		swHostMacIps = SNMPHandler.getOIDWalknonBluk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouter(), SNMPConfig.getReadCommunity());
 		for(int i=0; i<SNMPConfig.getRouters().size();i++){
 			
 			sPufferList=SNMPHandler.getOIDWalknonBulk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouters().get(i).substring(0,SNMPConfig.getRouters().get(i).indexOf("!")), SNMPConfig.getRouters().get(i).substring(SNMPConfig.getRouters().get(i).indexOf("!")+1));
