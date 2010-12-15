@@ -420,7 +420,7 @@ public class Switch {
 											h.PortMAC=p.sMAC;
 											h.MAC=HexToDec.getADVfromSimple(h.MAC);
 											
-											if(isVMWareMAC(h.MAC)){
+											if(isVMWareMAC(h.MAC)||isVBoxMAC(h.MAC)||isVPCMAC(h.MAC)){
 												h.sVHOST="1";
 											}
 											
@@ -515,6 +515,36 @@ public class Switch {
 	
 	}//Funkstionsende 
 	
+	private boolean isVPCMAC(String sMAC) {
+		boolean isVhost=false;
+		ArrayList<String> alVPCMACprefix=new ArrayList<String>();
+
+		alVPCMACprefix.add("00:03:FF");
+
+		for(int i=0;i<alVPCMACprefix.size();i++){
+			if(sMAC.startsWith(alVPCMACprefix.get(i))){
+				isVhost=true;
+			}
+		}
+		
+		return isVhost;
+	}
+
+	private boolean isVBoxMAC(String sMAC) {
+		boolean isVhost=false;
+		ArrayList<String> alVBoxMACprefix=new ArrayList<String>();
+
+		alVBoxMACprefix.add("08:00:27");
+
+		for(int i=0;i<alVBoxMACprefix.size();i++){
+			if(sMAC.startsWith(alVBoxMACprefix.get(i))){
+				isVhost=true;
+			}
+		}
+		
+		return isVhost;
+	}
+
 	private boolean isVMWareMAC(String sMAC) {
 		boolean isVhost=false;
 		ArrayList<String> alVMwareMACprefix=new ArrayList<String>();
