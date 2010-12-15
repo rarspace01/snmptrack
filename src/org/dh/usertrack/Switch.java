@@ -420,8 +420,16 @@ public class Switch {
 											h.PortMAC=p.sMAC;
 											h.MAC=HexToDec.getADVfromSimple(h.MAC);
 											
-											if(isVMWareMAC(h.MAC)||isVBoxMAC(h.MAC)||isVPCMAC(h.MAC)||isVMMAC(h.MAC)){
+											if(isVMWareMAC(h.MAC)){
 												h.sVHOST="1";
+											}else if(isVBoxMAC(h.MAC)){
+												h.sVHOST="2";
+											}else if(isVPCMAC(h.MAC)){
+												h.sVHOST="3";
+											}else if(isVMMAC(h.MAC)){
+												h.sVHOST="4";
+											}else{
+												h.sVHOST="0";
 											}
 											
 											h.IP=getIPfromMAC(swHostMacIps,h.MAC);
