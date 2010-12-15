@@ -428,8 +428,6 @@ public class Switch {
 												h.sVHOST="3";
 											}else if(isVMMAC(h.MAC)){
 												h.sVHOST="4";
-											}else{
-												h.sVHOST="0";
 											}
 											
 											h.IP=getIPfromMAC(swHostMacIps,h.MAC);
