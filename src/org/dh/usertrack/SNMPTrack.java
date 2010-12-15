@@ -1,6 +1,8 @@
 package org.dh.usertrack;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.util.ArrayList;
 
 import org.snmp4j.Snmp;
@@ -38,6 +40,10 @@ public class SNMPTrack {
 	public SNMPTrack() {
 		
 		ArrayList<String> sPufferList=new ArrayList<String>();
+		
+		OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
+		
+		HelperClass.msgLog("Start Request on:\nPlatform: ["+osBean.getArch()+"] - "+osBean.getAvailableProcessors()+" CPUs\nOS: ["+osBean.getName()+"]\nVersion: ["+osBean.getVersion()+"]");
 		
 		HelperClass.msgLog("Starte SNMPTrack");
 		
@@ -138,6 +144,8 @@ public class SNMPTrack {
 
 	public static void main(String[] args) {
 	
+		System.out.println("LOC: ["+HelperClass.class.getProtectionDomain().getCodeSource().getLocation().getFile()+"]");
+		
 		System.out.println("ARGS:");
 		
 		for(int i=0;i<args.length;i++){
