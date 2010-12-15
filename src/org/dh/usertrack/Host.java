@@ -13,7 +13,7 @@ public class Host {
 	public String CDPDeviceIP="";
 	public String CDPDevicePort="";
 	public String CDPDeviceTyp="";
-	public String sVHOST="";
+	public String sVHOST="0";
 	
 	public String getDBString() {
 		
