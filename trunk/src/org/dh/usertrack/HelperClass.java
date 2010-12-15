@@ -14,8 +14,7 @@ public class HelperClass {
 
 	public static int getCPUCount(){
 		
-		OperatingSystemMXBean osBean = ManagementFactory
-		.getOperatingSystemMXBean();
+		OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
 
 		int numOfProcessors = osBean.getAvailableProcessors();
 		
