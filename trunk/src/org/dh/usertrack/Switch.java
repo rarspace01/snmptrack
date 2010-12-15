@@ -420,7 +420,7 @@ public class Switch {
 											h.PortMAC=p.sMAC;
 											h.MAC=HexToDec.getADVfromSimple(h.MAC);
 											
-											if(isVMWareMAC(h.MAC)||isVBoxMAC(h.MAC)||isVPCMAC(h.MAC)){
+											if(isVMWareMAC(h.MAC)||isVBoxMAC(h.MAC)||isVPCMAC(h.MAC)||isVMMAC(h.MAC)){
 												h.sVHOST="1";
 											}
 											
@@ -514,6 +514,23 @@ public class Switch {
 	}//IF abfrage ob SNMP geht
 	
 	}//Funkstionsende 
+	
+	private boolean isVMMAC(String sMAC) {
+		boolean isVhost=false;
+		ArrayList<String> alVMMACprefix=new ArrayList<String>();
+
+		alVMMACprefix.add("00:1C:42");
+		alVMMACprefix.add("00:0F:4B");
+		alVMMACprefix.add("00:16:3E");
+
+		for(int i=0;i<alVMMACprefix.size();i++){
+			if(sMAC.startsWith(alVMMACprefix.get(i))){
+				isVhost=true;
+			}
+		}
+		
+		return isVhost;
+	}
 	
 	private boolean isVPCMAC(String sMAC) {
 		boolean isVhost=false;
