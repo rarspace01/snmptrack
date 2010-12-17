@@ -93,6 +93,7 @@ public class LDAP {
 				try {
 					attrs = ctx.getAttributes("CN="+sWorkDNS+",OU=DESKTOPS,OU="+sDMGroup+",OU=DE,OU=APIS XP,DC=emea,DC=group,DC=pirelli,DC=com");
 				} catch (NamingException e) {
+				} catch (NullPointerException e2){
 				}
 				
 				if(attrs != null){
@@ -109,6 +110,7 @@ public class LDAP {
 					}
 					} catch (NamingException e) {
 						// TODO Auto-generated catch block
+					} catch (NullPointerException e2){
 					}
 				}
 				
