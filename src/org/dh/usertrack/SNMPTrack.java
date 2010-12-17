@@ -79,7 +79,7 @@ public class SNMPTrack {
 
 		for(int i=0; i<SNMPConfig.getRouters().size();i++){
 			
-			sPufferList=SNMPHandler.getOIDWalknonBulk(snmp, OID.ipNetToMediaPhysAddress, SNMPConfig.getRouters().get(i).substring(0,SNMPConfig.getRouters().get(i).indexOf("!")), SNMPConfig.getRouters().get(i).substring(SNMPConfig.getRouters().get(i).indexOf("!")+1));
+			sPufferList=SNMPHandler.getOIDWalknonBulk(snmp, OIDL.ipNetToMediaPhysAddress, SNMPConfig.getRouters().get(i).substring(0,SNMPConfig.getRouters().get(i).indexOf("!")), SNMPConfig.getRouters().get(i).substring(SNMPConfig.getRouters().get(i).indexOf("!")+1));
 			
 			for (int j=0; j<sPufferList.size();j++){
 				
