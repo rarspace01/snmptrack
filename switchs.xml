@@ -153,10 +153,8 @@
 <switch ip="151.10.136.6" rc="pdhoechst"/>
 <switch ip="151.10.136.7" rc="pdhoechst"/>
 <switch ip="151.10.136.9" rc="pdhoechst"/>
-<switch ip="151.10.136.10" rc="pdhoechst"/>
 <switch ip="151.10.136.11" rc="pdhoechst"/>
 <switch ip="151.10.136.12" rc="pdhoechst"/>
-<switch ip="151.10.136.13" rc="pdhoechst"/>
 <switch ip="151.10.143.2" rc="pdhoechst"/>
 <switch ip="151.10.143.3" rc="pdhoechst"/>
 <switch ip="151.10.143.10" rc="pdhoechst"/>
@@ -166,7 +164,9 @@
 <switch ip="151.10.143.14" rc="pdhoechst"/>
 <switch ip="151.10.231.2" rc="dcsmerzig"/>
 <switch ip="151.10.231.3" rc="dcsmerzig"/>
+<switch ip="151.10.231.10" rc="dcsmerzig"/>
 <switch ip="151.10.231.11" rc="dcsmerzig"/>
+<switch ip="151.10.231.13" rc="dcsmerzig"/>
 <switch ip="151.10.231.14" rc="dcsmerzig"/>
 <switch ip="151.10.231.15" rc="dcsmerzig"/>
 </switchs>
