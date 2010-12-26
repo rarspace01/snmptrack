@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_iKdAkQ6lEeC0A56Pkzdyyw">
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iKdnoA6lEeC0A56Pkzdyyw" name="boolean"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iKdnoQ6lEeC0A56Pkzdyyw" name="byte"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iKdnog6lEeC0A56Pkzdyyw" name="char"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iKdnow6lEeC0A56Pkzdyyw" name="double"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iKdnpA6lEeC0A56Pkzdyyw" name="float"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iKdnpQ6lEeC0A56Pkzdyyw" name="int"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iKdnpg6lEeC0A56Pkzdyyw" name="long"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_iKdnpw6lEeC0A56Pkzdyyw" name="short"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_iKdnqA6lEeC0A56Pkzdyyw" name="org">
+    <packagedElement xmi:type="uml:Package" xmi:id="_iKdnqQ6lEeC0A56Pkzdyyw" name="dh">
+      <packagedElement xmi:type="uml:Package" xmi:id="_iKdnqg6lEeC0A56Pkzdyyw" name="usertrack">
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKeOww6lEeC0A56Pkzdyyw" name="HelperClass">
+          <ownedOperation xmi:id="_iKeOxA6lEeC0A56Pkzdyyw" name="getCPUCount" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKeOxQ6lEeC0A56Pkzdyyw" name="return" type="_iKdnpQ6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKeOxg6lEeC0A56Pkzdyyw" name="sleeping" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKeOxw6lEeC0A56Pkzdyyw" name="i" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKeOyA6lEeC0A56Pkzdyyw" name="err" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKeOyQ6lEeC0A56Pkzdyyw" name="e"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKeOyg6lEeC0A56Pkzdyyw" name="msgLog" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKeOyw6lEeC0A56Pkzdyyw" name="sLog"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKeOzA6lEeC0A56Pkzdyyw" name="printClock" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKeOzQ6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKeOzg6lEeC0A56Pkzdyyw" name="isValidIP" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKeOzw6lEeC0A56Pkzdyyw" name="sIP"/>
+            <ownedParameter xmi:id="_iKeO0A6lEeC0A56Pkzdyyw" name="return" type="_iKdnoA6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKe1wA6lEeC0A56Pkzdyyw" name="SNMPTrackConfig">
+          <ownedAttribute xmi:id="_iKe1wQ6lEeC0A56Pkzdyyw" name="SNMPtrackDB_IP" visibility="private"/>
+          <ownedAttribute xmi:id="_iKe1wg6lEeC0A56Pkzdyyw" name="SNMPtrackDB_DB" visibility="private"/>
+          <ownedAttribute xmi:id="_iKe1ww6lEeC0A56Pkzdyyw" name="SNMPtrackDB_USR" visibility="private"/>
+          <ownedAttribute xmi:id="_iKe1xA6lEeC0A56Pkzdyyw" name="SNMPtrackDB_PWD" visibility="private"/>
+          <ownedAttribute xmi:id="_iKe1xQ6lEeC0A56Pkzdyyw" name="SNMPtrackDB_TBL" visibility="private"/>
+          <ownedAttribute xmi:id="_iKe1xg6lEeC0A56Pkzdyyw" name="NagiosDB_IP" visibility="private"/>
+          <ownedAttribute xmi:id="_iKe1xw6lEeC0A56Pkzdyyw" name="NagiosDB_DB" visibility="private"/>
+          <ownedAttribute xmi:id="_iKe1yA6lEeC0A56Pkzdyyw" name="NagiosDB_USR" visibility="private"/>
+          <ownedAttribute xmi:id="_iKe1yQ6lEeC0A56Pkzdyyw" name="NagiosDB_PWD" visibility="private"/>
+          <ownedAttribute xmi:id="_iKe1yg6lEeC0A56Pkzdyyw" name="NagiosDB_TBL" visibility="private"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKe10Q6lEeC0A56Pkzdyyw" name="Nagios">
+          <ownedOperation xmi:id="_iKe10g6lEeC0A56Pkzdyyw" name="getHostsOfGroupOverHTTP" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKe10w6lEeC0A56Pkzdyyw" name="sGroup"/>
+            <ownedParameter xmi:id="_iKe11A6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKe11Q6lEeC0A56Pkzdyyw" name="getHostsOfGroupOverDB" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKe11g6lEeC0A56Pkzdyyw" name="sGroup"/>
+            <ownedParameter xmi:id="_iKe11w6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKe12w6lEeC0A56Pkzdyyw" name="DNSReserve">
+          <ownedOperation xmi:id="_iKe13A6lEeC0A56Pkzdyyw" name="lookupDNS" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKe13Q6lEeC0A56Pkzdyyw" name="DNSserver"/>
+            <ownedParameter xmi:id="_iKfc0A6lEeC0A56Pkzdyyw" name="IP"/>
+            <ownedParameter xmi:id="_iKfc0Q6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKfc0g6lEeC0A56Pkzdyyw" name="Cisco">
+          <ownedOperation xmi:id="_iKfc0w6lEeC0A56Pkzdyyw" name="getModelfromDescr" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKfc1A6lEeC0A56Pkzdyyw" name="sOID"/>
+            <ownedParameter xmi:id="_iKfc1Q6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKfc1g6lEeC0A56Pkzdyyw" name="getIOSfromDescr" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKfc1w6lEeC0A56Pkzdyyw" name="sOID"/>
+            <ownedParameter xmi:id="_iKfc2A6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKfc2Q6lEeC0A56Pkzdyyw" name="getLocation" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKfc2g6lEeC0A56Pkzdyyw" name="sOID"/>
+            <ownedParameter xmi:id="_iKfc2w6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKfc3A6lEeC0A56Pkzdyyw" name="getUptime" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKfc3Q6lEeC0A56Pkzdyyw" name="oid"/>
+            <ownedParameter xmi:id="_iKfc3g6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKfc3w6lEeC0A56Pkzdyyw" name="getAlias" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKfc4A6lEeC0A56Pkzdyyw" name="oid"/>
+            <ownedParameter xmi:id="_iKfc4Q6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKfc4g6lEeC0A56Pkzdyyw" name="DataManagerOracle">
+          <ownedAttribute xmi:id="_iKfc4w6lEeC0A56Pkzdyyw" name="uniqueInstance" visibility="private" type="_iKfc4g6lEeC0A56Pkzdyyw" association="_iKmxnQ6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKfc5A6lEeC0A56Pkzdyyw" name="lLastAccessed" visibility="private" type="_iKdnpg6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKfc5Q6lEeC0A56Pkzdyyw" name="conn" visibility="private"/>
+          <ownedAttribute xmi:id="_iKfc5g6lEeC0A56Pkzdyyw" name="stmt" visibility="private"/>
+          <ownedOperation xmi:id="_iKfc5w6lEeC0A56Pkzdyyw" name="getInstance" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKfc6A6lEeC0A56Pkzdyyw" name="return" type="_iKfc4g6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKfc6Q6lEeC0A56Pkzdyyw" name="dispose" visibility="public"/>
+          <ownedOperation xmi:id="_iKfc6g6lEeC0A56Pkzdyyw" name="select" visibility="public">
+            <ownedParameter xmi:id="_iKfc6w6lEeC0A56Pkzdyyw" name="SQLString"/>
+            <ownedParameter xmi:id="_iKfc7A6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKfc7Q6lEeC0A56Pkzdyyw" name="execute" visibility="public">
+            <ownedParameter xmi:id="_iKfc7g6lEeC0A56Pkzdyyw" name="SQLString"/>
+            <ownedParameter xmi:id="_iKfc7w6lEeC0A56Pkzdyyw" name="return" type="_iKdnpQ6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKfc8A6lEeC0A56Pkzdyyw" name="executenoexception" visibility="public">
+            <ownedParameter xmi:id="_iKfc8Q6lEeC0A56Pkzdyyw" name="SQLString"/>
+            <ownedParameter xmi:id="_iKfc8g6lEeC0A56Pkzdyyw" name="return" type="_iKdnpQ6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKgD4A6lEeC0A56Pkzdyyw" name="getConnection" visibility="public">
+            <ownedParameter xmi:id="_iKgD4Q6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKgD4g6lEeC0A56Pkzdyyw" name="SNMPTrackHelper">
+          <ownedAttribute xmi:id="_iKgD4w6lEeC0A56Pkzdyyw" name="switchListe" visibility="public"/>
+          <ownedOperation xmi:id="_iKgD5A6lEeC0A56Pkzdyyw" name="isinList" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKgD5Q6lEeC0A56Pkzdyyw" name="sIP"/>
+            <ownedParameter xmi:id="_iKgD5g6lEeC0A56Pkzdyyw" name="return" type="_iKdnoA6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKgD5w6lEeC0A56Pkzdyyw" name="updateALevels" visibility="public" isStatic="true"/>
+          <ownedOperation xmi:id="_iKgD6A6lEeC0A56Pkzdyyw" name="cleanupDuplicates" visibility="public" isStatic="true"/>
+          <ownedOperation xmi:id="_iKgD6Q6lEeC0A56Pkzdyyw" name="transferData" visibility="public" isStatic="true"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKgD6g6lEeC0A56Pkzdyyw" name="SNMPHandler">
+          <ownedOperation xmi:id="_iKgD6w6lEeC0A56Pkzdyyw" name="getOID" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKgD7A6lEeC0A56Pkzdyyw" name="snmp"/>
+            <ownedParameter xmi:id="_iKgD7Q6lEeC0A56Pkzdyyw" name="OID"/>
+            <ownedParameter xmi:id="_iKgD7g6lEeC0A56Pkzdyyw" name="Target"/>
+            <ownedParameter xmi:id="_iKgD7w6lEeC0A56Pkzdyyw" name="Community"/>
+            <ownedParameter xmi:id="_iKgD8A6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKgD8Q6lEeC0A56Pkzdyyw" name="getOIDWalk" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKgD8g6lEeC0A56Pkzdyyw" name="snmp"/>
+            <ownedParameter xmi:id="_iKgD8w6lEeC0A56Pkzdyyw" name="OID"/>
+            <ownedParameter xmi:id="_iKgD9A6lEeC0A56Pkzdyyw" name="Target"/>
+            <ownedParameter xmi:id="_iKgD9Q6lEeC0A56Pkzdyyw" name="Community"/>
+            <ownedParameter xmi:id="_iKgD9g6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKgD9w6lEeC0A56Pkzdyyw" name="getOIDWalknonBulk" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKgD-A6lEeC0A56Pkzdyyw" name="snmp"/>
+            <ownedParameter xmi:id="_iKgD-Q6lEeC0A56Pkzdyyw" name="OID"/>
+            <ownedParameter xmi:id="_iKgD-g6lEeC0A56Pkzdyyw" name="Target"/>
+            <ownedParameter xmi:id="_iKgD-w6lEeC0A56Pkzdyyw" name="Community"/>
+            <ownedParameter xmi:id="_iKgD_A6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKgD_Q6lEeC0A56Pkzdyyw" name="Host">
+          <ownedAttribute xmi:id="_iKgD_g6lEeC0A56Pkzdyyw" name="MAC" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgD_w6lEeC0A56Pkzdyyw" name="PortMAC" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgEAA6lEeC0A56Pkzdyyw" name="IP" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgEAQ6lEeC0A56Pkzdyyw" name="hostname" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgEAg6lEeC0A56Pkzdyyw" name="lastuser" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgEAw6lEeC0A56Pkzdyyw" name="Speed" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgq8A6lEeC0A56Pkzdyyw" name="Duplex" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgq8Q6lEeC0A56Pkzdyyw" name="CDPDeviceID" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgq8g6lEeC0A56Pkzdyyw" name="CDPDeviceIP" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgq8w6lEeC0A56Pkzdyyw" name="CDPDevicePort" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgq9A6lEeC0A56Pkzdyyw" name="CDPDeviceTyp" visibility="public"/>
+          <ownedAttribute xmi:id="_iKgq9Q6lEeC0A56Pkzdyyw" name="sVHOST" visibility="public"/>
+          <ownedOperation xmi:id="_iKgq9g6lEeC0A56Pkzdyyw" name="getDBString" visibility="public">
+            <ownedParameter xmi:id="_iKgq9w6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKgq-A6lEeC0A56Pkzdyyw" name="Base64Converter">
+          <ownedAttribute xmi:id="_iKgq-Q6lEeC0A56Pkzdyyw" name="alphabet" visibility="public" type="_iKdnog6lEeC0A56Pkzdyyw"/>
+          <ownedOperation xmi:id="_iKgq-g6lEeC0A56Pkzdyyw" name="encode" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKgq-w6lEeC0A56Pkzdyyw" name="s"/>
+            <ownedParameter xmi:id="_iKgq_A6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKgq_Q6lEeC0A56Pkzdyyw" name="encode" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKgq_g6lEeC0A56Pkzdyyw" name="octetString" type="_iKdnoQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKgq_w6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKgrAA6lEeC0A56Pkzdyyw" name="LDAP">
+          <ownedOperation xmi:id="_iKgrAQ6lEeC0A56Pkzdyyw" name="main" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKgrAg6lEeC0A56Pkzdyyw" name="args"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKgrAw6lEeC0A56Pkzdyyw" name="getDomainDNS" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKgrBA6lEeC0A56Pkzdyyw" name="DNS"/>
+            <ownedParameter xmi:id="_iKgrBQ6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKgrBg6lEeC0A56Pkzdyyw" name="getUser" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKgrBw6lEeC0A56Pkzdyyw" name="DNS"/>
+            <ownedParameter xmi:id="_iKgrCA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKgrCQ6lEeC0A56Pkzdyyw" name="getUser" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKgrCg6lEeC0A56Pkzdyyw" name="sDMGroup"/>
+            <ownedParameter xmi:id="_iKgrCw6lEeC0A56Pkzdyyw" name="DNS"/>
+            <ownedParameter xmi:id="_iKgrDA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKgrDQ6lEeC0A56Pkzdyyw" name="Port">
+          <ownedAttribute xmi:id="_iKgrDg6lEeC0A56Pkzdyyw" name="sMAC" visibility="public"/>
+          <ownedAttribute xmi:id="_iKhSAA6lEeC0A56Pkzdyyw" name="SwitchIP" visibility="public"/>
+          <ownedAttribute xmi:id="_iKhSAQ6lEeC0A56Pkzdyyw" name="PortID" visibility="public" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKhSAg6lEeC0A56Pkzdyyw" name="VPortID" visibility="public" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKhSAw6lEeC0A56Pkzdyyw" name="name" visibility="public"/>
+          <ownedAttribute xmi:id="_iKhSBA6lEeC0A56Pkzdyyw" name="alias" visibility="public"/>
+          <ownedAttribute xmi:id="_iKhSBQ6lEeC0A56Pkzdyyw" name="vlan" visibility="public"/>
+          <ownedAttribute xmi:id="_iKhSBg6lEeC0A56Pkzdyyw" name="LastUpdate" visibility="public" type="_iKdnpg6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKhSBw6lEeC0A56Pkzdyyw" name="astatus" visibility="public" type="_iKdnoA6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKhSCA6lEeC0A56Pkzdyyw" name="cstatus" visibility="public" type="_iKdnoA6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKhSCQ6lEeC0A56Pkzdyyw" name="Speed" visibility="public"/>
+          <ownedAttribute xmi:id="_iKhSCg6lEeC0A56Pkzdyyw" name="Duplex" visibility="public"/>
+          <ownedAttribute xmi:id="_iKhSCw6lEeC0A56Pkzdyyw" name="isUplink" visibility="public" type="_iKdnoA6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKhSDA6lEeC0A56Pkzdyyw" name="UplinkIP" visibility="public"/>
+          <ownedAttribute xmi:id="_iKhSDQ6lEeC0A56Pkzdyyw" name="hasCDPN" visibility="public" type="_iKdnoA6lEeC0A56Pkzdyyw"/>
+          <ownedOperation xmi:id="_iKhSDg6lEeC0A56Pkzdyyw" name="printAll" visibility="public">
+            <ownedParameter xmi:id="_iKhSDw6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKhSEA6lEeC0A56Pkzdyyw" name="getDBString" visibility="public">
+            <ownedParameter xmi:id="_iKhSEQ6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKhSEg6lEeC0A56Pkzdyyw" name="saveinDB" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKhSEw6lEeC0A56Pkzdyyw" name="SNMPConfig">
+          <ownedOperation xmi:id="_iKhSFA6lEeC0A56Pkzdyyw" name="getDebuglevel" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKhSFQ6lEeC0A56Pkzdyyw" name="return" type="_iKdnpQ6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKhSFg6lEeC0A56Pkzdyyw" name="getThreadmaxcount" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKh5EA6lEeC0A56Pkzdyyw" name="return" type="_iKdnpQ6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKh5EQ6lEeC0A56Pkzdyyw" name="getReadCommunity" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKh5Eg6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKh5Ew6lEeC0A56Pkzdyyw" name="getRouters" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKh5FA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKh5FQ6lEeC0A56Pkzdyyw" name="DataManagerOracleMulti">
+          <ownedOperation xmi:id="_iKh5Fg6lEeC0A56Pkzdyyw" name="execute" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKh5Fw6lEeC0A56Pkzdyyw" name="sName"/>
+            <ownedParameter xmi:id="_iKh5GA6lEeC0A56Pkzdyyw" name="sSQLList"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKh5GQ6lEeC0A56Pkzdyyw" name="HttpHelperClass">
+          <ownedOperation xmi:id="_iKh5Gg6lEeC0A56Pkzdyyw" name="getPage" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKh5Gw6lEeC0A56Pkzdyyw" name="surl"/>
+            <ownedParameter xmi:id="_iKh5HA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKh5HQ6lEeC0A56Pkzdyyw" name="getBasicAuthPage" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKh5Hg6lEeC0A56Pkzdyyw" name="surl"/>
+            <ownedParameter xmi:id="_iKh5Hw6lEeC0A56Pkzdyyw" name="usr"/>
+            <ownedParameter xmi:id="_iKh5IA6lEeC0A56Pkzdyyw" name="pwd"/>
+            <ownedParameter xmi:id="_iKh5IQ6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKh5JA6lEeC0A56Pkzdyyw" name="OIDL">
+          <ownedAttribute xmi:id="_iKh5JQ6lEeC0A56Pkzdyyw" name="ipNetToMediaPhysAddress" visibility="public"/>
+          <ownedAttribute xmi:id="_iKh5Jg6lEeC0A56Pkzdyyw" name="sysDescr0" visibility="public"/>
+          <ownedAttribute xmi:id="_iKh5Jw6lEeC0A56Pkzdyyw" name="sysLocation0" visibility="public"/>
+          <ownedAttribute xmi:id="_iKh5KA6lEeC0A56Pkzdyyw" name="sysUpTimeInstance" visibility="public"/>
+          <ownedAttribute xmi:id="_iKh5KQ6lEeC0A56Pkzdyyw" name="sysName0" visibility="public"/>
+          <ownedAttribute xmi:id="_iKh5Kg6lEeC0A56Pkzdyyw" name="ifPhysAddress" visibility="public"/>
+          <ownedAttribute xmi:id="_iKh5Kw6lEeC0A56Pkzdyyw" name="ifOperStatus" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigIA6lEeC0A56Pkzdyyw" name="ifName" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigIQ6lEeC0A56Pkzdyyw" name="ifAlias" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigIg6lEeC0A56Pkzdyyw" name="ifSpeed" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigIw6lEeC0A56Pkzdyyw" name="ifType" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigJA6lEeC0A56Pkzdyyw" name="dot1dBasePortIfIndex" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigJQ6lEeC0A56Pkzdyyw" name="dot1dTpFdbPort" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigJg6lEeC0A56Pkzdyyw" name="vmVlan" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigJw6lEeC0A56Pkzdyyw" name="vtpVlanState" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigKA6lEeC0A56Pkzdyyw" name="cdpCacheAddress" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigKQ6lEeC0A56Pkzdyyw" name="cdpCacheDeviceId" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigKg6lEeC0A56Pkzdyyw" name="cdpCacheDevicePort" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigKw6lEeC0A56Pkzdyyw" name="cdpCacheCapabilities" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigLA6lEeC0A56Pkzdyyw" name="portType" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigLQ6lEeC0A56Pkzdyyw" name="locIfspanInPkts" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigLg6lEeC0A56Pkzdyyw" name="c2900PortIfIndex" visibility="public"/>
+          <ownedAttribute xmi:id="_iKigLw6lEeC0A56Pkzdyyw" name="c2900PortDuplexStatus" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKigMA6lEeC0A56Pkzdyyw" name="SwitchListe">
+          <ownedAttribute xmi:id="_iKigMQ6lEeC0A56Pkzdyyw" name="switchList" visibility="private"/>
+          <ownedOperation xmi:id="_iKigMg6lEeC0A56Pkzdyyw" name="addsw" visibility="private">
+            <ownedParameter xmi:id="_iKigMw6lEeC0A56Pkzdyyw" name="sAdrr"/>
+            <ownedParameter xmi:id="_iKigNA6lEeC0A56Pkzdyyw" name="sReadc"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKigNQ6lEeC0A56Pkzdyyw" name="getSwitchList" visibility="public">
+            <ownedParameter xmi:id="_iKigNg6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKigNw6lEeC0A56Pkzdyyw" name="DataManagerMySQL">
+          <ownedAttribute xmi:id="_iKigOA6lEeC0A56Pkzdyyw" name="uniqueInstance" visibility="private" type="_iKigNw6lEeC0A56Pkzdyyw" association="_iKmxnw6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKigOQ6lEeC0A56Pkzdyyw" name="lLastAccessed" visibility="private" type="_iKdnpg6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKigOg6lEeC0A56Pkzdyyw" name="conn" visibility="private"/>
+          <ownedAttribute xmi:id="_iKigOw6lEeC0A56Pkzdyyw" name="stmt" visibility="private"/>
+          <ownedOperation xmi:id="_iKjHMA6lEeC0A56Pkzdyyw" name="getInstance" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKjHMQ6lEeC0A56Pkzdyyw" name="return" type="_iKigNw6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKjHMg6lEeC0A56Pkzdyyw" name="dispose" visibility="public"/>
+          <ownedOperation xmi:id="_iKjHMw6lEeC0A56Pkzdyyw" name="select" visibility="public">
+            <ownedParameter xmi:id="_iKjHNA6lEeC0A56Pkzdyyw" name="SQLString"/>
+            <ownedParameter xmi:id="_iKjHNQ6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKjHNg6lEeC0A56Pkzdyyw" name="execute" visibility="public">
+            <ownedParameter xmi:id="_iKjHNw6lEeC0A56Pkzdyyw" name="SQLString"/>
+            <ownedParameter xmi:id="_iKjHOA6lEeC0A56Pkzdyyw" name="return" type="_iKdnpQ6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKjHOQ6lEeC0A56Pkzdyyw" name="getConnection" visibility="public">
+            <ownedParameter xmi:id="_iKjHOg6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKjHOw6lEeC0A56Pkzdyyw" name="DBComitterThread">
+          <ownedAttribute xmi:id="_iKjHPA6lEeC0A56Pkzdyyw" name="sSQL_List"/>
+          <ownedAttribute xmi:id="_iKjHPQ6lEeC0A56Pkzdyyw" name="runner"/>
+          <ownedAttribute xmi:id="_iKjHPg6lEeC0A56Pkzdyyw" name="sName"/>
+          <ownedOperation xmi:id="_iKjHPw6lEeC0A56Pkzdyyw" name="run" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKjHQA6lEeC0A56Pkzdyyw" name="OID">
+          <ownedAttribute xmi:id="_iKjHQQ6lEeC0A56Pkzdyyw" name="ipNetToMediaPhysAddress" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjHQg6lEeC0A56Pkzdyyw" name="sysDescr0" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjHQw6lEeC0A56Pkzdyyw" name="sysLocation0" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjHRA6lEeC0A56Pkzdyyw" name="sysUpTimeInstance" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjHRQ6lEeC0A56Pkzdyyw" name="sysName0" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjHRg6lEeC0A56Pkzdyyw" name="ifPhysAddress" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjHRw6lEeC0A56Pkzdyyw" name="ifOperStatus" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjHSA6lEeC0A56Pkzdyyw" name="ifName" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjHSQ6lEeC0A56Pkzdyyw" name="ifAlias" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjHSg6lEeC0A56Pkzdyyw" name="ifSpeed" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjHSw6lEeC0A56Pkzdyyw" name="ifType" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuQA6lEeC0A56Pkzdyyw" name="dot1dBasePortIfIndex" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuQQ6lEeC0A56Pkzdyyw" name="dot1dTpFdbPort" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuQg6lEeC0A56Pkzdyyw" name="vmVlan" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuQw6lEeC0A56Pkzdyyw" name="vtpVlanState" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuRA6lEeC0A56Pkzdyyw" name="cdpCacheAddress" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuRQ6lEeC0A56Pkzdyyw" name="cdpCacheDeviceId" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuRg6lEeC0A56Pkzdyyw" name="cdpCacheDevicePort" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuRw6lEeC0A56Pkzdyyw" name="cdpCacheCapabilities" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuSA6lEeC0A56Pkzdyyw" name="portType" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuSQ6lEeC0A56Pkzdyyw" name="locIfspanInPkts" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuSg6lEeC0A56Pkzdyyw" name="c2900PortIfIndex" visibility="public"/>
+          <ownedAttribute xmi:id="_iKjuSw6lEeC0A56Pkzdyyw" name="c2900PortDuplexStatus" visibility="public"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKjuTA6lEeC0A56Pkzdyyw" name="Switch">
+          <ownedAttribute xmi:id="_iKjuTQ6lEeC0A56Pkzdyyw" name="swHostMacIps" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuTg6lEeC0A56Pkzdyyw" name="sIP" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuTw6lEeC0A56Pkzdyyw" name="sReadcommunity" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuUA6lEeC0A56Pkzdyyw" name="snmp" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuUQ6lEeC0A56Pkzdyyw" name="svendor" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuUg6lEeC0A56Pkzdyyw" name="smodel" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuUw6lEeC0A56Pkzdyyw" name="sversion" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuVA6lEeC0A56Pkzdyyw" name="sLocation" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuVQ6lEeC0A56Pkzdyyw" name="iUptime" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuVg6lEeC0A56Pkzdyyw" name="sAlias" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuVw6lEeC0A56Pkzdyyw" name="sDNS" visibility="private"/>
+          <ownedAttribute xmi:id="_iKjuWA6lEeC0A56Pkzdyyw" name="iTimestamp" visibility="private" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+          <ownedOperation xmi:id="_iKjuWQ6lEeC0A56Pkzdyyw" name="getsIP" visibility="public">
+            <ownedParameter xmi:id="_iKjuWg6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKjuWw6lEeC0A56Pkzdyyw" name="refresh" visibility="public"/>
+          <ownedOperation xmi:id="_iKjuXA6lEeC0A56Pkzdyyw" name="isVMMAC" visibility="private">
+            <ownedParameter xmi:id="_iKkVUA6lEeC0A56Pkzdyyw" name="sMAC"/>
+            <ownedParameter xmi:id="_iKkVUQ6lEeC0A56Pkzdyyw" name="return" type="_iKdnoA6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKkVUg6lEeC0A56Pkzdyyw" name="isVPCMAC" visibility="private">
+            <ownedParameter xmi:id="_iKkVUw6lEeC0A56Pkzdyyw" name="sMAC"/>
+            <ownedParameter xmi:id="_iKkVVA6lEeC0A56Pkzdyyw" name="return" type="_iKdnoA6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKkVVQ6lEeC0A56Pkzdyyw" name="isVBoxMAC" visibility="private">
+            <ownedParameter xmi:id="_iKkVVg6lEeC0A56Pkzdyyw" name="sMAC"/>
+            <ownedParameter xmi:id="_iKkVVw6lEeC0A56Pkzdyyw" name="return" type="_iKdnoA6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKkVWA6lEeC0A56Pkzdyyw" name="isVMWareMAC" visibility="private">
+            <ownedParameter xmi:id="_iKkVWQ6lEeC0A56Pkzdyyw" name="sMAC"/>
+            <ownedParameter xmi:id="_iKkVWg6lEeC0A56Pkzdyyw" name="return" type="_iKdnoA6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKkVWw6lEeC0A56Pkzdyyw" name="getMACfromIP" visibility="private">
+            <ownedParameter xmi:id="_iKkVXA6lEeC0A56Pkzdyyw" name="swHostMacIP"/>
+            <ownedParameter xmi:id="_iKkVXQ6lEeC0A56Pkzdyyw" name="uplinkIP"/>
+            <ownedParameter xmi:id="_iKkVXg6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKkVXw6lEeC0A56Pkzdyyw" name="getCDPTyp" visibility="private">
+            <ownedParameter xmi:id="_iKkVYA6lEeC0A56Pkzdyyw" name="swCDPC"/>
+            <ownedParameter xmi:id="_iKkVYQ6lEeC0A56Pkzdyyw" name="sCDPLport"/>
+            <ownedParameter xmi:id="_iKkVYg6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKkVYw6lEeC0A56Pkzdyyw" name="getCDPPort" visibility="private">
+            <ownedParameter xmi:id="_iKkVZA6lEeC0A56Pkzdyyw" name="swCDPPort"/>
+            <ownedParameter xmi:id="_iKkVZQ6lEeC0A56Pkzdyyw" name="sCDPLport"/>
+            <ownedParameter xmi:id="_iKkVZg6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKkVZw6lEeC0A56Pkzdyyw" name="getCDPID" visibility="private">
+            <ownedParameter xmi:id="_iKkVaA6lEeC0A56Pkzdyyw" name="swCDPDI"/>
+            <ownedParameter xmi:id="_iKkVaQ6lEeC0A56Pkzdyyw" name="sCDPLport"/>
+            <ownedParameter xmi:id="_iKkVag6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKkVaw6lEeC0A56Pkzdyyw" name="getCDPLport" visibility="private">
+            <ownedParameter xmi:id="_iKkVbA6lEeC0A56Pkzdyyw" name="swCDP"/>
+            <ownedParameter xmi:id="_iKkVbQ6lEeC0A56Pkzdyyw" name="IP"/>
+            <ownedParameter xmi:id="_iKkVbg6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKkVbw6lEeC0A56Pkzdyyw" name="isVportID" visibility="private">
+            <ownedParameter xmi:id="_iKkVcA6lEeC0A56Pkzdyyw" name="swVPort"/>
+            <ownedParameter xmi:id="_iKkVcQ6lEeC0A56Pkzdyyw" name="portID" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKk8YA6lEeC0A56Pkzdyyw" name="return" type="_iKdnoA6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKk8YQ6lEeC0A56Pkzdyyw" name="getType" visibility="private">
+            <ownedParameter xmi:id="_iKk8Yg6lEeC0A56Pkzdyyw" name="swType"/>
+            <ownedParameter xmi:id="_iKk8Yw6lEeC0A56Pkzdyyw" name="portID" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKk8ZA6lEeC0A56Pkzdyyw" name="return" type="_iKdnpQ6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKk8ZQ6lEeC0A56Pkzdyyw" name="getSTPCount" visibility="private">
+            <ownedParameter xmi:id="_iKk8Zg6lEeC0A56Pkzdyyw" name="swSTP"/>
+            <ownedParameter xmi:id="_iKk8Zw6lEeC0A56Pkzdyyw" name="portID" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKk8aA6lEeC0A56Pkzdyyw" name="return" type="_iKdnpg6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKk8aQ6lEeC0A56Pkzdyyw" name="getIPfromMAC" visibility="private">
+            <ownedParameter xmi:id="_iKk8ag6lEeC0A56Pkzdyyw" name="swHostMacIps"/>
+            <ownedParameter xmi:id="_iKk8aw6lEeC0A56Pkzdyyw" name="sMAC"/>
+            <ownedParameter xmi:id="_iKk8bA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKk8bQ6lEeC0A56Pkzdyyw" name="getHostsOfPort" visibility="private">
+            <ownedParameter xmi:id="_iKk8bg6lEeC0A56Pkzdyyw" name="swHostMAC"/>
+            <ownedParameter xmi:id="_iKk8bw6lEeC0A56Pkzdyyw" name="vPortID" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKk8cA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKk8cQ6lEeC0A56Pkzdyyw" name="getVPortID" visibility="private">
+            <ownedParameter xmi:id="_iKk8cg6lEeC0A56Pkzdyyw" name="swVPort"/>
+            <ownedParameter xmi:id="_iKk8cw6lEeC0A56Pkzdyyw" name="PortID" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKk8dA6lEeC0A56Pkzdyyw" name="return" type="_iKdnpQ6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKk8dQ6lEeC0A56Pkzdyyw" name="getUplinkCDPIP" visibility="private">
+            <ownedParameter xmi:id="_iKk8dg6lEeC0A56Pkzdyyw" name="swCDP"/>
+            <ownedParameter xmi:id="_iKk8dw6lEeC0A56Pkzdyyw" name="portID" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKk8eA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKk8eQ6lEeC0A56Pkzdyyw" name="getCDPIP" visibility="private">
+            <ownedParameter xmi:id="_iKk8eg6lEeC0A56Pkzdyyw" name="swCDP"/>
+            <ownedParameter xmi:id="_iKk8ew6lEeC0A56Pkzdyyw" name="portID" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKk8fA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKk8fQ6lEeC0A56Pkzdyyw" name="isCDP" visibility="private">
+            <ownedParameter xmi:id="_iKk8fg6lEeC0A56Pkzdyyw" name="swCDP"/>
+            <ownedParameter xmi:id="_iKljcA6lEeC0A56Pkzdyyw" name="portID" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKljcQ6lEeC0A56Pkzdyyw" name="return" type="_iKdnoA6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKljcg6lEeC0A56Pkzdyyw" name="isUplinkportCDP" visibility="private">
+            <ownedParameter xmi:id="_iKljcw6lEeC0A56Pkzdyyw" name="swCDP"/>
+            <ownedParameter xmi:id="_iKljdA6lEeC0A56Pkzdyyw" name="swCDPC"/>
+            <ownedParameter xmi:id="_iKljdQ6lEeC0A56Pkzdyyw" name="portID" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKljdg6lEeC0A56Pkzdyyw" name="return" type="_iKdnoA6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKljdw6lEeC0A56Pkzdyyw" name="isCDPswitch" visibility="private">
+            <ownedParameter xmi:id="_iKljeA6lEeC0A56Pkzdyyw" name="CDPC"/>
+            <ownedParameter xmi:id="_iKljeQ6lEeC0A56Pkzdyyw" name="return" type="_iKdnoA6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKljeg6lEeC0A56Pkzdyyw" name="getDuplexState" visibility="private">
+            <ownedParameter xmi:id="_iKljew6lEeC0A56Pkzdyyw" name="swDuplex"/>
+            <ownedParameter xmi:id="_iKljfA6lEeC0A56Pkzdyyw" name="portID" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKljfQ6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKljfg6lEeC0A56Pkzdyyw" name="getVLanList" visibility="public">
+            <ownedParameter xmi:id="_iKljfw6lEeC0A56Pkzdyyw" name="Liste"/>
+            <ownedParameter xmi:id="_iKljgA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKljgQ6lEeC0A56Pkzdyyw" name="getOIDListEntry" visibility="public">
+            <ownedParameter xmi:id="_iKljgg6lEeC0A56Pkzdyyw" name="swListe"/>
+            <ownedParameter xmi:id="_iKljgw6lEeC0A56Pkzdyyw" name="s" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+            <ownedParameter xmi:id="_iKljhA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKljhQ6lEeC0A56Pkzdyyw" name="readCommunity" visibility="public">
+            <ownedParameter xmi:id="_iKljhg6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKljhw6lEeC0A56Pkzdyyw" name="HexToDec">
+          <ownedOperation xmi:id="_iKljiA6lEeC0A56Pkzdyyw" name="getDec" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKljiQ6lEeC0A56Pkzdyyw" name="sHex"/>
+            <ownedParameter xmi:id="_iKljig6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKljiw6lEeC0A56Pkzdyyw" name="getSimpleHex" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKljjA6lEeC0A56Pkzdyyw" name="sHex"/>
+            <ownedParameter xmi:id="_iKljjQ6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKljjg6lEeC0A56Pkzdyyw" name="getADVfromSimple" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKljjw6lEeC0A56Pkzdyyw" name="sHex"/>
+            <ownedParameter xmi:id="_iKljkA6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKljkQ6lEeC0A56Pkzdyyw" name="getHex" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKljkg6lEeC0A56Pkzdyyw" name="sDec"/>
+            <ownedParameter xmi:id="_iKljkw6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKmKgA6lEeC0A56Pkzdyyw" name="SNMPTrack">
+          <ownedAttribute xmi:id="_iKmKgQ6lEeC0A56Pkzdyyw" name="ifinishedThreads" visibility="private" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKmKgg6lEeC0A56Pkzdyyw" name="activeThreads" visibility="private" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKmKgw6lEeC0A56Pkzdyyw" name="transport"/>
+          <ownedAttribute xmi:id="_iKmKhA6lEeC0A56Pkzdyyw" name="snmp"/>
+          <ownedAttribute xmi:id="_iKmKhQ6lEeC0A56Pkzdyyw" name="swHostMacIps"/>
+          <ownedOperation xmi:id="_iKmKhg6lEeC0A56Pkzdyyw" name="getActiveThreads" visibility="public">
+            <ownedParameter xmi:id="_iKmKhw6lEeC0A56Pkzdyyw" name="return" type="_iKdnpQ6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKmKiA6lEeC0A56Pkzdyyw" name="setActiveThreads" visibility="public">
+            <ownedParameter xmi:id="_iKmKiQ6lEeC0A56Pkzdyyw" name="activeThreads" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKmKig6lEeC0A56Pkzdyyw" name="getIfinishedThreads" visibility="public">
+            <ownedParameter xmi:id="_iKmKiw6lEeC0A56Pkzdyyw" name="return" type="_iKdnpQ6lEeC0A56Pkzdyyw" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKmKjA6lEeC0A56Pkzdyyw" name="setIfinishedThreads" visibility="public">
+            <ownedParameter xmi:id="_iKmKjQ6lEeC0A56Pkzdyyw" name="ifinishedThreads" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+          </ownedOperation>
+          <ownedOperation xmi:id="_iKmKjg6lEeC0A56Pkzdyyw" name="main" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKmKjw6lEeC0A56Pkzdyyw" name="args"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKmKkA6lEeC0A56Pkzdyyw" name="SwitchWorkerThread">
+          <ownedAttribute xmi:id="_iKmKkQ6lEeC0A56Pkzdyyw" name="runner"/>
+          <ownedAttribute xmi:id="_iKmKkg6lEeC0A56Pkzdyyw" name="targetAddress"/>
+          <ownedAttribute xmi:id="_iKmKkw6lEeC0A56Pkzdyyw" name="sIP"/>
+          <ownedAttribute xmi:id="_iKmKlA6lEeC0A56Pkzdyyw" name="sReadc"/>
+          <ownedAttribute xmi:id="_iKmKlQ6lEeC0A56Pkzdyyw" name="jm" type="_iKmKgA6lEeC0A56Pkzdyyw" association="_iKmxoQ6lEeC0A56Pkzdyyw"/>
+          <ownedAttribute xmi:id="_iKmKlg6lEeC0A56Pkzdyyw" name="snmp"/>
+          <ownedAttribute xmi:id="_iKmKlw6lEeC0A56Pkzdyyw" name="transport"/>
+          <ownedAttribute xmi:id="_iKmKmA6lEeC0A56Pkzdyyw" name="iMax" type="_iKdnpQ6lEeC0A56Pkzdyyw"/>
+          <ownedOperation xmi:id="_iKmKmQ6lEeC0A56Pkzdyyw" name="run" visibility="public"/>
+          <ownedOperation xmi:id="_iKmKmg6lEeC0A56Pkzdyyw" name="threadMGTfinish" visibility="private"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_iKmKmw6lEeC0A56Pkzdyyw" name="DNSHelperClass">
+          <ownedOperation xmi:id="_iKmKnA6lEeC0A56Pkzdyyw" name="getHostname" visibility="public" isStatic="true">
+            <ownedParameter xmi:id="_iKmKnQ6lEeC0A56Pkzdyyw" name="IP"/>
+            <ownedParameter xmi:id="_iKmKng6lEeC0A56Pkzdyyw" name="return" direction="return"/>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_iKmxnQ6lEeC0A56Pkzdyyw" memberEnd="_iKfc4w6lEeC0A56Pkzdyyw _iKmxng6lEeC0A56Pkzdyyw">
+          <ownedEnd xmi:id="_iKmxng6lEeC0A56Pkzdyyw" name="target" type="_iKfc4g6lEeC0A56Pkzdyyw" association="_iKmxnQ6lEeC0A56Pkzdyyw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_iKmxnw6lEeC0A56Pkzdyyw" memberEnd="_iKigOA6lEeC0A56Pkzdyyw _iKmxoA6lEeC0A56Pkzdyyw">
+          <ownedEnd xmi:id="_iKmxoA6lEeC0A56Pkzdyyw" name="target" type="_iKigNw6lEeC0A56Pkzdyyw" association="_iKmxnw6lEeC0A56Pkzdyyw"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_iKmxoQ6lEeC0A56Pkzdyyw" memberEnd="_iKmKlQ6lEeC0A56Pkzdyyw _iKmxog6lEeC0A56Pkzdyyw">
+          <ownedEnd xmi:id="_iKmxog6lEeC0A56Pkzdyyw" name="target" type="_iKmKkA6lEeC0A56Pkzdyyw" association="_iKmxoQ6lEeC0A56Pkzdyyw"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>
