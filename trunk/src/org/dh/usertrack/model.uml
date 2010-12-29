@@ -305,31 +305,6 @@
           <ownedAttribute xmi:id="_iKjHPg6lEeC0A56Pkzdyyw" name="sName"/>
           <ownedOperation xmi:id="_iKjHPw6lEeC0A56Pkzdyyw" name="run" visibility="public"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_iKjHQA6lEeC0A56Pkzdyyw" name="OID">
-          <ownedAttribute xmi:id="_iKjHQQ6lEeC0A56Pkzdyyw" name="ipNetToMediaPhysAddress" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjHQg6lEeC0A56Pkzdyyw" name="sysDescr0" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjHQw6lEeC0A56Pkzdyyw" name="sysLocation0" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjHRA6lEeC0A56Pkzdyyw" name="sysUpTimeInstance" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjHRQ6lEeC0A56Pkzdyyw" name="sysName0" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjHRg6lEeC0A56Pkzdyyw" name="ifPhysAddress" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjHRw6lEeC0A56Pkzdyyw" name="ifOperStatus" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjHSA6lEeC0A56Pkzdyyw" name="ifName" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjHSQ6lEeC0A56Pkzdyyw" name="ifAlias" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjHSg6lEeC0A56Pkzdyyw" name="ifSpeed" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjHSw6lEeC0A56Pkzdyyw" name="ifType" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuQA6lEeC0A56Pkzdyyw" name="dot1dBasePortIfIndex" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuQQ6lEeC0A56Pkzdyyw" name="dot1dTpFdbPort" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuQg6lEeC0A56Pkzdyyw" name="vmVlan" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuQw6lEeC0A56Pkzdyyw" name="vtpVlanState" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuRA6lEeC0A56Pkzdyyw" name="cdpCacheAddress" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuRQ6lEeC0A56Pkzdyyw" name="cdpCacheDeviceId" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuRg6lEeC0A56Pkzdyyw" name="cdpCacheDevicePort" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuRw6lEeC0A56Pkzdyyw" name="cdpCacheCapabilities" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuSA6lEeC0A56Pkzdyyw" name="portType" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuSQ6lEeC0A56Pkzdyyw" name="locIfspanInPkts" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuSg6lEeC0A56Pkzdyyw" name="c2900PortIfIndex" visibility="public"/>
-          <ownedAttribute xmi:id="_iKjuSw6lEeC0A56Pkzdyyw" name="c2900PortDuplexStatus" visibility="public"/>
-        </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_iKjuTA6lEeC0A56Pkzdyyw" name="Switch">
           <ownedAttribute xmi:id="_iKjuTQ6lEeC0A56Pkzdyyw" name="swHostMacIps" visibility="private"/>
           <ownedAttribute xmi:id="_iKjuTg6lEeC0A56Pkzdyyw" name="sIP" visibility="private"/>
