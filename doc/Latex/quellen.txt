@@ -1,0 +1,19 @@
+
+\chapter{Quellenverzeichnis}
+\label{cha:quellen}
+
+Test: \cite{AD2008}
+
+AD1-Abts Dietmar, Grundkurs Wirtschaftsinformatik: Eine kompakte und praxisorientierte Einführung, 6. Auflage, 2008
+\\
+FD1-Frick Detlev, Grundkurs SAP ERP: Geschäftsprozessorientierte Einführung mit durchgehendem Fallbeispiel,  Vieweg+Teubner; 1. Auflage, 2007
+\\
+HH1-Handelskammer Hamburg, INTRASTAT-Meldungen bei innergemeinschaftlichen Warenbewegungen , 2010
+\\
+JT1-Jeske Till, SAP für Java-Entwickler,Springer, Berlin; 1. Auflage 2006
+\\
+MS1-MySQL AB Development Team, Das offizielle MySQL 5-Handbuch, Addison-Wesley-Verlag, München, 1. Auflage, 2006
+\\
+SB1-Statistisches Bundesamt, Wiesbaden, Intrahandelsstatistik "Anleitung zum Ausfüllen der Intrastat-Vordrucke" 2010
+\\
+SB2-Statistisches Bundesamt, Wiesbaden, Meldeformen bei der Datenerhebung im Intrahandel, http://www.destatis.de/jetspeed/portal/cms/Sites/destatis/Internet/DE/Navigation/IntraExtrahandel/Intrahandel/Meldeformen,templateId=renderPrint.psml\_\_nnn=true Abgerufen 13. Januar 2010

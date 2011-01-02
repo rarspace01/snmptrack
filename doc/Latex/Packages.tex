@@ -1,0 +1,157 @@
+% Anpassung des Seitenlayouts ----------------------------------------------
+% 	siehe Seitenstil.tex
+% --------------------------------------------------------------------------
+\usepackage[
+	automark,			% Kapitelangaben in Kopfzeile automatisch erstellen
+	headsepline,	% Trennlinie unter Kopfzeile
+	ilines				% Trennlinie linksbndig ausrichten
+]{scrpage2}
+
+
+%fuer die schriften
+%\usepackage{mathptmx}
+%\usepackage[scaled=.90]{helvet}
+%\usepackage{courier}
+
+% Anpassung an Landessprache -----------------------------------------------
+% 	Verwendet globale Option german siehe \documentclass
+% --------------------------------------------------------------------------
+\usepackage{babel}
+
+\usepackage{acronym}
+
+
+% Grafiken -----------------------------------------------------------------
+% 		Einbinden von Grafiken [draft oder final]
+% 		Option [draft] bindet Bilder nicht ein - auch globale Option
+% --------------------------------------------------------------------------
+\usepackage[dvips,final]{graphicx}
+\graphicspath{{Bilder/}} % Dort liegen die Bilder des Dokuments
+
+% Befehle aus AMSTeX fr mathematische Symbole z.B. \boldsymbol \mathbb ----
+\usepackage{amsmath,amsfonts}
+
+% Fr Index-Ausgabe; \printindex -------------------------------------------
+\usepackage{makeidx}
+
+% Einfache Definition der Zeilenabstnde und Seitenrnder etc. -------------
+\usepackage{setspace}
+\usepackage{geometry}
+
+
+% Symbolverzeichnis --------------------------------------------------------
+% 	Symbolverzeichnisse bequem erstellen, beruht auf MakeIndex.
+% 		makeindex.exe %Name%.nlo -s nomencl.ist -o %Name%.nls
+% 	erzeugt dann das Verzeichnis. Dieser Befehl kann z.B. im TeXnicCenter
+%		als Postprozessor eingetragen werden, damit er nicht stndig manuell
+%		ausgefhrt werden muss.
+%		Die Definitionen sind ausgegliedert in die Datei Abkuerzungen.tex.
+% --------------------------------------------------------------------------
+\usepackage[intoc]{nomencl}
+  \let\abbrev\nomenclature
+  \renewcommand{\nomname}{Abkrzungsverzeichnis}
+  \setlength{\nomlabelwidth}{.25\hsize}
+  \renewcommand{\nomlabel}[1]{#1 \dotfill}
+  \setlength{\nomitemsep}{-\parsep}
+
+
+% Zum Umflieen von Bildern -------------------------------------------------
+%\usepackage{floatflt}
+\usepackage{float}
+
+
+% Zum Einbinden von Programmcode --------------------------------------------
+\usepackage{listings}
+\usepackage{xcolor} 
+\definecolor{hellgelb}{rgb}{1,1,0.9}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\lstset{%
+    float=hbp,%
+    basicstyle=\texttt\small, %
+    identifierstyle=\color{colIdentifier}, %
+    keywordstyle=\color{colKeys}, %
+    stringstyle=\color{colString}, %
+    commentstyle=\color{colComments}, %
+    columns=flexible, %
+    tabsize=2, %
+    frame=single, %
+    extendedchars=true, %
+    showspaces=false, %
+    showstringspaces=false, %
+    numbers=left, %
+    numberstyle=\tiny, %
+    breaklines=true, %
+    backgroundcolor=\color{hellgelb}, %
+    breakautoindent=true, %
+%    captionpos=b%
+}
+
+% Lange URLs umbrechen etc. -------------------------------------------------
+\usepackage{url}
+
+
+% Wichtig fr korrekte Zitierweise ------------------------------------------
+\usepackage[square]{natbib}
+%\includepackage[numeric]{natbib}
+
+% Quellenangaben in eckige Klammern fassen ----------------------------------
+\bibpunct{[}{]}{;}{a}{}{,~}
+
+
+% PDF-Optionen --------------------------------------------------------------
+\usepackage[
+bookmarks,
+bookmarksopen=true,
+pdftitle={\titel},
+pdfauthor={\autor},
+pdfcreator={\autor},
+pdfsubject={\titel},
+pdfkeywords={\titel},
+colorlinks=true,
+linkcolor=black, % einfache interne Verknpfungen
+anchorcolor=black,% Ankertext
+citecolor=black, % Verweise auf Literaturverzeichniseintrge im Text
+filecolor=magenta, % Verknpfungen, die lokale Dateien ffnen
+menucolor=black, % Acrobat-Menpunkte
+urlcolor=black, 
+% fr die Druckversion knnen die Farben ausgeschaltet werden:
+%linkcolor=black, % einfache interne Verknpfungen
+%anchorcolor=black,% Ankertext
+%citecolor=black, % Verweise auf Literaturverzeichniseintrge im Text
+%filecolor=black, % Verknpfungen, die lokale Dateien ffnen
+%menucolor=black, % Acrobat-Menpunkte
+%urlcolor=black, 
+%backref, --test
+%pagebackref,
+plainpages=false,% zur korrekten Erstellung der Bookmarks
+pdfpagelabels,% zur korrekten Erstellung der Bookmarks
+hypertexnames=false,% zur korrekten Erstellung der Bookmarks
+linktocpage % Seitenzahlen anstatt Text im Inhaltsverzeichnis verlinken
+]{hyperref}
+
+% Zum fortlaufenden Durchnummerieren der Funoten ---------------------------
+\usepackage{chngcntr}
+
+
+% fr lange Tabellen
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{lscape}
+
+% Spaltendefinition rechtsbndig mit definierter Breite ---------------------
+\newcolumntype{w}[1]{>{\raggedleft\hspace{0pt}}p{#1}}
+
+% Formatierung von Listen ndern
+\usepackage{paralist}
+% Standardeinstellungen:
+% \setdefaultleftmargin{2.5em}{2.2em}{1.87em}{1.7em}{1em}{1em}
+
+%Zeilenabstand
+\renewcommand{\baselinestretch}{1.5}\normalsize
+
+%Schriftart
+\renewcommand{\familydefault}{\sfdefault}

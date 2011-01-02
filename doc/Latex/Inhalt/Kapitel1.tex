@@ -1,0 +1,248 @@
+\chapter{Theoretische Grundlagen}
+\label{cha:theogrund}
+
+\section{Datenbank Entwurf / ERM}
+\label{sec:erm}
+
+Unter dem Datenbank Entwurf ist der Prozess zur Erstellung eines Schemas zu verstehen, welches die sptere Datenbank abbilden wird.
+Hierunter fallen unter anderem die Analyse der Anforderungen, aber auch die grafische Darstellung der Tabellen, in denen die Daten gespeichert werden.
+Der Entwurf der Datenbank im Voraus ist essentiell, da im spteren Prozess nderungen der Datenbankstruktur nicht nur die Datenbank selbst, sondern auch alle mit ihr verbundenen Applikationen betreffen wrden.
+Um die Beziehungen korrekt darstellen zu knnen, wird das Entity-Relationship-Modell\footnote{Vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.10} verwendet.
+Durch diese Modell lassen sich sogenannte ER-Diagramme zeichnen, z.B. nach der Chen Notation\footnote{Vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.19}.
+Ein ER-Diagramm nach Chen stellt die Entittstypen (Klassen), Attribute, sowie Beziehungen (Relationen/Kardinalitten) dar.
+Im folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation kurz erlutert werden.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{img_chen_001.png}
+\caption{Chen Notation 1:N}
+\label{chenpic1}
+\end{center}
+\end{figure}
+\footnotetext{In Anlehnung an Chen}
+
+
+Das Diagramm beschreibt folgenden Sachverhalt:
+
+\begin{itemize}
+\item Ein Angestellter leitet mehrere Projekte.
+\item Ein Projekt wird von einem Angestellten geleitet.
+\end{itemize}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{img_chen_002.png}
+\caption{Chen Notation N:M}
+\label{chenpic2}
+\end{center}
+\end{figure}
+\footnotetext{In Anlehnung an In Anlehnung an Quelle \cite{10}}
+
+\begin{itemize}
+\item Ein Autor verfasst mehrere Bücher.
+\item Ein Buch wird von mehrere Autoren verfasst.
+\end{itemize}
+
+
+
+\section{Kardinalitten}
+
+Kardinalitten beschreiben den Grad einer Verbindung zwischen zwei Objekten\footnote{Vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.20}.
+In Abbildung \ref{chenpic1} ist eine 1:n Kardinalitt gegeben.
+Diese sagt aus, dass ein Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur einem Objekt der Relation 1.
+
+In der zweiten Abbildung \ref{chenpic2} ist eine n:m Kardinalitt zu sehen.
+Diese sagt aus, dass ein Objekt der Relation 1, mehrere Objekte der Relation 2 angehren, einem Objekt der Relation 2 werden ebenfalls mehrere Objekten der Relation 1 zugewiesen.
+Diese n:m Kardinalitten mssen bei einem Datenbank Entwurf aufgelst werden, da hier keine eindeutige Zuordnung mglich ist. Meistens lsst sich eine solche Kardinalitt wie in Abbildung \ref{chenpic2} durch das Hinzufgen einer zustzliche Tabelle, welche beide Objekte verknpft, lsen.
+Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{chen_n_m_aufloesung.png}
+\caption{Aufgelste Chen N:M Notation}
+\label{chenpic3}
+\end{center}
+\end{figure}
+
+\section{Normalisierung - Optimierung von Datenbanken}
+\label{secNormalisierung}
+%\cite{codd1}
+Wenn es bereits bestehende Datenbanken gibt, so muss geprft werden, ob diese eine optimale Struktur aufweisen. Dies kann anhand der sogenannten Normalisierung durchgefhrt werden.\footnote{Vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 381} Dadurch lsst die Datenbank sich weiter optimieren.\footnote{Vgl. Prof. Dr. Paul. Alpar(2001): Vorlesung, Datenorganisation und Datenbanken,  http://www.tekinci.de/skripte/DBDM/DB-SS2001.pdf}
+Bei der Normalisierung wird abgefragt, ob Tabellen gewisse Eigenschaften besitzen und passt diese wenn ntig an.
+Hierzu stehen bis zu 5 Stufen der Normalformen zur Verfgung.
+In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitzt, dass heit es enthlt nur einen Wert und ist frei von Wiederholungen.\footnote{Vgl. Matthias Schubert(2007): Datenbanken, Theorie, Entwurf und Programmierung relationaler Datenbanken, 2. Auflage, S.293}
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1]{img_chen_003.png}
+\caption{Keine Normalform angewendet}
+\label{chenpic4}
+\end{center}
+\end{figure}
+
+
+
+In Abbildung \ref{chenpic4} ist eine Verletzung der Normalform 1. zu sehen. Um diese aufzuheben mssen wir die einzelnen Werte trennen wie in Abbildung \ref{chenpic5} zu sehen.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1]{img_chen_004.png}
+\caption{1. Normalform}
+\label{chenpic5}
+\end{center}
+\end{figure}
+
+Wurde die Relation entsprechend angepasst, so ist Normalform 1 erreicht und es kann nun geprft werden,
+ob diese die Eigenschaften von Normalform 2 erfllt. Um eine Normalform zu erfllen, mssen auch alle vorhergehende Normalformen erfllt sein, dass heit erfllt eine Tabelle die Normalform 3, so erfllt sie auch die Normalform 1 und 2.
+Die 5 wichtigsten Normalformen beschreiben sich durch folgende Attribute.\footnote{Vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.292-308}
+
+\begin{enumerate}
+\item Normalform: Alle Attribute enthalten atomare Inhalte, und die Relation hat eine feste Breite
+\item Normalform: Jedes Nichtschlsselattribut ist vom kompletten Schlssel abhngig
+\item Normalform: Jedes Nichtschlsselattribut ist von keinem Schlsselkandidaten transitiv abhngig, dass heit kein Attribut ist ber ein anderes vom Hauptschlssel abhngig
+\item Normalform: Es darf in einer Relation nicht mehrere, voneinander unabhngige, 1:n-Beziehungen zu einem Schlsselwert geben
+\item Normalform: Eine weitere Aufspaltung ohne Informationsverlust ist nicht mehr mglich
+\end{enumerate}
+
+
+
+\section{DBMS}
+\label{sec:dbms}
+
+
+Ein Datenbankmanagementsystem organisiert die Speicherung der Daten einer Datenbank und legt die Anordnung der Daten fest.
+Das DBMS legt auch die Art der Beziehung fest, in der die Daten der Datenbank stehen (relational, objektorientiert).
+Zur Kommunikation mit diesem wird eine Sprache bentigt. Meist wird hier die deskriptive Sprache SQL verwendet.\footnote{Vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 382}
+
+
+Es gibt verschiedene Arten von DBMS:
+
+\begin{itemize}
+\item Hierarchisch
+\item Relational
+\item Objektorientiert
+\end{itemize}
+
+%BuchURL http://www.amazon.com/gp/product/354043187X
+Ein hierarchisches DBMS\footnote{Vgl. Bernd-Jrgen Falkowski(2002): Business Computing: Grundlagen und Standardsoftware, 1. Auflage, S.235} dient vor allem der schnellen Suche in groen Datenbanken.
+Der Nachteil liegt darin, dass nur eine sequentielle Abarbeitung mglich ist und somit die Art der Abfragen mehr oder weniger schon im vorraus bestimmt sein muss.
+Im Gegensatz hierzu stehen die relationalen Datenbanken, welche heutzutage den hchsten Verbreitungsrad besitzen.
+Diese bieten eine flexible Auswertung der Daten durch die deklarative Abfragesprache SQL.
+Es muss lediglich die Verknpfung zwischen den Tabellen durch sogenannte JOINs hergestellt werden, somit werden Primr- und Fremdschlssel miteinander verknpft.
+Hinzu kommen die objektorientierten Datenbanken. Diese bieten die Mglichkeit Objekte aller Art zu speichern.
+Problematisch hierbei sind jedoch die Formulierung von geeigneten Abfragen, weswegen diese in der Praxis eher selten und meist im Bereich von Multimedialenanwendungen anzutreffen sind.%\footnote{NOTIZ ODBMS evtl}
+
+Wird versucht verschiedene relationale DBMS in der Praxis zu vergleichen, so ist eine groe Anzahl an verschiedenen Systemen zu finden.
+Eine kleine Auflistung soll einige Bekannte vorstellen.
+
+\begin{itemize}
+\item Microsoft Jet Engine (Access)
+\item MS-SQL Server
+\item Oracle
+\item MySQL
+\item PostgreSQL
+\end{itemize}
+
+Die Microsoft Jet Engine ist ein dateibasierendes DBMS, welches dem Benutzer eine einfache Mglichkeit bietet Daten in einer Datenbank zu speichern und passende Oberflchen (Frontends) in der Datenbank zu integrieren.
+Wie alle anderen dateibasierenden DBMS bietet es die selben Vor- und Nachteile.
+Bei diesem System steht meist die einfache Konfigurierbarkeit im Vordergrund. Die Datenbanken sind meist fr einen Einzeluser-Betrieb ausgelegt und spielen hier auch ihre Strken aus.
+Wird eine Dateibasierende Datenbank von mehreren Usern benutzt so zeigen sich die Nachteile eine solchen Datenbank.
+Dadurch, dass Access fr jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Folglicherweise nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.
+Auch beim Speichern mssen zustzlich Datenstze gesperrt und organisiert werden, weil sonst die Daten inkonsistent werden knnen, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.
+MS-SQL ist ebenfalls ein relationales Datenbankmanagementsystem und in den verschiedenen Serverbetriebssystemen von Microsoft enthalten. Fr Entwickler ohne Lizenz wird eine eingeschrnkte Express Version zur Verfgung gestellt. MS-SQL ist im Gegensatz zu Access kein dateibasierendes DBMS, sondern ein DBMS welches zentral auf einem Server luft.
+Hierdurch werden die Nachteile des dateibasierenden zu den Vorteilen des serverbasierenden Systems.
+Da der Server selbst die Abfragen verwaltet und zustzlich Abfragen im Arbeitsspeicher ablegt, sowie dem Benutzer nur die Daten sendet, die er auch angefordert hat und nicht die komplette Datei, werden Zugriffszeiten und Netzwerk/Festplattenlast optimiert.
+
+MySQL ist der Open Source Pendant zu MS-SQL, welcher im Internet eine sehr hohen Verbreitungsgrad aufweist.
+So wird dieses von Seiten wie Wikipedia\footnote{Vgl. Mysql, http://www.mysql.com/why-mysql/scaleout/wikipedia.html} oder
+Youtube\footnote{Vgl. University of Maryland: How YouTube scales MySQL for its large databases, http://ebiquity.umbc.edu/blogger/2007/12/28/how-youtube-scales-mysql-for-its-large-databases/} verwendet.
+Im Gegensatz zu MS-SQL erlaubt das Lizenzmodell, dass die Datenbank fr Privatanwender kostenlos ist und die Lizenzgebhren fr Unternehmen einen Bruchteil der Kosten ausmachen, die fr ein Microsoft System bezahlt werden mssten.\footnote{Vgl http://www.mindfactory.de/product\_info.php/pid/geizhals/info/p155132}
+
+Eine weitere Datenbank stellt PostgreSQL dar, welches unter der BSD-Lizenz zur Verfgung gestellt wird und somit auch fr kommerzielle Projekte ohne Kosten nutzbar ist\footnote{Vgl. PostgreSQL: BSD-Lizenz, http://www.postgresql.org/about/licence}.
+
+
+\section{Webserver}
+\label{sec:websrv}
+
+Ein Webserver dient zum Bereitstellen von statischen, sowie dynamischen HTML Seiten.
+Der Vorteil bei Webservern liegt darin, dass nur Informationen ausgetauscht werden, die der Nutzer auch angefordert hat.
+Weiterhin bietet es den Vorteil diese zielgerichteten Informationen einer greren Menge an Benutzern zur Verfgung zu stellen, ohne dass spezielle Vorkehrungen zur spteren Skalierung getroffen werden mssen.
+
+Um dynamische Webseiten erzeugen zu knnen, bedarf es einer Skriptsprache.
+Aktuell haben sich folgende Sprachen etabliert:\footnote{Vgl. Tiobe Software(2009): TIOBE Programming Community Index for August 2009, http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html}
+
+\begin{itemize}
+\item ASP
+\item JSP
+\item PHP
+\end{itemize}
+
+ASP ist eine Skriptsprache der Firma Microsoft und basiert grundlegend auf der Syntax von Visual Basic.
+JSP dient dem selben Zweck, wurde jedoch von Sun entwickelt und besitzt die Syntax von Java.
+PHP ist eine Skriptsprache, welche sich hauptschlich an der C Syntax orientiert und speziell fr das Erstellen von
+dynamischen Webseiten erstellt wurde. Sie ist die am weitesten verbreitete Scriptsprache zum erstellen von dynamischen Webseiten.
+
+Da alle der aufgefhrten Skriptsprachen weitgehend Webserver-/Platformunabhngig sind, kann man frei zwischen den meist benutzten Webserverprogrammen whlen, hierunter fallen unter anderem:
+
+
+\begin{itemize}
+\item Apache
+\item IIS
+\end{itemize}
+
+Der Apache Webserver ist ein Opensource Webserver der Apache Foundation.
+Er kann unter vielen verschiedenen Betriebssystemen eingesetzt werden und untersttzt durch seine Module, alle verbreiteten Scriptsprachen, sowie Datenbanken.
+
+Der IIS von Microsoft luft ausschlielich unter Windows, zudem ist es auch nur unter dem Serverbetriebsystem von Windows mglich mehr als 10 Verbindungen gleichzeitig aufzubauen.\footnote{Vgl. Microsoft: IIS 7.0: bersicht ber die verfgbaren Features in IIS 7.0, http://msdn.microsoft.com/de-de/library/cc753198\%28WS.10\%29.aspx}
+
+\section{UML}
+\label{sec:uml}
+
+\section{MAC - Media Access Control}
+\label{sec:mac}
+
+\section{VLAN - Virtual Local Area Network}
+\label{sec:vlan}
+
+\section{SNMP}
+\label{sec:snmp}
+
+SNMP
+
+Unter dem Simple Network Management Protocol ist ein Netzwerkprotokoll zu verstehen, welches einem erlaubt Netzwerkgeräte (z.B. Drucker, Router, Switchs, Router) per Netzwerk zu überwachen und zu steuern. [vgl. Essential SNMP, S. 1]
+Diese Abfragen werden von einem zentralen Punkt aus durchgeführt, dem sogenannten SNMP-Manager, welcher die Daten von den SNMP-Agenten (Netzwerkelementen) abruft. [vgl. Essential SNMP, S. 3]\\
+Bei SNMP handelt es sich um ein Protokoll, welches sich auf der Schicht 7, die Anwendungs-Ebene, des ISO/OSI-Schichtenmodells, ansiedeln lässt.
+Entwickelt wurde das Protokoll von der IEFT und ist über diverse RFCs definiert.
+Durch die hohe Modularität ist SNMP auch unabhängig von IP und funktioniert somit auch über IPX oder AppleTalk. Dies ist mitunter auch ein Grund für die Weite Verbreitung von SNMP, welches mittlerweile als Standard gilt.\\
+Die Funktionsweise von  SNMP spiegelt sich in der Verwendung der Agenten und Manager wieder.
+Zunächst gibt es die sogenannten Agenten welche als Dienst auf dem jeweiligen Endgerät laufen und die Informationen zur Verfügung stellen. Diese werden dann auf einem Manager jeweils abgerufen per SNMP. Die Nachrichten werden entweder angefordert vom Manager oder aufgrund eines Ereignisses vom Agent an den Manager selbständig gesendet.\\
+SNMP selbst definiert nicht welche Daten/Werte die Netzwerkkomponenten liefern, sondern gibt nur eine Baumstruktur vor, an die sogennante Management Information Base (MIB) angliedert.
+Diese beschreibt die jeweils enthaltenen Informationen und sind teilweise ebenfalls über RFCs spezifiziert [vgl. RFC 1213]. Zusätzlich gibt es herstellerspezifische MIBs z.b. von Cisco , die in einem speziellen Punkt im Baum hinterlegt werden können. Diese MIBs werden unter dem  Object Identifier (OID) 1.3.6.1.4.1 (iso.org.dod.internet.private.enterprises) bei der IANA registriert.\\
+Bei der Kommunikation untereinander werden verschiedene Paket-Typen verwendet.
+Diese sind wiefolgt:\\
+GET\\
+GETNEXT\\
+GETBULK\\
+SET\\
+RESPONSE\\
+TRAP\\
+
+
+Bei den GET Paketen handelt es sich um jeweils unterschiedliche Arten der Anforderung die vom Manager an den Agent gesendet werden.\\
+Bei einem normalen GET-Paket wird ein einzelnes Attribut vom Agenten angefordert. Jedoch gibt es Abfragen, bei denen nicht im Voraus bekannt ist, wie viele Attribute abgefragt werden müssen. Beispielsweise der Status mehrerer Ports an einem Switch. Da dem SNMP-Manager jedoch keine Informationen vorliegen wie viele Ports der Switch hat, kann er nicht im Voraus die entsprechende Abfrage starten.\\
+Um diese Problematik zu lösen gibt es den sogenannten GETNEXT-Befehl, der es ermöglicht den Wert sowie die OID eines daraufolgenden Elementes zu erhalten.\\
+
+//<Beispiel>\\
+
+Die Abfrage von x Ports erzuegt x+1 Abfragen (Bei einem 48+2 Port Switch somit 51 Abfragen) ist neffektiv , da der Manager nur eine Informationsmenge erhalten möchte aber dazu eine vielzalh an Anfragen durchführen muss. Daher wurde mit SNMP v2 der GETBULK Befehl eingeführt. Dieser ermöglicht es mehrere Werte mit einer Abfrage zu erhalten, die am Knoten im Baum hinterlegt sind.\\
+Das SET-Paket dient zum setzten spezieller Werte, so kann zum Beispiel darüber der Status des Portsvon einem Switch  geändert werden, oder es könnte eine Firewall konfiguriert werden.
+Auf diese bisher genannten Pakete antwortet der Agent mit einem RESPONSE Paket, welcher die benötigten Werte oder eine Fehlermeldung enthält.
+Sofern beim SNMP-Agent z.B. gewisse Grenzwerte hinterlegt wurden kann dieser sich bei einer Überschreitung mittels eine Trap-Paketes beim Manager melden, ohne das dieser die Information explizit abgefragt hat.\\
+Um möglichst wenig Netzwerklast zu erzeugen kommuniziert SNMP über das UDP Protokoll, da es eine Verbindunglose Kommunikation ermöglicht. Der Agent erhält die Anfragen auf Port 161, während der Manager auf Port 162 die Trap Meldungen empfängt.\\
+
+\section{CDP - Cisco Discovery Protokoll}
+\label{sec:cdp}
+
+//Auf CDP eingehen
+Das CDP von Cisco ist ein propäriteres Protokoll, welches dazu dient, Cisco-Geräten zu ermöglichen andere angeschlossene Geräte zu identifizieren und mit deren Details aufzulisten.\\
