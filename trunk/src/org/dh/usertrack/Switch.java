@@ -94,7 +94,7 @@ public class Switch {
 		
 		sversion=Cisco.getIOSfromDescr(sOID);
 		
-		sSerial=SNMPHandler.getOID(snmp, OIDL.chassisId, sIP, sReadcommunity);
+		sSerial=SNMPHandler.getOID(snmp, OIDL.chassisId+".0", sIP, sReadcommunity);
 		
 		sLocation=Cisco.getLocation(SNMPHandler.getOID(snmp, OIDL.sysLocation0, sIP, sReadcommunity));
 
