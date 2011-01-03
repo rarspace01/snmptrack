@@ -39,6 +39,9 @@ public class OIDL {
 	//OLD-CISCO-INTERFACES-MIB - http://www.oidview.com/mibs/9/OLD-CISCO-INTERFACES-MIB.html
 	public static final String locIfspanInPkts="1.3.6.1.4.1.9.2.2.1.1.102";
 	
+	//OLD-CISCO-CHASSIS-MIB
+	public static final String chassisId="1.3.6.1.4.1.9.3.6.3";
+	
 	//CISCO-C2900-MIB - http://www.oidview.com/mibs/9/CISCO-C2900-MIB.html
 	public static final String c2900PortIfIndex="1.3.6.1.4.1.9.9.87.1.4.1.1.25";
 	public static final String c2900PortDuplexStatus="1.3.6.1.4.1.9.9.87.1.4.1.1.32";
