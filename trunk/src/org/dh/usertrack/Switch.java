@@ -17,6 +17,7 @@ public class Switch {
 	private String svendor="";
 	private String smodel="";
 	private String sversion="";
+	private String sSerial="";
 	private String sLocation=""; 
 	private String iUptime="";
 	private String sAlias="";
@@ -93,6 +94,8 @@ public class Switch {
 		
 		sversion=Cisco.getIOSfromDescr(sOID);
 		
+		sSerial=SNMPHandler.getOID(snmp, OIDL.chassisId, sIP, sReadcommunity);
+		
 		sLocation=Cisco.getLocation(SNMPHandler.getOID(snmp, OIDL.sysLocation0, sIP, sReadcommunity));
 
 		iUptime=Cisco.getUptime(SNMPHandler.getOID(snmp, OIDL.sysUpTimeInstance, sIP, sReadcommunity));
@@ -120,9 +123,10 @@ public class Switch {
 	"\"location\"='"+sLocation+"',"+
 	"\"uptime\"='"+iUptime+"',"+
 	"\"alias\"='"+sAlias+"',"+
+	"SERIAL='"+sSerial+"',"+
 	"\"stamptime\"='"+iTimestamp+"' "+
 	"WHEN NOT MATCHED "+
-	 "THEN INSERT (\"IP\",\"hostname\",\"vendor\",\"model\",\"osversion\",\"location\",\"alias\",\"uptime\",\"stamptime\") VALUES ('"+sIP+"','"+sDNS+"','"+svendor+"','"+smodel+"','"+sversion+"','"+sLocation+"','"+sAlias+"','"+iUptime+"',"+iTimestamp+")";
+	 "THEN INSERT (\"IP\",\"hostname\",\"vendor\",\"model\",\"osversion\",\"location\",\"alias\",\"uptime\",SERIAL,\"stamptime\") VALUES ('"+sIP+"','"+sDNS+"','"+svendor+"','"+smodel+"','"+sversion+"','"+sLocation+"','"+sAlias+"','"+iUptime+"','"+sSerial+"',"+iTimestamp+")";
 
 	sSQLList.add(sSQL);
 	
@@ -187,7 +191,7 @@ public class Switch {
 	
 	
 	}else{
-		//Keine Cisco Port SNMP unterstützt
+		//Keine Cisco Port SNMP unterstï¿½tzt
 		if(SNMPConfig.getDebuglevel()>=2)
 		{
 		HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"] ERROR Keine Duplexerkennung moeglich.");
@@ -234,7 +238,7 @@ public class Switch {
 	
 	if(swHostMAC.size()<1){
 		if(SNMPConfig.getDebuglevel()>=2)
-		HelperClass.msgLog("["+sIP+"] Keine Hosts am Gerät gefunden.");
+		HelperClass.msgLog("["+sIP+"] Keine Hosts am Gerï¿½t gefunden.");
 		
 	}
 	
@@ -244,7 +248,7 @@ public class Switch {
 	sSQL="";
 	
 	if(swMACs.size()<0){
-		HelperClass.msgLog("["+sIP+"] ERROR MAC Liste der Ports leer. Keine Ports auf dem Gerät.");
+		HelperClass.msgLog("["+sIP+"] ERROR MAC Liste der Ports leer. Keine Ports auf dem Gerï¿½t.");
 	}else{
 		for(int i=0;i<swMACs.size();i++){
 			if(swMACs.get(i).substring(swMACs.get(i).indexOf("!")+1).length()>0)
@@ -262,7 +266,7 @@ public class Switch {
 				
 				p.name=getOIDListEntry(swPortname,p.PortID).substring(getOIDListEntry(swPortname,p.PortID).indexOf("!")+1);
 				
-				//Prüfen ob der Typ der Verbindung korrekt ist, Serielle Konsole etc ausschließen
+				//Prï¿½fen ob der Typ der Verbindung korrekt ist, Serielle Konsole etc ausschlieï¿½en
 				if(getType(swType,p.PortID)==6&&!p.name.toLowerCase().contains("vl"))
 				{
 					
@@ -312,13 +316,13 @@ public class Switch {
 						p.Duplex="";
 					}
 					
-					//zurücksetzung der Erkennungsvariablen
+					//zurï¿½cksetzung der Erkennungsvariablen
 					
 					p.isUplink=false;
 					p.hasCDPN=false;
 					p.UplinkIP="";
 										
-					//Prüfe zuerst per STP
+					//Prï¿½fe zuerst per STP
 					if(getSTPCount(swSTP, p.PortID)>0)
 					{
 						p.isUplink=true;	
@@ -343,7 +347,7 @@ public class Switch {
 					
 					if(p.VPortID<0)
 					{
-						//prüfe ob PortID bereits in VPortID existent
+						//prï¿½fe ob PortID bereits in VPortID existent
 						if(!isVportID(swVPort, p.PortID)){
 							p.VPortID=p.PortID;
 						}
@@ -434,7 +438,7 @@ public class Switch {
 											h.Duplex=p.Duplex;
 											h.Speed=p.Speed;
 		
-											//sofern IP erhalten, löse DNS auf
+											//sofern IP erhalten, lï¿½se DNS auf
 											if(h.IP.length()>0){
 											
 											if(p.hasCDPN){
@@ -442,7 +446,7 @@ public class Switch {
 												sCDPPuffer=getCDPLport(swCDP, h.IP);
 												
 												
-												//Prüfe ob HostIP in CDP IP(s)
+												//Prï¿½fe ob HostIP in CDP IP(s)
 												if(sCDPPuffer.length()>0){
 													//wenn ja hole ID
 												h.CDPDeviceIP=h.IP;
@@ -488,7 +492,7 @@ public class Switch {
 //							h.Duplex=p.Duplex;
 //							h.Speed=p.Speed;
 //
-//							//sofern IP erhalten, löse DNS auf
+//							//sofern IP erhalten, lï¿½se DNS auf
 //							if(h.IP.length()>0){
 //							h.hostname=DNSHelperClass.getHostname(h.IP);
 //							}
