@@ -96,7 +96,9 @@ public class Switch {
 		
 		sSerial=SNMPHandler.getOID(snmp, OIDL.chassisId+".0", sIP, sReadcommunity);
 		sSerial=sSerial.replace(OIDL.chassisId+".0 = ", "");
-		
+		if(sSerial.contains("noSuchObject")){
+			sSerial="";
+		}
 		
 		sLocation=Cisco.getLocation(SNMPHandler.getOID(snmp, OIDL.sysLocation0, sIP, sReadcommunity));
 
