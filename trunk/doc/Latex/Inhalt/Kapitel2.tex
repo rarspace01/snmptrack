@@ -75,7 +75,7 @@ Im Hinblick auf die Kosten entstehen bei der Umsetzung keine weitere Kosten bzw.
 \label{sec:exitloesungen}
 
 Betrachtet man die bereits existierenden Lösungen zum überwachen von Switches und Hosts, so lassen sich einige Produkte finden, die komerzieller Natur als auch Open Source sind.\\
-Bei HP Openview handelt es sich um eine kommerzielel Lösung von 
+Bei HP Openview handelt es sich um eine kommerzielle Lösung von 
 
 \begin{itemize}
 \item HP Openview
@@ -422,7 +422,49 @@ Im Nachfolgenden soll darauf eingegangen werden, welche Tests explizit durchgef�
 Zu Beginn des Projektes standen diverse Tests an, welche diverse APIs überprüft haben. Diese dienten dazu sicherzustellen, dass eine Kommunikation mit den benötigten Schnittstellen erfolgreich ist. Darunter sind Tests gefallen, wie die Überprüfung von SNMP4J, aber auch die des Programmcodes zum Reserve-DNS-Lookup, Abfrage des Active Directory oder die  Überprüfung der Datenbank-Anbindung. Das Ergebnis der Überprüfungen hat dazu geführt, dass eventuell eine andere API verwendet werden musste, sofern ein Test nicht erfolgreich war oder spezielle Einstellungen gemacht werden mussten.\\
 Nachdem die APIs und Grundfunktionalitäten überprüft wurden, kam es zu den nächsten Tests. Diese dienten zur Entscheidungsfindung über die Nutzung von speziellen Algorithmen oder Design-Entscheidungen, wie sie in Kapitel X angeführt wurden.
 Die erste Entscheidung die getroffen werden musste, war die Wahl der Programmiersprache. Hier zu wurde ein Benchmark des SNMP Aufrufs durchgeführt und die Anzahl der maximalen  Abfragen pro Sekunde miteinander verglichen. Das Ergebnis dieses Test war, dass die Programmiersprache als solche keinen Einfluss auf die Auslesegeschwindgikeit hat, da der Flaschenhals der Switch selbst darstellt. Der nächste Test der durchgeführt wurde, war die Überprüfung, ob eine Parallelisierung den gewünschten, zuvor prognostizierten Geschwindigkeitsvorteil erbringt. Das Ergebnis dieses Tests war, dass die gleichzeitige Ausführung des Programmcode antiproportional wirkt im bezug auf Anzahl der verwendeten Threads und Laufzeit. Jedoch traten bei einer bestimmten Anzahl zunehmend Fehler aufgrund des Pufferüberlaufs auf. Dies führte dazu, dass die Anzahl der gleichzeitig aktiven Threads auf ein Maximum gesetzt wurde. Neben der Parallelisierung wurden auch die Auslesemethoden von SNMP selbst überprüft. So wurde getestet, ob eine Geschwindigkeitsverbesseung erreicht wird, wenn der SNMP-Bulk Modus, welcher in Version 2c spezifiziert wurde, verwendet wird.
-Das Ergbniss dieses Tests war eine fünf-fache\footnote{hier korrekten Wert nachtragen} Leistungssteigerung, aber auch die Erkenntnis, dass per SNMP-Bulk nur eine begrenzte Anzahl von Tabelleneinträgen abfragbar ist. Diese Information war wiederum wichtig für die Implementierung des Ausleseskripts und hat zur Vermeidung von potentiellen Fehlern im Betrieb geführt.
+Das Ergbnis dieses Tests war eine fünf-fache\footnote{hier korrekten Wert nachtragen} Leistungssteigerung, aber auch die Erkenntnis, dass per SNMP-Bulk nur eine begrenzte Anzahl von Tabelleneinträgen abfragbar ist. Diese Information war wiederum wichtig für die Implementierung des Ausleseskripts und hat zur Vermeidung von potentiellen Fehlern im Betrieb geführt. Ebenfalls überprüft wurde die Möglichkeit mehrere Datensätze gesammelt an die Datenbank zu übertragen. Ziel war es zu überprüfen, ob dies den Overhead der einzelnen Verbindungen reduziert und generell für einen Geschwindigkeitszuwachs sorgt. Aufgrund des Benchmark wurde festgestellt, dass dies der Fall ist, jedoch Probleme auftreten, da die Anzahl der gleichzeitig geöffneten Tabelleneinträge stark erhöht wird. Im Fall der einzelnen Abarbeitung und bei einer maximalen Anzahl aktiv arbeitender Switchthreads von N beläuft sich die maximale offene Tabelleneintragszahl auf N.
+\\ Bei einer gesammelten Übertragung beträgt die Anzahl der offenen Tabelleneinträge:\\
+N*M\\
+Wobei N wiederum die Anzahl der maximal aktiven Threads darstellt und M die maximale Anzahl der SQL-Befehle die abgesetzt werden müssen. Eine Näherungszahl für M ist:\\
+\\
+1+52+52*H\\
+\\
+Wobei hier H die Anzahl der Hosts hinter einem Port ist. Diese liegt in der Praxis durchschnittlich zwischen 1 und 2. Nimmt man hier den Wert 2 an, so ergibt sich für M der Wert:\\
+\\
+1+52+52*2=157\\
+\\
+Dieser wiederum eingesetzt in die Ursprüngliche Formel ergibt:\\
+\\
+N*157\\
+\\
+Für N kann der Wert angenommen werden der auf Grundlage der Benchmarks in Kapitel X empfohlen wurde. Das heißt es wird für N der Wert 10 angesetzt und führt somit zu:
+\\
+10*157=1570\\
+\\
+Vergleicht man dies mit dem Wert der gleichzeitig offenen Tabelleneinträge bei einzelner Ausführung von 10 ist ein merklicher Unterschied zu erkennen. Vergleicht man nun die erhaltene Zahl mit dem Standard Wert von 50\footnote{vgl. http://download.oracle.com/docs/cd/B19306_01/server.102/b14237/initparams138.htm  http://wiki.oracle.com/page/OPEN_CURSORS}, so lässt sich feststellen, dass der Wert einer gesammelten Durchführung den Standard-Wert um ein vielfaches überschreitet. Orcale selbst empfiehlt den Wert zu erhöhen und liefert teilweise \footnote{vgl.} die Oracle Datenbank mit dem Wert 300 aus. Eine Erhöhung des Wertes bringt keinerlei Performencenachteile mit sich, jedoch dient die Begrenzung dazu, um Applikationen, welche die Tabelleneinträge nicht korrekt schließen daran zu hindern, ein Großteil der Tabellen zu blockieren. Daher wurde der Wert auf 2000 erhöht um auch die Spitzen im Ausleseprozess abzufangen.\\
+Neben diesen Tests, welche zu Design Entscheidungen ausgeholfen haben wurden während der Implementierung durchgängig Tests durchgeführt den Funktionsumfang sicherzustellen bzw. Funktionen an Ort und Stelle zu Überprüfen.\\
+Der Abschließende Test, welcher alle Funktionen des Programms überprüfen soll wird anhand der Usecases bzw. der Anforderungen abgeleitet. Von diesen wiederum kommt man auch auf die technischen Einzelheiten, wie z.B. das Ausleseprogramm.
+Im groben müssen folgende Programmteile getestet werden:\\
+\\
+Webapplikation:\\
+-Hostinformationen anzeigen\\
+-Portinformationen anzeigen\\
+-Switchinformationen anzeigen\\
+-VLANinformationen anzeigen\\
+-Suche anhand von IP/DNS/Benutzername\\
+-Hierachie Übersicht\\
+\\
+Ausleseprogramm:\\
+-Auslesen der SNMP-Informationen\\
+-Zuordnung zwischen Host und Port \\
+-Zuordnung zwischen MAC und IP\\
+-Auflösung von IP zu DNS\\
+-Abfrage des Benutzers\\
+-Entfernung von Duplikaten\\
+\\
+Nachdem diese jeweils auf Funktionalität und Korrektheit überprüft wurden kann das Programm für die Nutzung übergeben werden.\\
+//Ergebnis der finalen Tests.
+
 
 \section{Weitere Anwendungsfelder / Datamining}
 \label{sec:otherthoughts}
