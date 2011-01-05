@@ -85,7 +85,7 @@ public class SNMPTrackConfig {
 					String sTStart="<threads count=\"";
 					String sTEnde1="\"/>";
 					
-					String sDStart="<threads count=\"";
+					String sDStart="<debug level=\"";
 					String sDEnde1="\"/>";
 					
 					String sIStart="<snmp intervall=\"";
