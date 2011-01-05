@@ -38,6 +38,9 @@ public class SNMPHandler {
 		    target.setAddress(targetAddress);
 		    target.setVersion(SnmpConstants.version2c);
 
+		    target.setRetries(5);
+		    
+		    target.setTimeout(300);
 
 		
 			try {
@@ -88,6 +91,10 @@ public class SNMPHandler {
 	    target.setAddress(targetAddress);
 	    
 	    target.setVersion(SnmpConstants.version2c);
+	    
+	    target.setRetries(5);
+	    
+	    target.setTimeout(300);
 		
 			try {
 				
@@ -155,7 +162,7 @@ public class SNMPHandler {
 	    target.setCommunity(new OctetString(Community));
 	    target.setAddress(targetAddress);
 	    
-	    target.setRetries(2);
+	    target.setRetries(5);
 	    
 	    target.setTimeout(300);
 	    
@@ -222,7 +229,7 @@ public class SNMPHandler {
 	    target.setCommunity(new OctetString(Community));
 	    target.setAddress(targetAddress);
 	    
-	    target.setRetries(2);
+	    target.setRetries(5);
 	    
 	    target.setTimeout(300);
 	    
