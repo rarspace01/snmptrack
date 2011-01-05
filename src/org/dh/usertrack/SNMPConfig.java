@@ -5,28 +5,15 @@ import java.util.ArrayList;
 public class SNMPConfig {
 
 	public static final int getDebuglevel(){
-		SNMPTrackConfig.getDebuglevel();
-		return 1;
+		return SNMPTrackConfig.getDebuglevel();
 	}
 	
 	public static final int getThreadmaxcount(){
-		
-		//return 24;
 		return SNMPTrackConfig.getThreadcount();
-		//return HelperClass.getCPUCount()*2;
-		
 	}
 	
 	public static final int getISleeper(){
-		
-		return 100;
-		
-	}
-	
-	public static final String getReadCommunity(){
-		
-		return "pdhoechst";
-		
+		return SNMPTrackConfig.getSNMPIntervall();
 	}
 	
 	public static final ArrayList<String> getRouters(){
