@@ -12,6 +12,7 @@ public class Switch {
 	private ArrayList<String> swHostMacIps=new ArrayList<String>();
 
 	private String sIP="";
+	private long lIP=0;
 	private String sReadcommunity="";
 	private Snmp snmp;
 	private String svendor="";
@@ -114,12 +115,15 @@ public class Switch {
 	
 	//HelperClass.msgLog("["+sIP+"]DNS:["+sDNS+"] Vendor: ["+svendor+"] Model: ["+smodel+"] IOS: ["+sversion+"] LOC: ["+sLocation+"] Uptime: ["+iUptime+"] Alias: ["+sAlias+"]");
 
+	lIP=HexToDec.ipToInt(sIP);
+	
 	iTimestamp=(int)(System.currentTimeMillis()/1000);
 	
 	sSQL="MERGE INTO USRTRACK.\"st_switchs\" dest "+
 	"USING dual ON (dual.dummy is not null and dest.IP='"+sIP+"') "+
 	"WHEN MATCHED "+
 	" THEN UPDATE SET "+
+	"\"LIP\"='"+lIP+"',"+
 	"\"hostname\"='"+sDNS+"',"+
 	"\"vendor\"='"+svendor+"',"+
 	"\"model\"='"+smodel+"',"+
@@ -130,7 +134,7 @@ public class Switch {
 	"SERIAL='"+sSerial+"',"+
 	"\"stamptime\"='"+iTimestamp+"' "+
 	"WHEN NOT MATCHED "+
-	 "THEN INSERT (\"IP\",\"hostname\",\"vendor\",\"model\",\"osversion\",\"location\",\"alias\",\"uptime\",SERIAL,\"stamptime\") VALUES ('"+sIP+"','"+sDNS+"','"+svendor+"','"+smodel+"','"+sversion+"','"+sLocation+"','"+sAlias+"','"+iUptime+"','"+sSerial+"',"+iTimestamp+")";
+	 "THEN INSERT (\"IP\",\"LIP\",\"hostname\",\"vendor\",\"model\",\"osversion\",\"location\",\"alias\",\"uptime\",SERIAL,\"stamptime\") VALUES ('"+sIP+"','"+lIP+"','"+sDNS+"','"+svendor+"','"+smodel+"','"+sversion+"','"+sLocation+"','"+sAlias+"','"+iUptime+"','"+sSerial+"',"+iTimestamp+")";
 
 	sSQLList.add(sSQL);
 	
