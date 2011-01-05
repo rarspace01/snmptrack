@@ -12,9 +12,12 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class SNMPTrack {
 
+	private int iRev=2;
+	
 	private int ifinishedThreads=0;
 	private int activeThreads=0;
 
+	
 	TransportMapping transport;
 	Snmp snmp;
 
@@ -38,6 +41,8 @@ public class SNMPTrack {
 	}
 	
 	public SNMPTrack() {
+		
+		System.out.println("Rev: "+iRev);
 		
 		ArrayList<String> sPufferList=new ArrayList<String>();
 		
@@ -79,6 +84,8 @@ public class SNMPTrack {
 		HelperClass.msgLog("Lade ARP Cache");
 
 		for(int i=0; i<SNMPConfig.getRouters().size();i++){
+			
+			HelperClass.msgLog("Lade ARP Cache von "+SNMPConfig.getRouters().get(i).substring(0,SNMPConfig.getRouters().get(i).indexOf("!")));
 			
 			sPufferList=SNMPHandler.getOIDWalknonBulk(snmp, OIDL.ipNetToMediaPhysAddress, SNMPConfig.getRouters().get(i).substring(0,SNMPConfig.getRouters().get(i).indexOf("!")), SNMPConfig.getRouters().get(i).substring(SNMPConfig.getRouters().get(i).indexOf("!")+1));
 			
