@@ -157,18 +157,12 @@ public class SNMPHandler {
 	    
 	    target.setRetries(2);
 	    
-//	    System.out.println("Cur Timeout:"+target.getTimeout());
-//	    
 	    target.setTimeout(300);
 	    
 	    target.setVersion(SnmpConstants.version2c);
 		
 			try {
 				
-//				TransportMapping transport = new DefaultUdpTransportMapping();
-//				snmp = new Snmp(transport);
-//				
-//			      transport.listen();
 
 				boolean finished=false;
 				
@@ -180,15 +174,11 @@ public class SNMPHandler {
 			        ResponseEvent response = snmp.getNext(requestPDU, target);
 			        if (response.getResponse() != null)
 			        {
-			        	//System.out.println("Received response from: "+response.getPeerAddress());
-			        	//System.out.println(sresponse);
 			        	
 			        	PDU responsePDU=response.getResponse();
 			        	
 			         
 			       	  if(responsePDU.toString().contains(OID)){
-			       		  //System.out.println(responsePDU.toString().contains(OID));
-			       		 //System.out.println(responsePDU.get(0).toString());
 			       		  resultList.add(responsePDU.get(0).toString().replace(" = ", "!"));
 			       		  requestPDU.setRequestID(new Integer32(0));
 			       		requestPDU.set(0,responsePDU.get(0));
@@ -209,6 +199,78 @@ public class SNMPHandler {
 				System.out.println("Null on ["+Community+"]"+OID);
 				
 				HelperClass.err(e2);
+			}
+		
+		return resultList;
+	}
+	
+	public static ArrayList<String> getOIDWalknonBulkSlow(Snmp snmp, String OID, String Target, String Community){
+		ArrayList<String> resultList=new ArrayList<String>();
+		
+		Address targetAddress=GenericAddress.parse("udp:"+Target+"/161");
+		
+		OID targetOID = new OID(OID);
+		
+		PDU requestPDU = new PDU();
+	    requestPDU.add(new VariableBinding(targetOID));
+	    requestPDU.setType(PDU.GETNEXT);
+	    
+	    requestPDU.setNonRepeaters(0);
+	    requestPDU.setMaxRepetitions(999);
+	    
+	    CommunityTarget target = new CommunityTarget();
+	    target.setCommunity(new OctetString(Community));
+	    target.setAddress(targetAddress);
+	    
+	    target.setRetries(2);
+	    
+	    target.setTimeout(300);
+	    
+	    target.setVersion(SnmpConstants.version2c);
+		
+			try {
+				
+
+				boolean finished=false;
+				
+				while(!finished)
+				{
+				
+			      Vector vb = null;
+			        
+			        ResponseEvent response = snmp.getNext(requestPDU, target);
+			        if (response.getResponse() != null)
+			        {
+			        	
+			        	PDU responsePDU=response.getResponse();
+			        	
+			         
+			       	  if(responsePDU.toString().contains(OID)){
+			       		  resultList.add(responsePDU.get(0).toString().replace(" = ", "!"));
+			       		  requestPDU.setRequestID(new Integer32(0));
+			       		requestPDU.set(0,responsePDU.get(0));
+			       	  }else{
+			       		finished=true;
+			       	  }
+			       	  
+			       	  }
+				
+			        Thread.sleep(SNMPConfig.getISleeper());
+			        
+			       }
+				
+			} catch (IOException e) {
+			
+				HelperClass.err(e);
+				
+			} catch (NullPointerException e2){
+				
+				System.out.println("Null on ["+Community+"]"+OID);
+				
+				HelperClass.err(e2);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		
 		return resultList;
