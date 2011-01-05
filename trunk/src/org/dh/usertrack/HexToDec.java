@@ -152,14 +152,18 @@ public class HexToDec{
 	}
 	
 	public static Long ipToInt (String addr) {
+		long num = 0;
+		
+		if(addr.length()>0&&addr.contains("."))
+		{
 		String[] addrArray = addr.split("\\.");
 
-	        long num = 0;
 	        for (int i = 0; i <addrArray.length; i++) {
 	            int power = 3-i;
 
 	            num += ((Integer.parseInt (addrArray [i])% 256 * Math.pow (256, power)));
 	        } 
-	        return num;
+		}
+		return num;
 	    }
 }
