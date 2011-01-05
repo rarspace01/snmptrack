@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <config>
+<threads count="32"/>
 <nagios ip="" usr="" pwd="" db=""/>
 <snmptrack ip="" usr="" pwd="" db=""/>
 </config>
