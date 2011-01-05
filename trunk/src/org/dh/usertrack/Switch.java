@@ -439,6 +439,7 @@ public class Switch {
 											}
 											
 											h.IP=getIPfromMAC(swHostMacIps,h.MAC);
+											h.lIP=HexToDec.ipToInt(h.IP);
 											h.Duplex=p.Duplex;
 											h.Speed=p.Speed;
 		
