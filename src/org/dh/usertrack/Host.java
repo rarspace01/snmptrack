@@ -5,6 +5,7 @@ public class Host {
 	public String MAC="";
 	public String PortMAC="";
 	public String IP="";
+	public long lIP=0;
 	public String hostname="";
 	public String lastuser="";
 	public String Speed="";
@@ -28,6 +29,7 @@ public class Host {
 		"WHEN MATCHED "+
 		" THEN UPDATE SET "+
 		"\"IP\"='"+IP+"',"+
+		"\"LIP\"='"+lIP+"',"+
 		"\"hostname\"='"+hostname+"',"+
 		"\"stamptime\"='"+iTimestamp+"',"+
 		"\"lastuser\"='"+lastuser+"',"+
@@ -39,7 +41,7 @@ public class Host {
 		"\"CDPTYP\"='"+CDPDeviceTyp+"', "+
 		"\"VHOST\"='"+sVHOST+"' "+
 		"WHEN NOT MATCHED "+
-		 "THEN INSERT (\"MAC\",\"PortMAC\",\"IP\",\"hostname\",\"stamptime\",\"lastuser\",\"Speed\",\"Duplex\",\"CDPID\",\"CDPIP\",\"CDPPORT\",\"CDPTYP\",\"VHOST\") VALUES ('"+MAC+"','"+PortMAC+"','"+IP+"','"+hostname+"','"+iTimestamp+"','"+lastuser+"','"+Speed+"','"+Duplex+"','"+CDPDeviceID+"','"+CDPDeviceIP+"','"+CDPDevicePort+"','"+CDPDeviceTyp+"','"+sVHOST+"')";
+		 "THEN INSERT (\"MAC\",\"PortMAC\",\"IP\",\"LIP\",\"hostname\",\"stamptime\",\"lastuser\",\"Speed\",\"Duplex\",\"CDPID\",\"CDPIP\",\"CDPPORT\",\"CDPTYP\",\"VHOST\") VALUES ('"+MAC+"','"+PortMAC+"','"+IP+"','"+lIP+"','"+hostname+"','"+iTimestamp+"','"+lastuser+"','"+Speed+"','"+Duplex+"','"+CDPDeviceID+"','"+CDPDeviceIP+"','"+CDPDevicePort+"','"+CDPDeviceTyp+"','"+sVHOST+"')";
 
 		return sSQL;
 	}
