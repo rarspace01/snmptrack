@@ -151,7 +151,7 @@ public class HexToDec{
 		return sPuffer;
 	}
 	
-	public static Long ipToInt (String addr) {
+	public static long ipToInt (String addr) {
 		long num = 0;
 		
 		if(addr.length()>0&&addr.contains("."))
@@ -159,11 +159,12 @@ public class HexToDec{
 		String[] addrArray = addr.split("\\.");
 
 	        for (int i = 0; i <addrArray.length; i++) {
-	            int power = 3-i;
+	            int power=3-i;
 
-	            num += ((Integer.parseInt (addrArray [i])% 256 * Math.pow (256, power)));
+	            num += ((Integer.parseInt (addrArray [i])%256*Math.pow (256, power)));
 	        } 
 		}
+		
 		return num;
 	    }
 }
