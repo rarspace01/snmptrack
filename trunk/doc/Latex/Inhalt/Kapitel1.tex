@@ -199,6 +199,33 @@ Der IIS von Microsoft läuft ausschließlich unter Windows, zudem ist es auch nu
 \section{Schnittstellen}
 \label{sec:schnittstellen}
 
+
+Um eine Verbindung zwischen den einzelnen Komponenten herzustellen, wird eine passende API bentigt.
+Idealerweise bringt jedes DBMS und jeder Webserver passende Treiber mit, obwohl dieser Fall nicht immer gegeben ist.
+
+Zur Zeit haben sich verschiedene Varianten etabliert:
+
+\begin{itemize}
+\item Native Treiber
+\item ODBC (Open Database Connectivity)
+\item JDBC (Java Database Connectivity)
+\item ADO (ActiveX Data Objects)
+\end{itemize}
+
+Jedes etabliertes DBMS bietet für Entwickler eine native Schnittstelle zum Ansprechen der Datenbank an.
+Diese wird meist in verschiedenen Programmiersprachen angeboten, unter anderem C/C++, PHP usw. .
+Die native Methode besitzt den Vorteil, dass sie das Nutzen aller Funktionen der Datenbank ermöglichen, wohingegen dafür keine einheitlichen Design Pattern existieren, was die Verwendungen von mehreren
+verschiedenen DBMS erschwert.
+
+Aufgrund dessen hat sich in der Vergangenheit unter Windows das sogenannte ODBC etabliert, welches es ermöglicht ohne Modifizierung des Quellcodes, allein mit der Anpassung des DSN das DBMS zu wechseln.
+Somit braucht der Entwickler sich nicht mehr mit Syntaxabweichungen zu beschäftigen, da er die ODBC Schnittstelle ANSI SQL konform ansprechen kann.
+Neben dem ODBC gibt es auch ein JDBC System exklusiv für Java. Zwar kann Java auch ODBC ber die JDBC Schnittstelle nutzen, aber laut Sun \footnote{Vgl. Sun: JDBC-ODBC Bridge Driver, http://java.sun.com/j2se/1.3/docs/guide/jdbc/getstart/bridge.doc.html} soll die nur im experimentellen Gebrauch stattfinden.
+Da der Einsatz eines nativen JDBC Treibers verhindert, dass keine unerwünschten Zustände auftreten, die z.B. bei einer JDBC-ODBC Treiber Brücke auftreten können.
+
+Zusätzlich gibt es noch ADO von Microsoft, welches auch als Schnittstelle für Webserver mit IIS bzw. ASP dient.
+Diese hnelt in der Logik JDBC, da ebenfalls ein ODBC-Treiber angesteuert werden kann.ü
+Der Verbindungsaufbau ist ähnlich einfach gestaltet und ermöglicht auch für Webanwendungen eine einfache Anbindung an die Datenbank.
+
 \section{Softwareentwicklung}
 \label{sec:softdev}
 
@@ -247,5 +274,6 @@ Um möglichst wenig Netzwerklast zu erzeugen kommuniziert SNMP über das UDP Pro
 \section{CDP - Cisco Discovery Protokoll}
 \label{sec:cdp}
 
-//Auf CDP eingehen
-Das CDP von Cisco ist ein propäriteres Protokoll, welches dazu dient, Cisco-Geräten zu ermöglichen andere angeschlossene Geräte zu identifizieren und mit deren Details aufzulisten.\\
+Das CDP von Cisco ist ein propäriteres Protokoll, welches dazu dient, Cisco-Geräten zu ermöglichen andere angeschlossene Geräte zu identifizieren und mit diesen Informationen auszutauschen. Es kann allerdings auch zum sogennanten “On-Demand-Routing” verwendet werden. Hierbei handelt es sich um eine cisco-spezifische Erweiterung von CDP, welche es ermöglicht ein simples Routing zu erstellen.
+Die Cisco Geräte senden jeweils zur Multicast -Adresse “01-00-0c-cc-cc-cc”, welche auch von anderen Cisco-Protokollen (Z.B. VTP) verwendet wird. Dies geschiet in einem Intervall von 60 Sekunden auf allen relevanten Interfaces. Jedes der beiteiligten Cisco Geräte führt intern eine Tablle mit den Informationen über die Geräte, welche in der “Nachbarschaft” gefunden wurden. Hierunter fallen Dinge wie IP, Alias, Geräte-Typ und auch Informationen über die dort befindliche Software bzw. das Betriebsystem. Bei einem Cisco-Swicth wird zum Beispiel nicht nur die Beschreibung (IOS) sondern Modell, IOS-Version, Gegenstelle des Ports auf dem anderen Gerät, Link-Status (Geschwindigkeit, Duplex), aber auch VLAN und viele weitere Informationen. Diese können per internen Befehl oder per SNMP abgefragt werden. Bei jedem Empfang von CDP Daten, werden die internen Tabellen gepflegt und die Haltbarkeitszeit wieder zurückgesetzt, da Geräte die sich nicht mehr melden nach einer bestimmten Zeit (Standardmäßig nach 180 Sekunden) aus den Tabellen wiederum entfernt werden. Die Informationen welche übertragen werden sind einfach erweiterbar, da diese auf dem “Type-Length-Value” Format basieren. Das heißt in einer Nachricht wird zuerst der Typ des Attributs bestimmt (Z.b. String, Zahl, Datum) danach die (Zeichen-)Länge des Wertes und der Wert selbst.\\
+Hersteller wie HP, distanzieren sich zunehmend von diesem properitären Protokoll und unterstützen das durch die IEEE spezifizierte offene Protokoll LLDP, welches Hersteller unabhängig ist und den selben Funktionsumfang beinhaltet.
