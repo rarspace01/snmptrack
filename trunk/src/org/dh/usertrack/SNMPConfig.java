@@ -11,9 +11,15 @@ public class SNMPConfig {
 	public static final int getThreadmaxcount(){
 		
 		//return 24;
-		return 10;
+		return 24;
 		
 		//return HelperClass.getCPUCount()*2;
+		
+	}
+	
+	public static final int getISleeper(){
+		
+		return 100;
 		
 	}
 	
