@@ -11,6 +11,9 @@ import java.io.InputStreamReader;
 public class SNMPTrackConfig {
 
 	private static int iThreadcount=-1;
+	private static int iDebuglevel=-1;
+	
+	private static int iSNMPintervall=-1;
 	
 	private String SNMPtrackDB_IP="";
 	private String SNMPtrackDB_DB="";
@@ -32,6 +35,22 @@ public class SNMPTrackConfig {
 		
 		return iThreadcount;
 		
+	}
+	
+	public static final int getDebuglevel() {
+		if(iDebuglevel==-1){
+			loadSNMPTrackConfig();
+		}
+		
+		return iDebuglevel;
+	}
+	
+	public static final int getSNMPIntervall() {
+		if(iSNMPintervall==-1){
+			loadSNMPTrackConfig();
+		}
+		
+		return iSNMPintervall;
 	}
 	
 	public static void loadSNMPTrackConfig() {
@@ -66,13 +85,23 @@ public class SNMPTrackConfig {
 					String sTStart="<threads count=\"";
 					String sTEnde1="\"/>";
 					
+					String sDStart="<threads count=\"";
+					String sDEnde1="\"/>";
+					
+					String sIStart="<snmp intervall=\"";
+					String sIEnde1="\"/>";
+					
 					if(sLine.contains(sTStart)&&sLine.contains(sTEnde1)){ 
-
 						iThreadcount=Integer.parseInt(sLine.substring(sTStart.length(), sLine.indexOf(sTEnde1)));
-						
 					}
 					
+					if(sLine.contains(sDStart)&&sLine.contains(sDEnde1)){ 
+						iDebuglevel=Integer.parseInt(sLine.substring(sDStart.length(), sLine.indexOf(sDEnde1)));
+					}
 					
+					if(sLine.contains(sIStart)&&sLine.contains(sIEnde1)){ 
+						iSNMPintervall=Integer.parseInt(sLine.substring(sIStart.length(), sLine.indexOf(sIEnde1)));
+					}
 					
 					
 				}
@@ -91,5 +120,7 @@ public class SNMPTrackConfig {
 		}
 		
 	}
+
+
 	
 }
