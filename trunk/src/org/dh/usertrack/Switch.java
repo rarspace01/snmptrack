@@ -58,8 +58,10 @@ public class Switch {
 
 	public void refresh(){
 	
-	HelperClass.msgLog("Start: "+sIP);	
-		
+	HelperClass.msgLog("Start: "+sIP);
+	lIP=HexToDec.ipToInt(sIP);
+	HelperClass.msgLog("LIP: "+lIP);
+	
 	String sSQL="";	
 	ArrayList<String> sSQLList=new ArrayList<String>();	
 	
@@ -115,7 +117,7 @@ public class Switch {
 	
 	//HelperClass.msgLog("["+sIP+"]DNS:["+sDNS+"] Vendor: ["+svendor+"] Model: ["+smodel+"] IOS: ["+sversion+"] LOC: ["+sLocation+"] Uptime: ["+iUptime+"] Alias: ["+sAlias+"]");
 
-	lIP=HexToDec.ipToInt(sIP);
+	
 	
 	iTimestamp=(int)(System.currentTimeMillis()/1000);
 	
