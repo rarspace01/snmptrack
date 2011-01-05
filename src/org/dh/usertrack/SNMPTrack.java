@@ -43,7 +43,8 @@ public class SNMPTrack {
 		
 		OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
 		
-		HelperClass.msgLog("Start Request on:\nPlatform: ["+osBean.getArch()+"] - "+osBean.getAvailableProcessors()+" CPUs\nOS: ["+osBean.getName()+"]\nVersion: ["+osBean.getVersion()+"] MAXTCount:["+SNMPConfig.getThreadmaxcount()+"]");
+		HelperClass.msgLog("Start Request on:\nPlatform: ["+osBean.getArch()+"] - "+osBean.getAvailableProcessors()+" CPUs\nOS: ["+osBean.getName()+"]\nVersion: ["+osBean.getVersion()+"]");
+		HelperClass.msgLog("CONF MAXT:["+SNMPConfig.getThreadmaxcount()+"] DEBUGLVL: ["+SNMPConfig.getDebuglevel()+"] SNMPINT: ["+SNMPConfig.getISleeper()+"]");
 		
 		HelperClass.msgLog("Starte SNMPTrack");
 		
