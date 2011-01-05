@@ -159,11 +159,11 @@ public class Switch {
 	ArrayList<String> swCiscoDuplex=new ArrayList<String>();	
 	ArrayList<String> swDuplex=new ArrayList<String>();
 	
-	swMACs=SNMPHandler.getOIDWalknonBulk(snmp, OIDL.ifPhysAddress, sIP, sReadcommunity);
+	swMACs=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.ifPhysAddress, sIP, sReadcommunity);
 	swStatus=SNMPHandler.getOIDWalk(snmp, OIDL.ifOperStatus, sIP, sReadcommunity);
 	swVLANs=SNMPHandler.getOIDWalk(snmp, OIDL.vtpVlanState, sIP, sReadcommunity);
 	swVLANPorts=SNMPHandler.getOIDWalk(snmp, OIDL.vmVlan, sIP, sReadcommunity);
-	swPortname=SNMPHandler.getOIDWalknonBulk(snmp, OIDL.ifName, sIP, sReadcommunity);
+	swPortname=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.ifName, sIP, sReadcommunity);
 	swPortalias=SNMPHandler.getOIDWalk(snmp, OIDL.ifAlias, sIP, sReadcommunity);
 	
 	swCDP=SNMPHandler.getOIDWalk(snmp, OIDL.cdpCacheAddress, sIP, sReadcommunity);
@@ -224,7 +224,7 @@ public class Switch {
 	{
 		
 		//for hosts
-		swPuffer=SNMPHandler.getOIDWalknonBulk(snmp, OIDL.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
+		swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
 			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
 			swHostMAC.add(swPuffer.get(j));
