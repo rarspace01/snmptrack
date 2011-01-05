@@ -43,7 +43,7 @@ public class SNMPTrack {
 		
 		OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
 		
-		HelperClass.msgLog("Start Request on:\nPlatform: ["+osBean.getArch()+"] - "+osBean.getAvailableProcessors()+" CPUs\nOS: ["+osBean.getName()+"]\nVersion: ["+osBean.getVersion()+"]");
+		HelperClass.msgLog("Start Request on:\nPlatform: ["+osBean.getArch()+"] - "+osBean.getAvailableProcessors()+" CPUs\nOS: ["+osBean.getName()+"]\nVersion: ["+osBean.getVersion()+"] MAXTCount:["+SNMPConfig.getThreadmaxcount()+"]");
 		
 		HelperClass.msgLog("Starte SNMPTrack");
 		
@@ -54,7 +54,7 @@ public class SNMPTrack {
 			
 			//System.out.println(dutm.getReceiveBufferSize());
 			
-			dutm.setReceiveBufferSize(2^24);
+			dutm.setReceiveBufferSize(2^28);
 			
 			transport = dutm;
 			
@@ -94,7 +94,7 @@ public class SNMPTrack {
 		}
 		
 		
-		HelperClass.msgLog("Gefundene ARP Einträge: "+swHostMacIps.size());
+		HelperClass.msgLog("Gefundene ARP Eintrï¿½ge: "+swHostMacIps.size());
 		
 		HelperClass.msgLog("Beginne mit Auslese Prozess.");
 		
