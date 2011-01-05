@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class SNMPConfig {
 
 	public static final int getDebuglevel(){
+		SNMPTrackConfig.getDebuglevel();
 		return 1;
 	}
 	
