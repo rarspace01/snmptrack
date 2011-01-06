@@ -168,6 +168,8 @@ public class SNMPTrack {
 		long time2=(long)System.currentTimeMillis()/1000;
 		HelperClass.msgLog("SNMP:STP:"+(long)System.currentTimeMillis()/1000);
 		HelperClass.msgLog("SNMP:DIF:"+(time2-time1));
+		
+		System.exit(0);
 	}
 	
 	class SwitchWorkerThread implements Runnable {
