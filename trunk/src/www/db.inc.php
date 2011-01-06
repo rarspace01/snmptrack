@@ -7,7 +7,8 @@ function db_connect(){
         if (!$conn)
             {
               $error = oci_error();
-              trigger_error(htmlentities($error['message'], ENT_QUOTES), E_USER_ERROR);
+			  echo $error;
+             trigger_error(htmlentities($error['message'], ENT_QUOTES), E_USER_ERROR);
             }
 		return $conn;
 }
