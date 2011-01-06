@@ -1,9 +1,21 @@
 <?php
-
 include_once("db.inc.php");
 
+$puffer="";
+
 if(strlen($_GET[hmac])>0){
-$result=db_query("SELECT * FROM USRTRACK.HOSTS_LIVE WHERE \"PortMAC\"='".$_GET[pmac]."' AND MAC='".$_GET[hmac]."' ORDER BY \"hostname\" ASC");
+	
+$sSQL="SELECT H.\"PortMAC\", H.MAC, H.IP, H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P WHERE H.\"PortMAC\"=P.MAC AND \"PortMAC\"='".$_GET[pmac]."' AND H.MAC='".$_GET[hmac]."' ORDER BY H.\"hostname\" ASC";
+	
+$result=db_query($sSQL);
+
+$row_counter=oci_num_rows($result);
+
+include("header.php");
+include("loginbox.php");
+?>
+<div id="content" style="height: auto">
+<?php
 
 echo "<table border='1'>\n";
 while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
@@ -11,7 +23,8 @@ while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
     echo "<tr>\n";
 
 	echo "<td><a href='show.php?pmac=".$row['PortMAC']."&hmac=".$row['MAC']."&details=true'>".$row['MAC']."</a></td>";
-	echo "<td>".$row['PortMAC']."</td>";
+	echo "<td><a href='show.php?pmac=".$row['PortMAC']."'>".$row['PortMAC']."</a></td>";
+	echo "<td><a href='show.php?sip=".$row['SwitchIP']."'>".$row['SwitchIP']."</a></td>";
 	echo "<td>".$row['IP']."</td>";
 	echo "<td>".$row['hostname']."</td>";
 	echo "<td>".$row['Speed']."</td>";
@@ -27,18 +40,40 @@ while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 echo "</table>\n";
 
 }else if(strlen($_GET[pmac])>0){
-$result=db_query("SELECT * FROM USRTRACK.HOSTS_LIVE WHERE \"PortMAC\"='".$_GET[pmac]."' ORDER BY \"hostname\" ASC");
+
+$sSQL="SELECT H.\"PortMAC\", H.MAC, H.IP, H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P WHERE H.\"PortMAC\"=P.MAC AND \"PortMAC\"='".$_GET[pmac]."' ORDER BY H.\"hostname\" ASC";
+	
+	
+	
+if(strlen($_GET[q])>0){
+$sSQL="SELECT H.\"PortMAC\", H.MAC, H.IP, H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P WHERE H.\"PortMAC\"=P.MAC AND (H.\"IP\" LIKE '%".$_GET[q]."%' OR LOWER(H.MAC) LIKE LOWER('%".$_GET[q]."%') OR LOWER(H.\"hostname\") LIKE LOWER('%".$_GET[q]."%') OR LOWER(H.\"lastuser\") LIKE LOWER('%".$_GET[q]."%')) ORDER BY H.\"hostname\" ASC";
+}else{
+$sSQL="SELECT H.\"PortMAC\", H.MAC, H.IP, H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P WHERE H.\"PortMAC\"=P.MAC AND \"PortMAC\"='".$_GET[pmac]."' ORDER BY H.\"hostname\" ASC";
+}
+
+$result=db_query($sSQL);
+
+$row_counter=oci_num_rows($result);
+
+include("header.php");
+include("loginbox.php");
+?>
+<div id="content" style="height: auto">
+<?php
 
 echo "<table border='1'>\n";
 while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 
     echo "<tr>\n";
 
-	echo "<td><a href='show.php?pmac=".$row['PortMAC']."&hmac=".$row['MAC']."'>".$row['MAC']."</a></td>";
-	echo "<td>".$row['PortMAC']."</td>";
+	echo "<td><a href='show.php?pmac=".$row['PortMAC']."&hmac=".$row['MAC']."&details=true'>".$row['MAC']."</a></td>";
+	echo "<td><a href='show.php?pmac=".$row['PortMAC']."'>".$row['PortMAC']."</a></td>";
+	echo "<td><a href='show.php?sip=".$row['SwitchIP']."'>".$row['SwitchIP']."</a></td>";
 	echo "<td>".$row['IP']."</td>";
 	echo "<td>".$row['hostname']."</td>";
 	echo "<td>".$row['Speed']."</td>";
+	echo "<td>".$row['lastuser']."</td>";
+	echo "<td>".$row['VHOST']."</td>";
 
     echo "</tr>\n";
 }
@@ -46,99 +81,87 @@ echo "</table>\n";
 
 }else if(strlen($_GET[sip])>0){
 
-$result=db_query("SELECT * FROM USRTRACK.PORTS_LIVE WHERE \"SwitchIP\"='".$_GET[sip]."' ORDER BY \"name\" ASC");
+$result=db_query("SELECT * FROM USRTRACK.PORTS_LIVE WHERE \"SwitchIP\" LIKE '".$_GET[sip]."' ORDER BY \"PortID\" ASC");
 
-echo "<table border='1'>\n";
+$puffer=$puffer."<div id=\"content\" style=\"height: auto\">";
+
+
+$puffer=$puffer."<table border='1'>\n";
 while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 	//var_dump($row);
 	
 	
-    echo "<tr>\n";
+    $puffer=$puffer."<tr>\n";
 	
 	
-	echo "<td><a href='show.php?pmac=".$row['MAC']."'>".$row['MAC']."</a></td>";
-	echo "<td>".$row['SwitchIP']."</td>";
-	echo "<td>".$row['name']."</td>";
-	echo "<td>".$row['Speed']."</td>";
+	$puffer=$puffer."<td><a href='show.php?pmac=".$row['MAC']."'>".$row['MAC']."</a></td>";
+	$puffer=$puffer."<td>".$row['SwitchIP']."</td>";
+	$puffer=$puffer."<td>".$row['name']."</td>";
+	$puffer=$puffer."<td>".$row['Speed']."</td>";
 
-	echo "<td>".$row['location']."</td>";
+	$puffer=$puffer."<td>".$row['location']."</td>";
 	
     // foreach ($row as $item) {
         // echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
     // }
 	
 	
-    echo "</tr>\n";
+    $puffer=$puffer."</tr>\n";
 }
-echo "</table>\n";
+$puffer=$puffer."</table>\n";
+
+$row_counter=oci_num_rows($result);
+
+$additional=20*$row_counter-350;
+
+include("header.php");
+include("loginbox.php");
+
+echo $puffer;
 
 }else{
 
-$result=db_query("SELECT * FROM USRTRACK.SWITCHS_LIVE ORDER BY IP ASC");
+if(strlen($_GET[q])>0){
+$result=db_query("SELECT * FROM USRTRACK.SWITCHS_LIVE WHERE IP LIKE '%".$_GET[q]."%' OR \"hostname\" LIKE '%".$_GET[q]."%' ORDER BY LIP ASC");
+}else{
+$result=db_query("SELECT * FROM USRTRACK.SWITCHS_LIVE ORDER BY LIP ASC");
+}
 
-echo "<table border='1'>\n";
+
+
+
+$puffer=$puffer."<div id=\"content\" style=\"height: auto\">";
+
+
+$puffer=$puffer."<table border='1'>\n";
 while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 	//var_dump($row);
 	
-	
-    echo "<tr>\n";
-	
-	echo "<td><a href='show.php?sip=".$row['IP']."'>".$row['IP']."</a></td>";
-	echo "<td>".$row['model']."</td>";
-	echo "<td>".$row['alias']."</td>";
-	echo "<td>".$row['location']."</td>";
+	$puffer=$puffer."<tr>\n"."<td><a href='show.php?sip=".$row['IP']."'>".
+	$row['IP']."</a></td>"."<td>".$row['model']."</td>"."<td>".$row['alias']."</td>".
+	"<td>".$row['location']."</td>"."<td>".$row['SERIAL']."</td>";
 	
     // foreach ($row as $item) {
         // echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
     // }
-    echo "</tr>\n";
+	$puffer=$puffer."</tr>\n";
 }
-echo "</table>\n";
-}
+$puffer=$puffer."</table>\n";
 
-/*
+$row_counter=oci_num_rows($result);
 
-if($_GET[action]==='switchs'){
+$additional=20*$row_counter;
 
-$sql = "SELECT * FROM USRTRACK.\"st_switchs\" ORDER BY IP DESC";
+include("header.php");
+include("loginbox.php");
 
-}else if($_GET[action]==='ports'){
-$sql = "SELECT * FROM USRTRACK.\"st_ports\" p, USRTRACK.\"st_switchs\" s WHERE p.\"SwitchIP\"=s.IP ORDER BY p.MAC ASC";
-}else if($_GET[action]==='hosts'){
-$sql = "SELECT h.MAC, h.IP, h.\"hostname\", p.\"name\", s.\"alias\" AS SName FROM \"st_hosts\" h, \"st_ports\" p, \"st_switchs\" s WHERE h.\"PortMAC\"=p.MAC AND p.\"SwitchIP\"=s.IP ORDER BY h.\"hostname\" ASC, h.IP ASC, h.MAC ASC";
-}else if($_GET[action]==='dub'){
-$sql = "SELECT h.MAC, h.ip, h.\"hostname\", p.MAC AS PMAC, s.\"alias\" AS SName, s.\"alevel\" AS A FROM \"st_hosts\" h, \"st_ports\" p, \"st_switchs\" s WHERE h.\"PortMAC\"=p.MAC AND p.\"SwitchIP\"=s.\"IP\" AND h.MAC IN (SELECT MAC FROM \"USRTRACK\".\"st_hosts\" GROUP BY MAC HAVING COUNT(*)>1) ORDER BY h.MAC";
-}else{
-print "Kein Parameter</br>
-Sort by:<br>
-<a href='".$_SELF."?action=switchs'>Switchs</a></br>
-<a href='".$_SELF."?action=ports'>Ports</a></br>
-<a href='".$_SELF."?action=hosts'>Hosts</a></br>
-<a href='".$_SELF."?action=dub'>Duplikate</a></br>
-";
+echo $puffer;
 }
 
-if(isset($sql))
-{
-	if(strlen($sql)>0)
-	{
-	print ($sql);
-	query($sql);
-	}
-}
-*/
 
-/*
-if (!isset($_SERVER['PHP_AUTH_USER'])) {
-    header('WWW-Authenticate: Basic realm="SNMPTrack Site"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'You must enter a valid login and password';
-    exit;
-} else if(PHP_AUTH_PW=='geheim'){
-    echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
-    echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
-}
-*/
 
+echo "</div>";
+
+include ("footer.html");
 
 ?>
