@@ -12,7 +12,7 @@
         <meta name="author" content="storminator" >
 
         <title>SNMP-Track</title>
-        <link rel="stylesheet" type="text/css" href="styles/style.php?height=<?php echo 850+$additional; ?>">
+        <link rel="stylesheet" type="text/css" href="styles/style.php?height=<?php echo 850+$additional; ?>&width=<?php echo $pagewidth; ?>">
         <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
 
 						
@@ -51,20 +51,57 @@ if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){
 		
 
         <div id="menucontainer">
-			<a  href="show.php" class="neuesticket" onmouseover="Tip('Legen Sie ein neues Ticket an. Hierfür müssen sie eingeloggt sein.');" onmouseout="tt_Hide();"  > Neues Ticket </a> 
-					<a href="show.php" class="neuesprofil" onmouseover="Tip('Ändern Sie Ihre Profileigenschaften. Hierfür müssen sie eingeloggt sein.');" onmouseout="tt_Hide();"> Profil</a>	
+			<a  href="index.php" class="neuesticket" onmouseover="Tip('Legen Sie ein neues Ticket an. Hierfür müssen sie eingeloggt sein.');" onmouseout="tt_Hide();"  > &Uuml;bersicht </a> 
+					<a href="duplic.php" class="neuesprofil" onmouseover="Tip('Ändern Sie Ihre Profileigenschaften. Hierfür müssen sie eingeloggt sein.');" onmouseout="tt_Hide();"> Duplikate</a>	
 
-<a  href="show.php"class="news" onmouseover="Tip('Alle Switchs auf einen Blick.');" onmouseout="tt_Hide();"> Übersicht</a>
+<a  href="index.php" class="news" onmouseover="Tip('Alle Switchs auf einen Blick.');" onmouseout="tt_Hide();"> Statistik</a>
 
 					<a  href="help.php"class="hilfe" onmouseover="Tip('Dokumentation für Tints');" onmouseout="tt_Hide();"> Hilfe</a>
 
 
 					<img class="suchbild" src="images/navi/Searchbar.png" alt="Menupic">
 						<div id="suchcontainer">
-							<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-								<input id="suchfeld" type="text" onfocus="this.value=''" onblur="checkInputBlur(this)" maxlength="30" name="q" id="suche" value="Suche...">
+							<form method="get" action="<?php 
+							if(strpos($_SERVER['PHP_SELF'],"show.php")===false)
+							{
+							echo "show.php";
+							}else{
+							echo $_SERVER['PHP_SELF'];	
+							}
+							 ?>">
+							 	
+							 	<?php 
+							 	if(!strlen($_GET['q'])>0){
+							 		
+							 	
+							 	?>
+							 	
+							 	<script type="text/javascript">
+								   function formfocus() {
+								      document.getElementById('suchfeld').focus();
+								   }
+								   window.onload = formfocus;
+								</script>
+							 
+							 	<?php }?>
+							 
+								<input id="suchfeld" type="text" onfocus="this.value=''" onblur="checkInputBlur(this)" maxlength="30" name="q" id="suche" value="<?php 
+								
+								if(strlen($_GET['q'])>0){
+									echo $_GET['q'];
+								}else{
+									echo "Suche...";
+								}
+								
+								?>">
 								<input id="sip" name="sip" type="hidden" value="<?php echo $_GET['sip']; ?>">
-								<input id="pmac" name="pmac" type="hidden" value="<?php echo $_GET['pmac']; ?>">
+								<input id="pmac" name="pmac" type="hidden" value="<?php
+								if(strpos($_SERVER['PHP_SELF'],"show.php")===false){	
+									echo "?";							
+								}else{
+								echo $_GET['pmac'];	
+								}
+								?>">
 								<input id="hmac" name="hmac" type="hidden" value="<?php echo $_GET['hmac']; ?>">
 								<input id="suchbutton" type="image" name="submit" value="">
 							</form>

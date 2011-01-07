@@ -8,6 +8,8 @@
 	VLANs<br/>
 	<br/>
 	Sonstiges<br/>
+	*<a href="duplic.php">Duplikate</a>
+	<br/>
 	</div>
 
         </div>

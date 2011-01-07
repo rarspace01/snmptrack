@@ -11,7 +11,7 @@ include("overviewfunctions.php"); //Funktionen für die Hauptseite
         <div id="content">
             <h1>Was ist SNMP Track?</h1>
 
-				SNMP Track ist ...<br/>
+				SNMP Track ist informativ.<br/>
 				<br/><br/>
 
             <h1>Übersicht: </h1>
@@ -40,12 +40,12 @@ include("overviewfunctions.php"); //Funktionen für die Hauptseite
             $ST=$row['ST'];
             
             // UTC+1 +DST if active
-            $ST=$ST+60*60;
+//            $ST=$ST+60*60;
             date_default_timezone_set("Europe/Berlin");
             
-            if($ST>mktime(2, 0, 0, 3, 31, date('Y', $ST))&&$ST<mktime(2, 0, 0, 10, 31, date('Y', $ST))){
-            	$ST=$ST+60*60;
-            }
+//            if($ST>mktime(2, 0, 0, 3, 31, date('Y', $ST))&&$ST<mktime(2, 0, 0, 10, 31, date('Y', $ST))){
+//            	$ST=$ST+60*60;
+//            }
             
             
             echo "Ports online: [".$PON."/".$PSUM."]<br/>";

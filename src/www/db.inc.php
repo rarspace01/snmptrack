@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set("Europe/Berlin");
+
 function db_connect(){
 
         $conn = @oci_pconnect('USRTRACK','TrackIt','USER_TRACKING') or die("Die Datenbank konnte nicht erreicht werden.");
