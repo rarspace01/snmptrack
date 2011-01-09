@@ -489,3 +489,49 @@ Neben der grafischen Darstellung der Switchs auf dem Werksgelände bietet sich d
 
 \section{Wirtschaftliche Betrachtung}
 \label{sec:economicloverview}
+
+Möchte man das Projekt wirtschaftlich untersuchen, so muss zuerst die Ausgangsituation betrachtet werden. In dieser existiert die bereits bestehende Lösung Cisco Works, welche in einer veralteten Version vorliegt. Für diese wurde bereits ein Angebot eingeholt, welches sich auf ungefähr 8000€ bewegt. Sofern hier kein Update durchgeführt wird, können alle neueren Switchs nicht unterstützt werden. Ein weiterer Aspekt ist, dass nur ein Bruchteil der Funktionen die von Cisco Works angeboten werden auch tatsächlich genutzt werden.\\
+Im Vergleich dazu hat eine selbst entwickelte Lösung keinerlei Lizenzkosten und kann auch neuere Swicths unterstützen. Betrachtet man beide Möglichkeiten von der monetären Seite, so lässt sich eine Einsparung von 8000€ einsparen. Jedoch muss bedacht werden, dass eine selbstentwickelte Lösung hingegen mit Arbeitszeit  verbunden ist.  Diese müssen normalerweise als Kosten definiert werden. Jedoch handelt es sich bei diesem Projekt um ein Sonderfall, da die Aufgabenstellung während der Praxisphase des Studenten mit der Bachelorarbeit einhergeht, somit fällt keine zusätzliche Mehrarbeit an, da die betreffende Person in jedem Fall mit dem Projekt beschäftigt sein muss. Trotzdem ist es sinnvoll zu kalkulieren wie viel Kosten bei der eigenständigen Entwicklung entstehen.
+Um die Personalkosten zu beziffern zu können muss zuerst erst ein Stundensatz definiert werden. Um einen Vergleich erstellen zu können ist es ratsam die Kosten zu berechnen, wenn System von einer externe Person und wenn es von einer internen Person erstellt wird.
+Vergleicht man die Zahlen für eine Software-Entwickler im externen Umfeld, so lässt sich ein Durchschnittswert von 65€/Stunde festlegen. Neben den Kosten spielt natürlich der Faktor Zeit ebenfalls eine wichtige Rolle. Für die Umsetzung des Projektes wurde in Kapitel X eine Annahme getroffen über die Zeit, die benötigt wird, das Projekt umzusetzten. Jedoch muss bei dieser Schätzung bedacht werden, dass hierbei neben einer Einarbeitungszeit, der Tatsache, dass nebenher eine Bachelorarbeit geschrieben wird und dass die Erfahrung des Entwickelers nicht auf dem selben Level eines externen Spezialisten ist. Grob geschätzt ist also die Annahme von 50 Werktagen auf etwas mehr als die Hälfte reduzierbar. Bei einer Annahme von 30 Tagen (zu je 8 Stunden pro Tag) ergibt sich eine Stundenzahl von 240 für das Projekt.
+Verrechnet man diese Stundenzahl mit dem Stundenlohn, so erhält man 15600€. Dieser Wert liegt deutlich über dem Wert einer neuen Lizenz. Daher ist von einer Umsetzung des Projektes von einem externen Entwickler abzuraten. Für die Umsetzung durch einen Internen Entwickler liegen leider keine genauen Zahlenwerte vor, daher wird ein Beispielhafter Wert angenommen, wie er in jedem Unternehmen Gültig sein könnte. Für einen Mitarbeiter, der mit allen Kosten (inkl. Betrieblicher Anteil der Versicherungen) 5000€ pro Monat Kosten verursacht, lässt sich bei einer durchschnittlichen Zahl von 20 Werktagen pro Monat und einer 40 Stunden Woche, ein Stundenlohn wiefolgt berechnen:\\
+\\
+5000/(20*8)=31,25€\\
+\\
+Berechnet man nun die Kosten für das Projekt für einen internen Mitarbeiter, so lässt sich feststellen, dass die Kosten deutlich gesunken sind:\\
+\\
+31,25€*240=7500€\\
+\\
+Bei anderen Kosten für interne Mitarbeiter schwankt dieser Wert natürlich. Generell lässt sich jedoch feststellen, dass der Wert, welcher die Kosten für einen Mitarbeiter beschreibt nicht über einen Wert X liegen darf, der sich wiefolgt bestimmen lässt:\\
+\\
+(X/(20*8))*250=8000\\
+(X/160)*250=8000\\
+X*(25/16)=8000\\
+X=8000/(25/16)\\
+X=5120\\
+\\
+Somit lässt sich feststellen, dass ab einem Kostenpunkt von ca. 5120€ für einen Mitarbeiter pro Monat dieser die Kosten eines Updates der Cisco Software übersteigt. Jeder Wert unter diesem Grenzwert kann als akzeptabel angesehen werden.\\
+In diesem Zusammenhang muss auch betrachtet werden, wie oft ein Update einer Solchen Software ansteht. Generell gibt es bei CiscoWorks verschiedene Versionen. Sofern es sich um ein Major-Release handelt (1.0 -> 2.0, 2.0->3.0) muss eine neue Lizenz gekauft werden. Um nun eine Schätzung machen zu können, welche Kosten auf einen zukommen, wenn fortlaufend Updates für CiscoWorks gekauft werden müssen, ist die Versionsgechichte von CiscoWorks zurate zu ziehen. Diese sieht wiefolgt aus:
+\\
+CiscoWorks 2000 -> 1999\\
+CiscoWorks LMS 1.0 -> April 2000\\
+CiscoWorks LMS 2.0 -> März 2001 \\
+CiscoWorks LMS 3.0 -> Juni 2007\\
+CiscoWorks LMS 4.0 -> September 2010\\
+\\
+Diese Daten ergeben einen Durschnittswert von einer Version in 2,5 Jahren. Setzt man diesen auf drei Jahre, ist dies dann auch ein realistischer Wert, wenn die beiden letzten Versionen im Bezug gesehen werden. Somit kann man von einem Kostenpunkt von fortlaufend von 8000/3=2667€ pro Jahr ausgehen. Mit diesen Werten lässt sich eine grobe Schätzung für die kommenden Jahre bewerkstelligen.
+Um ebenfalls der Inflation gerecht zu werden wird eine Inflation von 2% angenommen, basierend auf der Inflation von 3,06% der letzten 36 Jahre (vgl. stat. Bundesamt) und der aktuellen Situation (vgl. stat. Bundesamt).
+Kosten die bei der Wahl der Updates für die nächsten 5 Jahre entstehen:\\
+\\
+2667*(1,02)\^(1-1)+2667*(1,02)\^(2-1)+2667*(1,02)\^(3-1)+2667*(1,02)\^(4-1)+2667*(1,02)\^(5-1)=
+13879,18€\\
+\\
+Würde man sich für die Selbsterstellung der Software entscheiden muss man zum einen die Entwicklungskosten von 240 Stunden und zusätzlich für jeden neuen nicht unterstützen Router eine Anpassungszeit von maximal 6 Stunden berechnen. Da im Netzwerk nur eine geringe Anzahl von unterschiedlichen Switchs im Betrieb ist, ist die Anzahl der Anpassungen pro Jahr im Durchschnitt maximal auf 2 zu sehen. Die Inflation wird ebenfalls auf den Lohn angerechnet. Für die Kosten auf 5 Jahre gesehen ergibt sich somit:\\
+\\
+31,25*240+2*6*31,25*(1,02)\^(1-1)+2*6*31,25*(1,02)\^(2-1)+2*6*31,25*(1,02)\^(3-1)+2*6*31,25*(1,02)\^(4-1)+2*6*31,25*(1,02)\^(5-1)=9451,52€\\
+\\
+Diese Zahl ist immernoch ein Teil niedriger wie die Kosten für eine neue CiscoWorks Version, zudem besteht auch die Möglichkeit fremdartige Switchs zu unterstützen. Beachtet man nun die realen Kosten, nämlich dass für die initale Entwicklung keine Kosten entstanden sind, so lässt sich die Rechnung wiefolgt aktualisieren:\\
+\\
+2*6*31,25*(1,02)\^(1-1)+2*6*31,25*(1,02)\^(2-1)+2*6*31,25*(1,02)\^(3-1)+2*6*31,25*(1,02)\^(4-1)+2*6*31,25*(1,02)\^(5-1)=1951,52€\\
+\\
+Wie sich erkennen lässt, stellt dies nur ein Bruchteil der Kosten eines Updates wieder.
