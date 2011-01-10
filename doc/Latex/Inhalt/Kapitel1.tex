@@ -240,31 +240,68 @@ Die verwendeten Modelle lassen sich in verschiedene Kategorien unterteilen, die 
 \\
 In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einordnen:\\
 -Struktur-Diagramme\\
-	* Klassendiagramm\\
-	* Kompositionsstrukturdiagramm\\
-	* Komponentendiagramm\\
-	* Verteilungsdiagramm\\
-	* Objektdiagramm\\
-	* Paketdiagramm\\
-	* Profildiagramm\\
+    * Klassendiagramm\\
+    * Kompositionsstrukturdiagramm\\
+    * Komponentendiagramm\\
+    * Verteilungsdiagramm\\
+    * Objektdiagramm\\
+    * Paketdiagramm\\
+    * Profildiagramm\\
 -Verhaltens-Diagramme\\
-	* das Aktivitätsdiagramm\\
-	* das Anwendungsfalldiagramm\\
-	* das Interaktionsübersichtsdiagramm\\
-	* das Kommunikationsdiagramm\\
-	* das Sequenzdiagramm\\
-	* das Zeitverlaufsdiagramm\\
-	* das Zustandsdiagramm\\
+    * das Aktivitätsdiagramm\\
+    * das Anwendungsfalldiagramm\\
+    * das Interaktionsübersichtsdiagramm\\
+    * das Kommunikationsdiagramm\\
+    * das Sequenzdiagramm\\
+    * das Zeitverlaufsdiagramm\\
+    * das Zustandsdiagramm\\
 \\
 Im folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche im Projekt selbst verwendet wurden.\\
 Das erste Diagramm, welches verwendet wurde, ist das Andwendungsfalldiagramm (im
 folgenden als Usecase Diagramm benannt).  Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als ‘Strichmännchen ‘ dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
-Anwendungsfälle hingegen werden als Ellipsen dargestellt und enthalten eine Beschreibung. Um beide unterschiedliche Elemente in einer Gruppe zusammenzufassen wird ein Rahmen um alle beteiligten Elemente gebildet, welcher Systemkontext genannt wird und somit die Systemgrenze darstellt. Neben den normalen Assoziationen (z.B. Benutzer -> Drucken) besteht die Möglichkeit der Generalisierung. Das bedeutet, dass zwei spezifische Akteure oder Anwendungsfälle zu einem generellen zusammengefasst werden können.
+Anwendungsfälle hingegen werden als Ellipsen dargeEin stellt und enthalten eine Beschreibung. Um beide unterschiedliche Elemente in einer Gruppe zusammenzufassen wird ein Rahmen um alle beteiligten Elemente gebildet, welcher Systemkontext genannt wird und somit die Systemgrenze darstellt. Neben den normalen Assoziationen (z.B. Benutzer -> Drucken) besteht die Möglichkeit der Generalisierung. Das bedeutet, dass zwei spezifische Akteure oder Anwendungsfälle zu einem generellen zusammengefasst werden können.
 Ein Beispiel eines Usecase-Diagramms ist in Abbildung X zu sehen.\\
 \\
-<BILDX>\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\textwidth]{000.PNG}
+\caption{<BILDUSECASE>}
+\label{fig:show_s1_s2_p1_n1}
+\end{figure}
+Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Beschreibung einzelner Klassen sowie deren Beziehungen untereinander. Klassen dienen zur Beschreibung der Objekte, welche von diesen instanziert werden. Im Klassendiagramm wird eine Klasse als Rechteck dargestellt und neben dem Klassenamen enthält diese ein Bereich für die Attribute, sowie für die Methoden. Um die Sichtbarkeit der Attribute und Methoden darzustellen werden verschiedene Symbole verwendet:\\
+
+     + für public   unbeschränkter Zugriff\\
+     \# für protected  , Zugriff nur von der Klasse sowie von Unterklassen (geerbte Klassen)\\
+     \- für private  nur innerhlab der Klasse selbst sichtbar\\
+     ~ für package  innerhalb des Pakets sichtbar\\
 \\
-Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es ist eine
+Ähnlich wie bei dem Usecase-Diagramm bietet sich beim Klassendiagramm die Möglichkeit einer Generalisierung. Beispielsweise Sind die Klassen PKW und LKW Unterklassen von der Klasse Fahrzeuge. In Abbildung X ist ein Beispiel eines Klassendiagramms zu sehen.\\
+\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\textwidth]{000.PNG}
+\caption{<BILDclass>}
+\label{fig:show_s1_s2_p1_n1}
+\end{figure}
+Ebenfalls relevant für die Umsetzung des Projektes sind die Aktivitätsdiagramme. Sie dienen dazu Abläufe von Prozessen, aber auch von technischen Abläufen umzusetzten.
+Beim Aktivitätsdiagramm befinden sich die Elemente in einem abgerundeten Rechteck, welche zusätzlich den Namen der Aktivität neben den Elementen enthält. Der Start bzw. Endpunkt bilden jeweils ein gefüllter Kreis, wobei der Endpunkt nur teilweise gefüllt ist. Aktivitäten werden in abgerundeten Rechtecken aufgelistet und miteinander in Flussrichtung verbunden. Entscheidungsfälle werden durch eine Raute symbolisiert. Je nach Entscheidungsfall, verläuft der Pfad bei ‘Ja’ weiter in Flussrichtung nach unten, oder bei einer Abweichung seitlich ab. Zusätzlich bietet sich die Möglichkeit Aktivitäten parallel ablaufen zu lassen. Dies kann durch Aktivitäten die zwischen 2 Balken angelegt werden, symbolisiert werden. Im foglenden ist in Abbildung X ein beispielhaftes Aktivitätsdiagramm zu sehen.\\
+\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\textwidth]{000.PNG}
+\caption{<BILDactivity>}
+\label{fig:show_s1_s2_p1_n1}
+\end{figure}
+Für das bessere Verständnis der späteren Implementierung ist das Sequenzdiagramm ebenfalls von größerer Bedeutung. Es dient dazu ein Überblick über die Lebensdauer und Interaktion zwischen den einzelnen Klassen bzw. deren Objekte zu erhalten. Bei diesen wird nicht nur auf die bei den Klassendiagrammen gezeigte Beziehung sondern auch auf den Nachrichtenaustausch zwischen den Objekten eingegangen. Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus folgenden Aktion wird es notwendig zu unterschieden welche Art von Kommunikation stattfindet. Hierbei gibt es die synchrone, als auch asynchrone Kommunikation. Bei der zuerst genannten handelt es sich um ein Nachrichtenaustausch bei der das aufrufenden Element, beispielsweise ein Browser, dass Daten anfordert (eine Webseite). Hierbei sendet er die Anfrage für die jeweilige Seite ab und muss anschließend warten bis der Server ihm diese zurückgeliefert hat. Erst im Anschluss kann der die Webseite dem Nutzer darstellen.
+Bei der asynchronene Kommunikation handelt es sich um ein Austausch, welcher es nicht erfordert, dass ein Teilnehmer auf die Bestätigung des anderen warten muss. Beispielsweise beim Versand einer Email. Hier muss der Sender weder warten bis der Empfänger online ist, noch muss er den Empfang der Email abwarten. Hier können Nachrichten gesendet werden, ohne dass für den Sender ein Ergebnis zur Laufzeit erwartet wird.
+Eine Nachricht werden im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nachrichten werden mit gefüllten Pfeilspitzen, asynchrone Nachrichten mit offenen Pfeilspitzen gekennzeichnet. In der Nachfolgenden Abbildung ist ein beispielhaftes Sequenzdiagramm zu sehen.\\
+\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\textwidth]{000.PNG}
+\caption{<BILDseq>}
+\label{fig:show_s1_s2_p1_n1}
+\end{figure}
 
 \section{MAC - Media Access Control}
 \label{sec:mac}
