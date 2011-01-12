@@ -308,10 +308,19 @@ Eine Nachricht werden im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nac
 
 Bei der MAC-Adresse (Media-Access-Controll-Adresse) handelt es sich um eine Adresse eines Netzwerkadapters, die zur eindeutigen Identifizierung in einem Netzwerk dient. MAC-Adressen werden in einer Vielzahl von Netzwerk Protokollen verwendet. Unter anderem wird sie im Ethernet-Protokoll (IEEE 802.3)  aber auch vielen anderen Netzwerktechnologien genutzt die unter den IEEE 802 Gruppen zu finden sind.
 Das MAC Protokoll steuert die Adressierung auf Hardwareebene, sowie die Zugriffsart.
-Im IOS/OSI-Modell ist das MAC-Protokoll auf Schicht 2, der Sicherungschicht, angesiedelt.\\
-//Funktion\\
-//Wie sehen MAC adressen aus?\\
-//HERSTELLERKennung\\
+Im IOS/OSI-Modell ist das MAC-Protokoll auf Schicht 2, der Sicherungschicht, angesiedelt.
+Somit hat das MAC-Protokoll zwei Aufgaben, zum einen die Adressierung eines Gerätes und zum anderen wie dieses Gerät auf das Medium zugrreift.\\
+Zur eindeutigen Adressierung der Netzwerkadapter  dient die sogenannte MAC-Adresse. Hierbei handelt es sich um einen 48-bit Wert, der einzigartig auf der ganzen Welt ist. Die ersten 24-bit kennzeichnen den Hersteller des Netzwerkadapters, die anschließenden 24-bit sind beliebig vom Hersteller vergebbar. Einige bestimmte MAC-Adressen können jedoch nicht reserviert werden, hierbei handelt  es sich um Broadcast-Adressen und Multicast-Adressen.
+Eine MAC-Adresse kann wiefolgt dargestellt werden:\\
+\\
+01-23-45-67-89-ab\\
+oder\\
+01:23:45:67:89:ab\\
+\\
+Anhand der Herstellerkennung lassen sich wiederum Rückschlüsse auf das Netzwerkgerät schließen. Die Hersteller, welche jeweils hinter der Herstellerkennung sich verbergen sind öffentlich bei der IEEE einsehbar, z.B. per Internet.\footnote{http://standards.ieee.org/develop/regauth/oui/public.html}\\
+Das MAC-Protokoll regelt ebenfalls den Zugriff auf das Transportmedium. Hierbei wird in zwei verschiedene Zugriffsarten unterteilt. Zum einen den kontrollierten Zugriff und zum anderen der konkurrierende Zugriff.
+Beim kontrollierten Zugriff wird darauf geachtet, dass keine Kollision auftritt. Das bedeutet, keiner der Netzwerkgeräte kommuniziert gleichzeitig über einen Kanal, sondern es ist immer nur ein Gerät aktiv.\\
+Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen, jedoch gibt es in diesem Fall bestimmte Regeln, wenn eine Kollision auftritt. In diesen wird geregelt in welcher Art und Weise die Kollisionen behandelt werden. In der Praxis gibt es unter anderem das Protokoll CSMA/CD. Dieses stellt bei einer Kollision durch ein Störr-Signal sicher, dass alle beteiligten Geräte die Kollision ebenfalls erkennen und versendet das Paket nach einer Zeit wiederum erneut bis dieses ankommt oder die Anzahl der maximalen Versuche überschritten wurde. Die warte Zeit steigt exponentiell anhand der Versuche . Hierzu wird eine Zufallszahl aus dem Bereich 0 und (2\^i)-1 gewählt.
 
 \section{VLAN - Virtual Local Area Network}
 \label{sec:vlan}
