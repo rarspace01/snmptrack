@@ -60,4 +60,12 @@ public class Nagios {
 		return hostList;
 	}
 	
+	public static final ArrayList<String> getSwitchs(){
+		ArrayList<String> hostList=new ArrayList<String>();
+		
+		String sSQL="SELECT h.address AS address FROM `tbl_hostgroup` hg, `tbl_lnkHostgroupToHost` hg2h, `tbl_host` h WHERE hg.id=hg2h.idMaster AND hg2h.idSlave=h.id";
+		
+		return null;
+	}
+	
 }
