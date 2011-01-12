@@ -2,68 +2,65 @@ package org.dh.usertrack;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class TClass {
+
+	private int ifinishedThreads=0;
+	private int activeThreads=0;
+
 	
-//	try {
-//	ResultSet rset=DataManagerOracle.getInstance().select("select BANNER from SYS.V_$VERSION");
-//	
-//    while (rset.next())
-//          System.out.println (rset.getString(1));   // Print col 1
-//
-//	
-//} catch (SQLException e) {
-//	// TODO Auto-generated catch block
-//	e.printStackTrace();
-//}
+	TransportMapping transport;
+	Snmp snmp;
+
+	ArrayList<String> swHostMacIps=new ArrayList<String>();
 	
 	
-	public static void main(String[] args) {
+	public int getActiveThreads() {
+		return activeThreads;
+	}
+
+	public void setActiveThreads(int activeThreads) {
+		this.activeThreads = activeThreads;
+	}
+
+	public int getIfinishedThreads() {
+		return ifinishedThreads;
+	}
+
+	public void setIfinishedThreads(int ifinishedThreads) {
+		this.ifinishedThreads = ifinishedThreads;
+	}
+	
+	public TClass(String sIP) {
 		
+		if(sIP.length()>0){
+			
+		}else{
+			sIP="151.10.144.169";
+		}
 		
-//		SNMPTrackHelper.cleanupDuplicates();
-//		
-//		try {
-//			Thread.sleep(9999);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		long lstart=0;
-//		long lstop=0;
-//		
-//		lstart=System.currentTimeMillis();
-//		
-//		SNMPTrackHelper.updateALevels();
-//		
-//		lstop=System.currentTimeMillis();
-//		
-//		System.out.println("DIF: "+(lstop-lstart));
+		HelperClass.msgLog("catcher.log","Search for: ["+sIP+"]");
 		
-//		System.out.println(sPuffer.length());
-//		
-//		System.out.println(saPuffer.length);
-//		
-//		System.out.println("SEITE:\n"+sPuffer);
-//			try {
-//			Thread.sleep(999999);
-//		} catch (InterruptedException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}	
-//		
+		ArrayList<String> sPufferList=new ArrayList<String>();
+
+		HelperClass.msgLog("catcher.log","Starte SNMPTrack");
 		
-		TransportMapping transport;
-		Snmp snmp = null;
+		HelperClass.msgLog("catcher.log","Initialisiere SNMP");
 		
 		try {
-			transport = new DefaultUdpTransportMapping();
+			DefaultUdpTransportMapping dutm=new DefaultUdpTransportMapping();
+			
+			//System.out.println(dutm.getReceiveBufferSize());
+			
+			dutm.setReceiveBufferSize(2^28);
+			
+			transport = dutm;
+			
 			snmp = new Snmp(transport);
 			transport.listen();
 		} catch (IOException e1) {
@@ -71,57 +68,105 @@ public class TClass {
 			e1.printStackTrace();
 		}
 		
-		HelperClass.msgLog("Lade ARP Cache");
+		while(true){
 		
 		
-		ArrayList<String> swHostMacIps = SNMPHandler.getOIDWalknonBulk(snmp, "1.3.6.1.2.1.4.22.1.2", "151.10.132.2", SNMPConfig.getReadCommunity());
+			HelperClass.msgLog("catcher.log","Clear ARP Cache");
+			
+			swHostMacIps.clear();
+			
+			HelperClass.msgLog("catcher.log","Lade ARP Cache");
+	
+			for(int i=0; i<SNMPConfig.getRouters().size();i++){
+				
+				HelperClass.msgLog("catcher.log","Lade ARP Cache von "+SNMPConfig.getRouters().get(i).substring(0,SNMPConfig.getRouters().get(i).indexOf("!")));
+				
+				sPufferList=SNMPHandler.getOIDWalknonBulk(snmp, OIDL.ipNetToMediaPhysAddress, SNMPConfig.getRouters().get(i).substring(0,SNMPConfig.getRouters().get(i).indexOf("!")), SNMPConfig.getRouters().get(i).substring(SNMPConfig.getRouters().get(i).indexOf("!")+1));
+				
+				for (int j=0; j<sPufferList.size();j++){
+					
+					if(!swHostMacIps.contains(sPufferList.get(j))){
+						
+						swHostMacIps.add(sPufferList.get(j));
+						
+					}
+					
+				}
+				
+			}
+			
+			
+			HelperClass.msgLog("catcher.log","Gefundene ARP Einträge: "+swHostMacIps.size());
+			
+			for(int i=0;i<swHostMacIps.size();i++){
+				
+				HelperClass.msgLog("catcher.log",swHostMacIps.get(i));
+				
+				if(swHostMacIps.get(i).contains(sIP)){
+				
+					HelperClass.msgLog("catcher.log","FOUND ARP: "+swHostMacIps.get(i));
+					
+					
+					//start
+					
+					
+					ProcessBuilder pb = new ProcessBuilder("java", "-Xmx1024m",
+							"-Xms1024m",
+							"-jar",
+							"snmptrack.jar");
+	
+					Map<String, String> env = pb.environment();
+	
+					pb.redirectErrorStream( true );
+	
+					try {
+	
+						Process p = pb.start();
+						Process sister = pb.start();
+	
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+				}
+				
+			}
 		
-		//Switch sw1=new Switch("151.10.132.226", snmp);
-		Switch sw1=new Switch("151.10.132.146", "pdhoechst", snmp, swHostMacIps);
-		sw1.refresh();
+			
+		try {
+			
+			Thread.sleep(3*60*1000);
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 		
-		//System.out.println("DNS:"+DNSHelperClass.getHostname("192.168.1.1"));
+		}
 		
-		
-
-//		
-//		for(int i=0; i<255; i++){
-//			
-//			try {
-//
-//				Hashtable env = new Hashtable();
-//
-//				env.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
-//				env.put("java.naming.provider.url",    "dns://151.10.136.202/. dns://151.10.136.70/. dns://192.168.1.1/.");
-//				
-//				
-//				DirContext ctx = new InitialDirContext(env);
-//	 
-//				Attributes attrs = ctx.getAttributes(i+".1.168.192.in-addr.arpa",new String[] {"PTR"});
-//
-//				for (NamingEnumeration ae = attrs.getAll();ae.hasMoreElements();) {
-//
-//					Attribute attr = (Attribute)ae.next();
-//
-//					String attrId = attr.getID();
-//
-//					for (Enumeration vals = attr.getAll();vals.hasMoreElements(); System.out.println(attrId + ": " + vals.nextElement()));
-//
-//				}
-//
-//				ctx.close();
-//
-//		 	}	
-//
-//			catch(Exception e) {
-//
-//				System.out.println("NO REVERSE DNS");
-//
-//			}
-//			
-//		}
-
 		
 	}
 	
+
+
+	public static void main(String[] args) {
+	
+		String sPuffer="";
+		
+		HelperClass.msgLog("catcher.log","LOC: ["+HelperClass.class.getProtectionDomain().getCodeSource().getLocation().getFile()+"]");
+		
+		HelperClass.msgLog("catcher.log","ARGS:");
+		
+		for(int i=0;i<args.length;i++){
+		HelperClass.msgLog("catcher.log",args[i]);	
+		}
+		
+		if(args.length>0){
+			sPuffer=args[0];
+		}
+		
+		new TClass(sPuffer);
+
+	}
 }
