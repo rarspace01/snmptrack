@@ -1,0 +1,161 @@
+% --------------------------------------------------------------------------
+% Formatvorlage fr Diplomarbeiten der FHWT
+% --------------------------------------------------------------------------
+% 	Angelehnt an die Word-Vorlage von Herrn Sthrenberg
+% 	Download unter http://www.atlando.de/fhwt.htm
+%
+% 	erstellt von Stefan Macke. 12.07.2007
+% 	http://blog.stefan-macke.de
+
+
+
+
+
+% Dokumentenkopf -----------------------------------------------------------
+% 	Diese Vorlage basiert auf "scrreprt" aus dem koma-script.
+%		Die Option draft sollte beim fertigen Dokument ausgeschaltet werden.
+% --------------------------------------------------------------------------
+\documentclass[
+	12pt,						% Schriftgre
+	DIV10,
+	german,					% fr Umlaute, Silbentrennung etc.
+	a4paper,					% Papierformat
+	oneside,					% einseitiges Dokument
+	titlepage,				% es wird eine Titelseite verwendet
+	halfparskip,			% Abstand zwischen Abstzen (halbe Zeile)
+	normalheadings,		% Gre der berschriften verkleinern
+	liststotoc,				% Verzeichnisse im Inhaltsverzeichnis auffhren
+	bibtotoc,				% Literaturverzeichnis im Inhaltsverzeichnis auffhren
+	idxtotoc,				% Index im Inhaltsverzeichnis auffhren
+	tablecaptionabove,	% Beschriftung von Tabellen oberhalb ausgeben
+	final						% Status des Dokuments (final/draft)
+]{scrreprt}
+
+
+% Umlaute ------------------------------------------------------------------
+% 		Umlaute/Sonderzeichen wie  direkt im Quelltext verwenden (CodePage).
+%		Erlaubt automatische Trennung von Worten mit Umlauten.
+% --------------------------------------------------------------------------
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+%\usepackage{ae} % "schneres" 
+\usepackage{textcomp} % Euro-Zeichen etc.
+
+% Meta-Informationen -------------------------------------------------------
+%		Informationen ber das Dokument, wie z.B. Titel, Autor, Matrikelnr. etc
+%		werden in der Datei _Meta.tex definiert und knnen danach global
+%		verwendet werden.
+% --------------------------------------------------------------------------
+\input{_Meta}
+
+% Bentigte Packages -------------------------------------------------------
+%		Weitere Packages, die bentigt werden, sind in die Datei Packages.tex
+%		"ausgelagert", um die Vorlage mglichst bersichtlich zu halten.
+% --------------------------------------------------------------------------
+\input{Packages}
+
+
+
+% Erstellung eines Index und Abkrzungsverzeichnisses aktivieren -----------
+\makeindex
+\makenomenclature
+
+
+% Kopf- und Fuzeilen, Seitenrnder etc. -----------------------------------
+\input{Seitenstil}
+
+% Eigene Definitionen fr Silbentrennung
+%\include{Silbentrennung}
+
+% Das eigentliche Dokument -------------------------------------------------
+%		Der eigentliche Inhalt des Dokuments beginnt hier. Die einzelnen Seiten
+%		und Kapitel werden in eigene Dateien ausgelagert und hier nur inkludiert.
+% --------------------------------------------------------------------------
+\begin{document}
+
+% auch subsubsection nummerieren
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% keine Kopf-/Fuzeilen bei Deckblatt und Abstract
+\ofoot{}
+\include{Deckblatt}
+\include{Inhalt/Abstract}
+\ofoot{\pagemark}
+
+% Seitennummerierung -------------------------------------------------------
+%		Vor dem Hauptteil werden die Seiten in groen rmischen Ziffern 
+%		nummeriert...
+% --------------------------------------------------------------------------
+\pagenumbering{Roman}
+
+%Überschrifthack
+\parindent 0pt
+\renewcommand*{\chapterheadstartvskip}{\vspace*{0pt}}
+
+\tableofcontents			% Inhaltsverzeichnis
+
+
+% Abkrzungsverzeichnis ----------------------------------------------------
+%\input{Inhalt/Glossar}
+%\printnomenclature
+%\label{sec:Glossar}
+\include{Inhalt/Abkurz}
+
+\listoffigures					% Abbildungsverzeichnis
+%\listoftables					% Tabellenverzeichnis
+%\renewcommand{\lstlistlistingname}{Verzeichnis der Listings}
+%\lstlistoflistings			% Listings-Verzeichnis
+
+% ...danach in normalen arabischen Ziffern ---------------------------------
+\clearpage
+
+
+
+\pagenumbering{arabic}
+
+
+% Inhalt -------------------------------------------------------------------
+%		Hier knnen jetzt die einzelnen Kapitel inkludiert werden. Sie mssen
+%		in den entsprechenden .TEX-Dateien vorliegen. Die Dateinamen knnen
+% 		natrlich angepasst werden.
+% --------------------------------------------------------------------------
+\include{Inhalt/Einleitung}
+\include{Inhalt/Kapitel1}
+\include{Inhalt/Kapitel2}
+\include{Inhalt/Kapitel3}
+%\include{Inhalt/Fazit}
+
+\pagenumbering{Roman}
+\setcounter{page}{4}
+
+
+% Literaturverzeichnis -----------------------------------------------------
+%		Das Literaturverzeichnis wird aus der Datenbank Bibliographie.bib 
+% 		erstellt. Die genaue Verwendung von bibtex wird hier jedoch nicht erklrt.
+%		Link: http://de.wikipedia.org/wiki/BibTeX
+% --------------------------------------------------------------------------
+\bibliography{Bibliographie}
+%\bibliographystyle{natdin}		% DIN-Stil des Literaturverzeichnisses
+\bibliographystyle{gerplain}
+
+% Anhang -------------------------------------------------------------------
+%		Die Inhalte des Anhangs werden analog zu den Kapiteln inkludiert.
+%		Dies geschieht in der Datei Anhang.tex
+% --------------------------------------------------------------------------
+\begin{appendix}
+	\clearpage
+
+	\input{Inhalt/Anhang}
+\end{appendix}
+
+
+% Index --------------------------------------------------------------------
+%		Zum Erstellen eines Index, die folgende Zeile auskommentieren.
+% --------------------------------------------------------------------------
+%\printindex		% Index hier einfgen
+
+\include{Inhalt/Erklaerung}	% Selbstndigkeitserklrung 
+
+\end{document}
