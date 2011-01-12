@@ -53,7 +53,7 @@ public class HelperClass {
             
     }
 	
-    // Schreibt eine Log-Datei für Revisionszwecke in Datei agent.log
+    // Schreibt eine Log-Datei fï¿½r Revisionszwecke in Datei agent.log
     public static void msgLog(String sLog)
     {
             System.out.println(printClock()+sLog);
@@ -67,8 +67,22 @@ public class HelperClass {
                     err(e);
             }
     }
+    
+    public static void msgLog(String sFilename,String sLog)
+    {
+            System.out.println(printClock()+sLog);
+            BufferedWriter out;
+            try {
+                    out = new BufferedWriter(new FileWriter(sFilename, true));
+                    out.write(printClock()+sLog+"\r\n");
+                    out.close();
+            } catch (IOException e) {
+                    e.printStackTrace();
+                    err(e);
+            }
+    }
 
-  //liefert aktuelle Uhrzeit als String zurück
+  //liefert aktuelle Uhrzeit als String zurï¿½ck
     public static String printClock(){
     	String sDay="",sMonth="",sYear="",sHour="",sMinute="",sSecond="";
     	
