@@ -1,0 +1,42 @@
+\select@language {german}
+\contentsline {chapter}{{Abk\IeC {\"u}rzungsverzeichnis}}{III}{chapter*.3}
+\contentsline {chapter}{Abbildungsverzeichnis}{IV}{chapter*.4}
+\contentsline {chapter}{\numberline {1}Einleitung}{1}{chapter.5}
+\contentsline {chapter}{\numberline {2}Theoretische Grundlagen}{3}{chapter.6}
+\contentsline {section}{\numberline {2.1}Datenbank Entwurf / ERM}{3}{section.7}
+\contentsline {section}{\numberline {2.2}Kardinalit\IeC {\"a}ten}{4}{section.12}
+\contentsline {section}{\numberline {2.3}Normalisierung - Optimierung von Datenbanken}{5}{section.15}
+\contentsline {section}{\numberline {2.4}DBMS}{6}{section.27}
+\contentsline {section}{\numberline {2.5}Webserver}{8}{section.34}
+\contentsline {section}{\numberline {2.6}Schnittstellen}{9}{section.37}
+\contentsline {section}{\numberline {2.7}Softwareentwicklung}{10}{section.39}
+\contentsline {section}{\numberline {2.8}UML}{10}{section.40}
+\contentsline {section}{\numberline {2.9}MAC - Media Access Control}{14}{section.45}
+\contentsline {section}{\numberline {2.10}VLAN - Virtual Local Area Network}{15}{section.46}
+\contentsline {section}{\numberline {2.11}SNMP}{15}{section.47}
+\contentsline {section}{\numberline {2.12}CDP - Cisco Discovery Protokoll}{16}{section.51}
+\contentsline {chapter}{\numberline {3}Praktische Umsetzung}{18}{chapter.52}
+\contentsline {section}{\numberline {3.1}Situationsbeschreibung}{18}{section.53}
+\contentsline {section}{\numberline {3.2}Anforderungsdefinition}{19}{section.54}
+\contentsline {section}{\numberline {3.3}Anforderungsanalyse}{22}{section.56}
+\contentsline {section}{\numberline {3.4}Betrachtung bereits existierender L\IeC {\"o}sungen}{24}{section.57}
+\contentsline {section}{\numberline {3.5}Entscheidung zur eigenen Herstellung}{24}{section.58}
+\contentsline {section}{\numberline {3.6}Entwurf}{25}{section.59}
+\contentsline {subsection}{\numberline {3.6.1}Usecases}{25}{subsection.60}
+\contentsline {subsection}{\numberline {3.6.2}Klassendiagramme}{27}{subsection.62}
+\contentsline {subsection}{\numberline {3.6.3}Sequenzdiagramme}{30}{subsection.65}
+\contentsline {subsection}{\numberline {3.6.4}Aktivit\IeC {\"a}tsdiagramme}{30}{subsection.67}
+\contentsline {subsection}{\numberline {3.6.5}ERM}{35}{subsection.70}
+\contentsline {section}{\numberline {3.7}Design Entscheidungen}{37}{section.72}
+\contentsline {section}{\numberline {3.8}Auswahl der Hilfsmittel}{41}{section.77}
+\contentsline {section}{\numberline {3.9}Schnittstellen}{42}{section.78}
+\contentsline {section}{\numberline {3.10}Zeitplan}{44}{section.79}
+\contentsline {section}{\numberline {3.11}Realisierung}{46}{section.82}
+\contentsline {section}{\numberline {3.12}Probleme bei der Implementierung}{47}{section.83}
+\contentsline {section}{\numberline {3.13}Tests}{50}{section.84}
+\contentsline {section}{\numberline {3.14}Weitere Anwendungsfelder / Datamining}{53}{section.88}
+\contentsline {section}{\numberline {3.15}Wirtschaftliche Betrachtung}{54}{section.89}
+\contentsline {chapter}{\numberline {4}Fazit}{57}{chapter.90}
+\contentsline {chapter}{Literaturverzeichnis}{IV}{chapter*.91}
+\contentsline {chapter}{\numberline {A}Anleitung zur Fehlerbehebung}{V}{appendix.92}
+\contentsline {chapter}{Ehrenw\IeC {\"o}rtliche Erkl\IeC {\"a}rung}{VI}{appendix*.93}
