@@ -1,4 +1,18 @@
 \chapter{Fazit}
 \label{cha:Fazit}
 
-Noch leer.
+Zum Abschluss der Arbeit lässt sich bei einem Vergleich des Resultats mit der Ausgangssituation feststellen, dass die Aufgabenstellung soweit erfüllt wurde. Darüberhinaus wurden Ansätze aus der Literatur kritisch anhand von diversen Tests untersucht und aufgrundessen die Entscheidungen getroffen um die optimalsten Ergebnisse zu erzielen.
+Während den Tests wurde festgestellt, dass sich ein Großteil der Aussagen in der Literatur mit der Praxis abdecken. Jedoch gibt es auch teilweise Unterschiede. Zum Beispiel bei der Parallelisierung von Programmen. In der Literatur wird hauptsächlich auf Threadzahlen im hohen Bereich, sowie die Verwarltung von gemeinsamen Resourcen eingegangen. Was jedoch weniger Aufmerksamkeit geschenkt wird ist die optimale Threadzahl, bei der es “ökonomisch” nicht mehr sinnvoll ist diese zu erhöhen. Dies ist sehr gut in der Abbildung des Benchmarks zur Parallelisierung zu sehen, in der Werte über 10 keinen nennenswerten Geschwindigkeitsvorteil mehr bringen. Hierbei konzentriert sich die Literatur auch vermehrt auf einzelne Punkte, wenn der Hauptaugenmerk vielmehr auf das komplette System gelegt werden sollte. Daher empfiehlt es sich nicht unreflektiert Ansätze aus der Theorie zu übernehmen, sondern selbständig zu überprüfen, ob die diskutierten Ansätze für ein Projekt passend sind und in wiefern diese eine Auswirkung haben.
+Zudem sind sollten Empfehlungen von Herstellern nicht einfach als gegeben hingenommen werde. So stimmt es sicherlich, dass bei der Abfrage eines Switches die CPU Last erhöht, jedoch ist eine Begrenzung der SNMP Abfragen auf eine Abfrage in der Sekunde sehr zurückhaltend formuliert, da je nach Switch bis zu über 450 Abfragen in einer Sekunde bearbeitet werden können. Somit kann mit einer Limitierung auf 20 Abfragen pro Sekunde trotzdem ein Kompromiss zwischen Last und Geschwindigkeit getroffen werden.\\
+
+Betrachtung vieler “Einzel” fälle\\
+-”ganzes” meist seltener angesprochen\\
+-Weitgehende Übereinstimmung von bestimmten Ansätzen\\
+- viele Faktoren die in \\
+    -Switch\\
+    -Parallel\\
+    -MAC Cache\\
+- nicht alles ist eindeutig\\
+- “Interpretation” von Daten\\
+- aufgrund von Erfahrung sehr genaue Schätzung für aufwand/Implementierung\\
+-Planung ERM/UML, Aktivitätdiagramme zahlt sich aus\\
