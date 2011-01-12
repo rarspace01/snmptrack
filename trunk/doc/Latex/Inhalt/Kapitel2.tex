@@ -159,7 +159,7 @@ Dies ist vor allem notwendig um eine Übersicht über die verwendeten OID zu beh
 \label{fig:classdiagramcode}
 \end{figure}
 
-Im Programm selbst existieren jedoch auch Klassen die nicht nur zur Hilfe der eigneen Algorithmen Umsetzung dienen, sondern auch, welche externe Datenquellen anbinden.
+Im Programm selbst existieren jedoch auch Klassen die nicht nur zur Hilfe der eigenen Algorithmen Umsetzung dienen, sondern auch, welche externe Datenquellen anbinden.
 Hierzu gehört die Klasse Nagios, welche per HTTP oder per MySQL Datenbank ermöglicht die Gruppenzuordnung der Switchs auszulesen. Aber auch die Klasse LDAP, welche das auslesen des Active Directories ermöglicht oder aber die Klasse DNSHelperClass, welche es ermöglicht auf mehreren DNS Servern einen DNS Namen anhand einer IP zu finden. Neben diesen Klassen gibt es aber auch speziell erstellte Klassen die es ermöglichen SQL-Befehle die keine Resultsets erwarten, das heißt welche keinen Rückgabewert erwarten, in Stapel auszuführen.
 Dies bedeutet, dass die Datenbank nicht jeden Befehl einzeln erhält sondern eine große Anzahl (>100 Stück) auf einmal und somit weniger Overhead für den Verbindungsaufbau entsteht.\\
 Neben der Vielzahl von Klassen, welche zur verinfahcung der Übersicht und Wartbarkeit dienen, gibt es trotzdem Objekte welche auch die Realtät abbilden. Dazu gehören die Klassen Switch (welche bereits beschrieben wurde), Ports, sowie Hosts. Diese bieten jeweils Methoden an, welche von sich selbst die passenden SQL-Befehle generieren anhand der Daten, welche diese enthalten. Dies macht es vorallem einfach die Objekte zu serialisieren. Das heißt die Objekte im Programm wiederum abzubilden auf eine Textuale-Ebene.\\
