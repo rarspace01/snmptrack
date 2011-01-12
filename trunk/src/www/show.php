@@ -34,7 +34,7 @@ echo "
 <th>PMAC <a href='".$_SERVER['REQUEST_URI']."&sort=PortMAC_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=PortMAC_D'>▼</a></th>
 <th>Port <a href='".$_SERVER['REQUEST_URI']."&sort=PortID_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=PortID_D'>▼</a></th>
 <th>SwitchIP <a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_D'>▼</a></th>
-<th>IP <a href='".$_SERVER['REQUEST_URI']."&sort=IP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=IP_D'>▼</a></th>
+<th>IP <a href='".$_SERVER['REQUEST_URI']."&sort=LIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=LIP_D'>▼</a></th>
 <th>DNS <a href='".$_SERVER['REQUEST_URI']."&sort=hostname_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=hostname_D'>▼</a></th>
 <th>Speed [MBit/s] <a href='".$_SERVER['REQUEST_URI']."&sort=Speed_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Speed_D'>▼</a></th>
 <th>User <a href='".$_SERVER['REQUEST_URI']."&sort=lastuser_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=lastuser_D'>▼</a></th>
@@ -94,7 +94,7 @@ $puffer=$puffer."
 <th>PMAC <a href='".$_SERVER['REQUEST_URI']."&sort=PortMAC_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=PortMAC_D'>▼</a></th>
 <th>Port <a href='".$_SERVER['REQUEST_URI']."&sort=PortID_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=PortID_D'>▼</a></th>
 <th>SwitchIP <a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_D'>▼</a></th>
-<th>IP <a href='".$_SERVER['REQUEST_URI']."&sort=IP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=IP_D'>▼</a></th>
+<th>IP <a href='".$_SERVER['REQUEST_URI']."&sort=LIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=LIP_D'>▼</a></th>
 <th>DNS <a href='".$_SERVER['REQUEST_URI']."&sort=hostname_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=hostname_D'>▼</a></th>
 <th>Speed [MBit/s] <a href='".$_SERVER['REQUEST_URI']."&sort=Speed_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Speed_D'>▼</a></th>
 <th>User <a href='".$_SERVER['REQUEST_URI']."&sort=lastuser_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=lastuser_D'>▼</a></th>
