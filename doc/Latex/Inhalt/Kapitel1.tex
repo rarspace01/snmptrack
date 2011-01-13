@@ -325,6 +325,21 @@ Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen
 \section{VLAN - Virtual Local Area Network}
 \label{sec:vlan}
 
+Bei einem VLAN (Virtual Locla Area Network) handelt es sich um ein logisches Netz innerhalb eines physikalischen Netzwerkes. Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes. VLANs können über einen oder mehrerer Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen. Die Unterteilung des bestehnenden Netzwerkes in Tielnetze bewerkestelligt VLAN dadurch, dass es Switchs, die VLAN unterstützen dazu veranlasst Frames (Datenpakete) eines VLANs nicht in ein andere VLAN weiterzuleiten, auch wenn beide physikalisch an den selben Switch angeschlossen sind.
+VLAN können über verschiedene Arten realisiert werden. Eine Unterscheidungsmöglichkeit sind portbasierte VLANs und tagged VLANs.
+Bei den portbasierten VLANs gehört ein Port je einem VLAN an oder ist ein Trunk-Port. Bei einem Trunk-Port handelt es sich um ein Port über den mehrere VLANs geschaltet sind.\\
+Das sogennante tagged VLAN hingegen findet im Unterschied zu den portbasierten VLANs die Kennzeichnung im Ethernet-Frame selbst statt. Dieses tagging ist nach IEEE 802.1q spezifiziert.
+Beim tagged VLAN kennzeichnen die Switchs am Einspeise Ort oder spezielle tagging fähige Geräte die Pakete. Diese Pakete werden wiederum von den Switchs am Engerät detagged oder wiederum von tagging fähigen Gerät selbst.\\
+Zusätzlich gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.
+Bei einem statischen VLAN ist ein Port einem speziellen Port zugeordnet entweder zu einem Port-basierten VLAN oder zu einem tagged VLAN. Wobei ein Port auch mehreren VLAns angehören kann und dann ein Trunk-Port ist.\\
+Das dynamische VLAN hingegen ist nicht portbasierend und richtet sich nach dem Inhalt des Frames. Jedoch ist zu beachten, dass die Inhalte eines Frames beliebig veränderbar sind und somit dynamische VLANs nicht in sicherheitskritischen Netzwerken verwendet werden sollte.
+Die Zugehörigkeit zu einem VLAN kann per Adresse (MAC oder IP), auf Basis des Protokolls (IP, AppleTalk, IPX) oder auch auf Anwendunsebene nach Portnummern (80,443). So ist es möglich, z.B. ein Mobiles Endgerät im Netzwerk immer dem gleichen VLAN zuordnen zu lassen, unabhängig an welchem Ort dieses angeschlossen ist.\\
+Die Gründe für die Verwendung eines VLANs lassen sich in drei Punkte aufteilen.
+Zuerst macht eine Verwendung wie oben bereits erwähnt Sinn, wenn eine flexible Zuordnung eines Endgerätes immer zum selben VLAN gemacht werden muss.\\
+Ein weitere Grund sind Prformance-Aspekte. Sofern eine Prioisierung von speziellen Daten (z.B. VOIP) erfolgen muss. Meistens dient es jdoch der Verkleinerung der Braodcast-Domänen, die sich nicht über das gesamte Netzwerk ausbreiten sollten.\\
+Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle. Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein VLANs einzusetzten, da sie gegenüber Layer-2-Attacken architekturbedingt unempflindlich sind.
+
+
 \section{SNMP}
 \label{sec:snmp}
 Unter dem Simple Network Management Protocol ist ein Netzwerkprotokoll zu verstehen, welches einem erlaubt Netzwerkgeräte (z.B. Drucker, Router, Switchs, Router) per Netzwerk zu überwachen und zu steuern.\footnote{vgl. Essential SNMP, S. 1}
