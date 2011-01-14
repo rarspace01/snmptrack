@@ -174,11 +174,22 @@ Neben der Vielzahl von Klassen, welche zur verinfahcung der Übersicht und Wartb
 \subsection{Sequenzdiagramme}
 \label{subsec:seqdiagrams}
 
+Um die Beziehungen der einzelnen Klassen des Programms zu visualisieren reicht es nicht nur aus die Klassendiagramme zu zeichnen, sondern es müssen auch Sequenzdiagramme erstellt werden. Im folgenden soll auf die Beziehungen ausgehend von der Hauptklasse des Porgramms eingegangen werden.
+Zu Beginn des Porgramms erzeugt die Klasse SNMPTrack ein Objekt der Klasse SwitchListe.
+Bei diesem Objekt wird die Methode getSwitchs() aufgerufen. Diese Funktioin liefert dann eine Liste aller Switchs, die später ausgelesen werden müssen anhand einer vorgegebenen Datenquelle aus. Zum aktuellen Zeitpunkt ist dies eine XML-Datei, in naher Zukunft werden diese Daten anhand des existierenden Nagios Systems ausgelesen. Im Anschluss wird ein Objekt der Klasse SwitchWorkerThread erstellt, um einen separaten Thread zu starten, der unabhängig und nebenläufig arbeiten kann. Dieser Thread nimmt das übergebene Switch Objekt und ruft auf die refresh() Methode auf., welche wiederum für das Einlesen aller Switchinformationen zuständig ist.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{000.PNG}
-\caption{Sequenzdiagramm}
-\label{fig:sequecediagram}
+\includegraphics[width=0.5\textwidth]{seq.png}
+\caption{Sequenzdiagramm1}
+\label{fig:sequecediagram1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{seq2.png}
+\caption{Sequenzdiagramm2}
+\label{fig:sequecediagram2}
 \end{figure}
 
 \subsection{Aktivitätsdiagramme}
