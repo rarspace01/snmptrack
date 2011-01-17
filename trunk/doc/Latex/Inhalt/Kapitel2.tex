@@ -88,16 +88,13 @@ Bei HP Openview handelt es sich um eine kommerziell Lösung von HP, die dazu die
 Die wichtigste Komponente des HP Openview für die Netzwerküberwachung stellt der sogenannte ‘HP OpenView Network Node Manager’ dar. Dieser ermöglichst es neben dem Überblick über die Netzwergeräte und deren Stati zusätzlich detailierte Informationen zu den einzelnen Geräten anzuzeigen. Es bietet aber Histogramme z.B. für den aktuellen Durchsatz an.
 Zusätzlich bietet sich die Möglichkeit einer Art Übersichtskarte die automatisch anhand der vorhandenden Netzwerkgeräte generiert wird. Die notwendigen Informationen hierfür werden per SNMP und CDP ausgelesen. Zusätzlich wird zur Statusüberprüfung auf Funktionen wie ein Ping zurückgegriffen\\
 Eine weiteres kommerzielles System ist CiscoWorks von Cisco. Dieses bietet untere anderem ein spezielles Usertracking Modul, welches einem Ermöglicht alle Hosts in einem Netzwerk zu identifizieren, aber auch die dazugehörigen Switchs an die die Geräte angeschlossen sind anzuzeigen. Diese Informationen können teilweise auch per CDP (Cisco Discovery Protokoll) ausgelesen werden. Über die per CDP bereitgestellten Daten wird auch ein automatisches sequentielles Auslesen aller Switchs im Netzwerk ermöglicht ohne zuvor diese zu kennen (Zugriffsrechte werden trotzdem benötigt).\\
-Das OpenSource Programm Nagios dient vor allem zum Überwachen von verschiedenen Geräten im Netzwerk und arbeitet ebenfalls wahlweise per SNMP
+Das OpenSource Programm Nagios dient vor allem zum Überwachen von verschiedenen Geräten im Netzwerk sowie deren Dienste. Hierbei arbeitet es ebenfalls per SNMP. Es ist aber nicht auf dieses allein angewiesen. Sofern eingerichtet kann auch per einfach TCP oder UDP Dienste überprüft werden. Es können aber auch Remote Skripts per SSH aufgerufen werden.
+Jedoch ist hierbei zu Beachten das Nagios nur das Überwachen von bekannten und zuvor konfigurierten Hosts und Diensten unterstützt und somit für die gewünschte Anforderung nicht in Frage kommt.\\
+Ein System  was die Anforderungen teilweise erfüllt ist Tirtih. Dieses Programm wird vom Fraunhofer Institut eingesetzt im Kompetenzzentrum Netzwerkmanagement und ist Open Source. Es unterstützt das Auslesen von diversen Cisco Switchs sowie deren jeweiligen Hosts.
+Zusätzlich ließt Tirtih eine Großzahl an Infromationen über die Switchs sowie das bestehende VLAN aus. Funktionen die Tirtih nicht biete ist ein Paralleles auslesen der Switchs und es verfügt auch nicht über eine Historie, wenn ein Port an einem Switch getauscht werden sollte.
+\footnote{http://www.gambitcomm.com/site/products/mgmt_apps/interopnet98.htm
+http://www.fernuni-hagen.de/BWLPIT/LADV_/PDF_Dateien/Hinweise_Anfertigung_wiss_Arbeiten.PDF}
 
-
-        -Cisco Works -> Usertracking
-        - Nagios (Abgrenzung)
-        - tirtih
-        - Sonstige
-
-
-//
 
 Vergleicht man alle aufgeführten Systeme so lässt sich feststellen, dass keine der genannten Lösungen den Anforderungen entspricht.
 Zwar bietet Tirtih einen Teil der gewünschten Funktionen, jedoch müsste dies erst auf die speziellen Bedürfnisse angepasst werden, die das Unternehmen benötigt.
