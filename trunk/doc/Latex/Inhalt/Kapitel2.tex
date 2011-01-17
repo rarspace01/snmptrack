@@ -21,7 +21,7 @@ Darstellung und Überwachung des Netzwerkequipments\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{network_ex1.png}
+\includegraphics[width=0.9\textwidth]{network_ex1.png}
 %\includegraphics[width=0.8\textwidth]{000.PNG}
 \caption{Netzwerkarchitektur PD}
 \label{fig:show_s1_s2_p1_n1}
@@ -41,7 +41,7 @@ Nun Wechselt N1 zu P1 an S2. Hierfür soll nun wiederum ein Eintrag erzeugt werd
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{network_ex2.png}
+\includegraphics[width=0.4\textwidth]{network_ex2.png}
 %\includegraphics[width=0.5\textwidth]{000.PNG}
 \caption{Grafik mit S1+S2 sowie jeweils P1 und N1}
 \label{fig:show_s1_s2_p1_n1}
@@ -417,24 +417,43 @@ Zu beachten sind auch die zwei rot gefärbten Balken am unteren Ende des Diagram
 
 Nachdem sowohl die Umsetzung als auch der zeitliche Ablauf im Detail geplant wurden, konnte mit der Implementierung und somit mit der Realisierung des Projektes begonnen werden.
 Zu erst wurde ,wie im Zeitplan definiert, das Ausleseprogramm umgesetzt und im Anschluss die dazugehörige Webseite.\\
-Realsisiert wurde das System auf einem Virtuellen VMWare Server mit dem Betriebsystem OpenSuse (Linux). Als Webserver diente Apache 2 in Verbindung mit PHP 5.3.2. Die PHP Version wurde speziell mit einer Oracle Datenbank Anbindung kompiliert.
-Auf diesem Server lief zusätzlich neben dem Webserver ein Oracle Datenbankserver in der Enterprise Edition in Version 11g r2.\\
-Das für\\
-
-
-//umgebung
-apache
-php
-oracle
-
-//Ausleseprogramm
-java (open jdk/sun vm)
--Start -> switchs per XML, keine Parameter 
--db config
-
-
-
-//hier das Ergebnis eingehen
+Realisiert wurde das System auf einem Virtuellen VMWare Server mit dem Betriebsystem OpenSuse (Linux). Als Webserver diente Apache 2 in Verbindung mit PHP 5.3.2. Die PHP Version wurde speziell mit einer Oracle Datenbank Anbindung kompiliert.
+Auf diesem Server lief zusätzlich neben dem Webserver ein Oracle Datenbankserver in der Enterprise Edition in Version 11g R2.\\
+Das Ausleseprogramm selbst läuft Betriebsystem unabhängig und mit einer beliebigen Java Version ab dem Jahre 2006. Zusätzlich ist es unerheblich ob das Programm mit der original Sun Java VM ausgeführt wird oder mit dem quelloffenen OpenJDK, welches bevorzugt in Linux-Distributionen eingesetzt wird.
+Beim Start des Ausleseprogramms wird zunächst überprüft, ob die Datei Switch.xml existiert und bei Bedarf diese ausgelesen, welche wiederum die Switchs inklusive deren Read-Community enthält. Ist die Datei nicht existent, werden die auszulesenden Switchs anhand der Nagiosdatenbank ausgelesen. Die Daten für die Nagiosdatenbank, sowie für die Oracle Datenbank in der später die Informationen abgelegt werden befinden sich in der config.xml. Diese enthält neben der maximalen Threadanzahl auch die Einstellung für den SNMP Intervall, der in Kapitel X angesprochen wurde. Dieser Intervall dient zur Reduzierung der Last auf den Switches während des Auslesevorgangs. In dieser Konfigurationsdatei ist ebenfalls ein Parameter zu finden, welcher es ermöglicht ein Debuglevel zu setzten. Je nach Höhe dieses Levels werden nicht nur Fehler sondern auch Warnungen, Hinweise oder auch Meldungen ausgegeben. Die Levels lassen sich wiefolgt einordnen:\\
+\\
+Level 0: Anzeige von Fehlern\\
+Level 1: Zusätzliche Anzeige von Warnungen\\
+Level 2: Zusätzliche Anzeige von Hinweisen\\
+Level 3: Alle Meldungen\\
+\\
+Zusätzlich werden alle Meldungen die per Programm ausgegeben werden auch in der Log-Datei gespeichert. Diese Meldungen sind abhängig vom Loglevel.
+\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{000.PNG}
+\caption{Programm - Auschnitt}
+\label{fig:show_s1_s2_p1_n1}
+\end{figure}
+\\
+In Abbildung X ist der Start des Programms zu sehen. In diesem ist auch zu erkennen, dass keinerlei Parameter übergeben wurden. Dies wurde in der Art realisiert um Bedienfehler zu vermeiden und die Ausführung per Skripte zu erleichtern. Zusätzlich werden Fehlerhafte Einträge innerhalb der XML-Dateien einfach ignoriert.\\
+Die Weboberfläche des Systems wurde per PHP realisiert. Zusätzlich kommen Cascading Style Sheets und Java Script zum Einsatz. Um die Zeit für die Implementierung zu veringern, wurde auf die freie CMS Tints zurückgegriffen \footnote{http://sourceforge.net/projects/tints-system/}.
+\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{000.PNG}
+\caption{Programm - Auschnitt}
+\label{fig:show_s1_s2_p1_n1}
+\end{figure}
+\\
+Die Oberfläche während der Entwicklung ist in Abbildung X zu sehen.
+Neben dem Grundgerüst für die Darstellung der Tabellen müssen spezielle SQL-Abfragen erstellt werden, da später eine Sortierung aller Spalten möglich sein muss.
+Diese Sortierung wird durch die Übergabe der GET-Parameter realisiert. Klickt der Benutzer auf eine Spalte wie in Abbildung X zu sehen, so wird der GET-Parameter ‘sort’ in folgendem Format übergeben:\\
+\\
+sort=model_A
+\\
+Hierbei stellt ‘model’ 1:1 den Spaltennamen der zu sortierenden Spalte dar und ‘A’ gibt die Sortierrichtung an. In diesemfall steht A für das englische Wort ‘ascending’, d.h. aufsteigend. Für eine Absteigende Sortierung wird ‘D’ angegeben für ‘descending’.
+Zusätzlich gibt es in der Weboberfläche die Möglichkeit sich Duplikate in der Datenbank anzeigen zu lassen. Hierbei handelt es sich um Rechner die auf 2 unterschiedlichen Ports im Netzwerk auf der selben Switch-Ebene gefunden wurden. Bei diesen Einträgen handelt es sich um 90% der Fälle um Hosts die sich im Netzwerk bewegen. Ein Großteil dieser sind entweder Notebooks die per WLAN die Access Points wechseln oder ein Computer, der die Abteilung wechselt.
 
 \section{Probleme bei der Implementierung}
 \label{sec:probimp}
