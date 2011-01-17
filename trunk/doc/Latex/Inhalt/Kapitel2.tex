@@ -535,7 +535,10 @@ Ausleseprogramm:\\
 -Entfernung von Duplikaten\\
 \\
 Nachdem diese jeweils auf Funktionalität und Korrektheit überprüft wurden kann das Programm für die Nutzung übergeben werden.\\
-//Ergebnis der finalen Tests.
+\\
+Ergebnis der finalen Tests\\
+\\
+Bei den finalen Tests wurde das komplette zusammengesetzte System getestet als Blackbox-Test. Dabei wurden alle Usecases durchgeführt und überprüft ob das erwartete Ergebnis mit dem erhaltenen übereinstimmt. Dabei wurde unter anderem festgestellt, dass es passieren kann, dass zwei DNS-Hostnamen einer IP zugewiesen sind. Zuerst wurde vermutet, dass es sich hierbei um ein programminterner Fehler handelt und ein Puffer verwendet wurde der eventuell nicht geleert wurde. Nach der Durchsicht des Codes konnte jedoch kein Fehler entdeckt werden. Im Anschluss wurden mit Betriebsystemmitteln (nslookup) die DNS-Auflösung überprüft. Hierbei wurde festgestellt, dass das Problem beim DNS-Server selbst liegt. Dieser behältüber einen festen Zeitraum die Zuordnung von DNS zu IP. Jedoch prüft dieser im Gegensatz zum DHCP Server nicht ob eine IP bereits vergeben wurde oder doppelt in der Namensauflösung vorliegt. Durch diesen Umstand kann es passieren, dass Hosts die keinen DNS-Namen am Name-Server gemeldet haben einen alten Eintrag übernehmen.
 
 
 \section{Weitere Anwendungsfelder / Datamining}
