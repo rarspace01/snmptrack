@@ -431,29 +431,27 @@ Zusätzlich werden alle Meldungen die per Programm ausgegeben werden auch in der
 \\
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{000.PNG}
+\includegraphics[width=0.8\textwidth]{snmptrack_start.png}
 \caption{Programm - Auschnitt}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
-\\
 In Abbildung X ist der Start des Programms zu sehen. In diesem ist auch zu erkennen, dass keinerlei Parameter übergeben wurden. Dies wurde in der Art realisiert um Bedienfehler zu vermeiden und die Ausführung per Skripte zu erleichtern. Zusätzlich werden Fehlerhafte Einträge innerhalb der XML-Dateien einfach ignoriert.\\
 Die Weboberfläche des Systems wurde per PHP realisiert. Zusätzlich kommen Cascading Style Sheets und Java Script zum Einsatz. Um die Zeit für die Implementierung zu veringern, wurde auf die freie CMS Tints zurückgegriffen \footnote{http://sourceforge.net/projects/tints-system/}.
 \\
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{000.PNG}
+\includegraphics[width=1.0\textwidth]{snmptrack_overview.png}
 \caption{Programm - Auschnitt}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
-\\
 Die Oberfläche während der Entwicklung ist in Abbildung X zu sehen.
 Neben dem Grundgerüst für die Darstellung der Tabellen müssen spezielle SQL-Abfragen erstellt werden, da später eine Sortierung aller Spalten möglich sein muss.
 Diese Sortierung wird durch die Übergabe der GET-Parameter realisiert. Klickt der Benutzer auf eine Spalte wie in Abbildung X zu sehen, so wird der GET-Parameter ‘sort’ in folgendem Format übergeben:\\
 \\
-sort=model_A
+sort=model\_A
 \\
-Hierbei stellt ‘model’ 1:1 den Spaltennamen der zu sortierenden Spalte dar und ‘A’ gibt die Sortierrichtung an. In diesemfall steht A für das englische Wort ‘ascending’, d.h. aufsteigend. Für eine Absteigende Sortierung wird ‘D’ angegeben für ‘descending’.
-Zusätzlich gibt es in der Weboberfläche die Möglichkeit sich Duplikate in der Datenbank anzeigen zu lassen. Hierbei handelt es sich um Rechner die auf 2 unterschiedlichen Ports im Netzwerk auf der selben Switch-Ebene gefunden wurden. Bei diesen Einträgen handelt es sich um 90% der Fälle um Hosts die sich im Netzwerk bewegen. Ein Großteil dieser sind entweder Notebooks die per WLAN die Access Points wechseln oder ein Computer, der die Abteilung wechselt.
+Hierbei stellt ‘model’ 1:1 den Spaltennamen der zu sortierenden Spalte dar und 'A' gibt die Sortierrichtung an. In diesemfall steht A für das englische Wort ‘ascending’, d.h. aufsteigend. Für eine Absteigende Sortierung wird ‘D’ angegeben für ‘descending’.
+Zusätzlich gibt es in der Weboberfläche die Möglichkeit sich Duplikate in der Datenbank anzeigen zu lassen. Hierbei handelt es sich um Rechner die auf 2 unterschiedlichen Ports im Netzwerk auf der selben Switch-Ebene gefunden wurden. Bei diesen Einträgen handelt es sich um 90\% der Fälle um Hosts die sich im Netzwerk bewegen. Ein Großteil dieser sind entweder Notebooks die per WLAN die Access Points wechseln oder ein Computer, der die Abteilung wechselt.
 
 \section{Probleme bei der Implementierung}
 \label{sec:probimp}
