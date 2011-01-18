@@ -19,6 +19,13 @@ Die Überwachung des Netzwerks lässt sich bei näherer Betrachtung in folgende 
 Darstellung und Überwachung des Netzwerkequipments\\
 Überwachung von einzelnen Hosts im Netzwerk\\
 
+Das Netzwerk selbst bei Pirelli Deutshcland ist in verschiedenen Hierachie-Ebenen konzepiert.
+In der untersten Ebene stehen die Switchs an denen die Hosts angeschlossen sind. Diese Ebene wird als Access-Layer bezeichnet.
+Über dieser Ebene wiederrum befinden sich der Distribution-Layer. In diesem sind Switchs zu finden, welche alle Access-Layer Switchs verbinden und als Schnittstelle zu den Layer 3 Switchen, den sogenanntne Core-Switches, dienen.
+Die Core-Switches können zusätzlich anhand von OSI-Layer-3 Informationen Forwarding betreiben.
+Die komplette Anordnung ist in Abbildung X zu sehen.
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{network_ex1.png}
@@ -475,13 +482,6 @@ Hierbei hat sich während der Implementierungsphase gezeigt, dass die Daten welc
 Eine weitere Problematik stellte sich beim Auslesen der verwendeten VLANs. Es gibt per SNMP eine Liste welche einem ermöglicht das verwendete VLAN für den jeweiligen Port zu erhalten. Ports die mehrere VLAN Zuordnungen haben werden nicht angezeigt und sind trunk-ports, welche eigentlich Uplink-Ports sind bzw. an solche angeschlossen sind. In diesem Zusammenhang stellt sich die Problematik, dass es passieren kann, dass zwar ein Port für eine spezielles VLAN fesgelegt wurde, jedoch sich dahinter noch ein VOIP-Telefon befindet, dass über ein “nicht sichtbares” VLAN kommuniziert, welches über die Liste im SNMP nicht erkennbar ist. Um dann trotzdem an die MAC Adresse des VOIP-Telefons zu bekommen bleibt einem nichts anderes übrig, als alle im Netzwerk bekannten VLANs an einem Switch abzufrage, was wiederum die Anzahl der Abfragen erhöht, aber auch eine Problematik mit sich bringt. In diesem Zusammenhang gibt es spezielle Cisco spezifische VLANs die sich im Bereich 1002-1005 befinden, welche ausgeschlossen werden müssen, da eine Abfrage der MAC-Adressen dieser VLANs zu einem Timeout führt und unnötig den Ausleseprozess verzögert.\\
 Eine weitere Problematik stellt sich in der Identifizierung der Uplink-Ports an den Switchen. Hier gibt es keine einfache Regel. Zuerst wurde angenommen, dass jeder Trunk Port ein Uplink Port ist. Diese Annahme war jedoch falsch, da in dem Vorher aufgeführten Beispiel sich dahinter auch ein durchgeschleifter Computer an einem VOIP-Telefon befinden kann. Daher scheidet das Attribut “trunk-Port” als solches zu Identifizierung aus. Das nächste Attribut welches ausgewählt wurde ist ein spezielles Cisco spezifisches Protrokoll mit dem Namen CDP. Es dient dazu Cisco Geräte an einem Port zu Identifizieren. Um einen Uplink Port zu identifizieren wurde dann angenommen, dass sofern das Protokoll CDP vorhanden ist, es sich hierbei um einen Switch handelt. Hier stellt sich jedoch die Problematik, dass es auch Geräte gibt die auf CDP antowrten, welche weder Switchs noch Router sind. Ein Beispiel sind VOIP-Telefone, die es auch von Cisco gibt. Daher wurde zusätzlich die Typerkennung des CDP Gerätes abgefragt, welche Auskunft über diverse Eigenschaften des Gerätes gibt. Über diese kann überprüft werden, ob es sich hierbei um einen Switch handelt. Leider hat sich in der Praxis gezeigt das dieses nicht vollständig ausreicht, da nicht alle Switchs alle Dinge unterstützen, somit musste nach einer zusätzlichen Identifikationsmöglichkeit gesucht werden. Hier wurde auf das Spannign Tree Protokoll gestoßen, welches zur Kommnuikation zwischen den einzelnen Switchs dient um unter anderem Pfadkosten der einzelnen Verbindungen auszutauschen. Nun wurde per SNMP die Anzahl der ausgehenden STP-Pakete auf dem jeweiligen Port ausgelesen und dieses als weiteres Kriterium eingeführt, über welches eine Identifikation des Portes ermöglicht wird und zusammen in Kombination mit CDP eine sehr verlässliche Identifikation ermöglicht.\\
 Ein weiteres Problem hat die Einordnung der Hierachie Ebenen der Router dargestellt. Um Duplikate reduzieren zu können, ist es notwendig zu wissen, ob die MAC-Adresse eines Hosts auf einem Uplink/Downlink Port eines Switches erkannt wurde oder an seinem realen Port. Hierzu muss man wissen, ob der Switch ein Access-Switch ist oder ein Switch einer höheren Ebene.\\
-//das folgende sollte besser zur Situationsbeschreibung\\
-Die Einordnung der Switch in die verschiedenen Hierachie-Ebenen ist wiefolgt:\\
-Access-Switch\\
-Distribution-Switch\\
-Core-Switch\\
-
-//besser als Grafik\\
 
 Die Hosts im Netzwerk sind mit einer geringen Anzahl von Ausnahmen, alle an Access-Switche angeschlossen. Zusätzlich gibt es Endgräte die auch an die Distribution Switche angeschlossen sein können, z.B. das Rechenzentrum. 
 
