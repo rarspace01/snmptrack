@@ -81,6 +81,18 @@ public class SNMPTrack {
 		
 		SNMPTrackHelper.switchListe=swList;
 		
+		if(SNMPConfig.getRouters().size()>0){
+		HelperClass.msgLog("Lade VLAN Liste");
+		
+		VLANWorkerThread vt=new VLANWorkerThread("Thread VLAN Nr. 1", this.snmp, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
+		
+		
+		//sPufferList=SNMPHandler.getOIDWalknonBulk(snmp, , SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
+		
+		//SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!"));
+		
+		}		
+		
 		HelperClass.msgLog("Lade ARP Cache");
 
 		for(int i=0; i<SNMPConfig.getRouters().size();i++){
