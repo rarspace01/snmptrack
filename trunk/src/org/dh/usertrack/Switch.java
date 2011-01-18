@@ -237,7 +237,7 @@ public class Switch {
 		}
 		swPuffer.clear();
 		//for vportids
-		swPuffer=SNMPHandler.getOIDWalk(snmp, OIDL.dot1dBasePortIfIndex, sIP, sReadcommunity+"@"+swVLANListe.get(i));
+		swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.dot1dBasePortIfIndex, sIP, sReadcommunity+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
 			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
 			swVPort.add(swPuffer.get(j));
