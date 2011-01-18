@@ -48,10 +48,10 @@ Das Diagramm beschreibt folgenden Sachverhalt:
 \section{Kardinalitäten}
 
 Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.20}.
-In Abbildung \ref{chenpic1} ist eine 1:n Kardinalitt gegeben.
+In Abbildung \ref{chenpic1} ist eine 1:n Kardinalität gegeben.
 Diese sagt aus, dass ein Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur einem Objekt der Relation 1.
 
-In der zweiten Abbildung \ref{chenpic2} ist eine n:m Kardinalitt zu sehen.
+In der zweiten Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
 Diese sagt aus, dass ein Objekt der Relation 1, mehrere Objekte der Relation 2 angehören, einem Objekt der Relation 2 werden ebenfalls mehrere Objekten der Relation 1 zugewiesen.
 Diese n:m Kardinalitäten müssen bei einem Datenbank Entwurf aufgelöst werden, da hier keine eindeutige Zuordnung möglich ist. Meistens lässt sich eine solche Kardinalitt wie in Abbildung \ref{chenpic2} durch das Hinzufügen einer zusätzliche Tabelle, welche beide Objekte verknüpft, lösen.
 Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
@@ -150,9 +150,15 @@ Bei diesem System steht meist die einfache Konfigurierbarkeit im Vordergrund. Di
 Wird eine dateibasierende Datenbank von mehreren Usern benutzt so zeigen sich die Nachteile eine solchen Datenbank.
 Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Folglicherweise nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.
 Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, weil sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.
-MS-SQL ist ebenfalls ein relationales Datenbankmanagementsystem und in den verschiedenen Serverbetriebssystemen von Microsoft enthalten.Für Entwickler ohne Lizenz wird eine eingeschrnkte Express Version zur Verfügung gestellt. MS-SQL ist im Gegensatz zu Access kein dateibasierendes DBMS, sondern ein DBMS welches zentral auf einem Server läuft.
-Hierdurch werden die Nachteile des dateibasierenden zu den Vorteilen des serverbasierenden Systems.
-Da der Server selbst die Abfragen verwaltet und zusätzlich Abfragen im Arbeitsspeicher ablegt, sowie dem Benutzer nur die Daten sendet, die er auch angefordert hat und nicht die komplette Datei, werden Zugriffszeiten und Netzwerk/Festplattenlast optimiert.
+MS-SQL ist ebenfalls ein relationales Datenbankmanagementsystem
+und in den verschiedenen Serverbetriebssystemen von Microsoft enthalten. Für Entwickler
+ohne Enterpreise Lizenz wird eine eingeschränkte Express Version zur Verfügung gestellt. MS-SQL ist im Gegensatz zu Access kein dateibasierendes DBMS, sondern ein DBMS welches
+zentral auf einem Server läuft. Hierdurch werden die Nachteile des dateibasierenden zu
+den Vorteilen des serverbasierenden Systems. Da der Server selbst die Abfragen verwaltet
+und zusätzlich Abfragen im Arbeitsspeicher ablegt, sowie dem Benutzer nur die Daten
+sendet, die er auch angefordert hat und nicht die komplette Datei, werden Zugriffszeiten
+und Netzwerk/Festplattenlast optimiert.\\
+Ein weiteres DBMS stellt der Datenbankserver von Oracle dar. Die Lizenzstruktur ähnelt der von Microsoft, so gibt es auch hier kostenfreie und kostepflichtige Varianten. Im Gegenzug zum MS-SQL Server bietet Oracle ein breiteres Spektrum an Funktionalitäten und eine größere Konfigurationsmöglichkeit. Dieses wiederum macht sich im höheren Preis bemerkbar. Weitere Vorteile der Oracle Datenbank sind die weitgehende Betriebsystemunabhängigkeit, gute Dokumentation und der Support.
 
 MySQL ist der Open Source Pendant zu MS-SQL, welcher im Internet eine sehr hohen Verbreitungsgrad aufweist.
 So wird dieses von Seiten wie Wikipedia\footnote{vgl. Mysql, http://www.mysql.com/why-mysql/scaleout/wikipedia.html} oder
