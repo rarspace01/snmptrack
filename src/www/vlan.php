@@ -47,7 +47,7 @@ while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 	echo "<td>".$row['TYP']."</td>";
 	echo "<td>".$row['VNAME']."</td>";
 	echo "<td>".$row['VTPD']."</td>";
-	echo "<td>".$row['STAMPTIME']."</td>";
+	echo "<td>".date('H:i.s\U\h\r d.m.Y',$row['STAMPTIME'])."</td>";
 	
     echo "</tr>\n";
 }
