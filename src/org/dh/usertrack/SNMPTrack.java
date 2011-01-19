@@ -12,7 +12,7 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class SNMPTrack {
 
-	private int iRev=2;
+	private int iRev=3;
 	
 	private int ifinishedThreads=0;
 	private int activeThreads=0;
@@ -85,11 +85,6 @@ public class SNMPTrack {
 		HelperClass.msgLog("Lade VLAN Liste");
 		
 		VLANWorkerThread vt=new VLANWorkerThread("Thread VLAN Nr. 1", this.snmp, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
-		
-		
-		//sPufferList=SNMPHandler.getOIDWalknonBulk(snmp, , SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
-		
-		//SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!"));
 		
 		}		
 		
