@@ -1,0 +1,410 @@
+body {
+    font-family:verdana,arial,sans-serif;
+    background-color:#F9F9F9;
+ 	background:url("../images/background.png") repeat-x scroll 0 0 #3E3E3E;
+}
+
+/*Content mittig ausrichten*/
+#seite{
+		position: relative;
+		width: 1005px;
+		margin: 0 auto;	
+		height: 850px;	
+		background-color:#F9F9F9;	
+		
+	}
+	
+	#seiteimpressum {
+		position: relative;
+		width: 1005px;
+		margin: 0 auto;	
+		height: 1100px;	
+		background-color: white;		
+		
+		}
+
+/*     */
+#header {
+    background-color: white;
+    width: 100%;
+    height: 103px;
+    padding: 0px;
+    margin: 0px;
+}
+/*   Footer der Webseite    */
+#footer {
+    
+		background:none repeat scroll 0 0 #FFFFFF;
+		border-top:1px solid #e3e3e3;
+		color:black;
+		line-height:2em;
+		margin:1em;
+		padding:1em 0 0;
+		font-family: verdana, arial, helvetica, geneva, sans-serif;
+    	font-size: 12px;  
+    	position: absolute;
+   	 width: 780px;
+   	 top: 800px;
+   	 padding-left: 190px;
+} 
+
+/*  Gesamter Menuecontainer     */
+#menucontainer {
+    position: absolute;
+	 	top: 104px;
+    height: 38px;       
+    width: auto;
+    left: 200px;
+    font-family: verdana, arial, helvetica, geneva, sans-serif;
+}
+/*  Hintergrundbilder fuer Navigation, Zentriert(horizontal und vertikal)    
+	 Menuepunkt Neues Ticket     */
+.neuesticket, .neuesticket a:visited, .neuesticket a:link {
+		background-image:url(../images/navi/NeuesTicket.png);
+		display:block;	
+		position:relative;
+		width: 133px;
+		height: 36px;
+		line-height: 36px;
+		font-weight: bold;
+		margin-left: 0;
+		margin-right: 0;
+		float: left;
+		text-align: center;
+		color: black;
+	}
+	
+/*  hover Effekt fuer Mouseover     
+    Menuepunkt Neues Ticket     */
+.neuesticket:hover, .neuesticket:active, .neuesticket:focus {
+		background-image:url(../images/navi/NeuesTicket2.png);
+		color: white;
+	}
+/*  Hintergrundbilder fuer Navigation, Zentriert(horizontal und vertikal)     */	
+.neuesprofil, .neuesprofil a:visited, .neuesprofil a:link {
+		background-image:url(../images/navi/Profil.png);
+		display:block;	
+		position:relative;
+		width: 133px;
+		height: 36px;
+		line-height: 36px;
+		font-weight: bold;
+		margin-left: 0;
+		margin-right: 0;
+		float: left;
+		text-align: center;
+		color: black;
+	}
+	
+.neuesprofil:hover, .neuesprofil:active, .neuesprofil:focus {
+		background-image:url(../images/navi/Profil2.png);
+		color: white
+	}	
+	
+.news, .news a:visited, .news a:link {
+		background-image:url(../images/navi/NewsTOPs.png);
+		display:block;	
+		position:relative;
+		width: 133px;
+		height: 36px;
+		line-height: 36px;
+		font-weight: bold;
+		margin-left: 0;
+		margin-right: 0;
+		float: left;
+		text-align: center;
+		color: black;
+	}
+	
+.news:hover, .news:active, .news:focus {
+		background-image:url(../images/navi/NewsTOPs2.png);
+		color: white;
+	}	
+	
+.hilfe, .hilfe a:visited, .hilfe a:link {
+		background-image:url(../images/navi/Hilfe.png);
+		display:block;	
+		position:relative;
+		width: 133px;
+		height: 36px;
+		line-height: 36px;
+		font-weight: bold;
+		margin-left: 0;
+		margin-right: 0;
+		float: left;
+		text-align: center;
+		color: black;
+	}
+	
+.hilfe:hover, .hilfe:active, .hilfe:focus {
+		background-image:url(../images/navi/Hilfe2.png);
+		color: white;
+	}	
+
+
+.suchbild {
+	background-image:url(../images/navi/search.png);
+	position:relative;
+		width: 255px;;
+		height: 36px;
+		line-height: 36px;
+		margin-left: 0;
+		margin-right: 0;
+		float: left;
+	}
+	
+
+	
+.suchbild:hover, .suchbild:active, .suchbild:focus {
+		background-image:url(../images/navi/search2.png);
+	
+	}
+
+
+
+/*   Loginbox auf der STartseite   */
+#loginbox {
+    position: absolute;
+    border: solid 1px ;
+    background-color: #EBEBEB;
+    top: 142px;
+    left: 0px;
+    width: 188px;
+    height: 185px;
+    padding-top: 20px;
+    padding-left: 5px;
+    margin-left: 2px;
+    
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 10px;
+	/*-moz-box-shadow: -5px -5px 5px grey;*/
+	
+
+}
+/*   Inhalt auf der Startseite   */
+#content {
+    position: absolute;
+    top: 136px;
+    left: 205px;
+    width: 800px;
+    text-align: left;  
+   }
+   
+
+
+#contentimpressum {
+	position: absolute;
+    top: 136px;
+    left: 205px;
+    width: 800px;
+	text-align: left;	
+	}
+/*      */
+#logo {
+    position: absolute;
+    top: 0px;
+    width: auto;
+    height: 110px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+/*      */
+#banner {
+    position: absolute;
+    left: 200px;
+    top:0px;
+    height: 103px;
+    width: 800px;
+}
+/*      */
+#banner_pic {
+    border: none;
+    width: auto;
+    height: 103px;
+    width: 800px;
+}
+/*  1. Ueberschrift (regelt insbesondere die unterstrichene blaue Linie    */
+h1 {
+    font-weight: bold;
+    font-style: normal;
+    font-size: 130%;
+    line-height: 1.1em;
+    padding-left: 4px;
+    color: rgb(90, 115, 135);
+    border-left: rgb(190, 215, 235) solid 20px;
+    border-bottom: rgb(190, 215, 235) solid 4px;
+    text-shadow: 1px 1px 0px #ccf,  2px 2px 2px rgb(90, 115, 135);
+    
+}
+
+h2 {
+    font-style: normal;
+    font-size: 100%;
+    line-height: 1.1em;
+    padding-left: 4px;
+    color: rgb(90, 115, 135);
+    
+    
+    
+}
+	
+.overview{
+	height: 110px;
+	width: 140px;
+	float: left;
+	}
+	
+	
+/*   Textbreite   */
+.text {
+    width: 180px;
+}
+
+#suchcontainer {
+	 	position: absolute;
+	 	left:540px;
+    width: 300px;
+    height: 38px; 
+    float: left;
+	
+	}
+
+/*   Suchfeld   */
+#suchfeld {
+	  width: 190px;
+	  height: 15px;
+	  margin-top: 7px;
+    font-size: 12px;    
+    font-weight: bold;
+    color: black;
+}
+
+#suchbutton {
+		background-image:url(../images/search.png) ;
+		position: absolute;
+		left: 210px;
+		top: 3px;		
+		width: 30px;
+		height: 30px;		
+			
+	}
+#suchbutton:hover{
+		background-image:url(../images/search2.png);
+	}
+
+/*  Profilangaben in profil.php    */
+#profil {
+    height: 130px; 
+    width: 950px;
+    height: 700px;
+}
+/*   Avatar-Bild   */
+#avatar_pic {
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    border: none;
+    width: 200px;
+    height: 150px;
+}
+/*   Textfelder und Labels in profil.php   */
+#profilcontent {
+    position: absolute;
+    top: 300px;    
+    padding-top: 1px;
+    text-align: center;
+    height: 300px;
+    font-family: verdana, arial, helvetica, geneva, sans-serif;
+}
+/*     */
+#formularprofil {
+   
+    text-align: left;
+    width: 449px;
+   
+}
+
+#ticketformular {
+		height: 400px;
+	}
+	
+.ticketelement {
+		position: absolute;
+    width: 500px;
+    left: 250px;
+ 
+	}
+
+/*      */
+#forumlarregistrierung {
+	position: absolute;
+	top: 136px;
+	left: 220px;		
+	border:solid 3px;
+	
+	}
+/*      */
+img {
+    float: left;
+    border: none;
+}
+/*      */
+.textfeld {
+    position: absolute;
+    left: 150px;
+    padding: 2px 2px 2px 2px;
+    width: 300px;
+}
+
+.buttons{
+
+background:none repeat scroll 0 0 #b7b7b7;
+border: solid 1px grey;
+padding:1px 10px;
+margin-top: 5px;
+-moz-border-radius:5px 5px 5px 5px;
+	
+	}
+
+
+.buttons:hover{
+
+background:none repeat scroll 0 0 #e3e3e3;
+border: solid 1px grey;
+padding:1px 10px;
+margin-top: 5px;
+-moz-border-radius:5px 5px 5px 5px;
+	
+	}
+	
+
+/*      */
+#registrieren {
+	position: absolute;
+    top: 136px;
+    left: 201px;
+    width: 800px;
+}
+
+a:link {
+    
+    text-decoration: none
+}
+
+a:visited {
+    text-decoration: none
+   
+    
+}
+
+a:hover {
+    
+}
+
+a:active {
+    
+    text-decoration: none
+}
+
+
