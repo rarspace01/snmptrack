@@ -1,0 +1,72 @@
+body {
+		font-family: "times new roman",times,serif;	
+		width: 100%;
+		text-align: left;
+		margin: 0;
+		padding: 0;		
+		color: #000;
+
+	}
+ 
+h1, h2, h3, h4, h5, h6 {
+		font-weight: 700;
+		margin: .75em 0 .5em;
+		text-align: left;
+		page-break-after: avoid;
+	}
+
+	h1 {
+		text-align: center;
+		padding: 0 0 .5em;
+		border-bottom: 1px solid #ccc;
+		border-left: none;
+		text-shadow: none;
+		color: black;
+	}
+
+
+#header, #loginbox, #menucontainer {
+	display: none;	
+	} 
+	
+.buttons{
+	display: none;	
+	}
+	
+#content {
+	top: 10px;
+	left: 10px;	
+	text-align: justify;
+	width: 1000px;
+	}
+	
+.ticketelement {
+		width: 650px;
+	}
+	
+a, a:visited, a:hover, a:visited:hover {
+		color: #000;
+		background: transparent;
+		text-decoration: none;
+	}
+	
+	a[href]:after {
+		content:" <"attr(href)"> ;
+		background-color: inherit;
+		font-style: italic;
+		font-size: 9pt;
+	} 
+	
+	*[name]:after {
+		content:" [#"attr(name)"]";
+		background-color: inherit;
+		font-style: italic;
+		font-size: .7em;
+	} 
+	
+	*[title]:after {
+		content:" ("attr(title)") ";
+		background-color:inherit;
+		font-style:italic;
+		font-size: .7em;
+	} 
