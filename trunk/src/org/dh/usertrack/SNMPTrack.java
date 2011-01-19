@@ -42,7 +42,7 @@ public class SNMPTrack {
 	
 	public SNMPTrack() {
 		
-		System.out.println("Rev: "+iRev);
+		HelperClass.msgLog("Rev: "+iRev);
 		
 		ArrayList<String> sPufferList=new ArrayList<String>();
 		
@@ -159,16 +159,27 @@ public class SNMPTrack {
 
 	public static void main(String[] args) {
 	
-		System.out.println("LOC: ["+HelperClass.class.getProtectionDomain().getCodeSource().getLocation().getFile()+"]");
+//		System.out.println("LOC: ["+HelperClass.class.getProtectionDomain().getCodeSource().getLocation().getFile()+"]");
 		
-		System.out.println("ARGS:");
+//		System.out.println("ARGS:");
 		
 		for(int i=0;i<args.length;i++){
-		System.out.println(args[i]);	
+		
+		if(args[i].contains("-v")){
+			System.out.println("Verbose Mode");
+			HelperClass.isVerbose=true;
+		}
+			
+		if(args[i].contains("-help")){
+			System.out.println("use -v for Verbose mode");
+			System.exit(0);
+		}
+		
+		
 		}
 		
 		long time1=(long)System.currentTimeMillis()/1000;
-		HelperClass.msgLog("SNMP:SART:"+time1);
+		HelperClass.msgLog("SNMP:START:"+time1);
 		
 		new SNMPTrack();
 		
