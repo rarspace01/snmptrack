@@ -11,6 +11,8 @@ import java.util.Calendar;
 
 
 public class HelperClass {
+	
+	public static boolean isVerbose=false;
 
 	public static int getCPUCount(){
 		
@@ -56,6 +58,7 @@ public class HelperClass {
     // Schreibt eine Log-Datei f�r Revisionszwecke in Datei agent.log
     public static void msgLog(String sLog)
     {
+    		if(isVerbose)
             System.out.println(printClock()+sLog);
             BufferedWriter out;
             try {
@@ -70,6 +73,7 @@ public class HelperClass {
     
     public static void msgLog(String sFilename,String sLog)
     {
+    		if(isVerbose)
             System.out.println(printClock()+sLog);
             BufferedWriter out;
             try {
