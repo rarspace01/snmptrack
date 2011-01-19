@@ -37,6 +37,7 @@ class VLANWorkerThread implements Runnable {
 		  ArrayList<String> svStatus=new ArrayList<String>();
 		  ArrayList<String> svTyp=new ArrayList<String>();
 		  ArrayList<String> svName=new ArrayList<String>();
+		  ArrayList<String> svVTPD=new ArrayList<String>();
 		  
 		  ArrayList<String> sSQLlist=new ArrayList<String>();
 		  
@@ -50,6 +51,11 @@ class VLANWorkerThread implements Runnable {
 		  
 		  svName=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.vtpVlanName, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
 
+		  svVTPD=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.managementDomainName, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
+
+		  
+		  //.1.3.6.1.4.1.9.9.46.1.2.1.1.2
+		  
 		  for(int i=0;i<svName.size();i++){
 			  
 			  VLAN vl=new VLAN();
@@ -64,6 +70,8 @@ class VLANWorkerThread implements Runnable {
 			  sVTP=sID.substring(0,sID.indexOf("."));
 			  
 			  sID=sID.substring(sID.indexOf(".")+1);
+			  
+			  sVTP=getVTPDName(sVTP, svVTPD);
 			  
 			  vl.sID=sID;
 			  vl.sVTPD=sVTP;
@@ -90,6 +98,24 @@ class VLANWorkerThread implements Runnable {
 			//SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!"));
 			
 		  
+	  }
+	  
+	  public String getVTPDName(String sVTPDID, ArrayList<String> alVTPDS){
+		  
+		  String sPuffer="";
+		  
+		  for(int i=0;i<alVTPDS.size();i++){
+			  
+			if(alVTPDS.get(i).contains(OIDL.managementDomainName+"."+sVTPDID)){
+			
+				sPuffer=alVTPDS.get(i).substring(alVTPDS.get(i).indexOf("!")+1);
+				
+			}
+			  
+		  }
+		  
+		  
+		  return sPuffer;
 	  }
 	  
 }
