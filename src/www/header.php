@@ -3,13 +3,14 @@
 	
 <html lang="de">
     <head>
+    	<meta http-equiv="refresh" content="900" />
         <meta name="generator" content="Bluefish 2.0.0" >
         <meta http-equiv="Content-Type" content=
         "text/html; charset=utf-8">
         <meta name="keywords" content="Ticket, Support, Bug">
         <meta name="description" content=
         "TINTS is no ticket system; Plattform um Supportstickets zu erstellen und Bugs zu loesen">
-        <meta name="author" content="storminator" >
+        <meta name="author" content="Denis and tints" >
 
         <title>SNMP-Track</title>
         <link rel="stylesheet" type="text/css" href="styles/style.php?height=<?php echo 850+$additional; ?>&width=<?php echo $pagewidth; ?>">
@@ -30,7 +31,7 @@
 	<div id="seite">
 
         <div id="header">
-            <img id="logo" src="images/logo.png" alt="Logo"> <a id=
+            <img id="logo" src="images/icons/snmptrack_slow.gif" alt="Logo"> <a id=
             "banner" href="index.php"><?php
 
 if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){

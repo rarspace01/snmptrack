@@ -5,16 +5,11 @@
 	<a href="show.php">Switchs</a><br/>
 	Ports<br/>
 	<a href="show.php?pmac=?">Hosts</a><br/>
-	VLANs<br/>
+	<a href="vlan.php?tmp=">VLANs</a><br/>
 	<br/>
 	Sonstiges<br/>
 	*<a href="duplic.php">Duplikate</a>
 	<br/>
 	</div>
 
-        </div>
-
-<?php 
-
-
-?>      
+        </div> 
