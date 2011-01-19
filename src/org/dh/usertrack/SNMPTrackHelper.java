@@ -125,7 +125,7 @@ public class SNMPTrackHelper {
 			ResultSet rset= DataManagerOracle.getInstance().select(eSQL);
 		
 			
-			//hole Datensätze, lege in Liste
+			//hole Datensï¿½tze, lege in Liste
 			
 			while(rset.next()){
 				
@@ -205,10 +205,12 @@ public class SNMPTrackHelper {
 			DataManagerOracle.getInstance().executenoexception("DROP TABLE hosts_live");
 			DataManagerOracle.getInstance().executenoexception("DROP TABLE switchs_live");
 			DataManagerOracle.getInstance().executenoexception("DROP TABLE ports_live");
+			DataManagerOracle.getInstance().executenoexception("DROP TABLE vlans_live");
 			
 			DataManagerOracle.getInstance().execute("CREATE TABLE hosts_live AS SELECT * FROM \"st_hosts\"");
 			DataManagerOracle.getInstance().execute("CREATE TABLE switchs_live AS SELECT * FROM \"st_switchs\"");
 			DataManagerOracle.getInstance().execute("CREATE TABLE ports_live AS SELECT * FROM \"st_ports\"");
+			DataManagerOracle.getInstance().execute("CREATE TABLE vlans_live AS SELECT * FROM \"st_vlans\"");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
