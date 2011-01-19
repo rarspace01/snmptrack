@@ -27,7 +27,8 @@ public class OIDL {
 	//CISCO-VTP-MIB - http://www.oidview.com/mibs/9/CISCO-VTP-MIB.html
 	public static final String vtpVlanState="1.3.6.1.4.1.9.9.46.1.3.1.1.2"; 
 	public static final String vtpVlanType="1.3.6.1.4.1.9.9.46.1.3.1.1.3"; 
-	public static final String vtpVlanName="1.3.6.1.4.1.9.9.46.1.3.1.1.4"; 
+	public static final String vtpVlanName="1.3.6.1.4.1.9.9.46.1.3.1.1.4";
+	public static final String managementDomainName="1.3.6.1.4.1.9.9.46.1.2.1.1.2";
 
 	//CISCO-CDP-MIB - http://www.oidview.com/mibs/9/CISCO-CDP-MIB.html
 	public static final String cdpCacheAddress="1.3.6.1.4.1.9.9.23.1.2.1.1.4";
