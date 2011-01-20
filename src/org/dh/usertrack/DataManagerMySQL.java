@@ -20,8 +20,8 @@ public class DataManagerMySQL {
         private DataManagerMySQL() {
                 try {
                         Class.forName("com.mysql.jdbc.Driver"); 
-                        conn = DriverManager.getConnection("jdbc:mysql://murmeltier/nagiosql3?" +
-                                   "user=usertracking&password=TrackIt&useDynamicCharsetInfo=false&autoReconnect=true&holdResultsOpenOverStatementClose=true");
+                        conn = DriverManager.getConnection("jdbc:mysql://"+SNMPTrackConfig.NagiosDB_IP+"/"+SNMPTrackConfig.NagiosDB_DB+"?" +
+                                   "user="+SNMPTrackConfig.NagiosDB_USR+"&password="+SNMPTrackConfig.NagiosDB_PWD+"&useDynamicCharsetInfo=false&autoReconnect=true&holdResultsOpenOverStatementClose=true");
                         stmt = conn.createStatement();
                         
                 } catch (SQLException e) {
