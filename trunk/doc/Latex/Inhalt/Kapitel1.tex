@@ -6,11 +6,18 @@
 
 Unter dem Datenbank Entwurf ist der Prozess zur Erstellung eines Schemas zu verstehen, welches die spätere Datenbank abbilden wird.
 Hierunter fallen unter anderem die Analyse der Anforderungen, aber auch die grafische Darstellung der Tabellen, in denen die Daten gespeichert werden.
-Der Entwurf der Datenbank im Voraus ist essentiell, da im späteren Prozess nderungen der Datenbankstruktur nicht nur die Datenbank selbst, sondern auch alle mit ihr verbundenen Applikationen betreffen wrden.
-Um die Beziehungen korrekt darstellen zu können, wird das Entity-Relationship-Modell\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.10} verwendet.
-Durch diese Modell lassen sich sogenannte ER-Diagramme zeichnen, z.B. nach der Chen Notation\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.19}.
+Der Entwurf der Datenbank im vor der Implementierung ist essentiell, da im späteren Prozess Änderungen der Datenbankstruktur nicht nur die Datenbank selbst, sondern auch alle mit ihr verbundenen Applikationen betreffen werden.
+Um die Beziehungen zwischen den einzelnen Tabellen korrekt darstellen zu können, wird das Entity-Relationship-Modell\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.10} verwendet.
+Durch dieses Modell lassen sich sogenannte ER-Diagramme zeichnen, z.B. nach der Chen Notation\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.19}.
 Ein ER-Diagramm nach Chen stellt die Entittstypen (Klassen), Attribute, sowie Beziehungen (Relationen/Kardinalitäten) dar.
-Im folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation kurz erläutertwerden.
+Im folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation kurz erläutert werden.\\
+
+Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
+
+\begin{itemize}
+\item Ein Angestellter leitet mehrere Projekte.
+\item Ein Projekt wird von einem Angestellten geleitet.
+\end{itemize}
 
 \begin{figure}[H]
 \begin{center}
@@ -21,12 +28,9 @@ Im folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation kurz erläuter
 \end{figure}
 \footnotetext{In Anlehnung an Chen}
 
-
-Das Diagramm beschreibt folgenden Sachverhalt:
-
 \begin{itemize}
-\item Ein Angestellter leitet mehrere Projekte.
-\item Ein Projekt wird von einem Angestellten geleitet.
+\item Ein Autor verfasst mehrere Bücher.
+\item Ein Buch wird von mehrere Autoren verfasst.
 \end{itemize}
 
 \begin{figure}[H]
@@ -36,23 +40,16 @@ Das Diagramm beschreibt folgenden Sachverhalt:
 \label{chenpic2}
 \end{center}
 \end{figure}
-\footnotetext{In Anlehnung an In Anlehnung an Quelle \cite{10}}
-
-\begin{itemize}
-\item Ein Autor verfasst mehrere Bücher.
-\item Ein Buch wird von mehrere Autoren verfasst.
-\end{itemize}
-
-
+\footnotetext{In Anlehnung an}
 
 \section{Kardinalitäten}
 
 Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.20}.
 In Abbildung \ref{chenpic1} ist eine 1:n Kardinalität gegeben.
-Diese sagt aus, dass ein Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur einem Objekt der Relation 1.
+Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.
 
 In der zweiten Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
-Diese sagt aus, dass ein Objekt der Relation 1, mehrere Objekte der Relation 2 angehören, einem Objekt der Relation 2 werden ebenfalls mehrere Objekten der Relation 1 zugewiesen.
+Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 angehören, einem Objekt der Relation 2 werden ebenfalls mehrere Objekten der Relation 1 zugewiesen.
 Diese n:m Kardinalitäten müssen bei einem Datenbank Entwurf aufgelöst werden, da hier keine eindeutige Zuordnung möglich ist. Meistens lässt sich eine solche Kardinalitt wie in Abbildung \ref{chenpic2} durch das Hinzufügen einer zusätzliche Tabelle, welche beide Objekte verknüpft, lösen.
 Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
 
@@ -67,9 +64,24 @@ Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
 \section{Normalisierung - Optimierung von Datenbanken}
 \label{secNormalisierung}
 %\cite{codd1}
-Wenn es bereits bestehende Datenbanken gibt, so muss geprüft werden, ob diese eine optimale Struktur aufweisen. Dies kann anhand der sogenannten Normalisierung durchgeführt werden.\footnote{vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 381} Dadurch lässt die Datenbank sich weiter optimieren.\footnote{vgl. Prof. Dr. Paul. Alpar(2001): Vorlesung, Datenorganisation und Datenbanken,  http://www.tekinci.de/skripte/DBDM/DB-SS2001.pdf}
-Bei der Normalisierung wird abgefragt, ob Tabellen gewisse Eigenschaften besitzen und passt diese wenn nötig an.
+Wenn es bereits bestehende Datenbanken gibt, so muss geprüft werden, ob diese eine optimale Struktur aufweisen.
+Eine Optimierung der Struktur ergibt sich nicht nur um eine bessere Übersichtlichkeit zu haben, sondern auch aus Gründen der Redundanz und der damit verbundenen Probleme.
+Durch eine nicht benötige Redundanz kommt es zum einen zu Geschwindigkeits und Platzverlusten innerhalb der Datenbank.
+Da ein Wert an mehreren Stellen in der Datenbank steht kann es zu Problemen bei der Aktualisierung und Löschunge kommen, da alle Werte in der Datenbank geändert werden müssten und nicht nur ein Wert.
+Dies kann anhand der sogenannten Normalisierung durchgeführt werden.\footnote{vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 381} Dadurch lässt die Datenbank sich weiter optimieren.\footnote{vgl. Prof. Dr. Paul. Alpar(2001): Vorlesung, Datenorganisation und Datenbanken,  http://www.tekinci.de/skripte/DBDM/DB-SS2001.pdf}
+Bei der Normalisierung wird abgefragt, ob Tabellen gewisse Eigenschaften erfüllen und sofern dies nicht der Fall ist, wird versucht diese zu erreichen.
 Hierzu stehen bis zu 5 Stufen der Normalformen zur Verfügung.
+Die 5 wichtigsten Normalformen beschreiben sich durch folgende Attribute.\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.292-308}
+
+\begin{enumerate}
+\item Normalform: Alle Attribute enthalten atomare Inhalte, und die Relation hat eine feste Breite
+\item Normalform: Jedes Nichtschlüsselattribut ist vom kompletten schlüssel abhängig
+\item Normalform: Jedes Nichtschlüsselattribut ist von keinem schlüsselkandidaten transitiv abhängig, dass heißt kein Attribut ist ber ein anderes vom Hauptschlüssel abhängig
+\item Normalform: Es darf in einer Relation nicht mehrere, voneinander unabhängige, 1:n-Beziehungen zu einem schlüsselwert geben
+\item Normalform: Eine weitere Aufspaltung ohne Informationsverlust ist nicht mehr möglich
+\end{enumerate}
+
+
 In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitzt, dass heißt es enthält nur einen Wert und ist frei von Wiederholungen.\footnote{vgl. Matthias Schubert(2007): Datenbanken, Theorie, Entwurf und Programmierung relationaler Datenbanken, 2. Auflage, S.293}
 
 
@@ -94,17 +106,8 @@ In Abbildung \ref{chenpic4} ist eine Verletzung der Normalform 1. zu sehen. Um d
 \end{figure}
 
 Wurde die Relation entsprechend angepasst, so ist Normalform 1 erreicht und es kann nun geprüft werden,
-ob diese die Eigenschaften von Normalform 2 erfllt. Um eine Normalform zu erfüllen, müssen auch alle vorhergehende Normalformen erfllt sein, dass heißt erfllt eine Tabelle die Normalform 3, so erfllt sie auch die Normalform 1 und 2.
-Die 5 wichtigsten Normalformen beschreiben sich durch folgende Attribute.\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.292-308}
-
-\begin{enumerate}
-\item Normalform: Alle Attribute enthalten atomare Inhalte, und die Relation hat eine feste Breite
-\item Normalform: Jedes Nichtschlüsselattribut ist vom kompletten schlüssel abhängig
-\item Normalform: Jedes Nichtschlüsselattribut ist von keinem schlüsselkandidaten transitiv abhängig, dass heißt kein Attribut ist ber ein anderes vom Hauptschlüssel abhängig
-\item Normalform: Es darf in einer Relation nicht mehrere, voneinander unabhängige, 1:n-Beziehungen zu einem schlüsselwert geben
-\item Normalform: Eine weitere Aufspaltung ohne Informationsverlust ist nicht mehr möglich
-\end{enumerate}
-
+ob diese die Eigenschaften von Normalform 2 erfüllt.
+Um eine Normalform zu erfüllen, müssen auch alle vorhergehende Normalformen erfüllt sein, dass heißt erfüllt eine Tabelle die Normalform 3, so erfüllt sie auch die Normalform 1 und 2.
 
 
 \section{DBMS}
@@ -125,15 +128,15 @@ Es gibt verschiedene Arten von DBMS:
 \end{itemize}
 
 %BuchURL http://www.amazon.com/gp/product/354043187X
-Ein hierarchisches DBMS\footnote{vgl. Bernd-Jrgen Falkowski(2002): Business Computing: Grundlagen und Standardsoftware, 1. Auflage, S.235} dient vor allem der schnellen Suche in großen Datenbanken.
+Ein hierarchisches DBMS\footnote{vgl. Bernd-Jürgen Falkowski(2002): Business Computing: Grundlagen und Standardsoftware, 1. Auflage, S.235} dient vor allem der schnellen Suche in großen Datenbanken.
 Der Nachteil liegt darin, dass nur eine sequentielle Abarbeitung möglich ist und somit die Art der Abfragen mehr oder weniger schon im Voraus bestimmt sein muss.
 Im Gegensatz hierzu stehen die relationalen Datenbanken, welche heutzutage den höchsten Verbreitungsrad besitzen.
 Diese bieten eine flexible Auswertung der Daten durch die deklarative Abfragesprache SQL.
 Es muss lediglich die Verknüpfung zwischen den Tabellen durch sogenannte JOINs hergestellt werden, somit werden Primär- und Fremdschlüssel miteinander verknüpft.
 Hinzu kommen die objektorientierten Datenbanken. Diese bieten die Möglichkeit Objekte aller Art zu speichern.
-Problematisch hierbei sind jedoch die Formulierung von geeigneten Abfragen, weswegen diese in der Praxis eher selten und meist im Bereich von Multimedialenanwendungen anzutreffen sind.%\footnote{NOTIZ ODBMS evtl}
+Problematisch hierbei sind jedoch die Formulierung von geeigneten Abfragen, weswegen diese in der Praxis eher selten und meist im Bereich von Multimedialen-Anwendungen anzutreffen sind.%\footnote{NOTIZ ODBMS evtl}
 
-Wird versucht verschiedene relationale DBMS in der Praxis zu vergleichen, so ist eine große Anzahl an verschiedenen Systemen zu finden.
+Wird versucht, verschiedene relationale DBMS in der Praxis zu vergleichen, so ist eine große Anzahl an verschiedenen Systemen zu finden.
 Eine kleine Auflistung soll einige Bekannte vorstellen.
 
 \begin{itemize}
@@ -144,11 +147,10 @@ Eine kleine Auflistung soll einige Bekannte vorstellen.
 \item PostgreSQL
 \end{itemize}
 
-Die Microsoft Jet Engine ist ein dateibasierendes DBMS, welches dem Benutzer eine einfache Möglichkeit bietet Daten in einer Datenbank zu speichern und passende Oberflchen (Frontends) in der Datenbank zu integrieren.
-Wie alle anderen dateibasierenden DBMS bietet es die selben Vor- und Nachteile.
-Bei diesem System steht meist die einfache Konfigurierbarkeit im Vordergrund. Die Datenbanken sind meist für einen Einzeluser-Betrieb ausgelegt und spielen hier auch ihre Stärken aus.
+Die Microsoft Jet Engine ist ein dateibasierendes DBMS, welches dem Benutzer eine einfache Möglichkeit bietet, Daten in einer Datenbank zu speichern und passende Oberflächen (Frontends) in der Datenbank zu integrieren.
+Bei diesem System, wie bei allen anderen dateibasierenden DBMS, steht meist die einfache Konfigurierbarkeit im Vordergrund. Die Datenbanken sind meist für einen Einzeluser-Betrieb ausgelegt und spielen hier auch ihre Stärken aus.
 Wird eine dateibasierende Datenbank von mehreren Usern benutzt so zeigen sich die Nachteile eine solchen Datenbank.
-Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Folglicherweise nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.
+Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht, entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Daher nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.
 Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, weil sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.
 MS-SQL ist ebenfalls ein relationales Datenbankmanagementsystem
 und in den verschiedenen Serverbetriebssystemen von Microsoft enthalten. Für Entwickler
