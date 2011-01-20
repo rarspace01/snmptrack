@@ -60,7 +60,7 @@ public class Switch {
 	
 	HelperClass.msgLog("Start: "+sIP);
 	lIP=HexToDec.ipToInt(sIP);
-	HelperClass.msgLog("LIP: "+lIP);
+	//HelperClass.msgLog("LIP: "+lIP);
 	
 	String sSQL="";	
 	ArrayList<String> sSQLList=new ArrayList<String>();	
