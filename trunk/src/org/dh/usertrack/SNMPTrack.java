@@ -53,6 +53,10 @@ public class SNMPTrack {
 		
 		HelperClass.msgLog("Starte SNMPTrack");
 		
+		HelperClass.msgLog("Lade Config");
+		
+		SNMPTrackConfig.loadSNMPTrackConfig();
+		
 		HelperClass.msgLog("Initialisiere SNMP");
 		
 		try {
