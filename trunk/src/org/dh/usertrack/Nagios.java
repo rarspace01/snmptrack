@@ -73,8 +73,10 @@ public class Nagios {
 			
 			while(rset.next()){
 			
+			if(!isInList(switchList,rset.getString("address"))){	
 			switchList.add(new Switch(rset.getString("address"), rset.getString("value")));
-						
+			}
+			
 			}
 			
 		} catch (SQLException e) {
@@ -83,6 +85,22 @@ public class Nagios {
 		}
 		
 		return switchList;
+	}
+
+	private static boolean isInList(ArrayList<Switch> swList, String sIP) {
+		// TODO Auto-generated method stub
+		
+		boolean isInList=false;
+		
+		for(int i=0;i<swList.size();i++){
+			
+			if(swList.get(i).getsIP().contains(sIP)){
+				isInList=true;
+			}
+			
+		}
+		
+		return isInList;
 	}
 	
 }
