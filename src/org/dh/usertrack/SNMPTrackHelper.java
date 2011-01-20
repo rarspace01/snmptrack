@@ -119,7 +119,7 @@ public class SNMPTrackHelper {
 		
 		eSQL="SELECT h.MAC, p.MAC AS PMAC, s.\"alias\" AS SName, s.\"alevel\" AS A FROM \"st_hosts\" h, \"st_ports\" p, \"st_switchs\" s WHERE h.\"PortMAC\"=p.MAC AND p.\"SwitchIP\"=s.\"IP\" AND h.MAC IN (SELECT MAC FROM \"USRTRACK\".\"st_hosts\" GROUP BY MAC HAVING COUNT(*)>1)";
 		
-		System.out.println("["+eSQL+"]");
+		//System.out.println("["+eSQL+"]");
 		
 		try {
 			ResultSet rset= DataManagerOracle.getInstance().select(eSQL);
