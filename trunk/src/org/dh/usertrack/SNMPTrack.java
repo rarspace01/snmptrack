@@ -81,6 +81,8 @@ public class SNMPTrack {
 		
 		SNMPTrackHelper.switchListe=swList;
 		
+		HelperClass.msgLog("Switchs zu Auslesen: "+swList.size());
+		
 		if(SNMPConfig.getRouters().size()>0){
 		HelperClass.msgLog("Lade VLAN Liste");
 		
@@ -109,7 +111,7 @@ public class SNMPTrack {
 		}
 		
 		
-		HelperClass.msgLog("Gefundene ARP Eintr�ge: "+swHostMacIps.size());
+		HelperClass.msgLog("Gefundene ARP Einträge: "+swHostMacIps.size());
 		
 		HelperClass.msgLog("Beginne mit Auslese Prozess.");
 		
