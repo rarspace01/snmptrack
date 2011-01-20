@@ -71,9 +71,9 @@ public class SwitchListe {
 		String sPuffer="";	
 		HelperClass.msgLog("No switch.xml found, reading from nagios");	
 		
-		sPuffer=HttpHelperClass.getPage("");
+		switchList=Nagios.getSwitchs();
 		
-		System.out.println(sPuffer);
+		//System.out.println(sPuffer);
 		
 		try {
 			Thread.sleep(9999);
