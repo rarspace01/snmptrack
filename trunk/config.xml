@@ -3,6 +3,6 @@
 <threads count="32"/>
 <debug level="3"/>
 <snmp intervall="90"/>
-<nagios ip="" usr="" pwd="" db=""/>
-<snmptrack ip="" usr="" pwd="" db=""/>
+<nagios ip="murmeltier" usr="usertracking" pwd="TrackIt" db="nagiosql3"/>
+<snmptrack ip="octopus" usr="USRTRACK" pwd="TrackIt" db="USRTRACK"/>
 </config>
