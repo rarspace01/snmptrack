@@ -15,39 +15,15 @@ public class SNMPTrackConfig {
 	
 	private static int iSNMPintervall=-1;
 	
-	private static String SNMPtrackDB_IP="";
-	private static String SNMPtrackDB_DB="";
-	private static String SNMPtrackDB_USR="";
-	private static String SNMPtrackDB_PWD="";
-	private static String SNMPtrackDB_TBL="";
+	public static String SNMPtrackDB_IP="";
+	public static String SNMPtrackDB_DB="";
+	public static String SNMPtrackDB_USR="";
+	public static String SNMPtrackDB_PWD="";
 	
-	private static String NagiosDB_IP="";
-	private static String NagiosDB_DB="";
-	private static String NagiosDB_USR="";
-	private static String NagiosDB_PWD="";
-
-	
-	public static final String getNagiosJDBCS(){
-		String sPuffer="";
-		
-		sPuffer+=NagiosDB_IP+"\n";
-		sPuffer+=NagiosDB_DB+"\n";
-		sPuffer+=NagiosDB_USR+"\n";
-		sPuffer+=NagiosDB_PWD+"\n";
-		
-		return sPuffer;
-	}
-	
-	public static final String getSNMPTJDBCS(){
-		String sPuffer="";
-		
-		sPuffer+=SNMPtrackDB_IP+"\n";
-		sPuffer+=SNMPtrackDB_DB+"\n";
-		sPuffer+=SNMPtrackDB_USR+"\n";
-		sPuffer+=SNMPtrackDB_PWD+"\n";
-		
-		return sPuffer;
-	}
+	public static String NagiosDB_IP="";
+	public static String NagiosDB_DB="";
+	public static String NagiosDB_USR="";
+	public static String NagiosDB_PWD="";
 	
 	public static final int getThreadcount(){
 		
