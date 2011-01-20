@@ -15,17 +15,39 @@ public class SNMPTrackConfig {
 	
 	private static int iSNMPintervall=-1;
 	
-	private String SNMPtrackDB_IP="";
-	private String SNMPtrackDB_DB="";
-	private String SNMPtrackDB_USR="";
-	private String SNMPtrackDB_PWD="";
-	private String SNMPtrackDB_TBL="";
+	private static String SNMPtrackDB_IP="";
+	private static String SNMPtrackDB_DB="";
+	private static String SNMPtrackDB_USR="";
+	private static String SNMPtrackDB_PWD="";
+	private static String SNMPtrackDB_TBL="";
 	
-	private String NagiosDB_IP="";
-	private String NagiosDB_DB="";
-	private String NagiosDB_USR="";
-	private String NagiosDB_PWD="";
-	private String NagiosDB_TBL="";	
+	private static String NagiosDB_IP="";
+	private static String NagiosDB_DB="";
+	private static String NagiosDB_USR="";
+	private static String NagiosDB_PWD="";
+
+	
+	public static final String getNagiosJDBCS(){
+		String sPuffer="";
+		
+		sPuffer+=NagiosDB_IP+"\n";
+		sPuffer+=NagiosDB_DB+"\n";
+		sPuffer+=NagiosDB_USR+"\n";
+		sPuffer+=NagiosDB_PWD+"\n";
+		
+		return sPuffer;
+	}
+	
+	public static final String getSNMPTJDBCS(){
+		String sPuffer="";
+		
+		sPuffer+=SNMPtrackDB_IP+"\n";
+		sPuffer+=SNMPtrackDB_DB+"\n";
+		sPuffer+=SNMPtrackDB_USR+"\n";
+		sPuffer+=SNMPtrackDB_PWD+"\n";
+		
+		return sPuffer;
+	}
 	
 	public static final int getThreadcount(){
 		
@@ -90,6 +112,34 @@ public class SNMPTrackConfig {
 					
 					String sIStart="<snmp intervall=\"";
 					String sIEnde1="\"/>";
+					
+					String sNStart="<nagios";
+					String sNEnde="\"/>";
+					
+					String sSTStart="<snmptrack";
+					String sSTEnde="\"/>";
+					
+					if(sLine.contains(sNStart)&&sLine.contains(sNEnde)){
+						String sXMLelement="ip";
+						NagiosDB_IP=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
+						sXMLelement="db";
+						NagiosDB_DB=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
+						sXMLelement="usr";
+						NagiosDB_USR=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
+						sXMLelement="pwd";
+						NagiosDB_PWD=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
+					}
+					
+					if(sLine.contains(sSTStart)&&sLine.contains(sSTEnde)){
+						String sXMLelement="ip";
+						SNMPtrackDB_IP=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
+						sXMLelement="db";
+						SNMPtrackDB_DB=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
+						sXMLelement="usr";
+						SNMPtrackDB_USR=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
+						sXMLelement="pwd";
+						SNMPtrackDB_PWD=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
+					}
 					
 					if(sLine.contains(sTStart)&&sLine.contains(sTEnde1)){ 
 						iThreadcount=Integer.parseInt(sLine.substring(sTStart.length(), sLine.indexOf(sTEnde1)));
