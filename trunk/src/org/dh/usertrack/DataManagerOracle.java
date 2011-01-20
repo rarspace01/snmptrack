@@ -20,7 +20,7 @@ public class DataManagerOracle {
         private DataManagerOracle() {
                 try {
                         Class.forName("oracle.jdbc.driver.OracleDriver"); 
-                        conn = DriverManager.getConnection("jdbc:oracle:thin:@octopus:1521:USRTRACK","USRTRACK","TrackIt");
+                        conn = DriverManager.getConnection("jdbc:oracle:thin:@"+SNMPTrackConfig.SNMPtrackDB_IP+":1521:"+SNMPTrackConfig.SNMPtrackDB_DB,SNMPTrackConfig.SNMPtrackDB_USR,SNMPTrackConfig.NagiosDB_PWD);
                         stmt = conn.createStatement();
                         
                 } catch (SQLException e) {
@@ -50,7 +50,7 @@ public class DataManagerOracle {
                 uniqueInstance=null;
         }
         
-        //Methode für normale Select Operationen
+        //Methode fï¿½r normale Select Operationen
         public ResultSet select(String SQLString) throws SQLException
         {
                 ResultSet rs=null;
@@ -66,7 +66,7 @@ public class DataManagerOracle {
                 return rs;
         }
 
-        //Methode für alles auÃŸer select Operationen
+        //Methode fï¿½r alles auÃŸer select Operationen
         public int execute(String SQLString) throws SQLException
         {
                 int i=-1;
