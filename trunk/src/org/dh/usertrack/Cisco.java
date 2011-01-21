@@ -14,6 +14,7 @@ public class Cisco {
 		String sPattern2="1.3.6.1.2.1.1.1.0 = Cisco Internetwork Operating System Software";
 		String sPattern3="1.3.6.1.2.1.1.1.0 = Cisco Systems ";
 		String sPattern4="Cisco Catalyst Operating System Software";
+		String sPattern5="Cisco Systems Catalyst 1900";
 		
 		if(sOID.contains(sPattern1))
 		{
@@ -21,11 +22,11 @@ public class Cisco {
 		}else if(sOID.contains(sPattern2)){
 			sModell=sOID.substring(sOID.indexOf(sPatternS)+sPatternS.length(),sOID.indexOf(sPatternE));
 			sModell=sModell.replace(sIOSTM, "");
-		}else if(sOID.contains(sPattern3))
+		}else if(sOID.contains(sPattern5))
 		{	
+			sModell="C1900";
+		}else if(sOID.contains(sPattern3)){
 			sModell=sOID.substring(sOID.indexOf(sPattern3)+sPattern3.length(), sOID.indexOf(sPattern4));
-		}else{
-			//System.out.println(sOID);
 		}
 		sModell.trim();
 
@@ -44,6 +45,7 @@ public class Cisco {
 		String sIOS="";
 		
 		String sPattern1="Version";
+		String sPattern2=",V";
 		
 		if(sOID.contains("Version"))
 		{
@@ -54,7 +56,12 @@ public class Cisco {
 				sIOS=sOID.substring(sOID.indexOf(sPattern1)+sPattern1.length(),sOID.indexOf(sPattern1)+sPattern1.length()+sOID.substring(sOID.indexOf(sPattern1)+sPattern1.length()).indexOf("\n"));
 			}
 		sIOS=sIOS.trim();
+		}else if(sOID.contains(",V"))
+		{
+		sIOS=sOID.substring(sOID.indexOf(sPattern2)+sPattern2.length());
+		sIOS=sIOS.trim();
 		}
+		
 		return sIOS;
 	}
 
