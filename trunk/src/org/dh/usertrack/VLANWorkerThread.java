@@ -45,13 +45,13 @@ class VLANWorkerThread implements Runnable {
 		
 		  //get The VLAN Lists
 		  
-		  svStatus=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.vtpVlanState, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
+		  svStatus=SNMPHandler.getOIDWalknonBulkSlow(snmp, 2, OIDL.vtpVlanState, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
 
-		  svTyp=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.vtpVlanType, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
+		  svTyp=SNMPHandler.getOIDWalknonBulkSlow(snmp, 2, OIDL.vtpVlanType, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
 		  
-		  svName=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.vtpVlanName, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
+		  svName=SNMPHandler.getOIDWalknonBulkSlow(snmp, 2, OIDL.vtpVlanName, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
 
-		  svVTPD=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.managementDomainName, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
+		  svVTPD=SNMPHandler.getOIDWalknonBulkSlow(snmp, 2, OIDL.managementDomainName, SNMPConfig.getRouters().get(0).substring(0,SNMPConfig.getRouters().get(0).indexOf("!")), SNMPConfig.getRouters().get(0).substring(SNMPConfig.getRouters().get(0).indexOf("!")+1));
 
 		  
 		  //.1.3.6.1.4.1.9.9.46.1.2.1.1.2
