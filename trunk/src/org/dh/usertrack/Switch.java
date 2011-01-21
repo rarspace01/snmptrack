@@ -15,6 +15,7 @@ public class Switch {
 	private long lIP=0;
 	private String sReadcommunity="";
 	private Snmp snmp;
+	private int snmpver=2;
 	private String svendor="";
 	private String smodel="";
 	private String sversion="";
@@ -76,8 +77,20 @@ public class Switch {
 	//Parse SystemDesc && Test if SNMP is working
 	String 	sOID="";
 		
-	sOID=SNMPHandler.getOID(snmp, OIDL.sysDescr0, sIP, sReadcommunity);	
+	sOID=SNMPHandler.getOID(snmp, snmpver, OIDL.sysDescr0, sIP, sReadcommunity);	
+	
+	if(sOID.contains("ERROR AT")){
+	
 		
+	sOID=SNMPHandler.getOID(snmp, 1, OIDL.sysDescr0, sIP, sReadcommunity);
+	
+	if(!sOID.contains("ERROR AT")){
+		snmpver=1;
+	}
+		
+	}
+	
+	
 	if(sOID.contains("ERROR AT ")){
 		
 		if(SNMPConfig.getDebuglevel()>=1)
@@ -97,18 +110,18 @@ public class Switch {
 		
 		sversion=Cisco.getIOSfromDescr(sOID);
 		
-		sSerial=SNMPHandler.getOID(snmp, OIDL.chassisId+".0", sIP, sReadcommunity);
+		sSerial=SNMPHandler.getOID(snmp, snmpver, OIDL.chassisId+".0", sIP, sReadcommunity);
 		sSerial=sSerial.replace(OIDL.chassisId+".0 = ", "");
 		if(sSerial.contains("noSuchObject")){
 			sSerial="";
 		}
 		
-		sLocation=Cisco.getLocation(SNMPHandler.getOID(snmp, OIDL.sysLocation0, sIP, sReadcommunity));
+		sLocation=Cisco.getLocation(SNMPHandler.getOID(snmp, snmpver, OIDL.sysLocation0, sIP, sReadcommunity));
 
-		iUptime=Cisco.getUptime(SNMPHandler.getOID(snmp, OIDL.sysUpTimeInstance, sIP, sReadcommunity));
+		iUptime=Cisco.getUptime(SNMPHandler.getOID(snmp, snmpver, OIDL.sysUpTimeInstance, sIP, sReadcommunity));
 		//HelperClass.msgLog("SOID:["+sOID+"]");
 		
-		sAlias=Cisco.getAlias(SNMPHandler.getOID(snmp, OIDL.sysName0, sIP, sReadcommunity));
+		sAlias=Cisco.getAlias(SNMPHandler.getOID(snmp, snmpver, OIDL.sysName0, sIP, sReadcommunity));
 		
 	}else{
 		
@@ -165,11 +178,11 @@ public class Switch {
 	ArrayList<String> swCiscoDuplex=new ArrayList<String>();	
 	ArrayList<String> swDuplex=new ArrayList<String>();
 	
-	swMACs=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.ifPhysAddress, sIP, sReadcommunity);
+	swMACs=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.ifPhysAddress, sIP, sReadcommunity);
 	swStatus=SNMPHandler.getOIDWalk(snmp, OIDL.ifOperStatus, sIP, sReadcommunity);
 	swVLANs=SNMPHandler.getOIDWalk(snmp, OIDL.vtpVlanState, sIP, sReadcommunity);
 	swVLANPorts=SNMPHandler.getOIDWalk(snmp, OIDL.vmVlan, sIP, sReadcommunity);
-	swPortname=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.ifName, sIP, sReadcommunity);
+	swPortname=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.ifName, sIP, sReadcommunity);
 	swPortalias=SNMPHandler.getOIDWalk(snmp, OIDL.ifAlias, sIP, sReadcommunity);
 	
 	swCDP=SNMPHandler.getOIDWalk(snmp, OIDL.cdpCacheAddress, sIP, sReadcommunity);
@@ -230,14 +243,14 @@ public class Switch {
 	{
 		
 		//for hosts
-		swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
+		swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
 			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
 			swHostMAC.add(swPuffer.get(j));
 		}
 		swPuffer.clear();
 		//for vportids
-		swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, OIDL.dot1dBasePortIfIndex, sIP, sReadcommunity+"@"+swVLANListe.get(i));
+		swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.dot1dBasePortIfIndex, sIP, sReadcommunity+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
 			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
 			swVPort.add(swPuffer.get(j));
