@@ -40,7 +40,7 @@ public class Benchmark {
 		
 		swList=sws.getSwitchList();
 		
-		int iTestcounter=3;
+		int iTestcounter=10;
 		
 		int iSNMPres[] = new int[iTestcounter];
 		
@@ -125,7 +125,7 @@ public class Benchmark {
 		
 		for(int i=0; i<iTcount; i++){
 		
-		sPuffer=SNMPHandler.getOID(snmp, OIDL.sysDescr0, swc.getsIP(), swc.readCommunity());
+		sPuffer=SNMPHandler.getOID(snmp,2, OIDL.sysDescr0, swc.getsIP(), swc.readCommunity());
 		}
 		lStop=System.currentTimeMillis();
 		
