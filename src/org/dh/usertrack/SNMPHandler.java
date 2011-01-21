@@ -19,10 +19,8 @@ import org.snmp4j.smi.VariableBinding;
 
 public class SNMPHandler {
 
-	public static String getOID(Snmp snmp, String OID, String Target, String Community){
+	public static String getOID(Snmp snmp, int snmpver,  String OID, String Target, String Community){
 		String sOID="";
-		
-		//System.out.println("DEBUG: GET OID FROM: "+Target);
 		
 		Address targetAddress=GenericAddress.parse("udp:"+Target+"/161");
 		
@@ -32,42 +30,32 @@ public class SNMPHandler {
 		    requestPDU.add(new VariableBinding(targetOID));
 		    requestPDU.setType(PDU.GET);
 
-		    
 		    CommunityTarget target = new CommunityTarget();
 		    target.setCommunity(new OctetString(Community));
 		    target.setAddress(targetAddress);
+		    
+		    if(snmpver==2){
 		    target.setVersion(SnmpConstants.version2c);
+		    }else if(snmpver==1){
+		    target.setVersion(SnmpConstants.version1);	
+		    }
 
 		    target.setRetries(5);
 		    
 		    target.setTimeout(300);
-
 		
 			try {
 				
-//				TransportMapping transport = new DefaultUdpTransportMapping();
-//				snmp = new Snmp(transport);
-//				transport.listen();
-			      
-				//PDU responsePDU = snmp.sendPDU(requestPDU, target);			      
-				
 				ResponseEvent response = snmp.send(requestPDU, target);
 				
-				
-//				System.out.println(response.getResponse().get(0));
 				sOID=response.getResponse().get(0).toString();
-				
-
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				//e.printStackTrace();
 				sOID="ERROR AT "+Target+" [IO]";
 			} catch (NullPointerException e2){
 				sOID="ERROR AT "+Target+" [null]";
 			}
-		
-			//System.out.println("DEBUG: GOT OID FROM: "+Target);
 		
 		return sOID;
 	}
@@ -144,7 +132,7 @@ public class SNMPHandler {
 		return resultList;
 	}
 	
-	public static ArrayList<String> getOIDWalknonBulk(Snmp snmp, String OID, String Target, String Community){
+	public static ArrayList<String> getOIDWalknonBulk(Snmp snmp, int snmpver, String OID, String Target, String Community){
 		ArrayList<String> resultList=new ArrayList<String>();
 		
 		Address targetAddress=GenericAddress.parse("udp:"+Target+"/161");
@@ -166,7 +154,11 @@ public class SNMPHandler {
 	    
 	    target.setTimeout(300);
 	    
-	    target.setVersion(SnmpConstants.version2c);
+	    if(snmpver==2){
+		    target.setVersion(SnmpConstants.version2c);
+	    }else if(snmpver==1){
+		    target.setVersion(SnmpConstants.version1);	
+	    }
 		
 			try {
 				
@@ -211,7 +203,7 @@ public class SNMPHandler {
 		return resultList;
 	}
 	
-	public static ArrayList<String> getOIDWalknonBulkSlow(Snmp snmp, String OID, String Target, String Community){
+	public static ArrayList<String> getOIDWalknonBulkSlow(Snmp snmp, int snmpver, String OID, String Target, String Community){
 		ArrayList<String> resultList=new ArrayList<String>();
 		
 		Address targetAddress=GenericAddress.parse("udp:"+Target+"/161");
@@ -233,7 +225,11 @@ public class SNMPHandler {
 	    
 	    target.setTimeout(300);
 	    
-	    target.setVersion(SnmpConstants.version2c);
+	    if(snmpver==2){
+		    target.setVersion(SnmpConstants.version2c);
+	    }else if(snmpver==1){
+		    target.setVersion(SnmpConstants.version1);	
+	    }
 		
 			try {
 				
