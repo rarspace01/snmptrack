@@ -8,6 +8,7 @@ public class OIDL {
 	public static final String sysLocation0="1.3.6.1.2.1.1.6.0";
 	public static final String sysUpTimeInstance="1.3.6.1.2.1.1.3.0";
 	public static final String sysName0="1.3.6.1.2.1.1.5.0";
+	public static final String ifDescr="1.3.6.1.2.1.2.2.1.2";
 	public static final String ifPhysAddress="1.3.6.1.2.1.2.2.1.6";
 	public static final String ifOperStatus="1.3.6.1.2.1.2.2.1.8";
 	public static final String ifName="1.3.6.1.2.1.31.1.1.1.1";
