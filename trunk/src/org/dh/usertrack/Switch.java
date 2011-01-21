@@ -179,6 +179,9 @@ public class Switch {
 	ArrayList<String> swDuplex=new ArrayList<String>();
 	
 	swMACs=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.ifPhysAddress, sIP, sReadcommunity);
+	
+	if(snmpver==2){
+	
 	swStatus=SNMPHandler.getOIDWalk(snmp, OIDL.ifOperStatus, sIP, sReadcommunity);
 	swVLANs=SNMPHandler.getOIDWalk(snmp, OIDL.vtpVlanState, sIP, sReadcommunity);
 	swVLANPorts=SNMPHandler.getOIDWalk(snmp, OIDL.vmVlan, sIP, sReadcommunity);
@@ -191,12 +194,31 @@ public class Switch {
 	swCDPPort=SNMPHandler.getOIDWalk(snmp, OIDL.cdpCacheDevicePort, sIP, sReadcommunity);
 	swSpeed=SNMPHandler.getOIDWalk(snmp, OIDL.ifSpeed, sIP, sReadcommunity);
 	swType=SNMPHandler.getOIDWalk(snmp, OIDL.ifType, sIP, sReadcommunity);
-//	swTypeCisco=SNMPHandler.getOIDWalk(snmp, OID.portType, sIP, sReadcommunity);
 	swSTP=SNMPHandler.getOIDWalk(snmp, OIDL.locIfspanInPkts, sIP, sReadcommunity);
 	
 	swCiscoPort = SNMPHandler.getOIDWalk(snmp, OIDL.c2900PortIfIndex, sIP, sReadcommunity);
 	
-	if(swCiscoPort.size()>0){
+	}else if(snmpver==1){
+		
+		swStatus=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.ifOperStatus, sIP, sReadcommunity);
+		swVLANs=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.vtpVlanState, sIP, sReadcommunity);
+		swVLANPorts=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.vmVlan, sIP, sReadcommunity);
+		swPortname=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.ifDescr, sIP, sReadcommunity);
+		swPortalias=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.ifAlias, sIP, sReadcommunity);
+		
+		swCDP=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.cdpCacheAddress, sIP, sReadcommunity);
+		swCDPC=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.cdpCacheCapabilities, sIP, sReadcommunity);
+		swCDPDI=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.cdpCacheDeviceId, sIP, sReadcommunity);
+		swCDPPort=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.cdpCacheDevicePort, sIP, sReadcommunity);
+		swSpeed=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.ifSpeed, sIP, sReadcommunity);
+		swType=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.ifType, sIP, sReadcommunity);
+		swSTP=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.locIfspanInPkts, sIP, sReadcommunity);
+		
+		swCiscoPort = SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.c2900PortIfIndex, sIP, sReadcommunity);	
+		
+	}
+	
+	if(swCiscoPort.size()>0&&snmpver==2){
 	swCiscoDuplex = SNMPHandler.getOIDWalk(snmp, OIDL.c2900PortDuplexStatus, sIP, sReadcommunity);
 	supportsCiscoDuplex=true;
 	
@@ -228,7 +250,13 @@ public class Switch {
 	//add All Macs to the "Global" Maccache-List
 	
 	//normal
+	
+	if(snmpver==2){
 	swPuffer=SNMPHandler.getOIDWalk(snmp, OIDL.dot1dTpFdbPort, sIP, sReadcommunity);
+	}else if(snmpver==1){
+	swPuffer=SNMPHandler.getOIDWalknonBulk(snmp,1, OIDL.dot1dTpFdbPort, sIP, sReadcommunity);
+	}
+	
 	for(int j=0;j<swPuffer.size();j++){
 		//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
 		swHostMAC.add(swPuffer.get(j));
