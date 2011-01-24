@@ -365,11 +365,11 @@ Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen
 \section{VLAN - Virtual Local Area Network}
 \label{sec:vlan}
 
-Bei einem VLAN (Virtual Locla Area Network) handelt es sich um ein logisches Netz innerhalb eines physikalischen Netzwerkes. Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes. VLANs können über einen oder mehrerer Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen. Die Unterteilung des bestehnenden Netzwerkes in Tielnetze bewerkestelligt VLAN dadurch, dass es Switchs, die VLAN unterstützen dazu veranlasst Frames (Datenpakete) eines VLANs nicht in ein andere VLAN weiterzuleiten, auch wenn beide physikalisch an den selben Switch angeschlossen sind.
+Bei einem VLAN (Virtual Locla Area Network) handelt es sich um ein logisches Netz innerhalb eines physikalischen Netzwerkes. Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes. VLANs können über einen oder mehrerer Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen. Die Unterteilung des bestehnenden Netzwerkes in Tielnetze bewerkestelligt VLAN dadurch, dass es Switches, die VLAN unterstützen dazu veranlasst Frames (Datenpakete) eines VLANs nicht in ein andere VLAN weiterzuleiten, auch wenn beide physikalisch an den selben Switch angeschlossen sind.
 VLAN können über verschiedene Arten realisiert werden. Eine Unterscheidungsmöglichkeit sind portbasierte VLANs und tagged VLANs.
 Bei den portbasierten VLANs gehört ein Port je einem VLAN an oder ist ein Trunk-Port. Bei einem Trunk-Port handelt es sich um ein Port über den mehrere VLANs geschaltet sind.\\
 Das sogennante tagged VLAN hingegen findet im Unterschied zu den portbasierten VLANs die Kennzeichnung im Ethernet-Frame selbst statt. Dieses tagging ist nach IEEE 802.1q spezifiziert.
-Beim tagged VLAN kennzeichnen die Switchs am Einspeise Ort oder spezielle tagging fähige Geräte die Pakete. Diese Pakete werden wiederum von den Switchs am Engerät detagged oder wiederum von tagging fähigen Gerät selbst.\\
+Beim tagged VLAN kennzeichnen die Switches am Einspeise Ort oder spezielle tagging fähige Geräte die Pakete. Diese Pakete werden wiederum von den Switches am Engerät detagged oder wiederum von tagging fähigen Gerät selbst.\\
 Zusätzlich gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.
 Bei einem statischen VLAN ist ein Port einem speziellen Port zugeordnet entweder zu einem Port-basierten VLAN oder zu einem tagged VLAN. Wobei ein Port auch mehreren VLAns angehören kann und dann ein Trunk-Port ist.\\
 Das dynamische VLAN hingegen ist nicht portbasierend und richtet sich nach dem Inhalt des Frames. Jedoch ist zu beachten, dass die Inhalte eines Frames beliebig veränderbar sind und somit dynamische VLANs nicht in sicherheitskritischen Netzwerken verwendet werden sollte.
@@ -382,7 +382,7 @@ Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle. Um zu
 
 \section{SNMP}
 \label{sec:snmp}
-Unter dem Simple Network Management Protocol ist ein Netzwerkprotokoll zu verstehen, welches einem erlaubt Netzwerkgeräte (z.B. Drucker, Router, Switchs, Router) per Netzwerk zu überwachen und zu steuern.\footnote{vgl. Essential SNMP, S. 1}
+Unter dem Simple Network Management Protocol ist ein Netzwerkprotokoll zu verstehen, welches einem erlaubt Netzwerkgeräte (z.B. Drucker, Router, Switches, Router) per Netzwerk zu überwachen und zu steuern.\footnote{vgl. Essential SNMP, S. 1}
 Diese Abfragen werden von einem zentralen Punkt aus durchgeführt, dem sogenannten SNMP-Manager, welcher die Daten von den SNMP-Agenten (Netzwerkelementen) abruft.\footnote{vgl. Essential SNMP, S. 3}\\
 Bei SNMP handelt es sich um ein Protokoll, welches sich auf der Schicht 7, die Anwendungs-Ebene, des ISO/OSI-Schichtenmodells, ansiedeln lässt.
 Entwickelt wurde das Protokoll von der IEFT und ist über diverse RFCs definiert.
