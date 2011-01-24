@@ -70,15 +70,16 @@ Hierfür soll nun ein Eintrag in der Datenbank erzeugt werden. Wenn N1 jetzt wie
 \end{figure}
 
 
-Für das Auslesen der Switches soll das Netzwerkprotokoll SNMP verwendet werden, da eine Abfrage per Telnet die Switches stark belastet und somit es passieren kann das der Betrieb eingeschränkt wird. Hinzu kommt, dass ein auslesen per Telnet sehr langsam ist und die Ausgabe selbst nicht standardisiert ist und somit sehr viele Einzelfälle behandelt werden müssten.\\
-Im Hinblick auf die Geschwindigkeit des Auslese-Prozesses wurde vorausgesetzt, dass das Sammeln der Daten mindestens vier mal am Tag möglich sein muss und sofern möglich sollte eine Auslesezeit unter 60 Minuten angestrebt werden, da es sich hierbei um den alten ungefähren Wert handelt, welcher die vorherige Auslese-Geschwindigkeit darstellt.\\
+Für das Auslesen der Switches soll das Netzwerkprotokoll SNMP verwendet werden, da eine Abfrage per Telnet die Switches stark belastet und somit es passieren kann das der Betrieb eingeschränkt wird. Hinzu kommt, dass ein Auslesen per Telnet sehr langsam ist und die Ausgabe selbst nicht standardisiert ist und somit sehr viele Einzelfälle behandelt werden müssten.\\
+Im Hinblick auf die Geschwindigkeit des Auslese-Prozesses wurde vorausgesetzt, dass das Sammeln der Daten mindestens vier mal am Tag möglich sein muss und sofern möglich sollte eine Auslesezeit unter 60 Minuten angestrebt werden, da es sich hierbei um einen alten Wert handelt, welcher bei früheren Auslesevorgängen erreicht wurde.\\
 
-Eine weitere Anforderung die als optional angesehen wird, ist die Möglichkeit die Verbindungen zwischen den Switches und Routern zu erfassen. Dies heißt, es soll eine Topologie anhand der Daten erstellt werden können.\\
-Zu den ebenfalls optionalen Anforderungen gehört auch die Möglichkeit einer Benutzerzuordnung.zu den jeweiligen Hosts. Die Zuordnung soll über das bestehende Active Directory passieren und somit die Möglichkeit bieten den entsprechenden Nutzer direkt anrufen zu können bei Problemen.\\
-Kombiniert man diese Anforderungen so bildet sich eine weitere Anwendungsmöglichkeit und zwar kann es in der Praxis vor kommen, dass ein Switch gewechselt und somit abgeschaltet werden muss, hierfür kann man nun im Voraus kontrollieren, welche Hosts an diesen angeschlossen sind und die dementsprechenden Nutzer im Voraus zu informieren.\\
+Eine weitere Anforderung die als optional angesehen wird, ist die Möglichkeit die Verbindungen zwischen den Switches und Routern zu erfassen. Das heißt, es soll eine Topologie anhand der Daten erstellt werden können.\\
+Zu den optionalen Anforderungen gehört die Möglichkeit einer Benutzerzuordnung zu den jeweiligen Hosts. Die Zuordnung soll über das bestehende Active Directory passieren und somit die Möglichkeit bieten den entsprechenden Nutzer direkt anrufen zu können bei Problemen.\\
+Kombiniert man diese Anforderungen so bildet sich eine weitere Anwendungsmöglichkeit und zwar kann es in der Praxis vor kommen, dass ein Switch gewechselt und somit abgeschaltet werden muss. Hierfür kann man nun im Voraus kontrollieren, welche Hosts an diesen angeschlossen sind und die dementsprechenden Nutzer im Voraus zu informieren.\\
 
-Neben den Anforderungen zu den Anwendungsmöglichkeiten wurden auch ein paar Anforderungen an das Programm selbst gestellt.
-Zu diesen gehören die Betriebsystemunabhängigkeit, das Programm muss sowohl auf Windows als auch Linux Computern laufen können. Sofern Interpretersprachen oder ähnliches verwendet werden, darf keine Versionsabhängigkeit bestehen, d.h. das Programm muss z.B. sowohl unter Java 1.6.0.10 als auch unter 1.6.0.33 funktionieren.\\
+Neben den Anforderungen zu den Anwendungsmöglichkeiten wurden auch Anforderungen an das Programm selbst gestellt.
+Zu diesen gehört die Betriebsystemunabhängigkeit.
+Das Programm muss sowohl auf dem Windows, als auch auf dem Linux Betriebsystem funktionieren. Sofern Interpretersprachen oder ähnliches verwendet werden, darf keine Versionsabhängigkeit bestehen, d.h. das Programm muss z.B. sowohl unter Java 1.6.0.10 als auch unter 1.6.0.33 funktionieren.\\
 Als bestehende Datenbank wurde Oracle vorgegeben, da hierfür bereits Lizenzen existieren und diese bereits auf den entsprechenden Servern läuft und kein weiteres DBMS installiert und gepflegt werden muss.\\
 
 \section{Anforderungsanalyse}
