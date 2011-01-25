@@ -120,17 +120,14 @@ Zusätzlich ließt Tirtih eine Großzahl an Infromationen über die Switches sow
 \footnote{http://www.gambitcomm.com/site/products/mgmt\_apps/interopnet98.htm
 http://www.fernuni-hagen.de/BWLPIT/LADV\_/PDF\_Dateien/Hinweise\_Anfertigung\_wiss\_Arbeiten.PDF}
 
+\section{Entscheidung zur eigenen Herstellung}
+\label{sec:decisionowncreating}
 
 Vergleicht man alle aufgeführten Systeme so lässt sich feststellen, dass keine der genannten Lösungen den Anforderungen entspricht.
 Zwar bietet Tirtih einen Teil der gewünschten Funktionen, jedoch müsste dies erst auf die speziellen Bedürfnisse angepasst werden, die das Unternehmen benötigt.
 Aufgrund dieser Tatsache empfiehlt sich eine eigene Implementierung, da diese die Möglichkeit gibt besonderes auf die Anforderungen einzugehen und keine Einarbeitungszeit in eine fremde System-Architektur notwendig macht.
 Selbstverständlich sind mit einer eigenen Implementierung gewisse Risiken verbunden, darunter auch der knappe Zeitrahmen.
 In der Anforderungsanalyse wurden diese aber bereits abgewegt und eine Machbarkeit des Systems festgestellt.
-
-\section{Entscheidung zur eigenen Herstellung}
-\label{sec:decisionowncreating}
-
-
 
 \section{Entwurf}
 \label{sec:Entwurf}
@@ -212,9 +209,10 @@ Neben der Vielzahl von Klassen, welche zur Vereinfachung der Übersicht und Wart
 \subsection{Sequenzdiagramme}
 \label{subsec:seqdiagrams}
 
-Um die Beziehungen der einzelnen Klassen des Programms zu visualisieren reicht es nicht nur aus die Klassendiagramme zu zeichnen, sondern es müssen auch Sequenzdiagramme erstellt werden. Im Folgenden soll auf die Beziehungen ausgehend von der Hauptklasse des Porgramms eingegangen werden.
+Um die Beziehungen der einzelnen Klassen des Programms zu visualisieren reicht es nicht aus die Klassendiagramme zu zeichnen, sondern es müssen auch Sequenzdiagramme erstellt werden.
+Im Folgenden soll auf die Beziehungen ausgehend von der Hauptklasse des Programms eingegangen werden.
 Zu Beginn des Porgramms erzeugt die Klasse SNMPTrack ein Objekt der Klasse SwitchListe.
-Bei diesem Objekt wird die Methode getSwitches() aufgerufen. Diese Funktioin liefert dann eine Liste aller Switches, die später ausgelesen werden müssen anhand einer vorgegebenen Datenquelle aus. Zum aktuellen Zeitpunkt ist dies eine XML-Datei, in naher Zukunft werden diese Daten anhand des existierenden Nagios Systems ausgelesen. Im Anschluss wird ein Objekt der Klasse SwitchWorkerThread erstellt, um einen separaten Thread zu starten, der unabhängig und nebenläufig arbeiten kann. Dieser Thread nimmt das übergebene Switch Objekt und ruft bei diesem die refresh() Methode auf, welche wiederum für das Einlesen aller Switchinformationen zuständig ist. Dieser Vorgang ist in Abbildung X beschrieben.
+Bei diesem Objekt wird die Methode getSwitches() aufgerufen. Diese Funktion liefert dann eine Liste aller Switches, die später ausgelesen werden müssen anhand einer vorgegebenen Datenquelle aus. Zum aktuellen Zeitpunkt ist dies eine XML-Datei, in naher Zukunft werden diese Daten anhand des existierenden Nagios Systems ausgelesen. Im Anschluss wird ein Objekt der Klasse SwitchWorkerThread erstellt, um einen separaten Thread zu starten, der unabhängig und nebenläufig arbeiten kann. Dieser Thread nimmt das übergebene Switch Objekt und ruft bei diesem die refresh() Methode auf, welche wiederum für das Einlesen aller Switchinformationen zuständig ist. Dieser Vorgang ist in Abbildung X beschrieben.
 
 
 \begin{figure}[H]
@@ -224,7 +222,8 @@ Bei diesem Objekt wird die Methode getSwitches() aufgerufen. Diese Funktioin lie
 \label{fig:sequecediagram1}
 \end{figure}
 
-Während des refresh() Methoden-Aufrufs des Switch Objektes werden verschiedene andere Objekte erzeugt. Zu Beginn wird die Klasse SNMPHandler verwendet, welche verschiedene Methoden zur SNMP-Kommunikation zur Verfügung stellt. Über diese werden SNMP-GET und SNMP-BULK Befehle abgesetzt. Zusätzlich bietet die Klasse Funktionalitäten, welche SNMP selbst nicht zur verfügugn stellt. Möchte man z.B. den kompletten Unterbaum eines Konten erhalten und überschreitet die Anzahl der Einträge das Maximum von GETBULK, so können diese nur durch GET und GETNEXT ausgelesen werden. Diese Problematik behandelt die Klasse in einer SNMP-WALK Methode, welche die gleiche Funktionsweise wie ein GETBULK hat, aber es ermöglicht auch größere Listen an Werten abzufragen, die an einem Knoten hängen. Nachdem die jeweiligen SNMP Methoden die Werte zurückgegeben haben, werden diese ausgewertet. Im Anschluss daran, wird ein Objekt der Klasse Port abgeleitet. Dieses Objekt dient dazu die portspezifischen Informationen zu speichern und im Anschluss den passenden SQL-Befehl zur speicherung zu generieren. Dies wird durch die Methoden SetValues() und saveinDB() realisiert. Beim aufruf der saveInDB() Methode kommt es zur verwendung der Datenbank-Klasse JDBC-Oracle. Diese überträgt den SQL-String an die Datenbank, nachdem die Methode executeSQL() aufgerufen wurde.
+Während des refresh() Methoden-Aufrufs des Switch Objektes werden verschiedene andere Objekte erzeugt. Zu Beginn wird die Klasse SNMPHandler verwendet, welche verschiedene Methoden zur SNMP-Kommunikation zur Verfügung stellt. Über diese werden SNMP-GET und SNMP-BULK Befehle abgesetzt. Zusätzlich bietet die Klasse Funktionalitäten, welche SNMP selbst nicht zur Verfügung stellt. Möchte man z.B. den kompletten Unterbaum eines Konten erhalten und überschreitet die Anzahl der Einträge das Maximum von GETBULK, so können diese nur durch GET und GETNEXT ausgelesen werden. Diese Problematik behandelt die Klasse in einer SNMP-WALK Methode, welche die gleiche Funktionsweise wie ein GETBULK hat, aber es ermöglicht auch größere Listen an Werten abzufragen, die an einem Knoten hängen. Nachdem die jeweiligen SNMP Methoden die Werte zurückgegeben haben, werden diese ausgewertet. Im Anschluss daran, wird ein Objekt der Klasse Port abgeleitet. Dieses Objekt dient dazu die portspezifischen Informationen zu speichern und im Anschluss den passenden SQL-Befehl zur speicherung zu generieren. Dies wird durch die Methoden setValues() und saveinDB() realisiert.
+Beim Aufruf der saveInDB() Methode kommt es zur Verwendung der Datenbank-Klasse JDBC-Oracle. Diese überträgt den SQL-String an die Datenbank, nachdem die Methode executeSQL() aufgerufen wurde.
 Die gleiche Abfolge findet auch mit dem Objekt der Klasse Host statt. Hierbei werden anstatt wie beim Objekt der Klasse Port portspezfische Informationen abgelegt, sondern in diesem Fall die Informationen welche den jeweiligen Host betreffen abgespeichert.
 Nachdem alle Ports und Hosts abgespeichert wurden ist die Methoden refresh() des Switch-Objektes beendet.\\
 Jedoch muss bedacht werden, dass während der Verarbeitung der Daten eine Vielzahl von Klassen aufgerufen werden, welche speziell für das Programm geschrieben wurden. Ein Beispiel stellt die Klasse mit dem Namen Cisco dar. Welche Methoden zur Verfügung stellt, die speziell auf SNMP-Daten von Cisco-Geräten anwendbar sind. Darunter fallen Dinge wie Uptime-Formatierung. Model und IOS-Versions Auswertung anahnd des Descr-SNMP-Strings.
