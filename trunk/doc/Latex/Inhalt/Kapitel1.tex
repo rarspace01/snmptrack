@@ -10,9 +10,9 @@ Der Entwurf der Datenbank im vor der Implementierung ist essentiell, da im spät
 Um die Beziehungen zwischen den einzelnen Tabellen korrekt darstellen zu können, wird das Entity-Relationship-Modell\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.10} verwendet.
 Durch dieses Modell lassen sich sogenannte ER-Diagramme zeichnen, z.B. nach der Chen Notation\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.19}.
 Ein ER-Diagramm nach Chen stellt die Entitätstypen (Klassen), Attribute, sowie Beziehungen (Relationen/Kardinalitäten) dar.
-Im folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation kurz erläutert werden.\\
+Im Folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation kurz erläutert werden.\\
 
-Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
+Das nachfolgende Diagramm beschreibt Folgenden Sachverhalt:
 
 \begin{itemize}
 \item Ein Angestellter leitet mehrere Projekte.
@@ -240,7 +240,7 @@ Unter der Softwarentwicklung ist die Herstellung und Entwicklung von Software, s
 Bei der Individualsoftware handelt es sich um Software, welche individuell für einen Kunden angefertigt wurde. Typisch für Individualsoftware ist es, dass zuvor keine passenden Lösungen an Standardsoftware existiert haben.  Es kann aber auch sein, dass die Entwicklung einer Indivdualsoftware trotz existierender Standardsoftware Sinn macht, sofern es monitär vortelhaft ist.
 Ein weiterer Punkt  könnte der Versuch einen Wettbewerbsvorteil gegenüber den Wettbewerbern zu erhalten oder die Optimierung einer vorhandenen Lösung sein.\\
 Die Umsetzung eines Projektes findet entweder intern oder von einem externen Dienstleister statt. Eine wichtige Rolle spielen ebenfalls die Vorgehensweisen bei der Umsetzung eines Projektes. Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexibelen, z.B. der Agilen Softwareentwicklung.\\
-Im folgenden soll auf die wichtigsten Kernprozesse bei der Umsetzung eines Systems in einem Projekt eingegangen werden.\\
+Im Folgenden soll auf die wichtigsten Kernprozesse bei der Umsetzung eines Systems in einem Projekt eingegangen werden.\\
 \\
 Planung\\
 \\
@@ -274,7 +274,8 @@ Der letzte High-Level-Test dient der Abnahme und wird auch als Akzeptanztest bez
 
 Die Unified Modeling Language (UML) ist eine standardisierte graphische Modelierungssprache im Bereich der Softwareentwicklung. Der Standard wird von der Object Management Group verwaltet und wurde auch von dieser geschaffen. UML enthält verschiedene Notationstechniken um visuelle Modelle von softwareintensiven System zu erzeugen. UML selbst ist auch von der ISO standardisiert und zählt heutzutage zu einer der bedeutesten Modelierungssprachen bei der Softwareentwicklung. Durch die Sprache wird nicht nur eine grafische Notation festgehalten sondern ebenfalls die Begriffe und die jeweiligen Beziehungen zwischen diesen. Somit bilden die Diagramme nur eine Teil dessen ab, was unter der UML zu verstehen ist.
 Die UML ist seit 1997 in Entwicklung und es gibt bisher mehrere Versionen von dieser.
-Die verwendeten Modelle lassen sich in verschiedene Kategorien unterteilen, die wiefolgt lauten:\\
+Die in der UML verwendeten Modelle lassen sich in verschiedene Kategorien unterteilen, die wiefolgt lauten:\\
+\\
 -Struktur-Diagramme\\
 -Verhaltens-Diagramme\\
 \\
@@ -288,17 +289,17 @@ In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einord
     * Paketdiagramm\\
     * Profildiagramm\\
 -Verhaltens-Diagramme\\
-    * das Aktivitätsdiagramm\\
-    * das Anwendungsfalldiagramm\\
-    * das Interaktionsübersichtsdiagramm\\
-    * das Kommunikationsdiagramm\\
-    * das Sequenzdiagramm\\
-    * das Zeitverlaufsdiagramm\\
-    * das Zustandsdiagramm\\
+    * Aktivitätsdiagramm\\
+    * Anwendungsfalldiagramm\\
+    * Interaktionsübersichtsdiagramm\\
+    * Kommunikationsdiagramm\\
+    * Sequenzdiagramm\\
+    * Zeitverlaufsdiagramm\\
+    * Zustandsdiagramm\\
 \\
-Im folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche im Projekt selbst verwendet wurden.\\
-Das erste Diagramm, welches verwendet wurde, ist das Andwendungsfalldiagramm (im
-folgenden als Usecase Diagramm benannt).  Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als ‘Strichmännchen ‘ dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
+Im Folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche für die Umsetzung des Projekts selbst verwendet wurden.\\
+Das erste verwendete Diagramm, ist das Andwendungsfalldiagramm (im
+folgenden als Usecase-Diagramm benannt).  Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als 'Strichmännchen' dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
 Anwendungsfälle hingegen werden als Ellipsen dargestellt und enthalten eine Beschreibung. Um beide unterschiedliche Elemente in einer Gruppe zusammenzufassen wird ein Rahmen um alle beteiligten Elemente gebildet, welcher Systemkontext genannt wird und somit die Systemgrenze darstellt. Neben den normalen Assoziationen (z.B. Benutzer -> Drucken) besteht die Möglichkeit der Generalisierung. Das bedeutet, dass zwei spezifische Akteure oder Anwendungsfälle zu einem generellen zusammengefasst werden können.
 Ein Beispiel eines Usecase-Diagramms ist in Abbildung X zu sehen.\\
 \\
@@ -313,9 +314,9 @@ Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Bes
      + für public   unbeschränkter Zugriff\\
      \# für protected  , Zugriff nur von der Klasse sowie von Unterklassen (geerbte Klassen)\\
      \- für private  nur innerhlab der Klasse selbst sichtbar\\
-     ~ für package  innerhalb des Pakets sichtbar\\
+     \~ für package  innerhalb des Pakets sichtbar\\
 \\
-Ähnlich wie bei dem Usecase-Diagramm bietet sich beim Klassendiagramm die Möglichkeit einer Generalisierung. Beispielsweise Sind die Klassen PKW und LKW Unterklassen von der Klasse Fahrzeuge. In Abbildung X ist ein Beispiel eines Klassendiagramms zu sehen.\\
+Ähnlich wie bei dem Usecase-Diagramm bietet sich beim Klassendiagramm die Möglichkeit einer Generalisierung. Beispielsweise sind die Klassen PKW und LKW Unterklassen von der Klasse Fahrzeuge. In Abbildung X ist ein Beispiel eines Klassendiagramms zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
@@ -324,7 +325,7 @@ Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Bes
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
 Ebenfalls relevant für die Umsetzung des Projektes sind die Aktivitätsdiagramme. Sie dienen dazu Abläufe von Prozessen, aber auch von technischen Abläufen umzusetzten.
-Beim Aktivitätsdiagramm befinden sich die Elemente in einem abgerundeten Rechteck, welche zusätzlich den Namen der Aktivität neben den Elementen enthält. Der Start bzw. Endpunkt bilden jeweils ein gefüllter Kreis, wobei der Endpunkt nur teilweise gefüllt ist. Aktivitäten werden in abgerundeten Rechtecken aufgelistet und miteinander in Flussrichtung verbunden. Entscheidungsfälle werden durch eine Raute symbolisiert. Je nach Entscheidungsfall, verläuft der Pfad bei ‘Ja’ weiter in Flussrichtung nach unten, oder bei einer Abweichung seitlich ab. Zusätzlich bietet sich die Möglichkeit Aktivitäten parallel ablaufen zu lassen. Dies kann durch Aktivitäten die zwischen 2 Balken angelegt werden, symbolisiert werden. Im folgenden ist in Abbildung X ein beispielhaftes Aktivitätsdiagramm zu sehen.\\
+Beim Aktivitätsdiagramm befinden sich die Elemente in einem abgerundeten Rechteck, welche zusätzlich den Namen der Aktivität neben den Elementen enthält. Der Start bzw. Endpunkt bilden jeweils ein gefüllter Kreis, wobei der Endpunkt nur teilweise gefüllt ist. Aktivitäten werden in abgerundeten Rechtecken aufgelistet und miteinander in Flussrichtung verbunden. Entscheidungsfälle werden durch eine Raute symbolisiert. Je nach Entscheidungsfall, verläuft der Pfad bei ‘Ja’ weiter in Flussrichtung nach unten, oder bei einer Abweichung seitlich ab. Zusätzlich bietet sich die Möglichkeit Aktivitäten parallel ablaufen zu lassen. Dies kann durch Aktivitäten die zwischen zwei Balken angelegt werden, symbolisiert werden. Im Folgenden ist in Abbildung X ein beispielhaftes Aktivitätsdiagramm zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
@@ -332,7 +333,7 @@ Beim Aktivitätsdiagramm befinden sich die Elemente in einem abgerundeten Rechte
 \caption{Aktivitätsdiagramm}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
-Für das bessere Verständnis der späteren Implementierung ist das Sequenzdiagramm ebenfalls von größerer Bedeutung. Es dient dazu ein Überblick über die Lebensdauer und Interaktion zwischen den einzelnen Klassen bzw. deren Objekte zu erhalten. Bei diesen wird nicht nur auf die bei den Klassendiagrammen gezeigte Beziehung sondern auch auf den Nachrichtenaustausch zwischen den Objekten eingegangen. Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus folgenden Aktion wird es notwendig zu unterscheiden welche Art von Kommunikation stattfindet. Hierbei gibt es die synchrone, als auch asynchrone Kommunikation. Bei der zuerst genannten handelt es sich um ein Nachrichtenaustausch bei der das aufrufende Element, beispielsweise ein Browser, dass Daten anfordert (eine Webseite). Hierbei sendet er die Anfrage für die jeweilige Seite ab und muss anschließend warten bis der Server ihm diese zurückgeliefert hat. Erst im Anschluss kann der die Webseite dem Nutzer darstellen.
+Für das bessere Verständnis der späteren Implementierung ist das Sequenzdiagramm ebenfalls von größerer Bedeutung. Es dient dazu ein Überblick über die Lebensdauer und Interaktion zwischen den einzelnen Klassen bzw. deren Objekte zu erhalten. Bei diesen wird nicht nur auf die bei den Klassendiagrammen gezeigte Beziehung sondern auch auf den Nachrichtenaustausch zwischen den Objekten eingegangen. Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus Folgenden Aktion wird es notwendig zu unterscheiden welche Art von Kommunikation stattfindet. Hierbei gibt es die synchrone, als auch asynchrone Kommunikation. Bei der zuerst genannten handelt es sich um ein Nachrichtenaustausch bei der das aufrufende Element, beispielsweise ein Browser, dass Daten anfordert (eine Webseite). Hierbei sendet er die Anfrage für die jeweilige Seite ab und muss anschließend warten bis der Server ihm diese zurückgeliefert hat. Erst im Anschluss kann der Browser die Webseite dem Nutzer darstellen.
 Bei der asynchrone Kommunikation handelt es sich um ein Austausch, welcher es nicht erfordert, dass ein Teilnehmer auf die Bestätigung des anderen warten muss. Beispielsweise beim Versand einer Email. Hier muss der Sender weder warten bis der Empfänger online ist, noch muss er den Empfang der Email abwarten. Hier können Nachrichten gesendet werden, ohne dass für den Sender ein Ergebnis zur Laufzeit erwartet wird.
 Eine Nachricht werden im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nachrichten werden mit gefüllten Pfeilspitzen, asynchrone Nachrichten mit offenen Pfeilspitzen gekennzeichnet. In der Nachfolgenden Abbildung ist ein beispielhaftes Sequenzdiagramm zu sehen.\\
 \\
@@ -346,7 +347,7 @@ Eine Nachricht werden im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nac
 \section{MAC - Media Access Control}
 \label{sec:mac}
 
-Bei der MAC-Adresse (Media-Access-Controll-Adresse) handelt es sich um eine Adresse eines Netzwerkadapters, die zur eindeutigen Identifizierung in einem Netzwerk dient. MAC-Adressen werden in einer Vielzahl von Netzwerk Protokollen verwendet. unter Anderem wird sie im Ethernet-Protokoll (IEEE 802.3)  aber auch vielen anderen Netzwerktechnologien genutzt die unter den IEEE 802 Gruppen zu finden sind.
+Bei der MAC-Adresse (Media-Access-Controll-Adresse) handelt es sich um eine Adresse eines Netzwerkadapters, die zur eindeutigen Identifizierung in einem Netzwerk dient. MAC-Adressen werden in einer Vielzahl von Netzwerk Protokollen verwendet. Unter Anderem wird sie im Ethernet-Protokoll (IEEE 802.3)  aber auch vielen anderen Netzwerktechnologien genutzt die unter den IEEE 802 Gruppen zu finden sind.
 Das MAC Protokoll steuert die Adressierung auf Hardwareebene, sowie die Zugriffsart.
 Im IOS/OSI-Modell ist das MAC-Protokoll auf Schicht 2, der Sicherungschicht, angesiedelt.
 Somit hat das MAC-Protokoll zwei Aufgaben, zum einen die Adressierung eines Gerätes und zum anderen wie dieses Gerät auf das Medium zugrreift.\\
