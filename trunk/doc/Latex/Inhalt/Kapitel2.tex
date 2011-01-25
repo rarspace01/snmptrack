@@ -308,12 +308,13 @@ Zur eindeutigen Identifikation der Hosts genügt die MAC-Adresse, jedoch geht au
 \label{sec:designent}
 
 Für die Umsetzung des Projektes müssen verschiedene Entscheidungen bezüglich der Umsetzung getroffen werden. Einige der Entscheidungen sind entweder durch die Anforderungen spezifiziert oder müssen unter Abwegung der Vor- und Nachteile ausgewählt werden.\\
-Zuerst muss eine Entscheidung fallen, welche Programmier Sprache gewählt wird. Nach dem Abgleich der Anforderungen und mit Absprache der Fachabteilung standen Perl und Java zur Auswahl. Da einer der Anforderungen auch die Geschwindigkeit betrifft wurde zuerst eine Test Applikation in beiden Sprachen geschrieben, die einen Switch mit wenig Netzwerk-Traffic zum Zweck eines Benchmarks mit einer Vielzahl von SNMP Abfragen beschäftigt.\\
-Im Benchmark-Programm wird die Zeit gemessen wie lange es dauert um 1000 Abfragen durchzuführen. Der in Milisekunden gemessene Wert wird in die nachfolgende Formel eingesetzt:\\
+Zuerst muss eine Entscheidung fallen, welche Programmiersprache gewählt wird. Nach dem Abgleich der Anforderungen und der Absprache mit der Fachabteilung, standen Perl und Java zur Auswahl. Da einer der Anforderungen auch die Geschwindigkeit betrifft, wurde zuerst eine Test Applikation in beiden Sprachen geschrieben. Dise hat jeweils einen Switch mit wenig Netzwerk-Traffic mit einer Vielzahl von SNMP Abfragen beschäftigt, um Benchmakrwerte zu erhalten.\\
+Im Benchmark-Programm wird die Zeit gemessen, wie lange es dauert um 1000 Abfragen durchzuführen.
+Der, in Millisekunden gemessene, Wert wird in die nachfolgende Formel eingesetzt:\\
 
 Anzahl der Requests*1000/Benötigte Zeit in ms= Abfragen pro Sekunde\\
 
-Daraus resultiert dann die jeweilige Anzahl der Abfragen pro Sekunde, welche es ermöglicht einen Vergleich zu machen.\\
+Daraus resultiert die jeweilige Anzahl der Abfragen pro Sekunde, welche es ermöglicht einen Vergleich durchzuführen.\\
 
 In der nachfolgenden Grafik sind die beide Programmiersprachen aufgezeichnet:\\
 
@@ -324,10 +325,11 @@ In der nachfolgenden Grafik sind die beide Programmiersprachen aufgezeichnet:\\
 \label{fig:benchperljava}
 \end{figure}
 
-Wie sich in der Grafik feststellen lässt liegt Java ein Bruchteil vor Perl, der geringe Unterschied zwischen den beiden Programmiersprachen lässt sich dadurch erklären, dass die Implementierung des SNMP Abfragen minimal anders sind, der bei beiden fast gleich hohe Wert lässt darauf schließen, dass der Flaschenhals des Benchmarks der Router selbst ist. Dies konnte dadurch validiert werden, dass beide Benchmarks  gleichzeitig gestartet wurden und dann eine Halbierung beider Benchmark Werte erfolgte.\\
+Wie in der Grafik zu erkennen, liegt Java ein Bruchteil vor Perl. Der geringe Unterschied zwischen den beiden Programmiersprachen lässt sich dadurch erklären, dass die Implementierung der SNMP Abfragen minimal anders sind, der bei beiden fast gleich hohe Wert lässt darauf schließen, dass der Flaschenhals des Benchmarks der Switch selbst ist. Dies konnte dadurch validiert werden, wenn beide Benchmarks  gleichzeitig gestartet wurden und dann eine Halbierung beider Benchmark Werte erfolgte.\\
 Da es somit kein Unterschied macht, welche der beiden Sprachen zum Einsatz kommt, wird die Entscheidung anhand der Möglichkeiten beider Sprachen und deren Modularität gefällt und somit fällt die Wahl auf Java.\\
 
-Da unter Anderem eine Vielzahl an Switches abgefragt werden müssen, empfiehlt es sich eine Parallelisierung anzustreben, da jeder Switch nur eine begrenzte Geschwindigkeit an Requests aufweist. Hierfür eignet sich die Verwendung von Threads um den Teil der Abfragen zu parallelisieren der unabhängig voneinander Laufen kann. Um den Nutzen einer Parallelisierung zu erkennen wurde wiederum ein Benchmark durchgeführt. Diesmal wurde die Anzahl der Threads variiert und jeweils wiederum die Zeit gemessen.\\
+Da unter Anderem eine Vielzahl an Switches abgefragt werden muss, empfiehlt es sich eine Parallelisierung anzustreben, da jeder Switch nur eine begrenzte Geschwindigkeit aufweist.
+Hierfür eignet sich die Verwendung von Threads um den Teil der Abfragen zu parallelisieren der unabhängig voneinander ablaufen kann. Um den Nutzen einer Parallelisierung zu validieren wurde wiederum ein Benchmark durchgeführt. Bei diesem Benchmark wurde die Anzahl der Threads variiert und jeweils die Zeit gemessen.\\
 
 \begin{figure}[H]
 \centering
@@ -337,9 +339,9 @@ Da unter Anderem eine Vielzahl an Switches abgefragt werden müssen, empfiehlt e
 \end{figure}
 
 Wie in der Grafik zu erkennen ist lässt sich feststellen, dass durch die Parallelisierung ein bedeutender Geschwindigkeitszuwachs zu messen ist.
-Für die Abfragen pro Switch wurden jeweils 2000 Abfragen angenommen was ein maximalwert pro Switch später darstellen sollte.\\
-Bei der Durchführung dieses Benchmarks wurde aber zugleich ein Problem erkannt und zwar kommt es zu Problemen bei Thread-Zahlen über 20, da hierbei der UDP-Puffer für die SNMP Abfragen nicht mehr ausreicht und somit der Empfang aller SNMP-Pakete nicht mehr sicher gestellt ist, daher empfiehlt es sich bei der Implementierung ein niedrigeren Wert zu wählen und auf Nummer sicher zu gehen.\\
-Da es bei SNMP-Protokoll der Version 2 ein speziellen Abfrage Modus “BULKGET” gibt musste auch überprüft werden, in welchem Umfang dieser dem normalen GET ein Geschwindigkeitsvorteil gibt. Hierfür wurden der erste Benchmark angepasst und die Liste der Ports von einem Switch abgefragt, einmal alle Ports sequentiell und einmal per BULK.\\
+Für die Abfragen pro Switch wurden jeweils 2000 Abfragen angenommen was ein geschätzer Maximalwert pro Switch später darstellen sollte.\\
+Bei der Durchführung dieses Benchmarks wurde aber zugleich ein Problem erkannt und zwar kommt es zu Problemen bei Thread-Zahlen über 20. Hierbei reicht der UDP-Puffer für die SNMP Abfragen nicht mehr aus und somit kam der Empfang aller SNMP-Pakete nicht mehr sicher gestellt werden. Daher empfiehlt es sich bei der Implementierung ein niedrigeren Wert zu wählen und auf Nummer sicher zu gehen.\\
+Bei der Version 2 des SNMP-Protokolls gibt es ein speziellen Abfrage Modus “BULKGET”. Bei diesem musste auch überprüft werden, in welchem Umfang dieser dem normalen GET ein Geschwindigkeitsvorteil bringt. Hierfür wurden der erste Benchmark angepasst und die Liste der Ports von einem Switch abgefragt, einmal alle Ports sequentiell und einmal per BULK.\\
 Die Ergebnisse des Benchmarks lassen sich im nachfolgenden Bild erkennen.\\
 
 \begin{figure}[H]
@@ -349,10 +351,10 @@ Die Ergebnisse des Benchmarks lassen sich im nachfolgenden Bild erkennen.\\
 \label{fig:benchsnmpbulk}
 \end{figure}
 
-Es lässt sich feststellen, dass der BULK Modus einen deutlichen Geschwindigkeitsvorteil gibt. Jedoch muss beachtet werden, dass im Falle einer größeren Anzahl von Antworten (ab 50) diese nicht vom BULK Modus zurückgegeben werden, daher ist der Einsatz nur partiell sinnvoll.\\
+Es lässt sich feststellen, dass der BULK Modus einen bis zu fünfachen Geschwindigkeitsvorteil bringt. Jedoch muss beachtet werden, dass im Falle einer größeren Anzahl von Antworten (ab 50) diese nicht vom BULK Modus zurückgegeben werden, daher ist der Einsatz nur partiell sinnvoll.\\
 Hierbei muss bei der Implementierung dann genaustens beachtet werden, wann welche Methode eingesetzt werden kann.\\
 
-Eine weitere Sache die überprüft werden muss ist ob es sinnvoller ist die SQL Abfragen, welche neue Datensätze hinzufügen, zuerst zu sammeln und mit einem Commit abzusetzten oder jeden einzelnen Datensatz separat abzusetzen. Hierfür wurde wiederum ein Benchmark durchgeführt um eine Entscheidung in dieser Hinsicht treffen zu können.\\
+Eine weitere Sache die überprüft werden muss ist die Abwegung, ob es sinnvoller ist die SQL-Befehle, welche neue Datensätze hinzufügen, zuerst zu sammeln und mit einem Commit abzusetzten oder jeden einzelnen Datensatz separat abzusetzen. Hierfür wurde ebenfalls ein Benchmark durchgeführt um eine Entscheidung in dieser Hinsicht treffen zu können.\\
 
 \begin{figure}[H]
 \centering
@@ -361,7 +363,9 @@ Eine weitere Sache die überprüft werden muss ist ob es sinnvoller ist die SQL 
 \label{fig:benchoracletransactions}
 \end{figure}
 
-Wie in der Grafik zusehen ist es von Vorteil die Commits zu sammeln und erst dann abzusetzten. Während des Benchmarks wurde jedoch erkannt, dass bei einer Vielzahl von vorgehaltenen Abfragen, die durch die Parallelisierung entstehen, die Anzahl der gleichzeitig offenen Tabellen Einträgen das Limit des Datenbank überschreitet. Zwar wurde anschließend das Limit der maximal offenen Einträge erhöht, jedoch kam es selbst dann zu Überschreitungen, daher wurde der Algroithmus so angepasst, dass er immer in 100 Abfrage-Paketen die Abfragen absetzt. Durch diese Maßnahme ist es trotzdem möglich einen Geschwindigkeitsvorteil zu erhalten, bei gleichzeitiger Einhaltung der Limits.
+Wie in der Grafik zu erkennen ist es von Vorteil die Commits zuerst zu sammeln und dann abzusetzten.
+Während des Benchmarks wurde jedoch erkannt, dass durch eine Vielzahl von vorgehaltenen Abfragen, die durch die Parallelisierung entstehen, die Anzahl der gleichzeitig offenen Tabellen Einträgen sich stark erhöht und somit das Limit der Datenbank überschreiten wird.
+Zwar wurde anschließend das Limit der maximal offenen Einträge erhöht, jedoch kam es selbst dann zu Überschreitungen, daher wurde der Algroithmus so angepasst, dass er immer in Paketen zuje 100 Befehlen arbeitet. Durch diese Maßnahme ist es trotzdem möglich einen Geschwindigkeitsvorteil zu erhalten, bei gleichzeitiger Einhaltung der Limits.
 
 \section{Auswahl der Hilfsmittel}
 \label{sec:hilfsmittelwahl}
