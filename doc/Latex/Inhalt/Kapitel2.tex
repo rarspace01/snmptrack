@@ -372,17 +372,18 @@ Zwar wurde anschließend das Limit der maximal offenen Einträge erhöht, jedoch
 
 Für die Umsetzung des Projektes sind verschiedene Hilfmittel notwendig.\\
 Zum einen wird eine Entwicklungsumgebung benötigt.
-Da die Wahl der Programmiersprache auf Java gefallen ist und kommerzielle Lösungen nicht zur Auswahl gehören wurde sich für Eclipse entschieden, da es neben NetBeans zu den einzigen Open Source IDEs gehört welche eine Vielzahl von Erweiterungsmöglichkeiten bietet und interaktive Funktionen wie Code-Vervollständigung oder Code-Vorlagen unterstützt aber auch standardmäßige Dinge wie Syntaxhervorhebung.\\
+Da die Wahl der Programmiersprache auf Java gefallen ist und kommerzielle Lösungen nicht zur Auswahl stehen wurde sich für Eclipse entschieden, da es neben NetBeans zu den wenigen Open Source IDEs gehört, welche eine Vielzahl von Erweiterungsmöglichkeiten bietet und interaktive Funktionen wie Code-Vervollständigung oder Code-Vorlagen unterstützt aber auch standardmäßige Dinge wie Syntaxhervorhebung.\\
 
-Zur Softwareversionverwaltung wurde Subversion verwendet. Dies ist eines der in der Praxis sehr weit verbreiteten Systeme. Zusätzlich gibt es noch CVS, Git und viele weitere.\\
-Die Auswahl wurde auf ein Open-Source System gelegt und zusätzlich auf ein zentrales System um ein großes Maß an Interpolität zu erreichen. Die Wahl fiehl speziell auf Subversion, da es im Gegenzug zu CVS das Versionsschema nicht auf einzelene Dateien sondern auf das ganze Projekt bezieht. Das hat den Vorteil, dass das hinzufügen einer neuen Funktion nicht in der Hauptklasse Version 50 und in der Methodenklasse Version 70 gespeichert wird. Somit wäre kein Zusammenhang erkennbar. Bei Subversion hingegen kann dies direkt erkannt werden, da die neue Funktion in der Revision 33 in beiden Dateien erkennbar ist.\\
+Zur Softwareversionverwaltung wurde Subversion verwendet. Dies ist eines in der Praxis am weitesten verbreiteten Systeme.\\
+Die Auswahl wurde auf ein Open-Source System gelegt und zusätzlich auf ein zentrales System um ein großes Maß an Interpolität zu erreichen. Die Wahl fiehl speziell auf Subversion, da es im Gegenzug zu CVS das Versionsschema nicht auf einzelene Dateien sondern auf das ganze Projekt bezieht. Das hat den Vorteil, dass das Hinzufügen einer neuen Funktion nicht in der Hauptklasse Version 50 und in der Methodenklasse Version 70 gespeichert wird. Somit wäre kein Zusammenhang erkennbar. Bei Subversion hingegen kann dies direkt erkannt werden, da die neue Funktion in der Revision 33 in beiden Dateien erkennbar ist.\\
 
 \section{Schnittstellen}
 \label{sec:schnitt}
 
-Um ein Projekt mit vielen Einlese und Export Funktionalitäten erstellen zu können, wird eine Vielzahl an Schnittstellen benötigt.
-Zum einen wird bei diesem Projekt eine Schnittstelle für die SNMP Abfragen benötigt, zum anderen wird eine Anbindung an das Active Directory angestrebt. Zusätzlich müssen aber auch alle Datenbankzugriffe sowohl vom Einleseprogramm, als auch von der Website koordiniert werden.\\
-Im folgenden wird auf die jeweiligen Schnittstellen eingegangen, wie sie sequentiell im Ablauf des Ausleseprogramms verwendet werden, diese sind im folgenden zusammengefasst:\\
+Um ein Projekt mit vielen Einlese und Export Funktionalitäten erstellen zu können, werden viele Schnittstellen benötigt.
+Zum einen wird bei diesem Projekt eine Schnittstelle für die SNMP Abfragen benötigt, zum anderen wird eine Anbindung an das Active Directory angestrebt. Zusätzlich müssen aber auch alle Datenbankzugriffe sowohl vom Einleseprogramm, als auch von der Website bewerkstelligt werden.\\
+Im folgenden wird auf die jeweiligen Schnittstellen eingegangen, wie diese sequentiell im Ablauf des Ausleseprogramms verwendet werden. Diese lassen sich wiefolgt zusammenfassen:\\
+\\
 Einlesen aller benötigten Konfigurationsdaten\\
 Auslesen per SNMP\\
 Rekursive DNS Abfragen\\
@@ -391,11 +392,11 @@ Datenbankverbindung Java\\
 Datenbankverbindung Webserver\\
 
 
-Die erste Schnittstelle ist beim Start des Programmes zum Auslesen der Daten anzutreffen. Hierbei muss der Benutzer dem Programm eine Großzahl von Informationen übergeben.\\
-Es existiert eine spezielle XML-Datei in der die Switches, welche ausgelesen werden müssen, die Router, welche den ARP-Cache enthalten, sowie die notwendigen Zugangsdaten für die Datenbank(en), enthalten sind. \\
-Das Programm selbst bietet dem Nutzer keine Möglichkeit Übergabe Parameter zu definieren, um einen möglichst einfachen Ablauf zu ermöglichen und zusätzliche Fehleingaben des Benutzers zu vermeiden.\\
-Die nächste Schnittstelle ist die Kommunikation mit den Switches per SNMP. Um nicht die komplette SNMP-Kommnuikation selbst in per UDP implmentieren zu müssen emfiehlt es sich hierbei eien bereits vorhandene API zu nutzen.\\
-Speziell für Java gibt es hierfür mehrere Möglichkeiten (keien vollständige Liste):\\
+Die erste Schnittstelle ist beim Start des Programmes zum Auslesen der Daten angesiedelt. Hierbei muss der Benutzer dem Programm eine Großzahl von Informationen übergeben.\\
+Es existiert eine spezielle XML-Datei in der die Switches, welche ausgelesen werden müssen, die Router, welche den ARP-Cache enthalten, sowie die notwendigen Zugangsdaten für die Datenbanken, enthalten sind. \\
+Das Programm selbst bietet dem Nutzer keine Möglichkeit Übergabe-Parameter zu definieren, damit ein möglichst einfacher Ablauf ermöglicht und zusätzliche Fehleingaben des Benutzers vermieden werden.\\
+Die nächste Schnittstelle ist die Kommunikation mit den Switches per SNMP. Um nicht die komplette SNMP-Kommnuikation selbst per UDP implmentieren zu müssen, emfiehlt es sich hierbei eine bereits vorhandene API zu nutzen.\\
+Speziell für Java gibt es hierfür mehrere Möglichkeiten (keine vollständige Liste):\\
 SNMP4J\\
 jSNMP\\
 WebNMS SNMP\\
@@ -403,26 +404,28 @@ iReasoning SNMP API\\
 netsnmpj\\
 
 
-Schließt man nun alle kommerziellen Lösungen aus, so bleiben lediglich SNMP4J und netsnmpj übrig. Da merhere SNMP Abfragen später gleichzeitig durchgeführt werden müssen ist die Wahl auf SNMP4J gefallen, da dieses Threadsicher ist und auch ein größeren Funktionsumfang wie netsnmpk bei der Implementierung mitsichbringt.\\
-Um anhand der ermittelten IP-Adressen die dementsprechende DNS-Namen zu erhalten ist es notwendig ein Reserve DNS Lookup zu machen. Hierfür muss das sogennante JNDI verwendet werden, welches einem erlaubt selbstdefinierte DNS Abfragen zu erstellen.\\
-Um beispielsweise den DNS Namen der IP 192.168.0.1 herausfinden zu können muss dieser aber erst in ein spezielles Format gebracht werden. Hierzu wird die IP Adresse umgekehrt zu 1.0.168.192 und der Zusatz “.in-addr.arpa” angehängt. Daraus folgt dann:\\
+Schließt man nun alle kommerziellen Lösungen aus, so bleiben lediglich SNMP4J und netsnmpj übrig.
+Da mehrere SNMP Abfragen später gleichzeitig durchgeführt werden müssen ist die Wahl auf SNMP4J gefallen, da dieses threadsicher ist und auch ein größeren Funktionsumfang wie netsnmpk bei der Implementierung mitsichbringt.\\
+Um anhand der ermittelten IP-Adressen die dementsprechende DNS-Namen zu erhalten ist es notwendig ein Reserve DNS-Lookup zu machen. Hierfür muss das sogennante JNDI verwendet werden, welches einem erlaubt selbstdefinierte DNS-Abfragen zu erstellen.\\
+Um beispielsweise den DNS-Namen der IP 192.168.0.1 herausfinden zu können muss dieser aber erst in ein spezielles Format gebracht werden. Hierzu wird die IP Adresse umgekehrt zu 1.0.168.192 und der Zusatz “.in-addr.arpa” angehängt. Daraus folgt dann:\\
 
 1.0.168.192.in-addr.arpa\\
 
-Diese Adresse wird inklusive dem Modus “PTR”, welche für einen Reserve DNS Lookup steht, an den DNS Service Provider übermittelt und das Resultat wiederum zurückgegeben.\\
+Diese Adresse wird inklusive dem Modus “PTR”, welche für einen Reserve-DNS-Lookup steht, an den DNS Service Provider übermittelt und das Resultat wiederum zurückgegeben.\\
 
-Für das Auslesen des zugehörigen Benutzers muss das Active Directory befragt werden, hierzu gibt es eine Mehrzahl von Möglichkeiten, die jedoch dadurch eigneschränkt werden, dass diese nur unter Windows lauffähig sind. Daher muss auf Ansätze zurückgegriffen werden bei denen es möglich ist Plattformunabhängig zu agieren. Hierzu muss man die Architektur vom Active Directory von Windows genauer untersuchen.\\
+Für das Auslesen des zugehörigen Benutzers muss das Active Directory befragt werden, hierzu gibt es eine Mehrzahl von Möglichkeiten, die jedoch dadurch eingeschränkt werden, dass diese nur unter Windows lauffähig sind. Daher muss auf Ansätze zurückgegriffen werden bei denen es möglich ist Plattformunabhängig zu agieren. Hierzu muss man die Architektur vom Active Directory von Windows genauer untersuchen.\\
 Generell lässt sich das Active Directory in folgende Komponenten unterteilen:\\
+\\
 LDAP-Verzeichnis\\
 Kerberos-Protokoll\\
 Common Internet File System\\
 Domain Name System (DNS)\\
 
 
-Hiervon interessiert uns vor allem das LDAP-Verzeichnis, welches uns ermöglichen soll den Benutzer des jeweiligen Computers herauszufinden.
+Hiervon ist vor allem das LDAP-Verzeichnis interessant, welches es ermöglicht den Benutzer des jeweiligen Computers herauszufinden.
 Da LDAP per RFC genaustens spezifiziert ist (aktuell im RFC 4511) und Microsoft diesen Standard ebenfalls nutzt kann mit einer LDAP API auf das Verzeichnis zugegriffen werden.\\
-Hierfür bietet Java mit seinen enthaltenen Bibliotheken ebenfalls eine Schnittstelle ähnlich der DNS-Abfragen an. Über diese können die Attribute eines Objektes im Verzeichnis abgefragt und gesetzt werden. In diesem Verzeichnis befinden sich auch die einzelnen Computer als Objekte. Diese wiederum haben diverse Attribute welche unter Anderem auch den aktiven Nutzer enthalten.\\
-Für die Verbindung des Java-Programms zur Oracle und MySQL Datenbank gibt es verschiedene Möglichkeiten. hierzu zählen die verschiedenen Arten von Treibern, die eine Datenbankverbindung ermöglichen. Zu allererst ist die ODBC Schnittstelle zu nennen welches es ermöglicht unabhängig von der eingesetzten Datenbank, die Anbindung an das Programm immer auf die gleiche Art zu realisieren zu können. Da diese Unabhängigkeit dadurch erreicht wird, dass Befehle erst in die Datenbankspezifischen umgewandelt werden müssen und somit ein Overhead entsteht, ist diese Lösung meist langsamer wie eine native Lösung. Daher ist es von vorteil spezielle vom Hersteller angebotene JDBC Treiber einzusetzten, welche anstelle des JDBC-ODBC Brücken-Treibers den zusätzlichen Overhead meiden und direkt mit dem DBMS kommunizieren.\\
+Hierfür bietet Java mit seinen enthaltenen Bibliotheken ebenfalls eine Schnittstelle ähnlich der DNS-Abfragen an. Über diese können die Attribute eines Objektes im Verzeichnis abgefragt und gesetzt werden. In diesem Verzeichnis befinden sich auch die einzelnen Computer als Objekte. Diese wiederum haben diverse Attribute, welche unter Anderem auch den aktiven Nutzer enthalten.\\
+Für die Verbindung des Java-Programms zur Oracle und MySQL Datenbank gibt es verschiedene Möglichkeiten. Hierzu zählen die verschiedenen Arten von Treibern, die eine Datenbankverbindung ermöglichen. Zu allererst ist die ODBC-Schnittstelle zu nennen welches es ermöglicht unabhängig von der eingesetzten Datenbank, die Anbindung an das Programm immer auf die gleiche Art zu realisieren zu können. Da diese Unabhängigkeit dadurch erreicht wird, dass Befehle erst in die Datenbankspezifischen umgewandelt werden müssen und somit ein Overhead entsteht, ist diese Lösung meist langsamer wie eine native Lösung. Daher ist es von Vorteil spezielle vom Hersteller angebotene JDBC Treiber einzusetzten, welche anstelle des JDBC-ODBC Brücken-Treibers den zusätzlichen Overhead meiden und direkt mit dem DBMS kommunizieren.\\
 Bei der Verbindung mit dem Webserver kann wiederum ein ODBC Treiber einsetzt werden oder speziell für die Programmiersprache PHP geschriebene Bibliotheken, die es erlauben, ähnlich wie bei Java direkt mit dem DBMS zu kommunizieren um unnötigen Overhead zu vermeiden.\\
 
 \section{Zeitplan}
