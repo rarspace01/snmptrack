@@ -170,9 +170,9 @@ Als optionaler Usecase wir das Anzeigen einer Art Dashboard gesehen. In diesem w
 \label{subsec:classdiagrams}
 
 Für die Umsetzung des Projektes wurde eine objektorientierte Programmiersprache gewählt, welche es erfordert Objekte von Klassen abzuleiten und die dementsprechenden Methoden dieser Klassen bzw. ihrer Objekte zu nutzen. Für die Umsetzung des Projektes wurde mit mehr als 25 Klassen gearbeitet um eine genügend genaue Abstrahierung und Modularität zu erreichen. Im Nachfolgenden wird auf die wichtigsten Klassen und deren beinhaltete Methoden eingegangen.\\
-Das Ausleseprogramm wird über die Klasse \textit{SNMPTrack } initialisiert, welches auch der Name des Skripts darstellt. Diese Klasse ist sozusagen die Hauptklasse von der alle weiteren Objekte erzeugt werden. Zu Beginn des Programms wie in Kapitel X zu sehen werden die Switches aus der XML-Datei ausgelesen. Um hier später die Möglichkeit zu geben die Informationen auch über eine andere Datenquelle einzulesen wurde eine Spezielle Klasse \textit{SwitchListe} für das Einlesen der Switches geschaffen. Hierzu muss nur ein Objekt der Klasse erzeugt werden, welches mit dem Befehl \textit{getSwitchList} eine Liste der Switches zurückliefert. Diese kann dann im Hauptprogramm direkt weiterverwendet werden ohne dort die komplette XML-Logik hinterlegen zu müssen.\\
+Das Ausleseprogramm wird über die Klasse \textit{SNMPTrack} initialisiert, welches auch der Name des Auslese-Skripts darstellt. Diese Klasse ist sozusagen die Hauptklasse von der alle weiteren Objekte erzeugt werden. Zu Beginn des Programms wie in Kapitel X zu sehen werden die Switches aus der XML-Datei ausgelesen. Um hier später die Möglichkeit zu geben die Informationen auch über eine andere Datenquelle einzulesen wurde eine spezielle Klasse \textit{SwitchListe} für das Einlesen der Switches geschaffen. Hierzu muss nur ein Objekt der Klasse erzeugt werden, welches mit dem Befehl \textit{getSwitchList} eine Liste der Switches zurückliefert. Diese kann dann im Hauptprogramm direkt weiterverwendet werden ohne dort die komplette XML-Logik hinterlegen zu müssen.\\
 Über die Klasse \textit{SNMPConfig} können weitere Informationen ausgelesen werden die benötigt werden. So bietet diese Klasse Methoden an, welche das Debuglevel oder die Maximale Threadanzahl der Switchthreads zurückliefern. Durch diese Methoden können die Werte ohne Probleme von einer zentralen Stelle ausgelesen werden. Diese wiederum können aus einer beliebigen Datenquelle (XML, DB) kommen.\\
-Die nächste wichtige Klasse ist die \textit{SNMPHandler} Klasse. Sie verwaltet alle SNMP Abfragen bzw. vereinfacht den Abruf eines SNMP Wertes oder im Falle eines SNMP-Walk der Abruf einer kompletten Liste. Hierzu muss der jeweiligen Methode nur das Globale SNMP Objekt, welches aus der SNMP4J API stammt, die benötigte OID, die IP auf dem der SNMP-Agent läuft, sowie der passende Community-String zum lesen übergeben werden. Je nach Methode liefert die entsprechende Methode dann ein String oder eine Array List mit Strings als Elemente zurück. Um die Rückgabe Werte des SNMP-Agents besser zu verstehen ist das folgende Beispiel aufgeführt:\\
+Die nächste wichtige Klasse ist die \textit{SNMPHandler} Klasse. Sie verwaltet alle SNMP Abfragen bzw. vereinfacht den Abruf eines SNMP Wertes oder im Falle eines SNMP-Walk der Abruf einer kompletten Liste. Hierzu muss der jeweiligen Methode nur das globale SNMP Objekt, welches aus der SNMP4J-API stammt, die benötigte OID, die IP auf dem der SNMP-Agent läuft, sowie der passende Community-String zum Auslesen übergeben werden. Je nach Methode liefert die entsprechende Methode dann ein String oder eine Array List mit Strings als Elemente zurück. Um die Rückgabe Werte des SNMP-Agents besser zu verstehen ist das folgende Beispiel aufgeführt:\\
 
 <OID>!<Wert>\\
 
@@ -182,8 +182,8 @@ Mit reellen Daten gefüllt könnte ein Rückgabewert wiefolgt sein:\\
 
 
 Durch das Zusammensetzten mit ! kann eine Verarbeitung stattfinden bzw. der Wert einfach abgelesen werden.\\
-Um einen Switch auszulesen wird ein Objekt der Klasse textit{SwitchWorkerThread} erzeugt und diesem das SNMP Objekt, die IP und die passende Read-Community übergeben. Dieses Objekt Startet dann den intern einen Thread, welcher ein Objekt der Klasse Switch erzeugt und die entsprechenden Initialisierungs Variablen übergibt. Im Anschluss wird die Methode refresh() des Switches aufgerufen, welches alle relevanten Informationen beginnt auszulesen und dabei wie in Kapitel X beschrieben vorgeht. In der refresh() Methode des Switches wiederum wird auf spezielle Klassen zurückgegriffen.\\
-Eines dieser Klassen ist textit{OIDL}, welche für OID-Library stehen soll und alle Aliase der OID die verwendet werden enthält. Diese Aliase sind per RFC spezifiziert und 1:1 abgebildet. So ergibt z.b. der Aufruf: \\
+Um einen Switch auszulesen wird ein Objekt der Klasse \textit{SwitchWorkerThread} erzeugt und diesem das SNMP Objekt, die IP und die passende Read-Community übergeben. Dieses Objekt startet dann den intern einen Thread, welcher ein Objekt der Klasse Switch erzeugt und die entsprechenden Initialisierungs-Variablen übergibt. Im Anschluss wird die Methode refresh() des Switches aufgerufen, welches alle relevanten Informationen beginnt auszulesen und dabei wie in Kapitel X beschrieben vorgeht. In der refresh() Methode des Switches wiederum wird auf spezielle Klassen zurückgegriffen.\\
+Eines dieser Klassen ist \textit{OIDL}, welche für OID-Library stehen soll und alle Aliase der OID die verwendet werden enthält. Diese Aliase sind per RFC spezifiziert und 1:1 abgebildet. So ergibt z.b. der Aufruf: \\
 
 OIDL.sysDescr0\\
 
@@ -191,7 +191,7 @@ den String:\\
 
 1.3.6.1.2.1.1.1.0\\
 
-Dies ist vor allem notwendig um eine Übersicht über die verwendeten OID zu behalten bzw. erkennen zu können welcher Funktion hinter der OID steckt. Der nachfolgende Quellcode-Aschnitt verdeutlicht die Wichtigkeit der Text-Äquivalenz zu den IDs:\\
+Dies ist vor allem notwendig um eine Übersicht über die verwendeten OID zu behalten bzw. erkennen zu können welcher Funktion hinter der OID steckt. Der nachfolgende Quellcode-Abschnitt verdeutlicht die Wichtigkeit der Text-Äquivalenz zu den IDs:\\
 
 \begin{figure}[H]
 \centering
@@ -201,9 +201,10 @@ Dies ist vor allem notwendig um eine Übersicht über die verwendeten OID zu beh
 \end{figure}
 
 Im Programm selbst existieren jedoch auch Klassen die nicht nur zur Hilfe der eigenen Algorithmen Umsetzung dienen, sondern auch, welche externe Datenquellen anbinden.
-Hierzu gehört die Klasse Nagios, welche per HTTP oder per MySQL Datenbank ermöglicht die Gruppenzuordnung der Switches auszulesen. Aber auch die Klasse LDAP, welche das auslesen des Active Directories ermöglicht oder aber die Klasse DNSHelperClass, welche es ermöglicht auf mehreren DNS Servern einen DNS Namen anhand einer IP zu finden. Neben diesen Klassen gibt es aber auch speziell erstellte Klassen die es ermöglichen SQL-Befehle die keine Resultsets erwarten, das heißt welche keinen Rückgabewert erwarten, in Stapel auszuführen.
+Hierzu gehört die Klasse Nagios, welche per HTTP oder per MySQL Datenbank ermöglicht die Gruppenzuordnung der Switches auszulesen.
+Hierzu gehört auch die Klasse LDAP, welche das Auslesen des Active Directories der Windows Domaine ermöglicht oder aber die Klasse DNSHelperClass, welche es ermöglicht auf mehreren DNS Servern einen DNS Namen anhand einer IP zu finden. Neben diesen Klassen gibt es aber auch speziell erstellte Klassen die es ermöglichen SQL-Befehle die keine Resultsets erwarten, dass heißt welche keinen Rückgabewert erwarten, in Stapel auszuführen.
 Dies bedeutet, dass die Datenbank nicht jeden Befehl einzeln erhält sondern eine große Anzahl (>100 Stück) auf einmal und somit weniger Overhead für den Verbindungsaufbau entsteht.\\
-Neben der Vielzahl von Klassen, welche zur verinfahcung der Übersicht und Wartbarkeit dienen, gibt es trotzdem Objekte welche auch die Realtät abbilden. Dazu gehören die Klassen Switch (welche bereits beschrieben wurde), Ports, sowie Hosts. Diese bieten jeweils Methoden an, welche von sich selbst die passenden SQL-Befehle generieren anhand der Daten, welche diese enthalten. Dies macht es vorallem einfach die Objekte zu serialisieren. Das heißt die Objekte im Programm wiederum abzubilden auf eine Textuale-Ebene.\\
+Neben der Vielzahl von Klassen, welche zur Vereinfachung der Übersicht und Wartbarkeit dienen, gibt es trotzdem Objekte welche auch die Realtät abbilden. Dazu gehören die Klassen Switch (welche bereits beschrieben wurde), Ports, sowie Hosts. Diese bieten jeweils Methoden an, welche von sich selbst die passenden SQL-Befehle anhand der enthaltenen Daten generieren. Dies macht es vorallem einfach die Objekte zu serialisieren. Das heißt die Objekte im Programm wiederum abzubilden auf eine Textuale-Ebene, um sie in die Datenbank übertragen zu können.\\
 
 \begin{figure}[H]
 \centering
