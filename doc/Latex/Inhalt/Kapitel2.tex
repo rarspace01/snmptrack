@@ -226,7 +226,7 @@ Während des refresh() Methoden-Aufrufs des Switch Objektes werden verschiedene 
 Beim Aufruf der saveInDB() Methode kommt es zur Verwendung der Datenbank-Klasse JDBC-Oracle. Diese überträgt den SQL-String an die Datenbank, nachdem die Methode executeSQL() aufgerufen wurde.
 Die gleiche Abfolge findet auch mit dem Objekt der Klasse Host statt. Hierbei werden anstatt wie beim Objekt der Klasse Port portspezfische Informationen abgelegt, sondern in diesem Fall die Informationen welche den jeweiligen Host betreffen abgespeichert.
 Nachdem alle Ports und Hosts abgespeichert wurden ist die Methoden refresh() des Switch-Objektes beendet.\\
-Jedoch muss bedacht werden, dass während der Verarbeitung der Daten eine Vielzahl von Klassen aufgerufen werden, welche speziell für das Programm geschrieben wurden. Ein Beispiel stellt die Klasse mit dem Namen Cisco dar. Welche Methoden zur Verfügung stellt, die speziell auf SNMP-Daten von Cisco-Geräten anwendbar sind. Darunter fallen Dinge wie Uptime-Formatierung. Model und IOS-Versions Auswertung anahnd des Descr-SNMP-Strings.
+Jedoch muss bedacht werden, dass während der Verarbeitung der Daten eine Vielzahl von Klassen aufgerufen werden, welche speziell für das Programm geschrieben wurden. Ein Beispiel stellt die Klasse mit dem Namen Cisco dar. Welche Methoden zur Verfügung stellt, die speziell auf SNMP-Daten von Cisco-Geräten anwendbar sind. Darunter fallen Dinge wie Uptime-Formatierung. Model und IOS-Versions Auswertung anhand des 'System-Description'-SNMP-Strings.
 
 
 \begin{figure}[H]
