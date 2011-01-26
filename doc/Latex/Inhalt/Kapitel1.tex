@@ -368,20 +368,20 @@ Wobei i für den i-ten Versuch steht.
 \section{VLAN - Virtual Local Area Network}
 \label{sec:vlan}
 
-Bei einem VLAN (Virtual Local Area Network) handelt es sich um ein logisches Netz innerhalb eines physikalischen Netzwerkes. Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes. VLANs können über einen oder mehrere Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen. Die Unterteilung des bestehenden Netzwerkes in Teilnetze bewerkestelligt VLAN dadurch, dass es Switches, die VLAN unterstützen dazu veranlasst Frames (Datenpakete) eines VLANs nicht in ein andere VLANs weiterzuleiten, auch wenn beide physikalisch an den selben Switch angeschlossen sind.
+Bei einem VLAN (Virtual Local Area Network) handelt es sich um ein logisches Netz innerhalb eines physikalischen Netzwerkes. Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes. VLANs können über einen oder mehrere Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen. Die Unterteilung des bestehenden Netzwerkes in Teilnetze bewerkestelligt VLAN dadurch, dass es Switches, die VLAN unterstützen dazu veranlasst Frames (Datenpakete) eines VLANs nicht in ein anderes VLAN weiterzuleiten, auch wenn beide physikalisch an den selben Switch angeschlossen sind.
 VLANs können über verschiedene Arten realisiert werden. Eine Unterscheidungsmöglichkeit sind portbasierte VLANs und tagged VLANs.
 Bei den portbasierten VLANs gehört ein Port je einem VLAN an oder ist ein Trunk-Port. Bei einem Trunk-Port handelt es sich um ein Port über den mehrere VLANs geschaltet sind.\\
 Das sogenannte tagged VLAN hingegen findet im Unterschied zu den portbasierten VLANs die Kennzeichnung im Ethernet-Frame selbst statt. Dieses 'tagging' ist nach IEEE 802.1q spezifiziert.\footnote{Vgl. IEEE 802.1q}
-Beim tagged VLAN kennzeichnen die Switches am Einspeise Ort oder spezielle tagging-fähige Geräte die Pakete. Diese Pakete werden wiederum von den Switches am Endgerät detagged oder wiederum von tagging fähigen Gerät selbst.\\
+Beim tagged VLAN kennzeichnen die Switches am Einspeiseort oder spezielle tagging-fähige Geräte die Pakete. Diese Pakete werden wiederum von den Switches am Endgerät detagged oder wiederum von tagging fähigen Gerät selbst.\\
 Zusätzlich gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.
 Bei einem statischen VLAN ist ein Port einer speziellen VLAN-Art zugeordnet. Entweder zu einem Port-basierten VLAN oder zu einem tagged VLAN.
 Wobei ein Port auch mehreren VLANs angehören kann und dieser dann ein Trunk-Port ist.\\
 Das dynamische VLAN hingegen ist nicht portbasierend und richtet sich nach dem Inhalt des Frames. Jedoch ist zu beachten, dass die Inhalte eines Frames beliebig veränderbar sind und somit dynamische VLANs nicht in sicherheitskritischen Netzwerken verwendet werden sollten.
-Die Zugehörigkeit zu einem VLAN kann per Adresse (MAC oder IP), auf Basis des Protokolls (IP, AppleTalk, IPX) oder auch auf Anwendunsebene nach Portnummern (80,443). So ist es möglich, z.B. ein mobiles Endgerät im Netzwerk immer dem gleichen VLAN zuordnen zu lassen, unabhängig an welchem Ort dieses angeschlossen ist.\\
+Die Zugehörigkeit zu einem VLAN kann per Adresse (MAC oder IP), auf Basis des Protokolls (IP, AppleTalk, IPX) oder auch auf Anwendungsebene nach Portnummern (80,443). So ist es möglich, z.B. ein mobiles Endgerät im Netzwerk immer dem gleichen VLAN zuordnen zu lassen, unabhängig an welchem Ort dieses angeschlossen ist.\\
 Die Gründe für die Verwendung eines VLANs lassen sich in drei Punkte aufteilen.
 Zuerst macht eine Verwendung wie oben bereits erwähnt Sinn, wenn eine flexible Zuordnung eines Endgerätes immer zum selben VLAN gemacht werden muss.\\
-Ein weitere Grund sind Performance-Aspekte. Sofern eine Prioisierung von speziellen Daten (z.B. VOIP) erfolgen muss. Meistens dient es jdoch der Verkleinerung der Broadcast-Domänen, die sich nicht über das gesamte Netzwerk ausbreiten sollten.\\
-Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle. Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein VLANs einzusetzten, da sie gegenüber Layer-2-Attacken architekturbedingt unempflindlich sind.
+Ein weitere Grund sind Performance-Aspekte. Sofern eine Priorisierung von speziellen Daten (z.B. VOIP) erfolgen muss. Meistens dient es jedoch der Verkleinerung der Broadcast-Domänen, die sich nicht über das gesamte Netzwerk ausbreiten sollten.\\
+Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle. Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein VLANs einzusetzen, da sie gegenüber Layer-2-Attacken architekturbedingt unempflindlich sind.
 
 
 \section{SNMP}
@@ -407,7 +407,7 @@ GETNEXT\\
 Um diese Problematik zu lösen gibt es den sogenannten GETNEXT-Befehl, der es ermöglicht den Wert sowie die OID eines daraufolgenden Elementes zu erhalten.\\
 //<Beispiel>\\
 
-Die Abfrage von x Ports erzuegt x+1 Abfragen (Bei einem 48 Port Switch somit 49 Abfragen) ist neffektiv , da der Manager nur eine Informationsmenge erhalten möchte aber dazu eine Vielzahl an Anfragen durchführen muss.
+Die Abfrage von x Ports erzeugt x+1 Abfragen (Bei einem 48 Port Switch somit 49 Abfragen) ist ineffektiv , da der Manager nur eine Informationsmenge erhalten möchte aber dazu eine Vielzahl an Anfragen durchführen muss.
 
 GETBULK\\
 Daher wurde mit SNMP v2 der GETBULK Befehl eingeführt. Dieser ermöglicht es mehrere Werte mit einer Abfrage zu erhalten, die am Knoten im Baum hinterlegt sind.\\
@@ -418,7 +418,7 @@ Das SET-Paket dient zum setzten spezieller Werte, so kann zum Beispiel darüber 
 RESPONSE\\
 Auf diese bisher genannten Pakete antwortet der Agent mit einem RESPONSE Paket, welcher die benötigten Werte oder eine Fehlermeldung enthält.
 Sofern beim SNMP-Agent z.B. gewisse Grenzwerte hinterlegt wurden kann dieser sich bei einer Überschreitung mittels eines Trap-Paketes beim Manager melden, ohne das dieser die Information explizit abgefragt hat.\\
-Um möglichst wenig Netzwerklast zu erzeugen kommuniziert SNMP über das UDP Protokoll, da es eine Verbindunglose Kommunikation ermöglicht. Der Agent erhält die Anfragen auf Port 161, während der Manager auf Port 162 die Trap Meldungen empfängt.\\
+Um möglichst wenig Netzwerklast zu erzeugen kommuniziert SNMP über das UDP Protokoll, da es eine verbindunglose Kommunikation ermöglicht. Der Agent erhält die Anfragen auf Port 161, während der Manager auf Port 162 die Trap Meldungen empfängt.\\
 TRAP\\
 
 
@@ -428,6 +428,8 @@ TRAP\\
 \section{CDP - Cisco Discovery Protokoll}
 \label{sec:cdp}
 
-Das CDP von Cisco ist ein propäriteres Protokoll, welches dazu dient, Cisco-Geräten zu ermöglichen andere angeschlossene Geräte zu identifizieren und mit diesen Informationen auszutauschen. Es kann allerdings auch zum sogenannten “On-Demand-Routing” verwendet werden. Hierbei handelt es sich um eine cisco-spezifische Erweiterung von CDP, welche es ermöglicht ein simples Routing zu erstellen.
-Die Cisco Geräte senden jeweils zur Multicast-Adresse “01-00-0c-cc-cc-cc”, welche auch von anderen Cisco-Protokollen (Z.B. VTP) verwendet wird. Dies geschiet in einem Intervall von 60 Sekunden auf allen relevanten Interfaces. Jedes der beiteiligten Cisco Geräte führt intern eine Tablle mit den Informationen über die Geräte, welche in der “Nachbarschaft” gefunden wurden. Hierunter fallen Dinge wie IP, Alias, Geräte-Typ und auch Informationen über die dort befindliche Software bzw. das Betriebssystem. Bei einem Cisco-Swicth wird zum Beispiel nicht nur die Beschreibung (IOS) sondern Modell, IOS-Version, Gegenstelle des Ports auf dem anderen Gerät, Link-Status (Geschwindigkeit, Duplex), aber auch VLAN und viele weitere Informationen. Diese können per internen Befehl oder per SNMP abgefragt werden. Bei jedem Empfang von CDP Daten, werden die internen Tabellen gepflegt und die Haltbarkeitszeit wieder zurückgesetzt, da Geräte die sich nicht mehr melden nach einer bestimmten Zeit (Standardmäßig nach 180 Sekunden) aus den Tabellen wiederum entfernt werden. Die Informationen welche übertragen werden sind einfach erweiterbar, da diese auf dem “Type-Length-Value” Format basieren. Das heißt in einer Nachricht wird zuerst der Typ des Attributs bestimmt (Z.b. String, Zahl, Datum) danach die Zeichenlänge des Wertes und der Wert selbst.\\
-Hersteller wie HP, distanzieren sich zunehmend von diesem properitären Protokoll und unterstützen das durch die IEEE spezifizierte offene Protokoll LLDP, welches Hersteller unabhängig ist und den selben Funktionsumfang beinhaltet.
+Das CDP von Cisco ist ein proprietäres Protokoll, welches dazu dient, Cisco-Geräten zu ermöglichen andere angeschlossene Geräte zu identifizieren und mit diesen Informationen auszutauschen. Es kann allerdings auch zum sogenannten “On-Demand-Routing” verwendet werden. Hierbei handelt es sich um eine cisco-spezifische Erweiterung von CDP, welche es ermöglicht ein simples Routing zu erstellen.
+Die Cisco Geräte senden jeweils zur Multicast-Adresse “01-00-0c-cc-cc-cc”, welche auch von anderen Cisco-Protokollen (Z.B. VTP) verwendet wird. Dies geschieht in einem Intervall von 60 Sekunden auf allen relevanten Interfaces. Jedes der Beteiligten Cisco Geräte führt intern eine Tabelle mit den Informationen über die Geräte, welche in der “Nachbarschaft” gefunden wurden. Hierunter fallen Dinge wie IP, Alias, Geräte-Typ und auch Informationen über die dort befindliche Software bzw. das Betriebssystem.
+Bei einem Cisco-Swicth wird zum Beispiel nicht nur die Beschreibung (IOS) sondern auch Modell, IOS-Version, Link-Status (Geschwindigkeit, Duplex) und viele weitere Informationen ausgelesen.
+Diese können per internen Befehl oder per SNMP abgefragt werden. Bei jedem Empfang von CDP Daten, werden die internen Tabellen gepflegt und die Haltbarkeitszeit wieder zurückgesetzt, da Geräte die sich nicht mehr melden nach einer bestimmten Zeit (Standardmäßig nach 180 Sekunden) aus den Tabellen wiederum entfernt werden. Die Informationen welche übertragen werden sind einfach erweiterbar, da diese auf dem “Type-Length-Value” Format basieren. Das heißt in einer Nachricht wird zuerst der Typ des Attributs bestimmt (Z.b. String, Zahl, Datum) danach die Zeichenlänge des Wertes und der Wert selbst.\\
+Hersteller wie HP, distanzieren sich zunehmend von diesem proprietären Protokoll und unterstützen das durch die IEEE spezifizierte offene Protokoll LLDP, welches Hersteller unabhängig ist und den selben Funktionsumfang beinhaltet.
