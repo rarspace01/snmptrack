@@ -73,7 +73,7 @@ Hierzu stehen bis zu 5 Stufen der Normalformen zur Verfügung.
 Die 5 wichtigsten Normalformen beschreiben sich durch folgende Attribute.\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.292-308}
 
 \begin{enumerate}
-\item Normalform: Alle Attribute enthalten atomare Inhalte, und die Relation hat eine feste Breite
+\item Normalform: Alle Attribute besitzen einen atomaren Wertebereich
 \item Normalform: Jedes Nichtschlüsselattribut ist vom kompletten Schlüssel abhängig
 \item Normalform: Jedes Nichtschlüsselattribut ist von keinem Schlüsselkandidaten transitiv abhängig, dass heißt kein Attribut ist über ein anderes vom Hauptschlüssel abhängig
 \item Normalform: Es darf in einer Relation nicht mehrere, voneinander unabhängige, 1:n-Beziehungen zu einem Schlüsselwert geben
@@ -136,7 +136,7 @@ Hinzu kommen die objektorientierten Datenbanken. Diese bieten die Möglichkeit O
 Problematisch hierbei sind jedoch die Formulierung von geeigneten Abfragen, weswegen diese in der Praxis eher selten und meist im Bereich von Multimedialen-Anwendungen anzutreffen sind.%\footnote{NOTIZ ODBMS evtl}
 
 Wird versucht, verschiedene relationale DBMS in der Praxis zu vergleichen, so ist eine große Anzahl an verschiedenen Systemen zu finden.
-Eine kleine Auflistung soll einige Bekannte vorstellen.
+Im Anschluss soll auf die, in der Praxis verwendeten, DBMS eingegangen werden.
 
 \begin{itemize}
 \item Microsoft Jet Engine (Access)
@@ -151,8 +151,8 @@ Bei diesem System, wie bei allen anderen dateibasierenden DBMS, steht meist die 
 Wird eine dateibasierende Datenbank von mehreren Usern benutzt so zeigen sich die Nachteile einer solchen Datenbank.
 Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht, entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Daher nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.
 Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, da sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.
-MS-SQL ist ebenfalls ein relationales Datenbankmanagementsystem
-und in den verschiedenen Serverbetriebssystemen von Microsoft enthalten. Für Entwickler
+MS-SQL ein relationales Datenbankmanagementsystem, welches ebenfalls von Microsoft erwerbbar
+und in den verschiedenen Serverbetriebssystemen von Microsoft enthalten ist. Für Entwickler
 ohne Enterpreise Lizenz wird eine eingeschränkte Express Version zur Verfügung gestellt. MS-SQL ist im Gegensatz zu Access kein dateibasierendes DBMS, sondern ein DBMS welches
 zentral auf einem Server läuft. Hierdurch werden die Nachteile des dateibasierenden zu
 den Vorteilen des serverbasierenden Systems. Da der Server selbst die Abfragen verwaltet
@@ -164,7 +164,7 @@ Ein weiteres DBMS stellt der Datenbankserver von Oracle dar. Die Lizenzstruktur 
 MySQL ist der Open Source Pendant zu MS-SQL, welches im Internet eine sehr hohen Verbreitungsgrad aufweist.
 So wird dieses von Seiten wie Wikipedia\footnote{vgl. Mysql, http://www.mysql.com/why-mysql/scaleout/wikipedia.html} oder
 Youtube\footnote{vgl. University of Maryland: How YouTube scales MySQL for its large databases, http://ebiquity.umbc.edu/blogger/2007/12/28/how-youtube-scales-mysql-for-its-large-databases/} verwendet.
-Im Gegensatz zu MS-SQL erlaubt das GPL Lizenzmodell, dass die Datenbank für Privatanwender kostenlos ist und die Lizenzgebhren für Unternehmen einen Bruchteil der Kosten ausmachen, die für ein Microsoft System bezahlt werden mssten.\footnote{Vgl http://www.mindfactory.de/product\_info.php/pid/geizhals/info/p155132}
+Im Gegensatz zu MS-SQL erlaubt das GPL Lizenzmodell, dass die Datenbank für Privatanwender kostenlos ist und die Lizenzgebhren für Unternehmen einen Bruchteil der Kosten ausmachen, die für ein Microsoft System bezahlt werden müssten.\footnote{Vgl http://www.mindfactory.de/product\_info.php/pid/geizhals/info/p155132}
 
 Eine weitere Datenbank stellt PostgreSQL dar, welches unter der BSD-Lizenz zur Verfügung gestellt wird und somit auch für kommerzielle Projekte ohne Kosten nutzbar ist\footnote{vgl. PostgreSQL: BSD-Lizenz, http://www.postgresql.org/about/licence}.
 
@@ -219,7 +219,7 @@ Zur Zeit haben sich verschiedene Varianten etabliert:
 \item ADO (ActiveX Data Objects)
 \end{itemize}
 
-Jedes etabliertes DBMS bietet für Entwickler eine native Schnittstelle zum Ansprechen der Datenbank an.
+Jedes etablierte DBMS bietet für Entwickler eine native Schnittstelle zum Ansprechen der Datenbank an.
 Diese wird meist in verschiedenen Programmiersprachen angeboten, unter Anderem C/C++, PHP usw. .
 Die native Methode besitzt den Vorteil, dass sie das Nutzen aller Funktionen der Datenbank ermöglichen, wohingegen dafür keine einheitlichen Design Patterns existieren, was die Verwendungen von mehreren
 verschiedenen DBMS erschwert.
@@ -227,7 +227,7 @@ verschiedenen DBMS erschwert.
 Aufgrund dessen hat sich in der Vergangenheit unter Windows das sogenannte ODBC etabliert, welches es ermöglicht ohne Modifizierung des Quellcodes, allein mit der Anpassung des DSN das DBMS zu wechseln.
 Somit braucht der Entwickler sich nicht mehr mit Syntaxabweichungen zu beschäftigen, da er die ODBC Schnittstelle ANSI SQL konform ansprechen kann.
 Neben dem ODBC gibt es auch ein JDBC System exklusiv für Java. Zwar kann Java auch ODBC über die JDBC Schnittstelle nutzen, aber laut Sun \footnote{Vgl. Sun: JDBC-ODBC Bridge Driver, http://java.sun.com/j2se/1.3/docs/guide/jdbc/getstart/bridge.doc.html} soll die nur im experimentellen Gebrauch stattfinden.
-Da der Einsatz eines nativen JDBC Treibers verhindert, dass keine unerwünschten Zustände auftreten, die z.B. bei einer JDBC-ODBC Anbindung auftreten können.
+Da der Einsatz eines nativen JDBC Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind.
 
 Zusätzlich gibt es noch ADO von Microsoft, welches auch als Schnittstelle für Webserver mit IIS bzw. ASP dient.
 Diese ähnelt in der Logik JDBC, da ebenfalls ein ODBC-Treiber angesteuert werden kann.
@@ -239,7 +239,7 @@ Der Verbindungsaufbau ist ähnlich einfach gestaltet und ermöglicht auch für W
 Unter der Softwarentwicklung ist die Herstellung und Entwicklung von Software, sowie die dazugehörige Planung und Modellierung dieser zu verstehen. Die Softwareentwicklung umfasst eine Vielzahl von Teilgebieten. Die Entwicklung einer komplexen Software wird anhand eines strukturierten Projektplans vorgenommen, welcher den Entwicklungsprozess inhaltlich und zeitlich abgrenzt. Die Software wird anhand von bestimmten Schritten fertiggestellt, welche miteinander eng verzahnt sind. Unterschieden wird bei der Softwarentwicklung zwischen Individualsoftware und Standardsoftware. Bei der Standard-Software handelt es sich um Software, welche einen klar definierten Anwendungsbereich abdeckt und als vorgefertigtes Produkt erworben werden kann. Standardsoftware zeichnet sich somit aus, dass diese über mehrere Kunden hinweg ohne Anpassung einsetzbar ist. Ein Beispiel hierfür sind branchenunabhängige Software, wie z.B. das Office-Paket, aber auch Branchensoftware, welche zielgerichtet für eine Branche ist und in dieser übergreifend eingesetzt werden kann.\\
 Bei der Individualsoftware handelt es sich um Software, welche individuell für einen Kunden angefertigt wurde. Typisch für Individualsoftware ist es, dass zuvor keine passenden Lösungen an Standardsoftware existiert haben.  Es kann aber auch sein, dass die Entwicklung einer Indivdualsoftware trotz existierender Standardsoftware Sinn macht, sofern es monitär vortelhaft ist.
 Ein weiterer Punkt  könnte der Versuch einen Wettbewerbsvorteil gegenüber den Wettbewerbern zu erhalten oder die Optimierung einer vorhandenen Lösung sein.\\
-Die Umsetzung eines Projektes findet entweder intern oder von einem externen Dienstleister statt. Eine wichtige Rolle spielen ebenfalls die Vorgehensweisen bei der Umsetzung eines Projektes. Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexibelen, z.B. der Agilen Softwareentwicklung.\\
+Die Umsetzung eines Projektes findet entweder intern oder von einem externen Dienstleister statt. Eine wichtige Rolle spielen ebenfalls die Vorgehensweisen bei der Umsetzung eines Projektes. Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexiblen, z.B. der Agilen Softwareentwicklung.\\
 Im Folgenden soll auf die wichtigsten Kernprozesse bei der Umsetzung eines Systems in einem Projekt eingegangen werden.\\
 \\
 Planung\\
@@ -255,7 +255,7 @@ Im Analyse-Prozess findet die Auswertung der zuvor gesammelten Anforderungen sta
 Entwurf\\
 \\
 Beim Entwurfsprozess geht es um die Planung der Software-Lösung. Zur Planung von dieser werden unterschiedliche Sprachen zur Modellierung verwendet. Die wichtigste Sprache hierbei ist UML, welche unter Anderem auch die Modellierung von Klassen und Objekten, sowie deren Beziehungen untereinander ermöglicht. Auf UML wird in Kapitel X detailliert eingegangen.
-Zum Entwurf gehören ebenfalls Sytem- bzw. Designentscheidungen, die später in die Programmierung einfließen.
+Zum Entwurf gehören ebenfalls System- bzw. Designentscheidungen, die später in die Programmierung einfließen.
 \\
 \\
 Programmierung\\
@@ -266,14 +266,14 @@ Bei der Programmierung geht es letztendlich um die Umsetzung des zuvor entworfen
 Validierung und Verifizierung
 \\
 Bei der Validierung  und Verifizierung geht es vor allem um Tests. Hierbei wird unterschieden zwischen Low-Level-Tests und High-Level-Tests. Unter Low-Level-Tests sind solche Test zu verstehen, die während der Implementierung an Teilen des Systems stattfinden. Bei High-Level-Tests wird das komplette System getestet. Einer der Low-Level-Tests ist der Modultest. Bei diesem werden einzelne Module im Programm getestet.  Diese Tests werden regelmäßig während der Entwicklung durchgeführt. Ein weiterer Low-Level-Test ist der Integrationstest. Bei diesem werden verschiedene Module in Kombination getestet. Für jede Verbindung zwischen zwei Komponentne wird ein Test erstellt, welcher überprüft, ob diese ordnungsgemäß nach der Spezifikation funktionieren. In kleinereren Projekten findet der Integrationstest meist während der Implementierung durch die Programmierer statt.
-Der so genannte Systemtest ist ein High-Level-Test bei dem das gesamte Programm gegen die zuvor definierten Anforderungen gegen geprüft wird. Dieser Systemtest findet meist ein einer Testumgebung statt und erhält meist simulierte Testdaten um die bestehenden Produktivumgebung nicht weiter zu beeinträchtigen. Die simulierten Testdaten können trotz allem den reellen Daten entsprechen, sollen jedoch verhindern, dass das System direkt in die Produktivumgebung einwirkt.
+Der so genannte Systemtest ist ein High-Level-Test bei dem das gesamte Programm gegen die zuvor definierten Anforderungen gegen geprüft wird. Dieser Systemtest findet meist in einer Testumgebung statt und erhält meist simulierte Testdaten um die bestehende Produktivumgebung nicht weiter zu beeinträchtigen. Die simulierten Testdaten können trotz Allem den reellen Daten entsprechen, sollen jedoch verhindern, dass das System direkt in die Produktivumgebung einwirkt.
 Der letzte High-Level-Test dient der Abnahme und wird auch als Akzeptanztest bezeichnet. Bei diesem Test geht es um den Test der Software im produktiven Einsatz beim Kunden. Der Test selbst stellt ein Black-Box-Test dar und dient meist zu Rechnungsstellung bzw. Abnahme in Verbindung mit den Testprotokollen.
 
 \section{UML}
 \label{sec:uml}
 
 Die Unified Modeling Language (UML) ist eine standardisierte graphische Modellierungssprache im Bereich der Softwareentwicklung. Der Standard wird von der Object Management Group verwaltet und wurde auch von dieser geschaffen. UML enthält verschiedene Notationstechniken um visuelle Modelle von softwareintensiven System zu erzeugen. UML selbst ist auch von der ISO standardisiert und zählt heutzutage zu einer der bedeutesten Modellierungssprachen bei der Softwareentwicklung. Durch die Sprache wird nicht nur eine grafische Notation festgehalten sondern ebenfalls die Begriffe und die jeweiligen Beziehungen zwischen diesen. Somit bilden die Diagramme nur eine Teil dessen ab, was unter der UML zu verstehen ist.
-Die UML ist seit 1997 in Entwicklung, wobei es bisher mehrere Versionen gibt.
+Die UML wird seit 1997 weiterentwickelt und ist seitdem in mehrere Versionen erschienen.
 Die in der UML verwendeten Modelle lassen sich in verschiedene Kategorien unterteilen, die wie folgt lauten:\\
 \\
 -Struktur-Diagramme\\
@@ -298,7 +298,7 @@ In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einord
     * Zustandsdiagramm\\
 \\
 Im Folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche für die Umsetzung des Projekts selbst verwendet wurden.\\
-Das erste verwendete Diagramm, ist das Andwendungsfalldiagramm (im
+Das erste verwendete Diagramm, ist das Anwendungsfalldiagramm (im
 folgenden als Usecase-Diagramm benannt).  Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als 'Strichmännchen' dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
 Anwendungsfälle hingegen werden als Ellipsen dargestellt und enthalten eine Beschreibung. Um beide unterschiedliche Elemente in einer Gruppe zusammenzufassen wird ein Rahmen um alle beteiligten Elemente gebildet, welcher Systemkontext genannt wird und somit die Systemgrenze darstellt. Neben den normalen Assoziationen (z.B. Benutzer -> Drucken) besteht die Möglichkeit der Generalisierung. Das bedeutet, dass zwei spezifische Akteure oder Anwendungsfälle zu einem generellen zusammengefasst werden können.
 Ein Beispiel eines Usecase-Diagramms ist in Abbildung X zu sehen.\\
@@ -311,10 +311,10 @@ Ein Beispiel eines Usecase-Diagramms ist in Abbildung X zu sehen.\\
 \end{figure}
 Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Beschreibung einzelner Klassen sowie deren Beziehungen untereinander. Klassen dienen zur Beschreibung der Objekte, welche von diesen instanziert werden. Im Klassendiagramm wird eine Klasse als Rechteck dargestellt und neben dem Klassenamen enthält diese ein Bereich für die Attribute, sowie für die Methoden. Um die Sichtbarkeit der Attribute und Methoden darzustellen werden verschiedene Symbole verwendet:\\
 
-     + für public   unbeschränkter Zugriff\\
-     \# für protected  , Zugriff nur von der Klasse sowie von Unterklassen (geerbte Klassen)\\
-     \- für private  nur innerhlab der Klasse selbst sichtbar\\
-     \~ für package  innerhalb des Pakets sichtbar\\
+     + für public, unbeschränkter Zugriff\\
+     \# für protected, Zugriff nur von der Klasse sowie von Unterklassen (geerbte Klassen)\\
+     \- für private, nur innerhlab der Klasse selbst sichtbar\\
+     \~ für package, innerhalb des Pakets sichtbar\\
 \\
 Ähnlich wie bei dem Usecase-Diagramm bietet sich beim Klassendiagramm die Möglichkeit einer Generalisierung. Beispielsweise sind die Klassen PKW und LKW Unterklassen von der Klasse Fahrzeuge. In Abbildung X ist ein Beispiel eines Klassendiagramms zu sehen.\\
 \\
@@ -324,7 +324,8 @@ Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Bes
 \caption{Klassendiagramm}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
-Ebenfalls relevant für die Umsetzung des Projektes sind die Aktivitätsdiagramme. Sie dienen dazu Abläufe von Prozessen, aber auch von technischen Abläufen umzusetzten.
+Ebenfalls relevant für die Umsetzung des Projektes sind die Aktivitätsdiagramme.
+Sie dienen dazu Abläufe von Prozessen abzubilden.
 Beim Aktivitätsdiagramm befinden sich die Elemente in einem abgerundeten Rechteck, welche zusätzlich den Namen der Aktivität neben den Elementen enthält. Der Start bzw. Endpunkt bilden jeweils ein gefüllter Kreis, wobei der Endpunkt nur teilweise gefüllt ist. Aktivitäten werden in abgerundeten Rechtecken aufgelistet und miteinander in Flussrichtung verbunden. Entscheidungsfälle werden durch eine Raute symbolisiert. Je nach Entscheidungsfall, verläuft der Pfad bei ‘Ja’ weiter in Flussrichtung nach unten, oder bei einer Abweichung seitlich ab. Zusätzlich bietet sich die Möglichkeit Aktivitäten parallel ablaufen zu lassen. Dies kann durch Aktivitäten die zwischen zwei Balken angelegt werden, symbolisiert werden. Im Folgenden ist in Abbildung X ein beispielhaftes Aktivitätsdiagramm zu sehen.\\
 \\
 \begin{figure}[H]
@@ -344,7 +345,7 @@ Eine Nachricht werden im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nac
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
 
-\section{MAC - Media Access Control}
+\section{Media Access Control}
 \label{sec:mac}
 
 Bei der MAC-Adresse (Media-Access-Controll-Adresse) handelt es sich um eine Adresse eines Netzwerkadapters, die zur eindeutigen Identifizierung in einem Netzwerk dient. MAC-Adressen werden in einer Vielzahl von Netzwerk Protokollen verwendet. Unter Anderem wird sie im Ethernet-Protokoll (IEEE 802.3)  aber auch vielen anderen Netzwerktechnologien genutzt die unter den IEEE 802 Gruppen zu finden sind.
@@ -365,23 +366,23 @@ Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen
 Hierzu wird eine Zufallszahl aus dem Bereich 0 und (2\^i)-1 ms gewählt.
 Wobei i für den i-ten Versuch steht.
 
-\section{VLAN - Virtual Local Area Network}
+\section{Virtual Local Area Network}
 \label{sec:vlan}
 
-Bei einem VLAN (Virtual Local Area Network) handelt es sich um ein logisches Netz innerhalb eines physikalischen Netzwerkes. Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes. VLANs können über einen oder mehrere Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen. Die Unterteilung des bestehenden Netzwerkes in Teilnetze bewerkestelligt VLAN dadurch, dass es Switches, die VLAN unterstützen dazu veranlasst Frames (Datenpakete) eines VLANs nicht in ein anderes VLAN weiterzuleiten, auch wenn beide physikalisch an den selben Switch angeschlossen sind.
-VLANs können über verschiedene Arten realisiert werden. Eine Unterscheidungsmöglichkeit sind portbasierte VLANs und tagged VLANs.
+Bei einem VLAN (Virtual Local Area Network) handelt es sich um ein logisches Netz innerhalb eines physikalischen Netzwerkes. Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes. VLANs können über einen oder mehrere Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen. Die Unterteilung des bestehenden Netzwerkes in Teilnetze bewerkestelligt VLAN dadurch, dass es Switches, die VLAN unterstützen, dazu veranlasst, Frames (Datenpakete) eines VLANs nicht in ein anderes VLAN weiterzuleiten, auch wenn beide physikalisch an den selben Switch angeschlossen sind.
+VLANs können über verschiedene Arten realisiert werden. VLANs lassen sich in portbasierte VLANs und tagged VLANs unterschieden.
 Bei den portbasierten VLANs gehört ein Port je einem VLAN an oder ist ein Trunk-Port. Bei einem Trunk-Port handelt es sich um ein Port über den mehrere VLANs geschaltet sind.\\
 Das sogenannte tagged VLAN hingegen findet im Unterschied zu den portbasierten VLANs die Kennzeichnung im Ethernet-Frame selbst statt. Dieses 'tagging' ist nach IEEE 802.1q spezifiziert.\footnote{Vgl. IEEE 802.1q}
 Beim tagged VLAN kennzeichnen die Switches am Einspeiseort oder spezielle tagging-fähige Geräte die Pakete. Diese Pakete werden wiederum von den Switches am Endgerät detagged oder wiederum von tagging fähigen Gerät selbst.\\
 Zusätzlich gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.
 Bei einem statischen VLAN ist ein Port einer speziellen VLAN-Art zugeordnet. Entweder zu einem Port-basierten VLAN oder zu einem tagged VLAN.
-Wobei ein Port auch mehreren VLANs angehören kann und dieser dann ein Trunk-Port ist.\\
+Wobei ein Port mehreren VLANs angehören kann und dieser dann ein Trunk-Port ist.\\
 Das dynamische VLAN hingegen ist nicht portbasierend und richtet sich nach dem Inhalt des Frames. Jedoch ist zu beachten, dass die Inhalte eines Frames beliebig veränderbar sind und somit dynamische VLANs nicht in sicherheitskritischen Netzwerken verwendet werden sollten.
 Die Zugehörigkeit zu einem VLAN kann per Adresse (MAC oder IP), auf Basis des Protokolls (IP, AppleTalk, IPX) oder auch auf Anwendungsebene nach Portnummern (80,443). So ist es möglich, z.B. ein mobiles Endgerät im Netzwerk immer dem gleichen VLAN zuordnen zu lassen, unabhängig an welchem Ort dieses angeschlossen ist.\\
 Die Gründe für die Verwendung eines VLANs lassen sich in drei Punkte aufteilen.
 Zuerst macht eine Verwendung wie oben bereits erwähnt Sinn, wenn eine flexible Zuordnung eines Endgerätes immer zum selben VLAN gemacht werden muss.\\
-Ein weitere Grund sind Performance-Aspekte. Sofern eine Priorisierung von speziellen Daten (z.B. VOIP) erfolgen muss. Meistens dient es jedoch der Verkleinerung der Broadcast-Domänen, die sich nicht über das gesamte Netzwerk ausbreiten sollten.\\
-Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle. Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein VLANs einzusetzen, da sie gegenüber Layer-2-Attacken architekturbedingt unempflindlich sind.
+Ein weitere Grund für VLANs sind Performance-Aspekte. Neben der Priorisierung von speziellen Daten (z.B. VOIP) dient ein VLAN meist der Verkleinerung der Broadcast-Domänen. Durch die Verkleinerung der Domänen, wird ein Broadcast nichtt über das gesamte Netzwerk hinweg geschickt.\\
+Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle. Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein, VLANs einzusetzen. Da sie gegenüber Layer-2-Attacken architekturbedingt unempflindlich sind.
 
 
 \section{SNMP}
