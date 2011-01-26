@@ -263,24 +263,24 @@ Programmierung\\
 Bei der Programmierung geht es letztendlich um die Umsetzung des zuvor entworfenen Systems. Hierbei wird je nach Vorgehensweise die strukturierte oder objektorientierte Programmierung angewandt.
 \\
 \\
-Validierung und Verfizierung
+Validierung und Verifizierung
 \\
-Bei der Validierung  und Verifizierung geht es vor allem um Tests. Hierbei wird unterschieden zwischen Low-Level-Tests und High-Level-Tests. Unter Low-Level-Tests sind solche Test zu verstehen, die während der Implementierung an Teilen des Systems stattfinden. Bei High Level-Tests wird das komplette System getestet. Einer der Low-Level-Tests ist der Modultest. Bei diesem werden einzelne Module im Programm getestet.  Diese Tests werden regelmäßig während der Entwicklung durchgeführt. Ein weiterer Low-Level-Test ist der Integrations-Test. Bei diesem werden verschiedene Module in Kombination getestet. Für jede Verbindung zwischen zwei Komponentne wird ein Test erstellt, welcher überprüft, ob diese ordnungsgemäß nach der Spezifikation funktionieren. In kleinereren Projekten findet der Integrationstest meist während der Implementierung durch die Programmierer statt.
-Der so genannte Systemtest ist ein High-Level-Test bei dem das gesamte Programm gegen die zuvor definierten Anforderungen gegen geprüft wird. Dieser Systemtest findet meist ein einer Testumgebung statt und erhält meist simulierte Testdaten um die bestehenden Produktivumgebung nicht weiter zu beeinträchtigen. Die simulierten Testdaten können trotzallem den waren Daten entsprechen, sollen jedoch verhindern, dass das System direkt in die Produktivumgebung einwirken muss.
-Der letzte High-Level-Test dient der Abnahme und wird auch als Akzeptanztest bezeichnet. Bei diesem Test geht es um den Test der Software im produktiven Einsatz beim Kunden. Der Test selbst stellt ein Blackbox Test dar und dient meist zu Rechnungsstellung bzw. Abnahme in Verbindung mit den Testprotokollen.
+Bei der Validierung  und Verifizierung geht es vor allem um Tests. Hierbei wird unterschieden zwischen Low-Level-Tests und High-Level-Tests. Unter Low-Level-Tests sind solche Test zu verstehen, die während der Implementierung an Teilen des Systems stattfinden. Bei High-Level-Tests wird das komplette System getestet. Einer der Low-Level-Tests ist der Modultest. Bei diesem werden einzelne Module im Programm getestet.  Diese Tests werden regelmäßig während der Entwicklung durchgeführt. Ein weiterer Low-Level-Test ist der Integrationstest. Bei diesem werden verschiedene Module in Kombination getestet. Für jede Verbindung zwischen zwei Komponentne wird ein Test erstellt, welcher überprüft, ob diese ordnungsgemäß nach der Spezifikation funktionieren. In kleinereren Projekten findet der Integrationstest meist während der Implementierung durch die Programmierer statt.
+Der so genannte Systemtest ist ein High-Level-Test bei dem das gesamte Programm gegen die zuvor definierten Anforderungen gegen geprüft wird. Dieser Systemtest findet meist ein einer Testumgebung statt und erhält meist simulierte Testdaten um die bestehenden Produktivumgebung nicht weiter zu beeinträchtigen. Die simulierten Testdaten können trotz allem den reellen Daten entsprechen, sollen jedoch verhindern, dass das System direkt in die Produktivumgebung einwirkt.
+Der letzte High-Level-Test dient der Abnahme und wird auch als Akzeptanztest bezeichnet. Bei diesem Test geht es um den Test der Software im produktiven Einsatz beim Kunden. Der Test selbst stellt ein Black-Box-Test dar und dient meist zu Rechnungsstellung bzw. Abnahme in Verbindung mit den Testprotokollen.
 
 \section{UML}
 \label{sec:uml}
 
-Die Unified Modeling Language (UML) ist eine standardisierte graphische Modelierungssprache im Bereich der Softwareentwicklung. Der Standard wird von der Object Management Group verwaltet und wurde auch von dieser geschaffen. UML enthält verschiedene Notationstechniken um visuelle Modelle von softwareintensiven System zu erzeugen. UML selbst ist auch von der ISO standardisiert und zählt heutzutage zu einer der bedeutesten Modelierungssprachen bei der Softwareentwicklung. Durch die Sprache wird nicht nur eine grafische Notation festgehalten sondern ebenfalls die Begriffe und die jeweiligen Beziehungen zwischen diesen. Somit bilden die Diagramme nur eine Teil dessen ab, was unter der UML zu verstehen ist.
-Die UML ist seit 1997 in Entwicklung und es gibt bisher mehrere Versionen von dieser.
-Die in der UML verwendeten Modelle lassen sich in verschiedene Kategorien unterteilen, die wiefolgt lauten:\\
+Die Unified Modeling Language (UML) ist eine standardisierte graphische Modellierungssprache im Bereich der Softwareentwicklung. Der Standard wird von der Object Management Group verwaltet und wurde auch von dieser geschaffen. UML enthält verschiedene Notationstechniken um visuelle Modelle von softwareintensiven System zu erzeugen. UML selbst ist auch von der ISO standardisiert und zählt heutzutage zu einer der bedeutesten Modellierungssprachen bei der Softwareentwicklung. Durch die Sprache wird nicht nur eine grafische Notation festgehalten sondern ebenfalls die Begriffe und die jeweiligen Beziehungen zwischen diesen. Somit bilden die Diagramme nur eine Teil dessen ab, was unter der UML zu verstehen ist.
+Die UML ist seit 1997 in Entwicklung, wobei es bisher mehrere Versionen gibt.
+Die in der UML verwendeten Modelle lassen sich in verschiedene Kategorien unterteilen, die wie folgt lauten:\\
 \\
 -Struktur-Diagramme\\
 -Verhaltens-Diagramme\\
 \\
 In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einordnen:\\
--Struktur-Diagramme\\
+-Strukturdiagramme\\
     * Klassendiagramm\\
     * Kompositionsstrukturdiagramm\\
     * Komponentendiagramm\\
@@ -288,7 +288,7 @@ In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einord
     * Objektdiagramm\\
     * Paketdiagramm\\
     * Profildiagramm\\
--Verhaltens-Diagramme\\
+-Verhaltensdiagramme\\
     * Aktivitätsdiagramm\\
     * Anwendungsfalldiagramm\\
     * Interaktionsübersichtsdiagramm\\
@@ -352,7 +352,7 @@ Das MAC Protokoll steuert die Adressierung auf Hardwareebene, sowie die Zugriffs
 Im IOS/OSI-Modell ist das MAC-Protokoll auf Schicht 2, der Sicherungschicht, angesiedelt.
 Somit hat das MAC-Protokoll zwei Aufgaben, zum Einen die Adressierung eines Gerätes und zum Anderen wie dieses Gerät auf das Medium zugreift.\\
 Zur eindeutigen Adressierung der Netzwerkadapter  dient die sogenannte MAC-Adresse. Hierbei handelt es sich um einen 48-bit Wert, der einzigartig auf der ganzen Welt ist. Die ersten 24-bit kennzeichnen den Hersteller des Netzwerkadapters, die anschließenden 24-bit sind beliebig vom Hersteller vergebbar. Einige bestimmte MAC-Adressen können jedoch nicht reserviert werden, hierbei handelt  es sich um Broadcast-Adressen und Multicast-Adressen.
-Eine MAC-Adresse kann wiefolgt dargestellt werden:\\
+Eine MAC-Adresse kann wie folgt dargestellt werden:\\
 \\
 01-23-45-67-89-ab\\
 oder\\
