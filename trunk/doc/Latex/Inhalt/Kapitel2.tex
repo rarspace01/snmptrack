@@ -5,16 +5,16 @@
 \label{sec:situation}
 
 Die bestehende Situation spielt für die spätere Umsetzung eine große Rolle und muss somit im näheren betrachtet werden.
-Zu Beginn des Projektes wurden bereits diverse Systeme zur Überwachung des Netzwerkes eingesetzt. Hierunter fällt die Überwachung der Stati der einzelnen Netzwerk Geräte, im speziellen die Switchs und Router, welche über das Programm “OpenView” von HP erfasst werden. Über dieses Programm können ebenfalls Server und deren Dienste erfasst werden. Diese Funktion wird jedoch aktuell nicht mehr mit Daten gepflegt, da hier ein Transfer zu einem anderen System stattfindet, aufgrund der Tatsache, dass die Lizenz von OpenView ausgelaufen ist. Im Moment dient das OpenView System bei Pirelli Deutschland GmbH dazu, dass eine automatische Übersicht über die Relationen zwischen den Switchs und Routern erstellt werden kann.\\
-Für die Überwachung spezieller Hosts (in der Praxis meist Server) und Diensten, kommt ein weiteres System zum Einsatz, welches eine Open Source Software ist und ein hohes Maß an Flexibilität und Modularität bietet. Dieses “Nagios” gennante Programm ermöglicht es diverse Dienste im Netzwerk auf vorgegebenen Hosts abzufragen und anschließend diese zu visualisieren. Zusätzlich können verschiedene Warn- und Fehlerlevels für einen Service definiert werden, die im Falle einer Störung Warnungen an vordefinierte Personen verschicken.\\
+Zu Beginn des Projektes wurden bereits diverse Systeme zur Überwachung des Netzwerkes eingesetzt. Hierunter fällt die Überwachung der Stati der einzelnen Netzwerkgeräte, im speziellen die Switchs und Router, welche über das Programm “OpenView” von HP erfasst werden. Über dieses Programm können ebenfalls Server und deren Dienste erfasst werden. Diese Funktion wird jedoch aktuell nicht mehr mit Daten gepflegt, da hier ein Transfer zu einem anderen System stattfindet, aufgrund der Tatsache, dass die Lizenz von OpenView ausgelaufen ist. Im Moment dient das OpenView System bei Pirelli Deutschland GmbH dazu, dass eine automatische Übersicht über die Relationen zwischen den Switchs und Routern erstellt werden kann.\\
+Für die Überwachung spezieller Hosts (in der Praxis meist Server) und Diensten, kommt ein weiteres System zum Einsatz, welches eine Open Source Software ist und ein hohes Maß an Flexibilität und Modularität bietet. Dieses “Nagios” genannte Programm ermöglicht es diverse Dienste im Netzwerk auf vorgegebenen Hosts abzufragen und anschließend diese zu visualisieren. Zusätzlich können verschiedene Warn- und Fehlerlevels für einen Service definiert werden, die im Falle einer Störung Warnungen an vordefinierte Personen verschicken.\\
 Dieses System ist somit hauptsächlich für die Überwachung der Dienste zuständig.\\
 Zur Untersuchung von Netzwerk-Traffic zwischen verschiedener Netzwerke kommt das System MRTG zum Einsatz welches hauptsächlich für das Anzeigen des Netzwerktraffics auf Routern ausgelegt ist.
-Dieses wird im Unternehmen hauptsächlich zum Erfassen der Bandbreitennutzung der Router bzw. der WAN-Verbindungen zu überprüfen.
+Dieses wird im Unternehmen hauptsächlich zum Erfassen der Bandbreitennutzung der Router bzw. der WAN-Verbindungen verwendet.
 Dies ist vor allem wichtig um den aktuellen Traffic zwischen den einzelnen Standorten in Deutschland im Überblick zu behalten.\\
 Abschließend gibt es noch ein System von Cisco, mit dem Namen “CiscoWorks” welches dazu dient mit einem speziellen Programmteil die Hosts an den jeweiligen Switchs zu erkennen und zu identifizieren.
-Hier werden nicht nur simple Zuordnungen zwischen Mac-Adresse des Hosts und des Switchs, bzw. des Port des Switches hergestellt.
-Sondern umfangreiche Informationen gesammelt, z.B. über die Geschwindigkeit des Anschlusses, die IP und, sofern vorhanden, der DNS-Hostname des Gerätes.
-Hinzukommen diverse Details, wie der Gerätetyp, welcher einem die Möglichkeit gibt, zu erkennen ob es sich hierbei um ein Switch oder Router handelt.\\
+Hier werden nicht nur simple Zuordnungen zwischen Mac-Adresse des Hosts und des Switchs, bzw. des Port des Switches hergestellt,
+sondern umfangreiche Informationen gesammelt. Z.B. über die Geschwindigkeit des Anschlusses, die IP und, sofern vorhanden, der DNS-Hostname des Gerätes.
+Hinzu kommen diverse Details, wie der Gerätetyp, welcher einem die Möglichkeit gibt, zu erkennen ob es sich hierbei um ein Switch oder Router handelt.\\
 Da es bei diesem System notwendig ist, regelmäßig die Lizenz zu verlängern um auch weiterhin die neusten Router und Switches zu unterstützen, ist hier eine gewisse Abhängigkeit gegeben.
 Weil von CiscoWorks selbst nur ein kleiner Teil genutzt wird und somit die Lizenzkosten unverhältnismäßig zur Nutzung sind, wurde entschieden diese in Zukunft zu ersetzen.\\
 
@@ -401,7 +401,7 @@ netsnmpj\\
 
 Schließt man nun alle kommerziellen Lösungen aus, so bleiben lediglich SNMP4J und netsnmpj übrig.
 Da mehrere SNMP Abfragen später gleichzeitig durchgeführt werden müssen ist die Wahl auf SNMP4J gefallen, da dieses threadsicher ist und auch ein größeren Funktionsumfang wie netsnmpk bei der Implementierung mitsichbringt.\\
-Um anhand der ermittelten IP-Adressen die dementsprechende DNS-Namen zu erhalten ist es notwendig ein Reserve DNS-Lookup zu machen. Hierfür muss das sogennante JNDI verwendet werden, welches einem erlaubt selbstdefinierte DNS-Abfragen zu erstellen.\\
+Um anhand der ermittelten IP-Adressen die dementsprechende DNS-Namen zu erhalten ist es notwendig ein Reserve DNS-Lookup zu machen. Hierfür muss das sogenannte JNDI verwendet werden, welches einem erlaubt selbstdefinierte DNS-Abfragen zu erstellen.\\
 Um beispielsweise den DNS-Namen der IP 192.168.0.1 herausfinden zu können muss dieser aber erst in ein spezielles Format gebracht werden. Hierzu wird die IP Adresse umgekehrt zu 1.0.168.192 und der Zusatz “.in-addr.arpa” angehängt. Daraus folgt dann:\\
 
 1.0.168.192.in-addr.arpa\\
