@@ -1,4 +1,6 @@
-﻿<?php
+<?php
+session_start(); 
+
 include_once("db.inc.php");
 include_once("snmptrack_functions.php");
 
@@ -13,7 +15,7 @@ $orderstring=" ORDER BY \"".getSortname($_GET['sort'])."\" ".getSortorder($_GET[
 $orderstring=" ORDER BY H.\"hostname\" ASC";	
 }		
 	
-$sSQL="SELECT H.\"PortMAC\", H.MAC, H.\"stamptime\" , H.IP, H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"name\", P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P WHERE H.\"PortMAC\"=P.MAC AND \"PortMAC\" LIKE '%".$_GET[pmac]."%' AND H.MAC='".$_GET[hmac]."'".$orderstring;
+$sSQL="SELECT H.\"PortMAC\", H.CDPID,H.CDPIP,H.CDPPORT,H.CDPTYP, H.MAC,H.\"Duplex\" AS \"HDuplex\", H.\"stamptime\" , H.IP, H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"name\", P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P WHERE H.\"PortMAC\"=P.MAC AND \"PortMAC\" LIKE '%".$_GET[pmac]."%' AND H.MAC='".$_GET[hmac]."'".$orderstring;
 	
 $result=db_query($sSQL);
 
@@ -36,11 +38,17 @@ echo "
 <th>SwitchIP <a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_D'>▼</a></th>
 <th>IP <a href='".$_SERVER['REQUEST_URI']."&sort=LIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=LIP_D'>▼</a></th>
 <th>DNS <a href='".$_SERVER['REQUEST_URI']."&sort=hostname_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=hostname_D'>▼</a></th>
-<th>Speed [MBit/s] <a href='".$_SERVER['REQUEST_URI']."&sort=Speed_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Speed_D'>▼</a></th>
+<th>[MBit/s] <a href='".$_SERVER['REQUEST_URI']."&sort=Speed_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Speed_D'>▼</a></th>
+<th>Duplex <a href='".$_SERVER['REQUEST_URI']."&sort=HDuplex_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=HDuplex_D'>▼</a></th>
 <th>User <a href='".$_SERVER['REQUEST_URI']."&sort=lastuser_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=lastuser_D'>▼</a></th>
 <th>Last seen <a href='".$_SERVER['REQUEST_URI']."&sort=stamptime_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=stamptime_D'>▼</a></th>
 <th>VHOST <a href='".$_SERVER['REQUEST_URI']."&sort=VHOST_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=VHOST_D'>▼</a></th>";
-
+if(strlen($_GET[details])>0){
+echo "<th>CDPID <a href='".$_SERVER['REQUEST_URI']."&sort=CDPID_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=CDPID_D'>▼</a></th>";
+echo "<th>CDPIP <a href='".$_SERVER['REQUEST_URI']."&sort=CDPIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=CDPIP_D'>▼</a></th>";
+echo "<th>CDP-Port <a href='".$_SERVER['REQUEST_URI']."&sort=CDPPORT_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=CDPPORT_D'>▼</a></th>";
+echo "<th>CDP-Typ <a href='".$_SERVER['REQUEST_URI']."&sort=CDPTYP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=CDPTYP_D'>▼</a></th>";
+}
 
 
 while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
@@ -54,12 +62,16 @@ while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 	echo "<td>".$row['IP']."</td>";
 	echo "<td>".$row['hostname']."</td>";
 	echo "<td>".$row['Speed']."</td>";
+	echo "<td>".$row['HDuplex']."</td>";
 	echo "<td>".$row['lastuser']."</td>";
 	echo "<td>".date('H:i.s\U\h\r d.m.Y',$row['stamptime'])."</td>";
 	echo "<td>".$row['VHOST']."</td>";
 
 	if(strlen($_GET[details])>0){
-	echo "<td>EXTENDED</td>";
+	echo "<td>".$row['CDPID']."</td>";
+	echo "<td>".$row['CDPIP']."</td>";
+	echo "<td>".$row['CDPPORT']."</td>";
+	echo "<td>".$row['CDPTYP']."</td>";
 	}
 	
     echo "</tr>\n";
@@ -96,7 +108,7 @@ $puffer=$puffer."
 <th>SwitchIP <a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_D'>▼</a></th>
 <th>IP <a href='".$_SERVER['REQUEST_URI']."&sort=LIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=LIP_D'>▼</a></th>
 <th>DNS <a href='".$_SERVER['REQUEST_URI']."&sort=hostname_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=hostname_D'>▼</a></th>
-<th>Speed [MBit/s] <a href='".$_SERVER['REQUEST_URI']."&sort=Speed_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Speed_D'>▼</a></th>
+<th>[MBit/s] <a href='".$_SERVER['REQUEST_URI']."&sort=Speed_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Speed_D'>▼</a></th>
 <th>User <a href='".$_SERVER['REQUEST_URI']."&sort=lastuser_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=lastuser_D'>▼</a></th>
 <th>Last seen <a href='".$_SERVER['REQUEST_URI']."&sort=stamptime_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=stamptime_D'>▼</a></th>
 <th>VHOST <a href='".$_SERVER['REQUEST_URI']."&sort=VHOST_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=VHOST_D'>▼</a></th>";
@@ -159,8 +171,12 @@ $puffer=$puffer."<table border='1'>\n";
 
 $puffer=$puffer."<th>MAC <a href='".$_SERVER['REQUEST_URI']."&sort=MAC_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=MAC_D'>▼</a></th>
 <th>SwitchIP <a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_D'>▼</a></th>
+<th>VLAN <a href='".$_SERVER['REQUEST_URI']."&sort=vlan_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=vlan_D'>▼</a></th>
 <th>Port <a href='".$_SERVER['REQUEST_URI']."&sort=PortID_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=PortID_D'>▼</a></th>
-<th>Speed [MBit/s] <a href='".$_SERVER['REQUEST_URI']."&sort=Speed_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Speed_D'>▼</a></th>
+<th>Link <a href='".$_SERVER['REQUEST_URI']."&sort=cstatus_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=cstatus_D'>▼</a></th>
+<th>Uplink <a href='".$_SERVER['REQUEST_URI']."&sort=isUplink_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=isUplink_D'>▼</a></th>
+<th>[MBit/s] <a href='".$_SERVER['REQUEST_URI']."&sort=Speed_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Speed_D'>▼</a></th>
+<th>Duplex <a href='".$_SERVER['REQUEST_URI']."&sort=Duplex_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Duplex_D'>▼</a></th>
 <th>Alias <a href='".$_SERVER['REQUEST_URI']."&sort=alias_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=alias_D'>▼</a></th>
 <th>Last seen <a href='".$_SERVER['REQUEST_URI']."&sort=stamptime_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=stamptime_D'>▼</a></th>";
 
@@ -173,8 +189,22 @@ while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 	
 	$puffer=$puffer."<td><a href='show.php?pmac=".$row['MAC']."'>".$row['MAC']."</a> </td>";
 	$puffer=$puffer."<td>".$row['SwitchIP']."</td>";
+	$puffer=$puffer."<td>".$row['vlan']."</td>";
 	$puffer=$puffer."<td>".$row['name']."</td>";
+	
+	if($row['cstatus']==='true'){
+	$puffer=$puffer."<td>"."UP"."</td>";
+	}else{
+	$puffer=$puffer."<td>"."DOWN"."</td>";
+	}
+	
+	if($row['isUplink']==='true'){
+	$puffer=$puffer."<td>"."J"."</td>";
+	}else{
+	$puffer=$puffer."<td>"."N"."</td>";
+	}
 	$puffer=$puffer."<td>".$row['Speed']."</td>";
+	$puffer=$puffer."<td>".$row['Duplex']."</td>";
 	$puffer=$puffer."<td>".$row['alias']."</td>";
 	$puffer=$puffer."<td>".date('H:i.s\U\h\r d.m.Y',$row['stamptime'])."</td>";
 	
@@ -196,7 +226,7 @@ include("loginbox.php");
 
 echo $puffer;
 
-}else{
+}else if($_SESSION['userlevel']>=2){
 
 if(strpos($_SERVER['REQUEST_URI'],'?')!==true){
 $REQURI="show.php?p=";
@@ -227,9 +257,11 @@ $puffer=$puffer."<th>IP <a href='".$REQURI."&sort=LIP_A'>▲</a><a href='".$REQU
 <th>DNS <a href='".$REQURI."&sort=hostname_A'>▲</a><a href='".$REQURI."&sort=hostname_D'>▼</a></th>
 <th>Hosts</th>
 <th>Modell <a href='".$REQURI."&sort=model_A'>▲</a><a href='".$REQURI."&sort=model_D'>▼</a></th>
+<th>OS Version <a href='".$REQURI."&sort=osversion_A'>▲</a><a href='".$REQURI."&sort=osversion_D'>▼</a></th>
 <th>Alias <a href='".$REQURI."&sort=alias_A'>▲</a><a href='".$REQURI."&sort=alias_D'>▼</a></th>
 <th>Ort <a href='".$REQURI."&sort=location_A'>▲</a><a href='".$REQURI."&sort=location_D'>▼</a></th>
-<th>Serial <a href='".$REQURI."&sort=SERIAL_A'>▲</a><a href='".$REQURI."&sort=SERIAL_D'>▼</a></th>";
+<th>Serial <a href='".$REQURI."&sort=SERIAL_A'>▲</a><a href='".$REQURI."&sort=SERIAL_D'>▼</a></th>
+<th>Last seen <a href='".$_SERVER['REQUEST_URI']."&sort=stamptime_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=stamptime_D'>▼</a></th>";
 
 
 while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
@@ -238,8 +270,10 @@ while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 	$puffer=$puffer."<tr>\n"."<td><a href='show.php?sip=".$row['IP']."'>".$row['IP']."</a></td>".
 	"<td>".$row['hostname']."</td>".
 	"<td><a href='show.php?pmac=?&q=".$row['IP']."'>Show</td>".
-	"<td>".$row['model']."</td>"."<td>".$row['alias']."</td>".
-	"<td>".$row['location']."</td>"."<td>".$row['SERIAL']."</td>";
+	"<td>".$row['model']."</td>"."<td>".$row['osversion']."</td>".
+	"<td>".$row['alias']."</td>".
+	"<td>".$row['location']."</td>"."<td>".$row['SERIAL']."</td>".
+	"<td>".date('H:i.s\U\h\r d.m.Y',$row['stamptime'])."</td>";
 	
     // foreach ($row as $item) {
         // echo "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
@@ -256,6 +290,15 @@ include("header.php");
 include("loginbox.php");
 
 echo $puffer;
+}else{
+	
+include("header.php");
+include("loginbox.php");	
+
+echo "<div id=\"content\" style=\"height: auto\">";
+echo "Keine Rechte";
+
+
 }
 
 

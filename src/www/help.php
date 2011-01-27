@@ -1,4 +1,5 @@
 <?php
+session_start(); 
 //bugfix
 $comment_counter=1;
 

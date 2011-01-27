@@ -283,6 +283,22 @@ body {
     -webkit-border-radius: 10px;
 }
 
+/*   Loginbox inder Mitte Bildrand   */
+#loginst {
+    position: absolute;
+    border: solid 1px ;
+    background-color: #EBEBEB;
+    top: 250px;
+    left: 500px;
+    width: 188px;
+    height: 150px;
+    padding-top: 20px;
+    padding-left: 5px;
+    margin-left: 2px;    
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 10px;
+}
+
 /*   Inhalt auf der Startseite   */
 #content {
     position: absolute;
