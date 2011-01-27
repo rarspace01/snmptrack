@@ -54,7 +54,7 @@ public class SNMPTrackConfig {
 	public static void loadSNMPTrackConfig() {
 		// TODO Auto-generated constructor stub
 		
-		File file = new File("config.xml");
+		File file = new File(HelperClass.sWorkpath+"config.xml");
 		
 		if(file.exists()) //load config
 		{
