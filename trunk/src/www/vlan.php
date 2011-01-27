@@ -1,6 +1,10 @@
-﻿<?php
+<?php 
+session_start(); 
+
 include_once("db.inc.php");
 include_once("snmptrack_functions.php");
+
+
 
 
 $puffer="";
@@ -25,6 +29,8 @@ include("loginbox.php");
 ?>
 <div id="content" style="height: auto">
 <?php
+
+if($_SESSION['userlevel']>=2){
 
 echo "<table border='1'>\n";
 
@@ -53,6 +59,9 @@ while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 }
 echo "</table>\n";
 
+}else{
+	echo "Keine Rechte";
+}
 
 echo "</div>";
 

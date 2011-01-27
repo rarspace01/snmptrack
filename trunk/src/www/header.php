@@ -1,4 +1,17 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+<?php
+
+if(strlen($_SESSION['userlevel'])>0){
+}else{
+
+if(strpos($_SERVER['PHP_SELF'], "login.php")===false){
+echo ("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=login.php\">");
+die;
+}
+
+
+}
+
+?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 	
 <html lang="de">

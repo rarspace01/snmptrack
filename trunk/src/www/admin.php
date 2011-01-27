@@ -1,94 +1,98 @@
 <?php 
-//Einbindungen
 session_start(); 
+
+//Einbindungen
 include("header.php");
 include("loginbox.php");
 
 
 
 echo "<div id=\"content\">";
-if($_SESSION['userlevel']>1)//Prüfe ob User == Admin
+if($_SESSION['userlevel']==3)//Prüfe ob User == Admin
 {
 
+	if(isset($_GET['startagent'])){
+	echo "Started Agent on Switch:".$_GET['startagent'];
+	
+	if($_GET['startagent']==='all'){
+	$sEXEC="/usr/bin/java -jar /usr/local/usrtrack/snmptrack.jar /usr/local/usrtrack/";	
+	}else{
+	$sEXEC="/usr/bin/java -jar /usr/local/usrtrack/snmptrack.jar ".$_GET['startagent']." /usr/local/usrtrack/";	
+	}
+	
+	$sEXEC="bash -c \"exec nohup setsid ".$sEXEC."> /dev/null 2>&1 &\"";
+	
+	exec($sEXEC)." <br/> ";
+	
+	echo ("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=admin.php\">");
+	die;
+	}
+	
 	//prüfe jeweils ob das "Objekt" gelöscht werden soll
-	if(($_GET['deluser'])>0)
+	if(isset($_GET['deluser']))
 	{
 	delUser($_GET['deluser']);
 	}
 
-	if(($_GET['delproject'])>0)
-	{
-	delProject($_GET['delproject']);
-	}
-
-	if(($_GET['delcat'])>0)
-	{
-	delCat($_GET['delcat']);
-	}
-
-	if(($_GET['delos'])>0)
-	{
-	delOS($_GET['delos']);
-	}
-
 	//prüfe jeweils ob ein "Objekt" erstellt werden soll
-	if($_GET['action']==='addproject')
+	if($_GET['action']==='addusr')
 	{
-	echo "Project wurde erstellt.<br>";
-	addProject($_POST['projectname']);
+	if($_POST['usrpwd']===$_POST['usrpwd2']){	
+	echo "User wurde erstellt.<br/>";
+	addUser($_POST['usrname'],$_POST['usrpwd'],$_POST['usrlvl']);
+	}else{
+	echo "Passwort stimmt nciht überein<br/>";	
 	}
-	if($_GET['action']==='addcat')
-	{
-	echo "Kategorie wurde erstellt.<br>";
-	addCat($_POST['catname']);
-	}
-	if($_GET['action']==='addos')
-	{
-	echo "OS wurde erstellt.<br>";
-	addOS($_POST['osname'],$_POST['osversion']);
+	
 	}
 
 	//prüfe jeweils ob das "Objekt" angezeigt werden soll
 	if(isset($_GET['showuser'])){
 
+	showUseradd();
 	showUsers();
-
-	}
-	elseif(isset($_GET['showproj']))
-	{
-
-	showProjectadd(); //Formular zum hinzufügen
-	showProjects();
-	
-	}
-	elseif(isset($_GET['showcat']))
-	{
-
-	showCatadd(); //Formular zum hinzufügen
-	showCat();
-	}
-	elseif(isset($_GET['showos']))
-	{
-
-	showOSadd(); //Formular zum hinzufügen
-	showOS();
 	
 	}//Wenn rein garnichts selektiert wurde, zeige Auswahl an
 	else{
 	
 	echo "<h1>Admin-Panel</h1>";
-	echo "<u><b>Datenbank</b></u><br>";
-	echo "Datenbank <a href=\"setup.php?reset=true\" onClick=\"return check();\">resetten<a/><br><br>";
-
-	echo "<u><b>User</b></u><br>";
-	echo "User <a href='admin.php?showuser=-1'>anzeigen</a><br><br>";
-
-	echo "<u><b>Ticket</b></u><br>";
-	echo "Projekte <a href='admin.php?showproj=-1'>verwalten</a><br>";
-	echo "Kategorie <a href='admin.php?showcat=-1'>verwalten</a><br>";
-	echo "Betriebsystem <a href='admin.php?showos=-1'>verwalten</a><br>";   
-
-
+	echo "<u><b>User</b></u><br/>";
+	echo "User <a href='admin.php?showuser=-1'>verwalten</a><br/>";
+	echo "<br>";
+	echo "<u><b>Agent</b></u><br/>";
+	echo "Agent <a href='admin.php?startagent=all'>starten</a><br/>";
+	?>
+	<form method="get" action="admin.php">
+               
+                <label>Agent für IP:</label>
+                <select name="startagent">
+                <?php 
+				include_once 'db.inc.php';
+                
+				$sSQL="SELECT IP FROM SWITCHS_LIVE ORDER BY LIP";
+				$result=db_query($sSQL);
+				
+				while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
+				
+					echo "<option value='".$row['IP']."'>".$row['IP']."</option>";
+				
+				}
+				
+                /*
+                 * <option value="1">Helpdesk</option>
+                <option value="2">Netzwerk</option>
+                <option value="3">Admin</option>
+                 */
+                
+                
+                
+                
+                ?>
+                </select>
+                <input type="submit" value="starten" class="buttons"/> <br/>
+            </form><br>
+	
+	<?php 
 	}
 
 }else
@@ -113,377 +117,82 @@ include 'footer.html';
 //Funktion um Userliste anzuzeigen
 function showUsers()
 {
-include("./config/config.php");
-	$query="SELECT userid, username,email FROM tints_users ORDER BY username ASC;";
+include_once 'db.inc.php';
 
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
+	$sSQL="SELECT USRID, USRNAME, USRPWD, USRLVL FROM USRS ORDER BY USRNAME ASC";
 
-	  $result = mysql_query($query, $connection);
+	$result=db_query($sSQL);
 
-   if ($result) {
-
-//zuerst Tabellen header ausgeben
+  //zuerst Tabellen header ausgeben
 echo "<table>
-		<th style=\"background-color:#e3e3e3;\">UserID</th>
 		<th style=\"background-color:#e3e3e3;padding-left:5px;background-color:#e3e3e3;\">Benutzername</th>
-		<th style=\"background-color:#e3e3e3;\">Email</th>
-		<th style=\"background-color:#e3e3e3;\">Sperren</th>
+		<th style=\"background-color:#e3e3e3;padding-left:5px;background-color:#e3e3e3;\">Benutzerlevel</th>
+		<th style=\"background-color:#e3e3e3;\">Löschen</th>
 		";
 //so viele Tabellen Einträge ausgeben wie wir finden
-   	    while ($row = mysql_fetch_row($result)) {
-		$userid=$row[0];
-		$username=$row[1];
-		$email=$row[2];
-
+while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
+		$userid=$row['USRID'];
+		$username=$row['USRNAME'];
+		$usrlvl=$row['USRLVL'];
 echo "
 		<tr>
-		<td style=\"text-align:center;width:10px;\">$userid</td>
 		<td style=\"text-align:center;width:10px;\">$username</td>
-		<td style=\"text-align:center;width:10px;\">$email</td>
+		<td style=\"text-align:center;width:10px;\">$usrlvl</td>
 		<td style=\"text-align:center;width:10px;\"><a href='admin.php?deluser=$userid'>X</a></td>		
 		</tr>";
 		}	
 
-		}
+		
 echo "</table>";
 
 }
 
-//zeige Projekte an
-function showProjects()
-{
-include("./config/config.php");
-$query="SELECT projectid,projecttitle FROM tints_projects ORDER BY projecttitle ASC;";
 
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
 
-	  $result = mysql_query($query, $connection);
 
-   if ($result) {
-//zuerst Tabellen header ausgeben
-echo "<table>
-		<th style=\"background-color:#e3e3e3;padding-left:5px;background-color:#e3e3e3;\">Projektname</th>
-		<th style=\"background-color:#e3e3e3;\">L&ouml;schen</th>
-		";
-//so viele Tabellen Einträge ausgeben wie wir finden
-   	    while ($row = mysql_fetch_row($result)) {
-		$projectid=$row[0];
-		$projecttitle=$row[1];
-
-echo "
-		<tr>
-		<td style=\"text-align:center;width:10px;\">$projecttitle</td>
-		<td style=\"text-align:center;width:10px;\"><a href='admin.php?delproject=$projectid'>X</a></td>		
-		</tr>";
-		}	
-
-		}
-echo "</table>";
-}
-
-//Zeige alle Kategorien
-function showCat()
-{
-include("./config/config.php");
-$query="SELECT catid, cattitle FROM tints_categories ORDER BY cattitle ASC;";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-
-	  $result = mysql_query($query, $connection);
-
-   if ($result) {
-//zuerst Tabellen header ausgeben
-echo "<table>
-		<th style=\"background-color:#e3e3e3;padding-left:5px;background-color:#e3e3e3;\">Kategoriename</th>
-		<th style=\"background-color:#e3e3e3;\">L&ouml;schen</th>
-		";
-//so viele Tabellen Einträge ausgeben wie wir finden
-   	    while ($row = mysql_fetch_row($result)) {
-		$catid=$row[0];
-		$cattitle=$row[1];
-
-echo "
-		<tr>
-		<td style=\"text-align:center;width:10px;\">$cattitle</td>
-		<td style=\"text-align:center;width:10px;\"><a href='admin.php?delcat=$catid'>X</a></td>		
-		</tr>";
-		}	
-
-		}
-echo "</table>";
-}
-
-//zeige alle Betriebsysteme inkl Version an
-function showOS()
-{
-include("./config/config.php");
-$query="SELECT osid, title,version FROM tints_os ORDER BY title ASC,version DESC;";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-
-	  $result = mysql_query($query, $connection);
-
-   if ($result) {
-//zuerst Tabellen header ausgeben
-echo "<table>
-		<th style=\"background-color:#e3e3e3;padding-left:5px;background-color:#e3e3e3;\">Betriebsystemname</th>
-		<th style=\"background-color:#e3e3e3;\">Betriebsystemversion</th>
-		<th style=\"background-color:#e3e3e3;\">L&ouml;schen</th>
-		";
-//so viele Tabellen Einträge ausgeben wie wir finden
-   	    while ($row = mysql_fetch_row($result)) {
-		$osid=$row[0];
-		$ostitle=$row[1];
-		$osversion=$row[2];
-
-echo "
-		<tr>
-		<td style=\"text-align:center;width:10px;\">$ostitle</td>
-		<td style=\"text-align:center;width:10px;\">$osversion</td>
-		<td style=\"text-align:center;width:10px;\"><a href='admin.php?delos=$osid'>X</a></td>		
-		</tr>";
-		}	
-
-		}
-echo "</table>";
-}
 
 //Formular anzeigen für Projekt hinzufügen
-function showProjectadd()
+function showUseradd()
 {
 ?>
-            <form method="post" action="admin.php?action=addproject">
+            <form method="post" action="admin.php?action=addusr">
                
-                <label><b>Projektname:</b></label> <input class="text" type="text" maxlength="20" size="20" name="projectname" />
-            	<br>
-                <input type="submit" value="Erstellen" class="buttons"/> <br>
+                <label><b>Benutzername:</b></label> <input class="text" type="text" maxlength="255" size="20" name="usrname" /><br/>
+                <label><b>Passwort:</b></label> <input class="text" type="password" maxlength="255" size="20" name="usrpwd" /><br/>
+                <label><b>Passwort wdh.:</b></label> <input class="text" type="password" maxlength="255" size="20" name="usrpwd2" /><br/>
+                <label><b>Level:</b></label> <select name="usrlvl">
+                <option value="1">Helpdesk</option>
+                <option value="2">Netzwerk</option>
+                <option value="3">Admin</option>
+                </select><br/>
+                <input type="submit" value="Hinzufügen" class="buttons"/> <br/>
             </form><br>
 <?php
 }
 
-//Formular anzeigen für Kategorie hinzufügen
-function showCatadd()
-{
-?>
-            <form method="post" action="admin.php?action=addcat">
-               
-                <label><b>Kategoriename:</b></label> <input class="text" type="text" maxlength="20" size="20" name="catname" />
-            	<br>
-                <input type="submit" value="Erstellen" class="buttons"/> <br>
-            </form><br>
-<?php
-}
-
-//Formular anzeigen für Betriebsystem hinzufügen
-function showOSadd()
-{
-?>
-            <form method="post" action="admin.php?action=addos">
-               
-                <label><b>Betriebsystemname:</b></label> <input class="text" type="text" maxlength="20" size="20" name="osname" />
-                <label><b>Betriebsystemversion:</b></label> <input class="text" type="text" maxlength="20" size="20" name="osversion" />
-            	<br>
-                <input type="submit" value="Erstellen" class="buttons"/> <br>
-            </form><br>
-<?php
-}
 
 //Funktion um user zu löschen
 //Parameter: Userid
 function delUser($userid)
 {
-include("./config/config.php");
-$query="UPDATE ".$config['dbPrefix']."_users SET nickname='Deaktivierter User', passwd='".sha1(time())."', imgurl='', userlevel='-1', timezone_utc='', language='' WHERE userid='$userid';";
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
+include_once 'db.inc.php';
+$sSQL="DELETE FROM USRS WHERE USRID='$userid'";
+$result=db_query($sSQL);
 }
 
-
-//Funktion um Projekt zu löschen
-//Parameter: Projektid
-//Hinweis: Es wird rekursiv gelöscht
-function delProject($projectid)
+//Funktion um User hinzuzufügen
+function addUser($usrname,$usrpwd,$usrlvl)
 {
-include("./config/config.php");
-$query="DELETE FROM tints_comment WHERE tickedid=(SELECT ticketid FROM tints_tickets WHERE projectid=".$projectid.");";
+include_once 'db.inc.php';
 
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
+$usrid="";	
+$usrid=sha1(time());
 
+$usrpwd=sha1($usrpwd);
 
-$query="DELETE FROM tints_tickets WHERE projectid=".$projectid.";";
+$sSQL="INSERT INTO USRS (USRID,USRNAME,USRPWD,USRLVL) VALUES ('$usrid','".$usrname."','".$usrpwd."','".$usrlvl."')";
 
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
-
-
-$query="DELETE FROM tints_projects WHERE projectid=".$projectid.";";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
-}
-
-
-//Funktion um Kategorie zu löschen
-//Parameter: Kategorieid
-//Hinweis: Es wird rekursiv gelöscht
-function delCat($catid)
-{
-include("./config/config.php");
-$query="DELETE FROM tints_comment WHERE tickedid=(SELECT ticketid FROM tints_tickets WHERE catid=".$catid.");";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
-
-
-$query="DELETE FROM tints_tickets WHERE catid=".$catid.";";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
-
-
-$query="DELETE FROM tints_categories WHERE catid=".$catid.";";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
-}
-
-//Funktion um Betriebsystem zu löschen
-//Parameter: Betriebsystemid
-//Hinweis: Es wird rekursiv gelöscht
-function delOS($osid)
-{
-include("./config/config.php");
-$query="DELETE FROM tints_comment WHERE tickedid=(SELECT ticketid FROM tints_tickets WHERE osid=".$osid.");";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
-
-
-$query="DELETE FROM tints_tickets WHERE osid=".$osid.";";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
-
-
-$query="DELETE FROM tints_os WHERE osid=".$osid.";";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
-}
-
-
-//Funktion um Projekt hinzuzufügen
-function addProject($projectname)
-{
-include("./config/config.php");
-$query="INSERT INTO tints_projects (projecttitle) VALUES ('$projectname');";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
-
-}
-
-//Funktion um Kategorie hinzuzufügen
-function addCat($catname)
-{
-include("./config/config.php");
-$query="INSERT INTO tints_categories (cattitle) VALUES ('$catname');";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
-
-}
-
-//Funktion um Betriebsystem hinzuzufügen
-function addOS($osname,$osversion)
-{
-include("./config/config.php");
-$query="INSERT INTO tints_os (title,version) VALUES ('$osname','$osversion');";
-
- $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-	  $result = mysql_query($query, $connection);
-	 mysql_close($connection);
+$result=db_query($sSQL);
 
 }
 

@@ -1,6 +1,11 @@
 <?php
+
+session_start(); 
+
 include_once("db.inc.php");
 include_once("snmptrack_functions.php");
+
+if($_SESSION['userlevel']>=2){
 
 if(strpos($_SERVER['REQUEST_URI'],'?')!==true){
 $REQURI="duplic.php?p=";
@@ -54,8 +59,13 @@ $puffer=$puffer."</table>\n";
 
 $row_counter=oci_num_rows($result);
 
-$additional=40*$row_counter;
+$additional=45*$row_counter;
 $pagewidth=1400;
+
+}else{
+	$puffer=$puffer."<div id=\"content\" style=\"height: auto\">";
+	$puffer=$puffer."Keine Rechte";
+}
 
 include("header.php");
 include("loginbox.php");

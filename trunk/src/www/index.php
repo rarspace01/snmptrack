@@ -1,5 +1,6 @@
 <?php 
 session_start(); 
+
 include_once("db.inc.php");
 include("header.php"); //Header einbinden
 include("loginbox.php"); //Loginbox
