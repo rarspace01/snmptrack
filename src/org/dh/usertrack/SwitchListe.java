@@ -19,7 +19,7 @@ public class SwitchListe {
 	
 		//Load Switchs from any src
 	
-		File file = new File("switchs.xml");
+		File file = new File(HelperClass.sWorkpath+"switchs.xml");
 		
 		if(file.exists())
 		{
