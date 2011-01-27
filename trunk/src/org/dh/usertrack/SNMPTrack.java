@@ -87,6 +87,23 @@ public class SNMPTrack {
 		
 		HelperClass.msgLog("Switchs zu Auslesen: "+swList.size());
 		
+		//if args Switch was set remove all who dont match:
+		if(HelperClass.sWorkIP.length()>1){
+			while(swList.size()>1){
+				
+				if(!swList.get(0).getsIP().contains(HelperClass.sWorkIP)){
+					swList.remove(0);
+				}else if(swList.size()>1){
+					swList.remove(1);
+				}
+				
+			}
+			if(!swList.get(0).getsIP().contains(HelperClass.sWorkIP)){
+				swList.remove(0);	
+			}
+		}
+		//
+		
 		if(SNMPConfig.getRouters().size()>0){
 		HelperClass.msgLog("Lade VLAN Liste");
 		
@@ -174,11 +191,20 @@ public class SNMPTrack {
 		if(args[i].contains("-v")){
 			System.out.println("Verbose Mode");
 			HelperClass.isVerbose=true;
-		}
-			
-		if(args[i].contains("-help")){
+		}else if(args[i].contains("-help")){
 			System.out.println("use -v for Verbose mode");
 			System.exit(0);
+		}else if(HexToDec.validateIPAddress(args[i])) {
+			System.out.println("Scan only on Switch: ["+args[i]+"]");
+			HelperClass.sWorkIP=args[i];
+		}else if(args[i].length()>0) {
+			System.out.println("Working dir: ["+args[i]+"]");
+			HelperClass.sWorkpath=args[i];
+			//check if last char is a "/"
+			if(HelperClass.sWorkpath.charAt(HelperClass.sWorkpath.length()-1)!='/'){
+				HelperClass.sWorkpath+="/";
+			}
+			
 		}
 		
 		
