@@ -175,4 +175,25 @@ public class HexToDec{
                ( i & 0xFF);
     } 
 	
+	public final static boolean validateIPAddress( String  ipAddress )
+	{
+	    String[] parts = ipAddress.split( "\\." );
+
+	    if ( parts.length != 3 )
+	    {
+	        return false;
+	    }
+
+	    for ( String s : parts )
+	    {
+	        int i = Integer.parseInt( s );
+
+	        if ( (i < 0) || (i > 255) )
+	        {
+	            return false;
+	        }
+	    }
+
+	    return true;
+	}
 }
