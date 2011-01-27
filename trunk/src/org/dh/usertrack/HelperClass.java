@@ -64,7 +64,7 @@ public class HelperClass {
             System.out.println(printClock()+sLog);
             BufferedWriter out;
             try {
-                    out = new BufferedWriter(new FileWriter("usertrack.log", true));
+                    out = new BufferedWriter(new FileWriter(HelperClass.sWorkpath+"usertrack.log", true));
                     out.write(printClock()+sLog+"\r\n");
                     out.close();
             } catch (IOException e) {
@@ -79,7 +79,7 @@ public class HelperClass {
             System.out.println(printClock()+sLog);
             BufferedWriter out;
             try {
-                    out = new BufferedWriter(new FileWriter(sFilename, true));
+                    out = new BufferedWriter(new FileWriter(HelperClass.sWorkpath+sFilename, true));
                     out.write(printClock()+sLog+"\r\n");
                     out.close();
             } catch (IOException e) {
