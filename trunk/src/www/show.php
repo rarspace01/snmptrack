@@ -15,7 +15,7 @@ $orderstring=" ORDER BY \"".getSortname($_GET['sort'])."\" ".getSortorder($_GET[
 $orderstring=" ORDER BY H.\"hostname\" ASC";	
 }		
 	
-$sSQL="SELECT H.\"PortMAC\", H.CDPID,H.CDPIP,H.CDPPORT,H.CDPTYP, H.MAC,H.\"Duplex\" AS \"HDuplex\", H.\"stamptime\" , H.IP, H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"name\", P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P WHERE H.\"PortMAC\"=P.MAC AND \"PortMAC\" LIKE '%".$_GET[pmac]."%' AND H.MAC='".$_GET[hmac]."'".$orderstring;
+$sSQL="SELECT H.\"PortMAC\",  S.\"alias\" AS salias, H.CDPID,H.CDPIP,H.CDPPORT,H.CDPTYP, H.MAC,H.\"Duplex\" AS \"HDuplex\", H.\"stamptime\" , H.IP, H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"name\", P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P, USRTRACK.SWITCHS_LIVE S  WHERE S.IP=P.\"SwitchIP\" AND H.\"PortMAC\"=P.MAC AND \"PortMAC\" LIKE '%".$_GET[pmac]."%' AND H.MAC='".$_GET[hmac]."'".$orderstring;
 	
 $result=db_query($sSQL);
 
@@ -36,6 +36,7 @@ echo "
 <th>PMAC <a href='".$_SERVER['REQUEST_URI']."&sort=PortMAC_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=PortMAC_D'>▼</a></th>
 <th>Port <a href='".$_SERVER['REQUEST_URI']."&sort=PortID_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=PortID_D'>▼</a></th>
 <th>SwitchIP <a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_D'>▼</a></th>
+<th>SwitchAlias <a href='".$_SERVER['REQUEST_URI']."&sort=SALIAS_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=SALIAS_D'>▼</a></th>
 <th>IP <a href='".$_SERVER['REQUEST_URI']."&sort=LIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=LIP_D'>▼</a></th>
 <th>DNS <a href='".$_SERVER['REQUEST_URI']."&sort=hostname_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=hostname_D'>▼</a></th>
 <th>[MBit/s] <a href='".$_SERVER['REQUEST_URI']."&sort=Speed_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Speed_D'>▼</a></th>
@@ -59,6 +60,7 @@ while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 	echo "<td><a href='show.php?pmac=".$row['PortMAC']."'>".$row['PortMAC']."</a></td>";
 	echo "<td>".$row['name']."</td>";
 	echo "<td><a href='show.php?sip=".$row['SwitchIP']."'>".$row['SwitchIP']."</a></td>";
+	echo "<td>".$row['SALIAS']."</td>";
 	echo "<td>".$row['IP']."</td>";
 	echo "<td>".$row['hostname']."</td>";
 	echo "<td>".$row['Speed']."</td>";
@@ -87,10 +89,12 @@ $orderstring=" ORDER BY H.\"hostname\" ASC";
 }	
 	
 if(strlen($_GET[q])>0){
-$sSQL="SELECT H.\"PortMAC\", H.MAC, H.IP, H.\"stamptime\", H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"name\", P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P WHERE H.\"PortMAC\"=P.MAC AND (H.\"IP\" LIKE '%".$_GET[q]."' OR LOWER(H.MAC) LIKE LOWER('%".$_GET[q]."%') OR LOWER(H.\"PortMAC\") LIKE LOWER('%".$_GET[q]."%') OR P.\"SwitchIP\" LIKE LOWER('".$_GET[q]."') OR LOWER(H.\"hostname\") LIKE LOWER('%".$_GET[q]."%') OR LOWER(H.\"lastuser\") LIKE LOWER('%".$_GET[q]."%'))".$orderstring;
+$sSQL="SELECT H.\"PortMAC\", S.\"alias\" AS salias, H.MAC, H.IP, H.\"stamptime\", H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"name\", P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P, USRTRACK.SWITCHS_LIVE S WHERE S.IP=P.\"SwitchIP\" AND H.\"PortMAC\"=P.MAC AND (H.\"IP\" LIKE '%".$_GET[q]."' OR LOWER(H.MAC) LIKE LOWER('%".$_GET[q]."%') OR LOWER(H.\"PortMAC\") LIKE LOWER('%".$_GET[q]."%') OR P.\"SwitchIP\" LIKE LOWER('".$_GET[q]."') OR LOWER(H.\"hostname\") LIKE LOWER('%".$_GET[q]."%') OR LOWER(H.\"lastuser\") LIKE LOWER('%".$_GET[q]."%'))".$orderstring;
 }else{
-$sSQL="SELECT H.\"PortMAC\", H.MAC, H.IP, H.\"stamptime\", H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"name\", P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P WHERE H.\"PortMAC\"=P.MAC AND \"PortMAC\"='".$_GET[pmac]."'".$orderstring;
+$sSQL="SELECT H.\"PortMAC\", S.\"alias\" AS salias, H.MAC, H.IP, H.\"stamptime\", H.\"hostname\", H.\"Speed\", H.\"lastuser\", H.VHOST, P.\"name\", P.\"SwitchIP\" FROM USRTRACK.HOSTS_LIVE H, USRTRACK.PORTS_LIVE P, USRTRACK.SWITCHS_LIVE S WHERE S.IP=P.\"SwitchIP\" AND H.\"PortMAC\"=P.MAC AND \"PortMAC\"='".$_GET[pmac]."'".$orderstring;
 }
+
+//echo $sSQL;
 
 $result=db_query($sSQL);
 
@@ -106,6 +110,7 @@ $puffer=$puffer."
 <th>PMAC <a href='".$_SERVER['REQUEST_URI']."&sort=PortMAC_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=PortMAC_D'>▼</a></th>
 <th>Port <a href='".$_SERVER['REQUEST_URI']."&sort=PortID_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=PortID_D'>▼</a></th>
 <th>SwitchIP <a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=SwitchIP_D'>▼</a></th>
+<th>SwitchAlias <a href='".$_SERVER['REQUEST_URI']."&sort=SALIAS_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=SALIAS_D'>▼</a></th>
 <th>IP <a href='".$_SERVER['REQUEST_URI']."&sort=LIP_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=LIP_D'>▼</a></th>
 <th>DNS <a href='".$_SERVER['REQUEST_URI']."&sort=hostname_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=hostname_D'>▼</a></th>
 <th>[MBit/s] <a href='".$_SERVER['REQUEST_URI']."&sort=Speed_A'>▲</a><a href='".$_SERVER['REQUEST_URI']."&sort=Speed_D'>▼</a></th>
@@ -123,6 +128,7 @@ while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
 	$puffer=$puffer."<td><a href='show.php?pmac=".$row['PortMAC']."'>".$row['PortMAC']."</a></td>";
 	$puffer=$puffer."<td>".$row['name']."</td>";
 	$puffer=$puffer."<td><a href='show.php?sip=".$row['SwitchIP']."'>".$row['SwitchIP']."</a></td>";
+	$puffer=$puffer."<td>".$row['SALIAS']."</td>";
 	$puffer=$puffer."<td>".$row['IP']."</td>";
 	$puffer=$puffer."<td>".$row['hostname']."</td>";
 	$puffer=$puffer."<td>".$row['Speed']."</td>";
@@ -152,7 +158,7 @@ include("loginbox.php");
 echo $puffer;
 
 
-}else if(strlen($_GET[sip])>0){
+}else if(strlen($_GET[sip])>0&&$_SESSION['userlevel']>=2){
 
 	
 if(strlen($_GET['sort'])>0){

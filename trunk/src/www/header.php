@@ -65,12 +65,12 @@ if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){
 		
 
         <div id="menucontainer">
-			<a  href="index.php" class="neuesticket" onmouseover="Tip('Legen Sie ein neues Ticket an. Hierfür müssen sie eingeloggt sein.');" onmouseout="tt_Hide();"  > &Uuml;bersicht </a> 
-					<a href="duplic.php" class="neuesprofil" onmouseover="Tip('Ändern Sie Ihre Profileigenschaften. Hierfür müssen sie eingeloggt sein.');" onmouseout="tt_Hide();"> Duplikate</a>	
+			<a  href="index.php" class="neuesticket" onmouseover="Tip('Legen Sie ein neues Ticket an. HierfÃ¼r mÃ¼ssen sie eingeloggt sein.');" onmouseout="tt_Hide();"  > &Uuml;bersicht </a> 
+					<a href="duplic.php" class="neuesprofil" onmouseover="Tip('Ã„ndern Sie Ihre Profileigenschaften. HierfÃ¼r mÃ¼ssen sie eingeloggt sein.');" onmouseout="tt_Hide();"> Duplikate</a>	
 
 <a  href="index.php" class="news" onmouseover="Tip('Alle Switchs auf einen Blick.');" onmouseout="tt_Hide();"> Statistik</a>
 
-					<a  href="help.php"class="hilfe" onmouseover="Tip('Dokumentation für Tints');" onmouseout="tt_Hide();"> Hilfe</a>
+					<a  href="help.php"class="hilfe" onmouseover="Tip('Dokumentation fÃ¼r Tints');" onmouseout="tt_Hide();"> Hilfe</a>
 
 
 					<img class="suchbild" src="images/navi/Searchbar.png" alt="Menupic">
@@ -85,7 +85,7 @@ if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){
 							 ?>">
 							 	
 							 	<?php 
-							 	if(!strlen($_GET['q'])>0){
+							 	if(!strlen($_GET['q'])>0&&strpos($_SERVER['PHP_SELF'],"login.php")===false){
 							 		
 							 	
 							 	?>
@@ -97,7 +97,24 @@ if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){
 								   window.onload = formfocus;
 								</script>
 							 
-							 	<?php }?>
+							 	<?php 
+							 	
+							 	}else if(!strpos($_SERVER['PHP_SELF'],"login.php")===false){
+							 		
+							 									 	?>
+							 	
+							 	<script type="text/javascript">
+								   function formfocus() {
+								      document.getElementById('idusername').focus();
+								   }
+								   window.onload = formfocus;
+								</script>
+							 
+							 	<?php
+							 		
+							 	}
+							 	
+							 	?>
 							 
 								<input id="suchfeld" type="text" onfocus="this.value=''" onblur="checkInputBlur(this)" maxlength="30" name="q" id="suche" value="<?php 
 								
@@ -125,7 +142,7 @@ if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){
 <script type="text/javascript" >
 function checkInputBlur(obj)
 {
-  if (obj.value=="") // Keine Änderung am Inhalt? Dann setze wieder Standardtext.
+  if (obj.value=="") // Keine Ã„nderung am Inhalt? Dann setze wieder Standardtext.
     obj.value = "Suche...";
 }
 
