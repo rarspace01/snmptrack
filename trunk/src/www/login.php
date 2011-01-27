@@ -21,7 +21,7 @@ handleLogin();
             <form id="loginst" method="post" action="<?php echo $selfurlsave; ?>">
                
 	
-                <label><b>Benutzername:</b></label> <input class="text" type="text" maxlength="20" size="20" name="username" />
+                <label><b>Benutzername:</b></label> <input id="idusername" class="text" type="text" maxlength="20" size="20" name="username" />
                 <label><b>Passwort:</b></label> <input class="text" type="password" maxlength="20" size="20" name="password" />
   
             	<br>
