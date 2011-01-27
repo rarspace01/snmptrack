@@ -69,7 +69,7 @@ public class HelperClass {
                     out.close();
             } catch (IOException e) {
                     e.printStackTrace();
-                    err(e);
+                    System.exit(1);
             }
     }
     
@@ -84,7 +84,7 @@ public class HelperClass {
                     out.close();
             } catch (IOException e) {
                     e.printStackTrace();
-                    err(e);
+                    System.exit(1);
             }
     }
 
