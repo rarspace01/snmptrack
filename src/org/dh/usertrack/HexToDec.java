@@ -179,8 +179,9 @@ public class HexToDec{
 	{
 	    String[] parts = ipAddress.split( "\\." );
 
-	    if ( parts.length != 3 )
+	    if ( parts.length != 4 )
 	    {
+	    	//System.out.println("WRONG LENGTH:"+parts.length);
 	        return false;
 	    }
 
@@ -190,6 +191,7 @@ public class HexToDec{
 
 	        if ( (i < 0) || (i > 255) )
 	        {
+	        	//System.out.println("WRONG INT: "+i);
 	            return false;
 	        }
 	    }
