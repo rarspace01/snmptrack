@@ -41,7 +41,7 @@ if($_SESSION['userlevel']==3)//Prüfe ob User == Admin
 	echo "User wurde erstellt.<br/>";
 	addUser($_POST['usrname'],$_POST['usrpwd'],$_POST['usrlvl']);
 	}else{
-	echo "Passwort stimmt nciht überein<br/>";	
+	echo "Passwort stimmt nicht überein<br/>";	
 	}
 	
 	}
