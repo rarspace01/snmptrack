@@ -13,6 +13,8 @@ import java.util.Calendar;
 public class HelperClass {
 	
 	public static boolean isVerbose=false;
+	public static String sWorkpath="";
+	public static String sWorkIP="";;
 
 	public static int getCPUCount(){
 		
