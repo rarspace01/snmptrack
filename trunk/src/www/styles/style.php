@@ -424,9 +424,7 @@ h2 {
 
 /*   Textfelder und Labels in profil.php   */
 #profilcontent {
-    position: absolute;
-    top: 220px;    
-    padding-top: 1px;    
+    position: absolute;      
     height: 250px;
     font-family: verdana, arial, helvetica, geneva, sans-serif;
     width:460px;
