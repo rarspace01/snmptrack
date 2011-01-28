@@ -66,9 +66,9 @@ if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){
 
         <div id="menucontainer">
 			<a  href="index.php" class="neuesticket" onmouseover="Tip('Legen Sie ein neues Ticket an. HierfÃ¼r mÃ¼ssen sie eingeloggt sein.');" onmouseout="tt_Hide();"  > &Uuml;bersicht </a> 
-					<a href="duplic.php" class="neuesprofil" onmouseover="Tip('Ã„ndern Sie Ihre Profileigenschaften. HierfÃ¼r mÃ¼ssen sie eingeloggt sein.');" onmouseout="tt_Hide();"> Duplikate</a>	
+					<a  href="duplic.php" class="news" onmouseover="Tip('Alle Duplikate auf einen Blick.');" onmouseout="tt_Hide();"> Duplikate</a>
+					<a href="profil.php" class="neuesprofil" onmouseover="Tip('Ã„ndern Sie Ihre Profileigenschaften. HierfÃ¼r mÃ¼ssen sie eingeloggt sein.');" onmouseout="tt_Hide();">Profil</a>	
 
-<a  href="index.php" class="news" onmouseover="Tip('Alle Switchs auf einen Blick.');" onmouseout="tt_Hide();"> Statistik</a>
 
 					<a  href="help.php"class="hilfe" onmouseover="Tip('Dokumentation fÃ¼r Tints');" onmouseout="tt_Hide();"> Hilfe</a>
 
@@ -85,7 +85,7 @@ if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){
 							 ?>">
 							 	
 							 	<?php 
-							 	if(!strlen($_GET['q'])>0&&strpos($_SERVER['PHP_SELF'],"login.php")===false){
+							 	if(strpos($_SERVER['PHP_SELF'],"login.php")===false){
 							 		
 							 	
 							 	?>
@@ -116,12 +116,10 @@ if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){
 							 	
 							 	?>
 							 
-								<input id="suchfeld" type="text" onfocus="this.value=''" onblur="checkInputBlur(this)" maxlength="30" name="q" id="suche" value="<?php 
+								<input id="suchfeld" type="text" maxlength="30" name="q" id="suche" value="<?php 
 								
 								if(strlen($_GET['q'])>0){
 									echo $_GET['q'];
-								}else{
-									echo "Suche...";
 								}
 								
 								?>">
@@ -130,7 +128,12 @@ if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){
 								if(strpos($_SERVER['PHP_SELF'],"show.php")===false){	
 									echo "?";							
 								}else{
-								echo $_GET['pmac'];	
+									
+									if(isset($_GET['pmac'])){	
+									echo $_GET['pmac'];	
+									}else{
+									echo "?";	
+									}									
 								}
 								?>">
 								<input id="hmac" name="hmac" type="hidden" value="<?php echo $_GET['hmac']; ?>">
@@ -140,10 +143,5 @@ if(!strpos($_SERVER['PHP_SELF'],"index.php")===false){
 				</div>
 				
 <script type="text/javascript" >
-function checkInputBlur(obj)
-{
-  if (obj.value=="") // Keine Ã„nderung am Inhalt? Dann setze wieder Standardtext.
-    obj.value = "Suche...";
-}
 
 </script>

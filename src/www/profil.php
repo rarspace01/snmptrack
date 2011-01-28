@@ -1,18 +1,30 @@
-<?php session_start(); 
-include_once("./config/config.php"); //wird für die abfrage benötigt
+<?php
+session_start(); 
 
-if(strlen($_GET['delself'])>0) //wenn der user konto-kündigne aufgerufen hat
-{
-delUser($_SESSION['id']); //lösche user
-echo ("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=profil.php?logout=true\">"); //logge den user aus
-}
+include_once("db.inc.php");
+include_once("snmptrack_functions.php");
 
-	$nickname = $_POST['nickname'];
+
+
 	$passwd = $_POST['password'];
-	$email = $_POST['email'];
-	$img_url= $_POST['img_url'];
-	$timezone_utc = $_POST['timezone_utc'];
-	$user_language= $_POST['user_language'];
+	$passwd2 = $_POST['password2'];
+
+//check if pwd change
+if(isset($passwd)&&strlen($passwd)>0){
+	
+	if($passwd==$passwd2){
+		
+	//update in DB
+	
+		$sSQL="UPDATE USRS SET USRPWD='".sha1($passwd)."' WHERE USRID='".$_SESSION['id']."'";
+		$result=db_query($sSQL);
+		echo "Ihr Passwort wurde geändert";
+	}else{
+		echo "Passwörter stimmen nicht überein.";
+	}
+	
+}
+	
 
 	
 //Header+Loginbox
@@ -30,89 +42,33 @@ if(strlen($email)>0) //wenn aktualisieren geklickt wurde, zeige an, dass aktuali
 	echo "Ihr Profil wurde aktualisiert";
 	}           
            
+	$sSQL="SELECT USRID, USRNAME FROM USRS WHERE USRID='".$_SESSION['id']."'";
 
-	  $connection = mysql_connect($config['dbHost'], $config['dbUser'], $config['dbPassword']);
-	  if (!$connection) {
-	    die("Fehler! " . mysql_error());
-      }
-	  mysql_select_db($config['dbDatabase'], $connection);
-
-	$query="SELECT nickname, passwd, email, imgurl,timezone_utc,language FROM ".$config['dbPrefix']."_users WHERE userid ='".$_SESSION['id']."'";
-
-	  $result = mysql_query($query, $connection);
-
+$result=db_query($sSQL);
 						
       if ($result) {
-   	    while ($row = mysql_fetch_row($result)) { //lese die Werte aus der Datenbank aus
-		  $profil_name = $row[0];
-		  $profil_email = $row[2];
-		$imgurl = $row[3];
-		$timezone_utc=$row[4];
-		$user_language=$row[5];
+   	    while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)){ //lese die Werte aus der Datenbank aus
+		  $profil_name = $row['USRNAME'];
+       	  $profil_id = $row['USRID'];
+		  
 echo "<form id=\"formularprofil\" action=\"profil.php\" name=\"form1\" method=\"post\" \">";
 ?>
-                <div id="imgprofil">
-                <div id="avatar">
-                    <?php if(strlen($imgurl)>0){ echo "<img height='128' src='$imgurl'><br><br><br><br><br><br>"; } //Wenn ein Bild gesetzt ist, zeige es an
-?>
-                </div>
-              </div>
-
                 <div id="profilcontent">
-
-
 <?php
-echo "Externe Bild-URL:<input type=\"text\" name=\"img_url\" size=\"50\" maxlength=\"2083\" value=\"$imgurl\"class=\"textfeld\" /> <br><br><br>";
-echo "<label>Anzeigename: <input type=\"text\" name=\"nickname\" id=\"nickname\" value=\"$profil_name\" class=\"textfeld\"></label><br><br>";
+echo "Benutzer: ".$profil_name;
+echo "<br/><br/>";
+echo "Passwort ändern:<br/><br/>";
 echo "<label>Passwort: <input type=\"password\" name=\"password\" id=\"password\" value=\"\" class=\"textfeld\"></label><br><br>";
-echo "<label>E-Mail: <input type=\"text\" name=\"email\" id=\"email\" value=\"$profil_email\" class=\"textfeld\"></label><br><br>";
-//Zeitzone Dropdown, wir erzeugen von -12 bis +12 eine Dropdownmenü und selktierne eins vorab, sofern in der Datenbank ein wert hinterlegt war
-echo "<label>Zeitzone: <select name=\"timezone_utc\" size=\"1\" class=\"dropdownfelder\" ><br>";
-for( $i=-12;$i<=12;$i++)
-{
-	echo "<option value=\"$i\"";
-	if($i==1&&$timezone_utc>-13)
-	{
-	echo " selected";
-	}
-	if($timezone_utc==$i)
-	{
-	echo " selected";
-	}
-	echo ">$i</option>"; 
-}
- 	echo "</select>	</label><br><br>";
-//Sprache, wie bei timezone wird auch hier der Wert aus der Datenbank vorselektiert sofern vorhanden
-	echo "<label>Sprache: <select name=\"user_language\" size=\"1\" class=\"dropdownfelder\" ><br>";
-	echo "<option value=\"0\"";
-	if($user_language==0)
-	echo " selected";
-	echo ">Deutsch</option>"; 
- 	echo "<option value=\"1\""; 
-	if($user_language==1)
-	echo " selected";	
-	echo ">Englisch</option>"; 
-	echo "<option value=\"2\""; 
-	if($user_language==2)
-	echo " selected";	
-	echo ">Spanisch</option>"; 
-	echo "<option value=\"3\""; 
-	if($user_language==3)
-	echo " selected";	
-	echo ">Franz&ouml;sisch</option>"; 
- 	echo "</select>	</label><br><br>";
-		}
-	  }
+echo "<label>Passwort Wdh.: <input type=\"password\" name=\"password2\" id=\"password2\" value=\"\" class=\"textfeld\"></label><br><br>";
+   	    }
 
 
-			 
+      }	 
  
 	 
 	  
-	  mysql_close($connection);  
 echo "<input type=\"submit\" class=\"buttons\"value=\"Aktualisieren\"  />"; 
 
-echo "<a class=\"linksprofil\"  href=\"profil.php?delself=true\" onClick=\"return check();\" onmouseover=\"Tip('Achtung! Ihr Benutzerkonto wird komplett gel&ouml;scht und ist nicht wiederherstellbar!');\" onmouseout=\"tt_Hide();\" >Benutzerkonto k&uuml;ndigen</a>";
 echo "</div>";
 echo "</form>";
 
