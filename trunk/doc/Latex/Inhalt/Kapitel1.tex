@@ -109,11 +109,10 @@ ob diese die Eigenschaften von Normalform 2 erfüllt.
 Um eine Normalform zu erfüllen, müssen auch alle vorhergehenden Normalformen erfüllt sein, dass heißt erfüllt eine Tabelle die Normalform 3, so erfüllt sie auch die Normalform 1 und 2.
 
 
-\section{DBMS}
+\section{Datenbankmanagementsysteme}
 \label{sec:dbms}
 
-
-Ein Datenbankmanagementsystem organisiert die Speicherung der Daten einer Datenbank und legt die Anordnung der Daten fest.
+Ein Datenbankmanagementsystem (DBMS) organisiert die Speicherung der Daten einer Datenbank und legt die Anordnung der Daten fest.
 Das DBMS legt auch die Art der Beziehung fest, in der die Daten der Datenbank stehen (relational, objektorientiert).
 Zur Kommunikation mit diesem wird eine Sprache benötigt. In diesem Zusammenhang wird die deskriptive Sprache SQL verwendet.\footnote{vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 382}
 
@@ -224,13 +223,12 @@ Diese wird meist in verschiedenen Programmiersprachen angeboten, unter Anderem C
 Die native Methode besitzt den Vorteil, dass sie das Nutzen aller Funktionen der Datenbank ermöglichen, wohingegen dafür keine einheitlichen Design Patterns existieren, was die Verwendungen von mehreren
 verschiedenen DBMS erschwert.
 
-Aufgrund dessen hat sich in der Vergangenheit unter Windows das sogenannte ODBC etabliert, welches es ermöglicht ohne Modifizierung des Quellcodes, allein mit der Anpassung des DSN das DBMS zu wechseln.
-Somit braucht der Entwickler sich nicht mehr mit Syntaxabweichungen zu beschäftigen, da er die ODBC Schnittstelle ANSI SQL konform ansprechen kann.
-Neben dem ODBC gibt es auch ein JDBC System exklusiv für Java. Zwar kann Java auch ODBC über die JDBC Schnittstelle nutzen, aber laut Sun \footnote{Vgl. Sun: JDBC-ODBC Bridge Driver, http://java.sun.com/j2se/1.3/docs/guide/jdbc/getstart/bridge.doc.html} soll die nur im experimentellen Gebrauch stattfinden.
-Da der Einsatz eines nativen JDBC Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind.
-
+Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht ohne Veränderung des Quellcodes das Datenbanksystem zu wechsel.
+Hierzu muss lediglich der ODBC-Eintrag angepasst werden. Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom vewendeten DBMS.
+Neben der ODBC-Schnittstelle gibt es auch das JDBC System bei Java. Zwar kann Java auch die ODBC-Schnittstelle über eine Treiber-Brücke nutzen, aber laut Oracle \footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html} soll dies nur im experimentellen Gebrauch stattfinden.
+Da der Einsatz eines nativen JDBC Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind, ist die Verwendeung des nativen Treibers vorzuziehen.
 Zusätzlich gibt es noch ADO von Microsoft, welches auch als Schnittstelle für Webserver mit IIS bzw. ASP dient.
-Diese ähnelt in der Logik JDBC, da ebenfalls ein ODBC-Treiber angesteuert werden kann.
+Diese ähnelt in der Verwendung JDBC, da ebenfalls ein ODBC-Treiber angesteuert werden kann.
 Der Verbindungsaufbau ist ähnlich einfach gestaltet und ermöglicht auch für Webanwendungen eine einfache Anbindung an die Datenbank.
 
 \section{Softwareentwicklung}
@@ -300,7 +298,11 @@ In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einord
 Im Folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche für die Umsetzung des Projekts selbst verwendet wurden.\\
 Das erste verwendete Diagramm, ist das Anwendungsfalldiagramm (im
 folgenden als Usecase-Diagramm benannt).  Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als 'Strichmännchen' dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
-Anwendungsfälle hingegen werden als Ellipsen dargestellt und enthalten eine Beschreibung. Um beide unterschiedliche Elemente in einer Gruppe zusammenzufassen wird ein Rahmen um alle beteiligten Elemente gebildet, welcher Systemkontext genannt wird und somit die Systemgrenze darstellt. Neben den normalen Assoziationen (z.B. Benutzer -> Drucken) besteht die Möglichkeit der Generalisierung. Das bedeutet, dass zwei spezifische Akteure oder Anwendungsfälle zu einem generellen zusammengefasst werden können.
+Anwendungsfälle hingegen werden als Ellipsen dargestellt und enthalten eine Beschreibung.
+Um beide unterschiedliche Elemente in einer Gruppe zusammenzufassen, wird ein Rahmen um alle beteiligten Elemente gebildet.
+Dieser wird im Systemkontext genannt und bilder somit die Systemgrenze.
+Neben den normalen Assoziationen (z.B. Benutzer -> Drucken) besteht die Möglichkeit der Generalisierung.
+Das bedeutet, dass zwei spezifische Akteure oder Anwendungsfälle zu einem generellen zusammengefasst werden können.
 Ein Beispiel eines Usecase-Diagramms ist in Abbildung X zu sehen.\\
 \\
 \begin{figure}[H]
@@ -309,14 +311,16 @@ Ein Beispiel eines Usecase-Diagramms ist in Abbildung X zu sehen.\\
 \caption{Usecase-Diagramm}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
-Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Beschreibung einzelner Klassen sowie deren Beziehungen untereinander. Klassen dienen zur Beschreibung der Objekte, welche von diesen instanziert werden. Im Klassendiagramm wird eine Klasse als Rechteck dargestellt und neben dem Klassenamen enthält diese ein Bereich für die Attribute, sowie für die Methoden. Um die Sichtbarkeit der Attribute und Methoden darzustellen werden verschiedene Symbole verwendet:\\
+Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Beschreibung einzelner Klassen sowie deren Beziehungen untereinander. Klassen dienen zur Beschreibung der Objekte, welche von diesen instanziert werden. Im Klassendiagramm wird eine Klasse als Rechteck dargestellt und neben dem Klassenamen enthält diese ein Bereich für die Attribute, sowie für die Methoden.
+Um die Sichtbarkeit der Attribute und Methoden darzustellen, werden verschiedene Symbole verwendet:\\
 
      + für public, unbeschränkter Zugriff\\
      \# für protected, Zugriff nur von der Klasse sowie von Unterklassen (geerbte Klassen)\\
      \- für private, nur innerhlab der Klasse selbst sichtbar\\
      \~ für package, innerhalb des Pakets sichtbar\\
 \\
-Ähnlich wie bei dem Usecase-Diagramm bietet sich beim Klassendiagramm die Möglichkeit einer Generalisierung. Beispielsweise sind die Klassen PKW und LKW Unterklassen von der Klasse Fahrzeuge. In Abbildung X ist ein Beispiel eines Klassendiagramms zu sehen.\\
+Ähnlich wie bei einem Usecase-Diagramm bietet sich beim Klassendiagramm die Möglichkeit einer Generalisierung.
+Beispielsweise sind die Klassen \textit{PKW} und \textit{LKW} Unterklassen von der Klasse \textit{Fahrzeuge}. In Abbildung X ist ein Beispiel eines Klassendiagramms zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
@@ -325,8 +329,13 @@ Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Bes
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
 Ebenfalls relevant für die Umsetzung des Projektes sind die Aktivitätsdiagramme.
-Sie dienen dazu Abläufe von Prozessen abzubilden.
-Beim Aktivitätsdiagramm befinden sich die Elemente in einem abgerundeten Rechteck, welche zusätzlich den Namen der Aktivität neben den Elementen enthält. Der Start bzw. Endpunkt bilden jeweils ein gefüllter Kreis, wobei der Endpunkt nur teilweise gefüllt ist. Aktivitäten werden in abgerundeten Rechtecken aufgelistet und miteinander in Flussrichtung verbunden. Entscheidungsfälle werden durch eine Raute symbolisiert. Je nach Entscheidungsfall, verläuft der Pfad bei ‘Ja’ weiter in Flussrichtung nach unten, oder bei einer Abweichung seitlich ab. Zusätzlich bietet sich die Möglichkeit Aktivitäten parallel ablaufen zu lassen. Dies kann durch Aktivitäten die zwischen zwei Balken angelegt werden, symbolisiert werden. Im Folgenden ist in Abbildung X ein beispielhaftes Aktivitätsdiagramm zu sehen.\\
+Sie dienen dazu, Abläufe von Prozessen abzubilden.
+Beim Aktivitätsdiagramm befinden sich die Elemente in abgerundeten Rechtecken, welche zusätzlich den Namen der Aktivität neben den Elementen enthalten.
+Den Start bzw. Endpunkt bilden jeweils ein gefüllter Kreis, wobei der Endpunkt nur teilweise gefüllt ist. Aktivitäten werden in abgerundeten Rechtecken aufgelistet und miteinander in Flussrichtung verbunden. Entscheidungsfälle werden durch eine Raute symbolisiert.
+Je nach Entscheidungsfall verläuft der Pfad bei ‘Ja’ weiter in Flussrichtung nach unten, oder bei einer Abweichung zur Seite ab.
+Zusätzlich bietet sich die Möglichkeit, Aktivitäten parallel ablaufen zu lassen.
+Dies kann durch Aktivitäten, die zwischen zwei Balken liegen, symbolisiert werden.
+Im Folgenden ist in Abbildung X ein beispielhaftes Aktivitätsdiagramm zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
@@ -334,9 +343,12 @@ Beim Aktivitätsdiagramm befinden sich die Elemente in einem abgerundeten Rechte
 \caption{Aktivitätsdiagramm}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
-Für das bessere Verständnis der späteren Implementierung ist das Sequenzdiagramm ebenfalls von größerer Bedeutung. Es dient dazu ein Überblick über die Lebensdauer und Interaktion zwischen den einzelnen Klassen bzw. deren Objekte zu erhalten. Bei diesen wird nicht nur auf die bei den Klassendiagrammen gezeigte Beziehung sondern auch auf den Nachrichtenaustausch zwischen den Objekten eingegangen. Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus Folgenden Aktion wird es notwendig zu unterscheiden welche Art von Kommunikation stattfindet. Hierbei gibt es die synchrone, als auch asynchrone Kommunikation. Bei der zuerst genannten handelt es sich um ein Nachrichtenaustausch bei der das aufrufende Element, beispielsweise ein Browser, dass Daten anfordert (eine Webseite). Hierbei sendet er die Anfrage für die jeweilige Seite ab und muss anschließend warten bis der Server ihm diese zurückgeliefert hat. Erst im Anschluss kann der Browser die Webseite dem Nutzer darstellen.
-Bei der asynchrone Kommunikation handelt es sich um ein Austausch, welcher es nicht erfordert, dass ein Teilnehmer auf die Bestätigung des anderen warten muss. Beispielsweise beim Versand einer Email. Hier muss der Sender weder warten bis der Empfänger online ist, noch muss er den Empfang der Email abwarten. Hier können Nachrichten gesendet werden, ohne dass für den Sender ein Ergebnis zur Laufzeit erwartet wird.
-Eine Nachricht werden im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nachrichten werden mit gefüllten Pfeilspitzen, asynchrone Nachrichten mit offenen Pfeilspitzen gekennzeichnet. In der Nachfolgenden Abbildung ist ein beispielhaftes Sequenzdiagramm zu sehen.\\
+Für das bessere Verständnis der späteren Implementierung ist das Sequenzdiagramm ebenfalls von größerer Bedeutung. Es dient dazu, einen Überblick über die Lebensdauer und Interaktion zwischen den einzelnen Klassen bzw. deren Objekte zu erhalten.
+Bei diesen wird nicht nur auf die bei den Klassendiagrammen gezeigte Beziehung, sondern auch auf den Nachrichtenaustausch zwischen den Objekten eingegangen.
+Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus folgenden Aktion, wird es notwendig zu unterscheiden, welche Art von Kommunikation stattfindet. Hierbei gibt es die synchrone, als auch asynchrone Kommunikation.
+Bei der synchronen Kommunikation handelt es sich um ein Nachrichtenaustausch bei der das aufrufende Element, beispielsweise ein Browser der Daten anfordert (eine Webseite), wartet, bis die Daten empfangen wurden. Hierbei sendet er die Anfrage für die jeweilige Seite ab und muss anschließend warten bis der Server ihm diese zurückgeliefert hat. Erst im Anschluss kann der Browser die Webseite dem Nutzer darstellen.
+Bei der asynchronen Kommunikation handelt es sich um einen Austausch, welcher es nicht erfordert, dass ein Teilnehmer auf die Bestätigung des Anderen warten muss. Beispielsweise beim Versand einer Email. Hier muss der Sender weder warten bis der Empfänger online ist, noch muss er den Empfang der Email abwarten. Hier können Nachrichten gesendet werden, ohne dass für den Sender ein Ergebnis zur Laufzeit erwartet wird.
+Eine Nachricht wird im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nachrichten werden mit gefüllten Pfeilspitzen, asynchrone Nachrichten mit offenen Pfeilspitzen gekennzeichnet. In der Nachfolgenden Abbildung ist ein beispielhaftes Sequenzdiagramm zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
@@ -348,39 +360,60 @@ Eine Nachricht werden im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nac
 \section{Media Access Control}
 \label{sec:mac}
 
-Bei der MAC-Adresse (Media-Access-Controll-Adresse) handelt es sich um eine Adresse eines Netzwerkadapters, die zur eindeutigen Identifizierung in einem Netzwerk dient. MAC-Adressen werden in einer Vielzahl von Netzwerk Protokollen verwendet. Unter Anderem wird sie im Ethernet-Protokoll (IEEE 802.3)  aber auch vielen anderen Netzwerktechnologien genutzt die unter den IEEE 802 Gruppen zu finden sind.
-Das MAC Protokoll steuert die Adressierung auf Hardwareebene, sowie die Zugriffsart.
-Im ISO/OSI-Modell ist das MAC-Protokoll auf Schicht 2, der Sicherungschicht, angesiedelt.
-Somit hat das MAC-Protokoll zwei Aufgaben, zum Einen die Adressierung eines Gerätes und zum Anderen wie dieses Gerät auf das Medium zugreift.\\
-Zur eindeutigen Adressierung der Netzwerkadapter  dient die sogenannte MAC-Adresse. Hierbei handelt es sich um einen 48-bit Wert, der einzigartig auf der ganzen Welt sein sollte.\footnote{vgl. ...} Durch die Änderbarkeit der MAC-Adresse kann es jedoch vorkommen, dass dies nicht immer gegeben ist. Die Wahrscheinlichkeit eine doppelte MAC-Adresse im Netzwerk zu haben ist jedoch extrem gering, da der Adressraum nach aktuellen Kalkulationen noch bis in das Jahr 2100 ausreicht.\footnote{http://standards.ieee.org/develop/regauth/tut/eui.pdf} Die ersten 24-bit kennzeichnen den Hersteller des Netzwerkadapters, die anschließenden 24-bit sind beliebig vom Hersteller vergebbar. Einige bestimmte MAC-Adressen können jedoch nicht reserviert werden, hierbei handelt  es sich um Broadcast-Adressen und Multicast-Adressen.
+Bei der MAC-Adresse (Media-Access-Controll-Adresse) handelt es sich um eine Adresse eines Netzwerkadapters, die zur eindeutigen Identifizierung in einem Netzwerk dient. MAC-Adressen werden in einer Vielzahl von Netzwerk Protokollen verwendet.
+Unter Anderem wird sie im Ethernet-Protokoll (IEEE 802.3), aber auch vielen anderen Netzwerktechnologien genutzt die unter den IEEE 802 Gruppen zu finden sind.
+Das MAC-Protokoll steuert die Adressierung auf Hardwareebene, sowie die Zugriffsart.
+Im ISO/OSI-Modell ist das MAC-Protokoll auf Schicht 2, der Sicherungsschicht, angesiedelt.
+Somit hat das MAC-Protokoll zwei Aufgaben. Zum Einen die Adressierung eines Gerätes und zum Anderen wie dieses Gerät auf das Medium zugreift.\\
+Zur eindeutigen Adressierung der Netzwerkadapter  dient die sogenannte MAC-Adresse. Hierbei handelt es sich um einen 48-bit Wert, der einzigartig auf der ganzen Welt sein sollte.\footnote{vgl. ...} Durch die Änderbarkeit der MAC-Adresse kann es jedoch vorkommen, dass dies nicht immer gegeben ist. Die Wahrscheinlichkeit eine doppelte MAC-Adresse im Netzwerk zu haben ist jedoch extrem gering, da der Adressraum nach aktuellen Kalkulationen noch bis in das Jahr 2100 ausreicht.\footnote{http://standards.ieee.org/develop/regauth/tut/eui.pdf} Die ersten 24-bit kennzeichnen den Hersteller des Netzwerkadapters, die anschließenden 24-bit sind beliebig vom Hersteller vergebbar.
+Einige bestimmte MAC-Adressen können jedoch nicht reserviert werden, da es sich hierbei handelt um Broadcast-Adressen und Multicast-Adressen handelt.
 Eine MAC-Adresse kann wie folgt dargestellt werden:\\
 \\
 01-23-45-67-89-ab oder 01:23:45:67:89:ab oder 0123.4567.89ab\\
 \\
-Anhand der Herstellerkennung lassen sich wiederum Rückschlüsse auf das Netzwerkgerät schließen. Die Hersteller, welche sich jeweils hinter der Herstellerkennung verbergen sind öffentlich bei der IEEE einsehbar, z.B. per Internet.\footnote{http://standards.ieee.org/develop/regauth/oui/public.html}\\
+Anhand der Herstellerkennung lassen sich wiederum Rückschlüsse auf das Netzwerkgerät ziehen.
+Die Hersteller, welche sich jeweils hinter der Herstellerkennung verbergen, sind öffentlich bei der IEEE einsehbar, z.B. per Internet.\footnote{http://standards.ieee.org/develop/regauth/oui/public.html}\\
 Das MAC-Protokoll regelt ebenfalls den Zugriff auf das Transportmedium. Hierbei wird in zwei verschiedene Zugriffsarten unterteilt. Zum Einen den kontrollierten Zugriff und zum Anderen der konkurrierende Zugriff.
-Beim kontrollierten Zugriff wird darauf geachtet, dass keine Kollision auftritt. Das bedeutet, keiner der Netzwerkgeräte kommuniziert gleichzeitig über einen Kanal, sondern es ist immer nur ein Gerät aktiv.\\
-Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen, jedoch gibt es bestimmte Regeln, wenn eine Kollision auftritt. In diesen wird geregelt in welcher Art und Weise die Kollisionen behandelt werden. In der Praxis gibt es unter Anderem das Protokoll CSMA/CD. Dieses stellt bei einer Kollision durch ein Stör-Signal sicher, dass alle beteiligten Geräte die Kollision ebenfalls erkennen und versendet das Paket nach einer Zeit wiederum erneut bis dieses ankommt oder die Anzahl der maximalen Versuche überschritten wurde. Die Wartezeit steigt exponentiell anhand der Versuche.
+Beim kontrollierten Zugriff wird darauf geachtet, dass keine Kollision auftritt. Somit kommuniziert keines der Netzwerkgeräte gleichzeitig über einen Kanal, sondern es ist immer nur ein Gerät aktiv.\\
+Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen, jedoch gibt es bestimmte Regeln, wenn eine Kollision auftritt. In diesen wird geregelt in welcher Art und Weise die Kollisionen behandelt werden. In der Praxis gibt es unter Anderem das Protokoll CSMA/CD.
+Dieses stellt bei einer Kollision durch ein Stör-Signal sicher, dass alle beteiligten Geräte die Kollision ebenfalls erkennen.
+Zusätzlich versendet das Gerät das Paket nach einer Zeit wiederum erneut, bis dieses ankommt oder die Anzahl der maximalen Versuche überschritten wurde. Die Wartezeit steigt exponentiell anhand der Versuche.
 Hierzu wird eine Zufallszahl aus dem Bereich 0 und (2\^i)-1 ms gewählt.
 Wobei i für den i-ten Versuch steht.
 
 \section{Virtual Local Area Network}
 \label{sec:vlan}
 
-Bei einem VLAN (Virtual Local Area Network) handelt es sich um ein logisches Netz innerhalb eines physikalischen Netzwerkes. Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes. VLANs können über einen oder mehrere Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen. Die Unterteilung des bestehenden Netzwerkes in Teilnetze bewerkestelligt VLAN dadurch, dass es Switches, die VLAN unterstützen, dazu veranlasst, Frames (Datenpakete) eines VLANs nicht in ein anderes VLAN weiterzuleiten, auch wenn beide physikalisch an den selben Switch angeschlossen sind.
-VLANs können über verschiedene Arten realisiert werden. VLANs lassen sich in portbasierte VLANs und tagged VLANs unterschieden.
-Bei den portbasierten VLANs gehört ein Port je einem VLAN an oder ist ein Trunk-Port. Bei einem Trunk-Port handelt es sich um ein Port über den mehrere VLANs geschaltet sind.\\
-Das sogenannte tagged VLAN hingegen findet im Unterschied zu den portbasierten VLANs die Kennzeichnung im Ethernet-Frame selbst statt. Dieses 'tagging' ist nach IEEE 802.1q spezifiziert.\footnote{Vgl. IEEE 802.1q}
-Beim tagged VLAN kennzeichnen die Switches am Einspeiseort oder spezielle tagging-fähige Geräte die Pakete. Diese Pakete werden wiederum von den Switches am Endgerät detagged oder wiederum von tagging fähigen Gerät selbst.\\
+Bei einem VLAN (Virtual Local Area Network) handelt es sich um ein logisches Netzwerk innerhalb eines physikalischen Netzwerkes.
+Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes.
+VLANs können über einen oder mehrere Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen.
+Um ein Netzwerk durch VLANs in mehrere Teilnetze zu unterteilen gibt es den Ansatz Ports bzw. die einzelnen Datenpakete jeweils VLANs zuzuweisen.
+Durch diese Zuweisung findet eine logische Trennung statt, da nur die Geräte in einem VLAN untereinander kommunizieren können.
+Die Unterteilung des bestehenden Netzwerkes in Teilnetze bewerkestelligt VLAN dadurch, dass es Switches, die VLAN unterstützen, dazu veranlasst, Frames (Datenpakete) eines VLANs nicht in ein anderes VLAN weiterzuleiten, auch wenn beide physikalisch an den selben Switch angeschlossen sind.
+VLANs können über verschiedene Arten realisiert werden.
+VLANs lassen sich in portbasierte VLANs und tagged VLANs unterschieden.
+
+Bei den portbasierten VLANs gehört ein Port je einem VLAN an oder ist ein Trunk-Port.
+Bei einem Trunk-Port handelt es sich um ein Port über den mehrere VLANs geschaltet sind.\\
+
+Das sogenannte tagged VLAN hingegen findet im Unterschied zu den portbasierten VLANs die Kennzeichnung im Ethernet-Frame selbst statt.
+Dieses 'tagging' ist nach IEEE 802.1q spezifiziert.\footnote{Vgl. IEEE 802.1q}
+Beim tagged VLAN kennzeichnen die Switches am Einspeiseort oder spezielle tagging-fähige Geräte die Pakete.
+Diese Pakete werden wiederum von den Switches am Endgerät detagged oder wiederum von tagging-fähigen Gerät selbst.\\
 Zusätzlich gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.
-Bei einem statischen VLAN ist ein Port einer speziellen VLAN-Art zugeordnet. Entweder zu einem Port-basierten VLAN oder zu einem tagged VLAN.
-Wobei ein Port mehreren VLANs angehören kann und dieser dann ein Trunk-Port ist.\\
+Bei einem statischen VLAN ist ein Port einer speziellen VLAN-Art zugeordnet.
+Entweder zu einem Port-basierten VLAN oder zu einem tagged VLAN, wobei ein Port mehreren VLANs angehören kann und dieser dann ein Trunk-Port ist.\\
 Das dynamische VLAN hingegen ist nicht portbasierend und richtet sich nach dem Inhalt des Frames. Jedoch ist zu beachten, dass die Inhalte eines Frames beliebig veränderbar sind und somit dynamische VLANs nicht in sicherheitskritischen Netzwerken verwendet werden sollten.
-Die Zugehörigkeit zu einem VLAN kann per Adresse (MAC oder IP), auf Basis des Protokolls (IP, AppleTalk, IPX) oder auch auf Anwendungsebene nach Portnummern (80,443). So ist es möglich, z.B. ein mobiles Endgerät im Netzwerk immer dem gleichen VLAN zuordnen zu lassen, unabhängig an welchem Ort dieses angeschlossen ist.\\
+Die Zugehörigkeit zu einem VLAN kann per Adresse (MAC oder IP), auf Basis des Protokolls (IP, AppleTalk, IPX) oder auch auf Anwendungsebene nach Portnummern (80,443).
+So ist es möglich, z.B. ein mobiles Endgerät im Netzwerk immer dem gleichen VLAN zuordnen zu lassen, unabhängig an welchem Ort dieses angeschlossen ist.\\
+
 Die Gründe für die Verwendung eines VLANs lassen sich in drei Punkte aufteilen.
 Zuerst macht eine Verwendung wie oben bereits erwähnt Sinn, wenn eine flexible Zuordnung eines Endgerätes immer zum selben VLAN gemacht werden muss.\\
-Ein weitere Grund für VLANs sind Performance-Aspekte. Neben der Priorisierung von speziellen Daten (z.B. VOIP) dient ein VLAN meist der Verkleinerung der Broadcast-Domänen. Durch die Verkleinerung der Domänen, wird ein Broadcast nichtt über das gesamte Netzwerk hinweg geschickt.\\
-Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle. Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein, VLANs einzusetzen. Da sie gegenüber Layer-2-Attacken architekturbedingt unempflindlich sind.
+Ein weitere Grund für VLANs sind Performance-Aspekte. Neben der Priorisierung von speziellen Daten (z.B. VOIP), dient ein VLAN meist der Verkleinerung der Broadcast-Domänen.
+Durch die Verkleinerung der Domänen, wird ein Broadcast nicht über das gesamte Netzwerk hinweg geschickt.\\
+Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle.
+Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein, VLANs einzusetzen.
+Der Grund hierfür liegt darin, dass VLANs gegenüber Layer-2-Attacken architekturbedingt unempflindlich sind.
 
 
 \section{SNMP}
