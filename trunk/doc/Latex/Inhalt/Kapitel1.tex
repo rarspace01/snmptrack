@@ -220,12 +220,14 @@ Zur Zeit haben sich verschiedene Varianten etabliert:
 
 Jedes etablierte DBMS bietet für Entwickler eine native Schnittstelle zum Ansprechen der Datenbank an.
 Diese wird meist in verschiedenen Programmiersprachen angeboten, unter Anderem C/C++, PHP usw. .
-Die native Methode besitzt den Vorteil, dass sie das Nutzen aller Funktionen der Datenbank ermöglichen, wohingegen dafür keine einheitlichen Design Patterns existieren, was die Verwendungen von mehreren
+Die native Methode besitzt den Vorteil, dass sie das Nutzen aller Funktionen der Datenbank ermöglicht, wohingegen dafür keine einheitlichen Design Patterns existieren, was die Verwendungen von mehreren
 verschiedenen DBMS erschwert.
 
-Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht ohne Veränderung des Quellcodes das Datenbanksystem zu wechsel.
-Hierzu muss lediglich der ODBC-Eintrag angepasst werden. Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom vewendeten DBMS.
-Neben der ODBC-Schnittstelle gibt es auch das JDBC System bei Java. Zwar kann Java auch die ODBC-Schnittstelle über eine Treiber-Brücke nutzen, aber laut Oracle \footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html} soll dies nur im experimentellen Gebrauch stattfinden.
+Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht ohne Veränderung des Quellcodes das Datenbanksystem zu wechseln.
+Hierzu muss lediglich der ODBC-Eintrag angepasst werden.
+Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom vewendeten DBMS.
+Neben der ODBC-Schnittstelle gibt es auch das JDBC System bei Java.
+Zwar kann Java auch die ODBC-Schnittstelle über eine Treiber-Brücke nutzen, aber laut Oracle \footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html} soll dies nur im experimentellen Gebrauch stattfinden.
 Da der Einsatz eines nativen JDBC Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind, ist die Verwendeung des nativen Treibers vorzuziehen.
 Zusätzlich gibt es noch ADO von Microsoft, welches auch als Schnittstelle für Webserver mit IIS bzw. ASP dient.
 Diese ähnelt in der Verwendung JDBC, da ebenfalls ein ODBC-Treiber angesteuert werden kann.
@@ -242,7 +244,10 @@ Im Folgenden soll auf die wichtigsten Kernprozesse bei der Umsetzung eines Syste
 \\
 Planung\\
 \\
-Zu Beginn einer Systementwicklung steht die Planung. In dieser werden die Anforderungen erhoben. Hierbei handelt es sich um das Sammeln aller Anforderungen die seitens des Kundens oder aufgrund von externen Einflüssen (z.B. Gesetze) gegeben sind. Währenddessen ist vor allem der Dialog mit dem Kunden, aber auch mit den späteren Benutzern sowie den fachlichen Experten notwendig. In dieser Phase wird neben dem Lastenheft (Anforderungsdefinition) auch das Pflichtenheft erstellt. Es erfolgt auch eine Aufwandseinschätzung, sowie die Wahl des Vorgehensmodells.\\
+Zu Beginn einer Systementwicklung steht die Planung. In dieser werden die Anforderungen erhoben.
+Hierbei handelt es sich um das Sammeln aller Anforderungen die seitens des Kundens oder aufgrund von externen Einflüssen (z.B. Gesetze) gegeben sind.
+Währenddessen ist vor allem der Dialog mit dem Kunden, aber auch mit den späteren Benutzern sowie den fachlichen Experten notwendig.
+In dieser Phase wird neben dem Lastenheft (Anforderungsdefinition) auch das Pflichtenheft erstellt. Es erfolgt auch eine Aufwandseinschätzung, sowie die Wahl des Vorgehensmodells.\\
 \\
 \\
 Analyse\\
@@ -263,7 +268,7 @@ Bei der Programmierung geht es letztendlich um die Umsetzung des zuvor entworfen
 \\
 Validierung und Verifizierung
 \\
-Bei der Validierung  und Verifizierung geht es vor allem um Tests. Hierbei wird unterschieden zwischen Low-Level-Tests und High-Level-Tests. Unter Low-Level-Tests sind solche Test zu verstehen, die während der Implementierung an Teilen des Systems stattfinden. Bei High-Level-Tests wird das komplette System getestet. Einer der Low-Level-Tests ist der Modultest. Bei diesem werden einzelne Module im Programm getestet.  Diese Tests werden regelmäßig während der Entwicklung durchgeführt. Ein weiterer Low-Level-Test ist der Integrationstest. Bei diesem werden verschiedene Module in Kombination getestet. Für jede Verbindung zwischen zwei Komponentne wird ein Test erstellt, welcher überprüft, ob diese ordnungsgemäß nach der Spezifikation funktionieren. In kleinereren Projekten findet der Integrationstest meist während der Implementierung durch die Programmierer statt.
+Bei der Validierung  und Verifizierung geht es vor allem um Tests. Hierbei wird unterschieden zwischen Low-Level-Tests und High-Level-Tests. Unter Low-Level-Tests sind solche Test zu verstehen, die während der Implementierung an Teilen des Systems stattfinden. Bei High-Level-Tests wird das komplette System getestet. Einer der Low-Level-Tests ist der Modultest. Bei diesem werden einzelne Module im Programm getestet.  Diese Tests werden regelmäßig während der Entwicklung durchgeführt. Ein weiterer Low-Level-Test ist der Integrationstest. Bei diesem werden verschiedene Module in Kombination getestet. Für jede Verbindung zwischen zwei Komponenten wird ein Test erstellt, welcher überprüft, ob diese ordnungsgemäß nach der Spezifikation funktionieren. In kleinereren Projekten findet der Integrationstest meist während der Implementierung durch die Programmierer statt.
 Der so genannte Systemtest ist ein High-Level-Test bei dem das gesamte Programm gegen die zuvor definierten Anforderungen gegen geprüft wird. Dieser Systemtest findet meist in einer Testumgebung statt und erhält meist simulierte Testdaten um die bestehende Produktivumgebung nicht weiter zu beeinträchtigen. Die simulierten Testdaten können trotz Allem den reellen Daten entsprechen, sollen jedoch verhindern, dass das System direkt in die Produktivumgebung einwirkt.
 Der letzte High-Level-Test dient der Abnahme und wird auch als Akzeptanztest bezeichnet. Bei diesem Test geht es um den Test der Software im produktiven Einsatz beim Kunden. Der Test selbst stellt ein Black-Box-Test dar und dient meist zu Rechnungsstellung bzw. Abnahme in Verbindung mit den Testprotokollen.
 
@@ -278,22 +283,24 @@ Die in der UML verwendeten Modelle lassen sich in verschiedene Kategorien untert
 -Verhaltens-Diagramme\\
 \\
 In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einordnen:\\
+\begin{tabbing}
 -Strukturdiagramme\\
-    * Klassendiagramm\\
-    * Kompositionsstrukturdiagramm\\
-    * Komponentendiagramm\\
-    * Verteilungsdiagramm\\
-    * Objektdiagramm\\
-    * Paketdiagramm\\
-    * Profildiagramm\\
+\hspace{20mm} \=* Klassendiagramm\\
+		   \> 	* Kompositionsstrukturdiagramm\\
+		   \> 	* Komponentendiagramm\\
+		   \> 	* Verteilungsdiagramm\\
+		   \> 	* Objektdiagramm\\
+		   \> 	* Paketdiagramm\\
+		   \> 	* Profildiagramm\\
 -Verhaltensdiagramme\\
-    * Aktivitätsdiagramm\\
-    * Anwendungsfalldiagramm\\
-    * Interaktionsübersichtsdiagramm\\
-    * Kommunikationsdiagramm\\
-    * Sequenzdiagramm\\
-    * Zeitverlaufsdiagramm\\
-    * Zustandsdiagramm\\
+		   \> 	* Aktivitätsdiagramm\\
+		   \> 	* Anwendungsfalldiagramm\\
+		   \> 	* Interaktionsübersichtsdiagramm\\
+		   \> 	* Kommunikationsdiagramm\\
+		   \> 	* Sequenzdiagramm\\
+		   \> 	* Zeitverlaufsdiagramm\\
+		   \> 	* Zustandsdiagramm\\
+\end{tabbing}    
 \\
 Im Folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche für die Umsetzung des Projekts selbst verwendet wurden.\\
 Das erste verwendete Diagramm, ist das Anwendungsfalldiagramm (im
