@@ -394,22 +394,19 @@ Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen
 VLANs können über einen oder mehrere Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen.
 Um ein Netzwerk durch VLANs in mehrere Teilnetze zu unterteilen gibt es den Ansatz Ports bzw. die einzelnen Datenpakete jeweils VLANs zuzuweisen.
 Durch diese Zuweisung findet eine logische Trennung statt, da nur die Geräte in einem VLAN untereinander kommunizieren können.
-Die Unterteilung des bestehenden Netzwerkes in Teilnetze bewerkstelligt VLAN dadurch, dass es Switches, die VLAN unterstützen, dazu veranlasst, Frames (Datenpakete) eines VLANs nicht in ein anderes VLAN weiterzuleiten, auch wenn beide physikalisch an den selben Switch angeschlossen sind.
 VLANs können über verschiedene Arten realisiert werden.
 VLANs lassen sich in portbasierte VLANs und tagged VLANs unterschieden.
-
-Bei den portbasierten VLANs gehört ein Port je einem VLAN an oder ist ein Trunk-Port.
-Bei einem Trunk-Port handelt es sich um ein Port über den mehrere VLANs geschaltet sind.\\
-
-Das sogenannte tagged VLAN hingegen findet im Unterschied zu den portbasierten VLANs die Kennzeichnung im Ethernet-Frame selbst statt.
-Dieses 'tagging' ist nach IEEE 802.1q spezifiziert.\footnote{Vgl. IEEE 802.1q}
-Beim tagged VLAN kennzeichnen die Switches am Einspeiseort oder spezielle tagging-fähige Geräte die Pakete.
-Diese Pakete werden wiederum von den Switches am Endgerät detagged oder wiederum von tagging-fähigen Gerät selbst.\\
-Zusätzlich gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.
-Bei einem statischen VLAN ist ein Port einer speziellen VLAN-Art zugeordnet.
-Entweder zu einem Port-basierten VLAN oder zu einem tagged VLAN, wobei ein Port mehreren VLANs angehören kann und dieser dann ein Trunk-Port ist.\\
-Das dynamische VLAN hingegen ist nicht portbasierend und richtet sich nach dem Inhalt des Frames. Jedoch ist zu beachten, dass die Inhalte eines Frames beliebig veränderbar sind und somit dynamische VLANs nicht in sicherheitskritischen Netzwerken verwendet werden sollten.
-Die Zugehörigkeit zu einem VLAN kann per Adresse (MAC oder IP), auf Basis des Protokolls (IP, AppleTalk, IPX) oder auch auf Anwendungsebene nach Portnummern (80,443).
+Bei den portbasierten VLANs gehört ein Port je einem oder mehreren VLANs an.
+Beim sogenannten tagged VLAN hingegen findet die VLAN-Zuordnung durch eine Kennzeichnung des Datenpaketes (im Ethernet-Frame) statt.
+%Dieses 'tagging' ist nach IEEE 802.1q spezifiziert.\footnote{Vgl. IEEE 802.1q}
+Das markieren der Datenpakete kann sowohl von VLAN fähigen Endgeräten als auch von Switches geschehen.
+Jedoch muss sichergestellt werden, dass Geräte ohne VLAN-Unterstützung keine markierten Pakete erhalten.\\
+Neben der Art der Zuweisung gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.
+Bei einem statischen VLAN ist ein Port immer einem VLAN zugeordnet.
+\\
+Das dynamische VLAN hingegen ist nicht portbasierend und richtet sich nach dem Inhalt der Frames.
+Dabei ist zu beachten, dass die Inhalte eines Frames beliebig veränderbar sind und somit dynamische VLANs nicht in sicherheitskritischen Netzwerken verwendet werden sollten.
+Die Zugehörigkeit zu einem VLAN kann per Adresse (MAC oder IP), auf Basis des Protokolls (IP, AppleTalk, IPX) oder auch auf Anwendungsebene nach Portnummern (80,443) sichergestellt werden.
 So ist es möglich, z.B. ein mobiles Endgerät im Netzwerk immer dem gleichen VLAN zuordnen zu lassen, unabhängig an welchem Ort dieses angeschlossen ist.\\
 
 Die Gründe für die Verwendung eines VLANs lassen sich in drei Punkte aufteilen.
@@ -465,8 +462,10 @@ TRAP\\
 \section{Cisco Discovery Protokoll}
 \label{sec:cdp}
 
-Das Cisco Discovery Protokoll (CDP) von Cisco ist ein proprietäres Protokoll, welches dazu dient, Cisco-Geräten zu ermöglichen andere angeschlossene Geräte zu identifizieren und mit diesen Informationen auszutauschen. Es kann allerdings auch zum sogenannten “On-Demand-Routing” verwendet werden. Hierbei handelt es sich um eine cisco-spezifische Erweiterung von CDP, welche es ermöglicht ein simples Routing zu erstellen.
-Die Cisco Geräte senden jeweils zur Multicast-Adresse “01-00-0c-cc-cc-cc”, welche auch von anderen Cisco-Protokollen (Z.B. VTP) verwendet wird. Dies geschieht in einem Intervall von 60 Sekunden auf allen relevanten Interfaces. Jedes der Beteiligten Cisco Geräte führt intern eine Tabelle mit den Informationen über die Geräte, welche in der “Nachbarschaft” gefunden wurden. Hierunter fallen Dinge wie IP, Alias, Geräte-Typ und auch Informationen über die dort befindliche Software bzw. das Betriebssystem.
-Bei einem Cisco-Swicth wird zum Beispiel nicht nur die Beschreibung (IOS) sondern auch Modell, IOS-Version, Link-Status (Geschwindigkeit, Duplex) und viele weitere Informationen ausgelesen.
-Diese können per internen Befehl oder per SNMP abgefragt werden. Bei jedem Empfang von CDP Daten, werden die internen Tabellen gepflegt und die Haltbarkeitszeit wieder zurückgesetzt, da Geräte die sich nicht mehr melden nach einer bestimmten Zeit (Standardmäßig nach 180 Sekunden) aus den Tabellen wiederum entfernt werden. Die Informationen welche übertragen werden sind einfach erweiterbar, da diese auf dem “Type-Length-Value” Format basieren. Das heißt in einer Nachricht wird zuerst der Typ des Attributs bestimmt (Z.b. String, Zahl, Datum) danach die Zeichenlänge des Wertes und der Wert selbst.\\
+Das Cisco Discovery Protokoll (CDP) von Cisco ist ein proprietäres Protokoll, welches dazu dient, dass sich Cisco-Geräten untereinander mit Informationen austauschen können.
+Die Cisco Geräte senden jeweils zur Multicast-Adresse “01-00-0c-cc-cc-cc”, um durch das Versenden eines einzigen Paketes, alle Cisco Geräte im Netzwerk zu erfassen.
+Dies geschieht in einem Intervall von 60 Sekunden auf allen Netzwerk-Schnittstellen.
+Jedes der CDP-fähigen Geräte führt intern eine Tabelle mit Informationen über die Geräte, welche im Netzwerk gefunden wurden.
+Diese können per internen CDP oder per SNMP abgefragt werden.
+Bei jedem Empfang von CDP Daten, werden die internen Tabellen aktualisiert. Geräte die sich nicht mehr melden, werden nach einer bestimmten Zeit (standardmäßig nach 180 Sekunden) aus den Tabellen entfernt. Die Informationen welche übertragen werden sind einfach erweiterbar, da diese auf dem “Type-Length-Value” Format basieren. Das heißt in einer Nachricht wird zuerst der Typ des Attributs bestimmt (Z.b. String, Zahl, Datum) danach die Zeichenlänge des Wertes und der Wert selbst.\\
 Hersteller wie HP, distanzieren sich zunehmend von diesem proprietären Protokoll und unterstützen das durch die IEEE spezifizierte offene Protokoll LLDP, welches Hersteller unabhängig ist und den selben Funktionsumfang beinhaltet.
