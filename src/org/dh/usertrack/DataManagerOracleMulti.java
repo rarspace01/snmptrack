@@ -15,7 +15,7 @@ public class DataManagerOracleMulti {
 			try {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 				
-				Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@"+SNMPTrackConfig.SNMPtrackDB_IP+":1521:"+SNMPTrackConfig.SNMPtrackDB_DB,SNMPTrackConfig.SNMPtrackDB_USR,SNMPTrackConfig.NagiosDB_PWD);
+				Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@"+SNMPTrackConfig.SNMPtrackDB_IP+":1521:"+SNMPTrackConfig.SNMPtrackDB_DB,SNMPTrackConfig.SNMPtrackDB_USR,SNMPTrackConfig.SNMPtrackDB_PWD);
                 conn.setAutoCommit(false);
 	        	
 	        	ArrayList<PreparedStatement> psL=new ArrayList<PreparedStatement>();

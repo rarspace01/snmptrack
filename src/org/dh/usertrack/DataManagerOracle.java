@@ -20,7 +20,7 @@ public class DataManagerOracle {
         private DataManagerOracle() {
                 try {
                         Class.forName("oracle.jdbc.driver.OracleDriver"); 
-                        conn = DriverManager.getConnection("jdbc:oracle:thin:@"+SNMPTrackConfig.SNMPtrackDB_IP+":1521:"+SNMPTrackConfig.SNMPtrackDB_DB,SNMPTrackConfig.SNMPtrackDB_USR,SNMPTrackConfig.NagiosDB_PWD);
+                        conn = DriverManager.getConnection("jdbc:oracle:thin:@"+SNMPTrackConfig.SNMPtrackDB_IP+":1521:"+SNMPTrackConfig.SNMPtrackDB_DB,SNMPTrackConfig.SNMPtrackDB_USR,SNMPTrackConfig.SNMPtrackDB_PWD);
                         stmt = conn.createStatement();
                         
                 } catch (SQLException e) {
