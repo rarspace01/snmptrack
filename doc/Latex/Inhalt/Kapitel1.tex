@@ -1,18 +1,18 @@
 \chapter{Theoretische Grundlagen}
 \label{cha:theogrund}
 
-\section{Datenbankentwurf / ERM}
+\section{Datenbankentwurf}
 \label{sec:erm}
 
 Unter dem Datenbankentwurf ist der Prozess zur Erstellung eines Schemas zu verstehen, welches die spätere Datenbank abbilden wird.
 Hierunter fallen unter Anderem die Analyse der Anforderungen, aber auch die grafische Darstellung der Tabellen, in denen die Daten gespeichert werden.
-Der Entwurf der Datenbank im vor der Implementierung ist essentiell, da im späteren Prozess Änderungen der Datenbankstruktur nicht nur die Datenbank selbst, sondern auch alle mit ihr verbundenen Applikationen betreffen werden.
+Der Entwurf der Datenbank vor der Implementierung ist essentiell, da im späteren Prozess Änderungen der Datenbankstruktur nicht nur die Datenbank selbst, sondern auch alle mit ihr verbundenen Applikationen betreffen werden.
 Um die Beziehungen zwischen den einzelnen Tabellen korrekt darstellen zu können, wird das Entity-Relationship-Modell\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.10} verwendet.
 Durch dieses Modell lassen sich sogenannte ER-Diagramme zeichnen, z.B. nach der Chen Notation\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.19}.
 Ein ER-Diagramm nach Chen stellt die Entitätstypen (Klassen), Attribute, sowie Beziehungen (Relationen/Kardinalitäten) dar.
-Im Folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation kurz erläutert werden.\\
+Im Folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation erläutert werden.\\
 
-Das nachfolgende Diagramm beschreibt Folgenden Sachverhalt:
+Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
 
 \begin{itemize}
 \item Ein Angestellter leitet mehrere Projekte.
@@ -43,11 +43,11 @@ Das nachfolgende Diagramm beschreibt Folgenden Sachverhalt:
 
 \section{Kardinalitäten}
 
-Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.20}.
+Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten.\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.20}
 In Abbildung \ref{chenpic1} ist eine 1:n Kardinalität gegeben.
 Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.
 
-In der zweiten Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
+In Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
 Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 angehören, einem Objekt der Relation 2 werden ebenfalls mehrere Objekten der Relation 1 zugewiesen.
 Diese n:m Kardinalitäten müssen bei einem Datenbankentwurf aufgelöst werden, da hier keine eindeutige Zuordnung möglich ist. Meistens lässt sich eine solche Kardinalität wie in Abbildung \ref{chenpic2} durch das Hinzufügen einer zusätzliche Tabelle, welche beide Objekte verknüpft, lösen.
 Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
@@ -64,13 +64,13 @@ Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
 \label{secNormalisierung}
 %\cite{codd1}
 Wenn es bereits bestehende Datenbanken gibt, so muss geprüft werden, ob diese eine optimale Struktur aufweisen.
-Eine Optimierung der Struktur ergibt sich nicht nur um eine bessere Übersichtlichkeit zu haben, sondern auch aus Gründen der Redundanz und der damit verbundenen Probleme.
-Durch eine nicht benötige Redundanz kommt es zum Einen zu Geschwindigkeits- und Platzverlusten innerhalb der Datenbank.
-Da ein Wert an mehreren Stellen in der Datenbank steht kann es zu Problemen bei der Aktualisierung und Löschungen kommen, da alle Werte in der Datenbank geändert werden müssten und nicht nur ein Wert.
-Dies kann anhand der sogenannten Normalisierung durchgeführt werden.\footnote{vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 381} Dadurch lässt sich die Datenbank weiter optimieren.\footnote{vgl. Prof. Dr. Paul. Alpar(2001): Vorlesung, Datenorganisation und Datenbanken,  http://www.tekinci.de/skripte/DBDM/DB-SS2001.pdf}
-Bei der Normalisierung wird abgefragt, ob Tabellen gewisse Eigenschaften erfüllen und sofern dies nicht der Fall ist, wird versucht diese zu erreichen.
-Hierzu stehen bis zu 5 Stufen der Normalformen zur Verfügung.
-Die 5 wichtigsten Normalformen beschreiben sich durch folgende Attribute.\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.292-308}
+Eine Optimierung der Struktur ergibt sich nicht nur, um eine bessere Übersichtlichkeit zu haben, sondern auch aus Gründen der Redundanz und der damit verbundenen Probleme.
+Durch eine nicht benötige Redundanz kommt es zu Integritäts- und Platzverlusten innerhalb der Datenbank.
+Da ein Wert an mehreren Stellen in der Datenbank steht, kann es zu Problemen bei der Aktualisierung und Löschungen kommen, da alle Werte in der Datenbank geändert werden müssten und nicht nur ein Wert.
+Dies kann anhand der sogenannten Normalisierung verhindert werden, sodass eine Optimierung stattfindet.\footnote{vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 381}\footnote{vgl. Prof. Dr. Paul. Alpar(2001): Vorlesung, Datenorganisation und Datenbanken,  http://www.tekinci.de/skripte/DBDM/DB-SS2001.pdf}
+Bei der Normalisierung wird überprüft, ob Tabellen gewisse Eigenschaften erfüllen und sofern dies nicht der Fall ist, wird versucht diese zu erreichen.
+Hierzu stehen bis zu fünf Stufen der Normalformen zur Verfügung.
+Diese fünf Normalformen lassen sich durch die folgenden Attribute beschreiben.\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.292-308}
 
 \begin{enumerate}
 \item Normalform: Alle Attribute besitzen einen atomaren Wertebereich
@@ -94,7 +94,7 @@ In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitz
 
 
 
-In Abbildung \ref{chenpic4} ist eine Verletzung der Normalform 1. zu sehen. Um diese aufzuheben müssen wir die einzelnen Werte trennen wie in Abbildung \ref{chenpic5} zu sehen.
+In Abbildung \ref{chenpic4} ist eine Verletzung der 1. Normalform zu sehen. Um diese aufzuheben, müssen die einzelnen Werte, wie in Abbildung \ref{chenpic5} zu sehen, getrennt werden.
 
 \begin{figure}[H]
 \begin{center}
@@ -104,18 +104,18 @@ In Abbildung \ref{chenpic4} ist eine Verletzung der Normalform 1. zu sehen. Um d
 \end{center}
 \end{figure}
 
-Wurde die Relation entsprechend angepasst, so ist Normalform 1 erreicht und es kann nun geprüft werden,
-ob diese die Eigenschaften von Normalform 2 erfüllt.
-Um eine Normalform zu erfüllen, müssen auch alle vorhergehenden Normalformen erfüllt sein, dass heißt erfüllt eine Tabelle die Normalform 3, so erfüllt sie auch die Normalform 1 und 2.
+Wurde die Relation entsprechend angepasst, so ist die 1. Normalform erreicht und es kann nun geprüft werden,
+ob diese die Eigenschaften der 2. Normalform erfüllt.
+Um eine Normalform zu erfüllen, müssen auch alle vorhergehenden Normalformen erfüllt sein, dass heißt, erfüllt eine Tabelle die 3. Normalform, so erfüllt sie auch die 1. und 2. Normalform.
 
 
 \section{Datenbankmanagementsysteme}
 \label{sec:dbms}
 
 Ein Datenbankmanagementsystem (DBMS) organisiert die Speicherung der Daten einer Datenbank und legt die Anordnung der Daten fest.
-Das DBMS legt auch die Art der Beziehung fest, in der die Daten der Datenbank stehen (relational, objektorientiert).
 Zur Kommunikation mit diesem wird eine Sprache benötigt. In diesem Zusammenhang wird die deskriptive Sprache SQL verwendet.\footnote{vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 382}
 
+Das DBMS legt auch die Art der Beziehung fest, in der die Daten der Datenbank stehen.
 
 Es gibt verschiedene Arten von DBMS:
 
@@ -126,16 +126,16 @@ Es gibt verschiedene Arten von DBMS:
 \end{itemize}
 
 %BuchURL http://www.amazon.com/gp/product/354043187X
-Ein hierarchisches DBMS\footnote{vgl. Bernd-Jürgen Falkowski(2002): Business Computing: Grundlagen und Standardsoftware, 1. Auflage, S.235} dient vor allem der schnellen Suche in großen Datenbanken.
+Ein hierarchisches DBMS dient vor allem der schnellen Suche in großen Datenbanken.\footnote{vgl. Bernd-Jürgen Falkowski(2002): Business Computing: Grundlagen und Standardsoftware, 1. Auflage, S.235}
 Der Nachteil liegt darin, dass nur eine sequentielle Abarbeitung möglich ist und somit die Art der Abfragen mehr oder weniger schon im Voraus bestimmt sein muss.
-Im Gegensatz hierzu stehen die relationalen Datenbanken, welche heutzutage den höchsten Verbreitungsrad besitzen.\footnote{Quelle}
+Im Gegensatz hierzu stehen die relationalen Datenbanksysteme, welche heutzutage den höchsten Verbreitungsrad besitzen.\footnote{Quelle}
 Diese bieten eine flexible Auswertung der Daten durch die deklarative Abfragesprache SQL.
 Es muss lediglich die Verknüpfung zwischen den Tabellen durch sogenannte JOINs hergestellt werden. Somit werden Primär- und Fremdschlüssel miteinander verknüpft.
-Hinzu kommen die objektorientierten Datenbanken. Diese bieten die Möglichkeit Objekte von beliebiger Art und Weise ab zu speichern.
+Hinzu kommen die objektorientierten Datenbanksysteme. Diese bieten die Möglichkeit Objekte von beliebiger Art und Weise abzuspeichern.
 Problematisch hierbei sind jedoch die Formulierung von geeigneten Abfragen, weswegen diese in der Praxis eher selten und meist im Bereich von Multimedialen-Anwendungen anzutreffen sind.%\footnote{NOTIZ ODBMS evtl}
 
 Wird versucht, verschiedene relationale DBMS in der Praxis zu vergleichen, so ist eine große Anzahl an verschiedenen Systemen zu finden.
-Im Anschluss soll auf die, in der Praxis verwendeten, DBMS eingegangen werden.
+Im Anschluss soll auf die, in der Praxis verwendeten relationalen DBMS eingegangen werden.
 
 \begin{itemize}
 \item Microsoft Jet Engine (Access)
@@ -145,20 +145,24 @@ Im Anschluss soll auf die, in der Praxis verwendeten, DBMS eingegangen werden.
 \item PostgreSQL
 \end{itemize}
 
-Die Microsoft Jet Engine ist ein dateibasierendes DBMS, welches dem Benutzer eine einfache Möglichkeit bietet, Daten in einer Datenbank zu speichern und passende Oberflächen (Frontends) in der Datenbank zu integrieren.
+Die Microsoft Jet Engine (Access) ist ein dateibasierendes DBMS, welches dem Benutzer eine einfache Möglichkeit bietet, Daten in einer Datenbank zu speichern und passende Oberflächen (Frontends) in der Datenbank zu integrieren.
 Bei diesem System, wie bei allen anderen dateibasierenden DBMS, steht meist die einfache Konfigurierbarkeit im Vordergrund. Die Datenbanken sind meist für einen Einzeluser-Betrieb ausgelegt und spielen hier auch ihre Stärken aus.
-Wird eine dateibasierende Datenbank von mehreren Usern benutzt so zeigen sich die Nachteile einer solchen Datenbank.
+Wird eine dateibasierende Datenbank von mehreren Usern benutzt, so zeigen sich die Nachteile einer solchen Datenbank.
 Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht, entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Daher nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.
-Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, da sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.
-MS-SQL ein relationales Datenbankmanagementsystem, welches ebenfalls von Microsoft erwerbbar
-und in den verschiedenen Serverbetriebssystemen von Microsoft enthalten ist. Für Entwickler
-ohne Enterprise Lizenz wird eine eingeschränkte Express Version zur Verfügung gestellt. MS-SQL ist im Gegensatz zu Access kein dateibasierendes DBMS, sondern ein DBMS welches
-zentral auf einem Server läuft. Hierdurch werden die Nachteile des dateibasierenden zu
-den Vorteilen des serverbasierenden Systems. Da der Server selbst die Abfragen verwaltet
-und zusätzlich Abfragen im Arbeitsspeicher ablegt, sowie dem Benutzer nur die Daten
+Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, da sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.\\
+MS-SQL ist ein relationales DBMS, welches von Microsoft erwerbbar
+und in den verschiedenen Windows-Serverbetriebssystemen enthalten ist.
+Für Entwickler ohne Enterprise Lizenz wird eine eingeschränkte Express Version zur Verfügung gestellt.
+MS-SQL ist im Gegensatz zu Access kein dateibasierendes DBMS, sondern ein zentralisiertes, dass auf einem Server läuft.
+Hierdurch werden die Nachteile des dateibasierenden zu den Vorteilen des serverbasierenden Systems.
+Da der Server selbst die Abfragen verwaltet und zusätzlich Abfragen im Arbeitsspeicher ablegt, sowie dem Benutzer nur die Daten
 sendet, die er auch angefordert hat und nicht die komplette Datei, werden Zugriffszeiten
 und Netzwerk/Festplattenlast optimiert.\\
-Ein weiteres DBMS stellt der Datenbankserver von Oracle dar. Die Lizenzstruktur ähnelt der von Microsoft, so gibt es auch hier kostenfreie und kostenpflichtige Varianten. Im Gegenzug zum MS-SQL Server bietet Oracle ein breiteres Spektrum an Funktionalitäten und eine größere Konfigurationsmöglichkeit. Dieses wiederum macht sich im höheren Preis bemerkbar. Weitere Vorteile der Oracle Datenbank sind die weitgehende Betriebssystemunabhängigkeit, gute Dokumentation und der Support.
+Ein weiteres DBMS stellt der Datenbankserver von Oracle dar.
+Die Lizenzstruktur ähnelt der von Microsoft, so gibt es auch hier kostenfreie und kostenpflichtige Varianten.
+Im Gegenzug zum MS-SQL Server bietet Oracle ein breiteres Spektrum an Funktionalitäten und eine größere Konfigurationsmöglichkeit.
+Dieses wiederum macht sich im höheren Preis bemerkbar.
+Weitere Vorteile der Oracle Datenbank sind die weitgehende Betriebssystemunabhängigkeit, gute Dokumentation und der Support.
 
 MySQL ist der Open Source Pendant zu MS-SQL, welches im Internet eine sehr hohen Verbreitungsgrad aufweist.
 So wird dieses von Seiten wie Wikipedia\footnote{vgl. Mysql, http://www.mysql.com/why-mysql/scaleout/wikipedia.html} oder
