@@ -158,11 +158,12 @@ Hierdurch werden die Nachteile des dateibasierenden zu den Vorteilen des serverb
 Da der Server selbst die Abfragen verwaltet und zusätzlich Abfragen im Arbeitsspeicher ablegt, sowie dem Benutzer nur die Daten
 sendet, die er auch angefordert hat und nicht die komplette Datei, werden Zugriffszeiten
 und Netzwerk/Festplattenlast optimiert.\\
-Ein weiteres DBMS stellt der Datenbankserver von Oracle dar.
-Die Lizenzstruktur ähnelt der von Microsoft, so gibt es auch hier kostenfreie und kostenpflichtige Varianten.
+Ein weiteres DBMS stellt der Datenbankserver 'Oracle Database' von Oracle dar.
+Die Lizenzstruktur ähnelt der von Microsoft.
+So gibt es auch hier kostenfreie und kostenpflichtige Varianten.
 Im Gegenzug zum MS-SQL Server bietet Oracle ein breiteres Spektrum an Funktionalitäten und eine größere Konfigurationsmöglichkeit.
 Dieses wiederum macht sich im höheren Preis bemerkbar.
-Weitere Vorteile der Oracle Datenbank sind die weitgehende Betriebssystemunabhängigkeit, gute Dokumentation und der Support.
+Weitere Vorteile der Oracle-Datenbank sind die weitgehende Betriebssystemunabhängigkeit, gute Dokumentation und der Support.
 
 MySQL ist der Open Source Pendant zu MS-SQL, welches im Internet eine sehr hohen Verbreitungsgrad aufweist.
 So wird dieses von Seiten wie Wikipedia\footnote{vgl. Mysql, http://www.mysql.com/why-mysql/scaleout/wikipedia.html} oder
@@ -177,7 +178,7 @@ Eine weitere Datenbank stellt PostgreSQL dar, welches unter der BSD-Lizenz zur V
 
 Ein Webserver dient zum Bereitstellen von statischen, sowie dynamischen HTML Seiten.
 Der Vorteil bei Webservern liegt darin, dass nur Informationen ausgetauscht werden, die der Nutzer auch angefordert hat.
-Weiterhin bietet es den Vorteil, diese zielgerichteten Informationen einer größeren Menge an Benutzern zur Verfügung zu stellen, ohne dass spezielle Vorkehrungen zur späteren Skalierung getroffen werden mssen.
+Weiterhin bietet es den Vorteil, diese zielgerichteten Informationen einer größeren Menge an Benutzern zur Verfügung zu stellen, ohne dass spezielle Vorkehrungen zur späteren Skalierung getroffen werden müssen.
 
 Um dynamische Webseiten erzeugen zu können, bedarf es einer Skriptsprache.
 Aktuell haben sich folgende Sprachen etabliert:\footnote{vgl. Tiobe Software(2009): TIOBE Programming Community Index for August 2009, http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html}
@@ -191,7 +192,7 @@ Aktuell haben sich folgende Sprachen etabliert:\footnote{vgl. Tiobe Software(200
 ASP ist eine Skriptsprache der Firma Microsoft und basiert grundlegend auf der Syntax von Visual Basic.
 JSP dient dem selben Zweck, wurde jedoch von Sun entwickelt und besitzt die Syntax von Java.
 PHP ist eine Skriptsprache, welche sich hauptsächlich an der C Syntax orientiert und speziell für das Erstellen von
-dynamischen Webseiten erstellt wurde. Sie ist die am weitesten verbreitete Scriptsprache zum Erstellen von dynamischen Webseiten.
+dynamischen Webseiten entwickelt wurde. Sie ist die am weitesten verbreitete Scriptsprache zum Erstellen von dynamischen Webseiten.
 
 Da alle der aufgeführten Skriptsprachen weitgehend Webserver-/Plattformunabhängig sind, kann man frei zwischen den meist benutzten Webserverprogrammen wählen, hierunter fallen unter Anderem:
 
@@ -201,19 +202,19 @@ Da alle der aufgeführten Skriptsprachen weitgehend Webserver-/Plattformunabhän
 \item IIS - Internet Information Services
 \end{itemize}
 
-Der Apache Webserver ist ein Opensource Webserver der Apache Foundation.
+Der Apache Webserver ist ein Open Source Webserver der Apache Foundation.
 Er kann unter vielen verschiedenen Betriebssystemen eingesetzt werden und unterstützt durch seine Module alle verbreiteten Scriptsprachen, sowie Datenbanken.
 
-Der IIS Webserver von Microsoft läuft ausschließlich unter Windows, zudem ist es auch nur unter dem Serverbetriebssystem von Windows möglich mehr als 10 Verbindungen gleichzeitig aufzubauen.\footnote{vgl. Microsoft: IIS 7.0: Übersicht über die verfügbaren Features in IIS 7.0, http://msdn.microsoft.com/de-de/library/cc753198\%28WS.10\%29.aspx}
+Der IIS Webserver von Microsoft läuft ausschließlich unter Windows, zudem ist es auch nur unter dem Serverbetriebssystem von Windows möglich, mehr als zehn Verbindungen gleichzeitig aufzubauen.\footnote{vgl. Microsoft: IIS 7.0: Übersicht über die verfügbaren Features in IIS 7.0, http://msdn.microsoft.com/de-de/library/cc753198\%28WS.10\%29.aspx}
 
 \section{Schnittstellen}
 \label{sec:schnittstellen}
 
 
 Um eine Verbindung zwischen den einzelnen Komponenten herzustellen, wird eine passende API benötigt.
-Idealerweise bringt jedes DBMS und jeder Webserver passende Treiber mit, obwohl dieser Fall nicht immer gegeben ist.
+Idealerweise enthält jedes DBMS und jeder Webserver passende Treiber, obwohl dieser Fall nicht immer gegeben ist.
 
-Zur Zeit haben sich verschiedene Varianten etabliert:
+Zurzeit haben sich verschiedene Varianten etabliert:
 
 \begin{itemize}
 \item Native Treiber
@@ -223,13 +224,12 @@ Zur Zeit haben sich verschiedene Varianten etabliert:
 \end{itemize}
 
 Jedes etablierte DBMS bietet für Entwickler eine native Schnittstelle zum Ansprechen der Datenbank an.
-Diese wird meist in verschiedenen Programmiersprachen angeboten, unter Anderem C/C++, PHP usw. .
-Die native Methode besitzt den Vorteil, dass sie das Nutzen aller Funktionen der Datenbank ermöglicht, wohingegen dafür keine einheitlichen Design Patterns existieren, was die Verwendungen von mehreren
-verschiedenen DBMS erschwert.
+Diese wird meist in verschiedenen Programmiersprachen angeboten, unter Anderem C/C++, PHP usw..
+Die native Methode besitzt den Vorteil, dass sie den vollen Umfang der Funktionen der Datenbank ermöglicht. Dahingegen existieren diese keine einheitlichen Design Patterns , was die Verwendungen von verschiedenen DBMS erschwert.
 
-Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht ohne Veränderung des Quellcodes das Datenbanksystem zu wechseln.
+Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht, ohne Veränderung des Quellcodes, das Datenbanksystem zu wechseln.
 Hierzu muss lediglich der ODBC-Eintrag angepasst werden.
-Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom vewendeten DBMS.
+Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit, alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom verwendeten DBMS.
 Neben der ODBC-Schnittstelle gibt es auch das JDBC System bei Java.
 Zwar kann Java auch die ODBC-Schnittstelle über eine Treiber-Brücke nutzen, aber laut Oracle \footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html} soll dies nur im experimentellen Gebrauch stattfinden.
 Da der Einsatz eines nativen JDBC Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind, ist die Verwendeung des nativen Treibers vorzuziehen.
@@ -250,8 +250,8 @@ Standardsoftware zeichnet sich somit aus, dass diese über mehrere Kunden hinweg
 Ein Beispiel hierfür sind branchenunabhängige Software, wie z.B. das Office-Paket, aber auch Branchensoftware, welche zielgerichtet für eine Branche ist und in dieser übergreifend eingesetzt werden kann.\\
 Bei der Individualsoftware handelt es sich um Software, welche individuell für einen Kunden angefertigt wurde.\footnote{Integrales Logistikmanagement. Planung und Steuerung der umfassenden Supply Chain, Paul Schönsleben, S. 436f, Verlag: Springer, Berlin; Auflage: 4., überarb. u. erw. A. (März 2007)}
 Typisch für Individualsoftware ist es, dass zuvor keine passenden Lösungen an Standardsoftware existiert haben. 
-Es kann aber auch sein, dass die Entwicklung einer Individualsoftware trotz existierender Standardsoftware Sinn macht, sofern es monitär vorteilhaft ist.
-Ein weiterer Punkt  könnte der Versuch einen Wettbewerbsvorteil gegenüber den Wettbewerbern zu erhalten oder die Optimierung einer vorhandenen Lösung sein.\\
+Es kann aber auch sein, dass die Entwicklung einer Individualsoftware trotz existierender Standardsoftware Sinn macht, sofern es monetär vorteilhaft ist.
+Eine weitere Überlegung könnte der Versuch einen Wettbewerbsvorteil gegenüber den Wettbewerbern zu erhalten oder die Optimierung einer vorhandenen Lösung sein.\\
 Die Umsetzung eines Projektes findet entweder intern oder von einem externen Dienstleister statt.
 Eine wichtige Rolle spielen ebenfalls die Vorgehensweisen bei der Umsetzung eines Projektes.
 Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexiblen, z.B. der Agilen Softwareentwicklung.\footnote{Praxishandbuch IT im Gesundheitswesen. Erfolgreich einführen, entwickeln, anwenden und betreiben, Christian Johner, S. 5-7, Peter Haas, Hanser Fachbuch (5. März 2009)}\\
@@ -259,16 +259,22 @@ Im Folgenden soll auf die wichtigsten Kernprozesse bei der Umsetzung eines Syste
 \\
 Planung\\
 \\
-Zu Beginn einer Systementwicklung steht die Planung. \footnote{CSCW-Kompendium: Lehr- und Handbuch zum computerunterstützten kooperativen Arbeiten, S.98,  Gerhard Schwabe, Norbert Streitz, Rainer Unland, Springer, Berlin; Auflage: 1 (1. August 2001)}
-In dieser werden die Anforderungen erhoben.
-Hierbei handelt es sich um das Sammeln aller Anforderungen die seitens des Kundens oder aufgrund von externen Einflüssen (z.B. Gesetze) gegeben sind.
+Zu Beginn einer Systementwicklung steht die Planung, in der die Anforderungen erhoben werden.\footnote{CSCW-Kompendium: Lehr- und Handbuch zum computerunterstützten kooperativen Arbeiten, S.98,  Gerhard Schwabe, Norbert Streitz, Rainer Unland, Springer, Berlin; Auflage: 1 (1. August 2001)}
+Hierbei handelt es sich um das Sammeln aller Anforderungen, die seitens des Kundens oder aufgrund von externen Einflüssen (z.B. Gesetze) gegeben sind.
 Währenddessen ist vor allem der Dialog mit dem Kunden, aber auch mit den späteren Benutzern sowie den fachlichen Experten notwendig.
 In dieser Phase wird neben dem Lastenheft (Anforderungsdefinition) auch das Pflichtenheft erstellt. Es erfolgt auch eine Aufwandseinschätzung, sowie die Wahl des Vorgehensmodells.\\
 \\
 \\
 Analyse\\
 \\
-Im Analyse-Prozess findet die Auswertung der zuvor gesammelten Anforderungen statt. Bei dieser Auswertung kommt es auch zur Analyse der Prozesse und des Systems. Bei der Systemanalyse kommt es bereits zum ersten Modellentwurf, wobei dieser explizit ohne “Maschinen” d.h. ohne systemspezifische Inhalte ist und somit technische Details noch nicht ins Modell aufgenommen werden. Sofern die Möglichkeit besteht wird in diesem Prozess auch ein Mock-up erstellt. Bei einem Mock-up handelt es sich um ein Modell bzw. einer Nachbildung welches meist eine Attrappe darstellt. In der Softwareentwicklung wird darunter ein Prototyp verstanden, welcher rudimentär die Benutzerschnittstelle widerspiegelt. Er wird vor allem zu Beginn des Projektes eingesetzt um eine bessere Zusammenarbeit mit dem Auftraggeber und dem späteren Anwender zu erlangen. Somit können die Anforderungen an die Benutzeroberfläche direkt besprochen werden und die Beteiligten sich ein besseres Bild über die spätere Anwendung machen.\\
+Im Analyse-Prozess findet die Auswertung der zuvor gesammelten Anforderungen statt.
+Bei dieser Auswertung kommt es auch zur Analyse der Prozesse und des Systems.
+Bei der Systemanalyse kommt es bereits zum ersten Modellentwurf, wobei dieser explizit ohne “Maschinen”, d.h. ohne systemspezifische Inhalte, ist und somit technische Details noch nicht ins Modell aufgenommen werden.
+Sofern die Möglichkeit besteht, wird in diesem Prozess auch ein Mock-up erstellt.
+Bei einem Mock-up handelt es sich um ein Modell bzw. einer Nachbildung, welche meist eine Attrappe darstellt.
+In der Softwareentwicklung wird darunter ein Prototyp verstanden, welcher rudimentär die Benutzerschnittstelle widerspiegelt.
+Er wird vor allem zu Beginn des Projektes eingesetzt, um eine bessere Zusammenarbeit mit dem Auftraggeber und dem späteren Anwender zu erlangen.
+Somit können die Anforderungen an die Benutzeroberfläche direkt besprochen werden und die Beteiligten sich ein besseres Bild über die spätere Anwendung machen.\\
 \\
 \\
 Entwurf\\
@@ -323,10 +329,10 @@ In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einord
 \> * Zustandsdiagramm\\
 \end{tabbing}    
 Im Folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche für die Umsetzung des Projekts selbst verwendet wurden.\\
-Das erste verwendete Diagramm, ist das Anwendungsfalldiagramm (im folgenden als Usecase-Diagramm benannt).\footnote{Analyse und Design mit UML 2.3: Objektorientierte Softwareentwicklung, S. 245f. ,Bernd Oestereich, Stefan Bremer, Verlag: Oldenbourg; Auflage: 9., aktualisierte und erweiterte Auflage. (15. September 2009)} 
+Das erste verwendete Diagramm, ist das Anwendungsfalldiagramm (im Folgenden als Usecase-Diagramm benannt).\footnote{Analyse und Design mit UML 2.3: Objektorientierte Softwareentwicklung, S. 245f. ,Bernd Oestereich, Stefan Bremer, Verlag: Oldenbourg; Auflage: 9., aktualisierte und erweiterte Auflage. (15. September 2009)} 
 Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als 'Strichmännchen' dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
 Anwendungsfälle hingegen werden als Ellipsen dargestellt und enthalten eine Beschreibung.
-Um beide unterschiedliche Elemente in einer Gruppe zusammenzufassen, wird ein Rahmen um alle beteiligten Elemente gebildet.
+Um beide unterschiedlichen Elemente in einer Gruppe zusammenzufassen, wird ein Rahmen um alle beteiligten Elemente gebildet.
 Dieser wird im Systemkontext genannt und Bilder somit die Systemgrenze.
 Neben den normalen Assoziationen (z.B. Benutzer -> Drucken) besteht die Möglichkeit der Generalisierung.
 Das bedeutet, dass zwei spezifische Akteure oder Anwendungsfälle zu einem generellen zusammengefasst werden können.
@@ -343,7 +349,7 @@ Um die Sichtbarkeit der Attribute und Methoden darzustellen, werden verschiedene
 
      + für public, unbeschränkter Zugriff\\
      \# für protected, Zugriff nur von der Klasse sowie von Unterklassen (geerbte Klassen)\\
-     - für private, nur innerhlab der Klasse selbst sichtbar\\
+     - für private, nur innerhalb der Klasse selbst sichtbar\\
 \\
 Ähnlich wie bei einem Usecase-Diagramm bietet sich beim Klassendiagramm die Möglichkeit einer Generalisierung.
 Beispielsweise sind die Klassen \textit{PKW} und \textit{LKW} Unterklassen von der Klasse \textit{Fahrzeuge}. In Abbildung X ist ein Beispiel eines Klassendiagramms zu sehen.\\
@@ -372,9 +378,13 @@ Im Folgenden ist in Abbildung X ein beispielhaftes Aktivitätsdiagramm zu sehen.
 Für das bessere Verständnis der späteren Implementierung ist das Sequenzdiagramm ebenfalls von größerer Bedeutung.\footnote{Analyse und Design mit UML 2.3: Objektorientierte Softwareentwicklung, S. 361f. ,Bernd Oestereich, Stefan Bremer, Verlag: Oldenbourg; Auflage: 9., aktualisierte und erweiterte Auflage. (15. September 2009)} 
 Es dient dazu, einen Überblick über die Lebensdauer und Interaktion zwischen den einzelnen Klassen bzw. deren Objekte zu erhalten.
 Bei diesen wird nicht nur auf die bei den Klassendiagrammen gezeigte Beziehung, sondern auch auf den Nachrichtenaustausch zwischen den Objekten eingegangen.
-Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus folgenden Aktion, wird es notwendig zu unterscheiden, welche Art von Kommunikation stattfindet. Hierbei gibt es die synchrone, als auch asynchrone Kommunikation.
-Bei der synchronen Kommunikation handelt es sich um ein Nachrichtenaustausch bei der das aufrufende Element, beispielsweise ein Browser der Daten anfordert (eine Webseite), wartet, bis die Daten empfangen wurden. Hierbei sendet er die Anfrage für die jeweilige Seite ab und muss anschließend warten bis der Server ihm diese zurückgeliefert hat. Erst im Anschluss kann der Browser die Webseite dem Nutzer darstellen.
-Bei der asynchronen Kommunikation handelt es sich um einen Austausch, welcher es nicht erfordert, dass ein Teilnehmer auf die Bestätigung des Anderen warten muss. Beispielsweise beim Versand einer Email. Hier muss der Sender weder warten bis der Empfänger online ist, noch muss er den Empfang der Email abwarten. Hier können Nachrichten gesendet werden, ohne dass für den Sender ein Ergebnis zur Laufzeit erwartet wird.
+Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus folgenden Aktion, wird es notwendig zu unterscheiden, welche Art von Kommunikation stattfindet.
+Hierbei gibt es die synchrone, als auch asynchrone Kommunikation.
+Bei der synchronen Kommunikation handelt es sich um einen Nachrichtenaustausch bei der das aufrufende Element, beispielsweise ein Browser der Daten anfordert (eine Webseite), wartet, bis die Daten empfangen wurden.
+Hierbei sendet er die Anfrage für die jeweilige Seite ab und muss anschließend warten bis der Server ihm diese zurückgeliefert hat. Erst im Anschluss kann der Browser die Webseite dem Nutzer darstellen.
+Bei der asynchronen Kommunikation handelt es sich um einen Austausch, welcher es nicht erfordert, dass ein Teilnehmer auf die Bestätigung des Anderen warten muss. Beispielsweise beim Versand einer Email.
+Hier muss der Sender weder warten bis der Empfänger online ist, noch muss er den Empfang der Email abwarten.
+Somit können Nachrichten gesendet werden, ohne dass für den Sender ein Ergebnis zur Laufzeit erwartet wird.
 Eine Nachricht wird im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nachrichten werden mit gefüllten Pfeilspitzen, asynchrone Nachrichten mit offenen Pfeilspitzen gekennzeichnet. In der Nachfolgenden Abbildung ist ein beispielhaftes Sequenzdiagramm zu sehen.\\
 \\
 \begin{figure}[H]
