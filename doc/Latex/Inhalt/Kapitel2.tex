@@ -167,10 +167,23 @@ Als optionaler Usecase wir das Anzeigen einer Art Dashboard gesehen. In diesem w
 \subsection{Klassendiagramme}
 \label{subsec:classdiagrams}
 
-Für die Umsetzung des Projektes wurde eine objektorientierte Programmiersprache gewählt, welche es erfordert Objekte von Klassen abzuleiten und die dementsprechenden Methoden dieser Klassen bzw. ihrer Objekte zu nutzen. Für die Umsetzung des Projektes wurde mit mehr als 25 Klassen gearbeitet um eine genügend genaue Abstrahierung und Modularität zu erreichen. Im Nachfolgenden wird auf die wichtigsten Klassen und deren beinhaltete Methoden eingegangen.\\
-Das Ausleseprogramm wird über die Klasse \textit{SNMPTrack} initialisiert, welches auch der Name des Auslese-Skripts darstellt. Diese Klasse ist sozusagen die Hauptklasse von der alle weiteren Objekte erzeugt werden. Zu Beginn des Programms wie in Kapitel X zu sehen werden die Switches aus der XML-Datei ausgelesen. Um hier später die Möglichkeit zu geben die Informationen auch über eine andere Datenquelle einzulesen wurde eine spezielle Klasse \textit{SwitchListe} für das Einlesen der Switches geschaffen. Hierzu muss nur ein Objekt der Klasse erzeugt werden, welches mit dem Befehl \textit{getSwitchList} eine Liste der Switches zurückliefert. Diese kann dann im Hauptprogramm direkt weiterverwendet werden ohne dort die komplette XML-Logik hinterlegen zu müssen.\\
-Über die Klasse \textit{SNMPConfig} können weitere Informationen ausgelesen werden die benötigt werden. So bietet diese Klasse Methoden an, welche das Debuglevel oder die Maximale Threadanzahl der Switchthreads zurückliefern. Durch diese Methoden können die Werte ohne Probleme von einer zentralen Stelle ausgelesen werden. Diese wiederum können aus einer beliebigen Datenquelle (XML, DB) kommen.\\
-Die nächste wichtige Klasse ist die \textit{SNMPHandler} Klasse. Sie verwaltet alle SNMP Abfragen bzw. vereinfacht den Abruf eines SNMP Wertes oder im Falle eines SNMP-Walk der Abruf einer kompletten Liste. Hierzu muss der jeweiligen Methode nur das globale SNMP Objekt, welches aus der SNMP4J-API stammt, die benötigte OID, die IP auf dem der SNMP-Agent läuft, sowie der passende Community-String zum Auslesen übergeben werden. Je nach Methode liefert die entsprechende Methode dann ein String oder eine Array List mit Strings als Elemente zurück. Um die Rückgabe Werte des SNMP-Agents besser zu verstehen ist das folgende Beispiel aufgeführt:\\
+Für die Umsetzung des Projektes wurde eine objektorientierte Programmiersprache gewählt, welche es erfordert Klassen zu verwenden.
+Diese dienen dazu, Objekte abzuleiten und die jeweiligen Methoden von diesen zu nutzen.
+Um das System zu entwerfen wurden 25 Klassen verwendet, da eine möglichst hohe Abstraktion erwünscht war.
+Zusätzlich muss auch sichergestellt werden, dass die Beziehungen zwischen den Klassen modular sind, damit ein einfacher Zugriff und eine Austauschbarkeit gegeben ist.
+Um ein Einblick in die Struktur des Projektes zu erhalten wird in diesem Kapitel auf die wichtigsten Klassen des Projektes eingegangen. \\
+Das Ausleseprogramm wird als Objekt der Klasse \textit{SNMPTrack} instanziiert, welche auch den Namen des Auslese-Programms repräsentiert.
+Hierbei handelt es sich um die Ausgangsklasse, welche die Steuerung des Programms beinhaltet. Von dieser Klasse aus, wird, wie in Kapitel X beschrieben, ein Objekt der Klasse \textit{SwitchListe} erzeugt.
+Dieses stellt alle Switches inklusive deren Passwörter in einer Liste zur Verfügung.
+Das Einlesen dieser Daten erfolgt anhand einer existierenden XML-Datei oder einer bestehenden Datenbank die in der Konfiguration hinterlegt wurde.
+Somit wird sichergestellt, dass für das Auslesen im Hauptteil des Programms nur ein Befehl benötigt wird und die Logik separat liegt.\\
+Neben den Zugangsdaten für die Datenbank werden über die Klasse \textit{SNMPConfig} weitere Informationen zur Verfügung gestellt.
+Sie liest anhand der XML-Konfigurationsdatei aus, welche Anzahl von Threads gleichzeitig maximal aktiv sein darf und enthält auch Informationen über das Debug-Level, welches den Detailgrad der Meldungen reguliert.
+Durch diese Klasse stehen die Informationen in allen anderen Klassen und Methoden zur Verfügung.\\
+Die nächste wichtige Klasse ist die \textit{SNMPHandler} , welche alle SNMP Abfragen verwaltet.
+Diese Klasse dient dazu, den Abruf eines SNMP Wertes oder sofern notwendig eines ganzen Unterbaums durchzuführen.
+Hierfür stellt diese eine Methode bereit, die anhand der gewünschten OID, der IP des SNMP-Agenten, sowie des notwendigen Community-String, die benötigen Informationen  zurückliefert.
+Die Rückgabewerte werden in einem speziellen Format zurückgeliefert, um eine spätere Bearbeitung zu vereinfachen. Zum besseren Verständnis dient das nachfolgende Beispiel:\\
 
 <OID>!<Wert>\\
 
@@ -179,9 +192,12 @@ Mit reellen Daten gefüllt könnte ein Rückgabewert wiefolgt sein:\\
 1.3.6.1.2.1.1.1!Linux WRT54G 2.4.20 2 Thu Dec 9\\
 
 
-Durch das Zusammensetzten mit ! kann eine Verarbeitung stattfinden bzw. der Wert einfach abgelesen werden.\\
-Um einen Switch auszulesen wird ein Objekt der Klasse \textit{SwitchWorkerThread} erzeugt und diesem das SNMP Objekt, die IP und die passende Read-Community übergeben. Dieses Objekt startet dann den intern einen Thread, welcher ein Objekt der Klasse Switch erzeugt und die entsprechenden Initialisierungs-Variablen übergibt. Im Anschluss wird die Methode refresh() des Switches aufgerufen, welches alle relevanten Informationen beginnt auszulesen und dabei wie in Kapitel X beschrieben vorgeht. In der refresh() Methode des Switches wiederum wird auf spezielle Klassen zurückgegriffen.\\
-Eines dieser Klassen ist \textit{OIDL}, welche für OID-Library stehen soll und alle Aliase der OID die verwendet werden enthält. Diese Aliase sind per RFC spezifiziert und 1:1 abgebildet. So ergibt z.b. der Aufruf: \\
+Durch das Zusammensetzten mit ! kann eine einfachere Verarbeitung stattfinden bzw. der Wert auch manuell besser gelesen werden.\\
+Für das Auslesen eines Switches wird jeweils ein Objekt der Klasse \textit{SwitchWorkerThread} erzeugt. Hierbei handelt es sich jeweils um einen separaten Thread, dem jeweils das \textit{Switch}-Objekt aus der Liste des \textit{SwitchListe} Objekts übergeben wird.
+Der Thread ruft anschließend die Methode refresh() der Klasse \textit{Switch} auf.
+Diese Methode beginnt daraufhin alle relevanten Informationen eines Switches über die \textit{SNMPHandler} Klasse, wie in Kapitel X beschrieben, auszulesen.
+Hierzu verwendet die Methode eine programminterne OID-Bibliothek. Diese wird über die Klasse \textit{OIDL} bereitgestellt. Im Detail enthält die Klasse verschiedene Strings, deren Variablennamne dem Namen der im RFC
+Diese Aliase sind per RFC spezifiziert und 1:1 abgebildet. So ergibt z.b. der Aufruf: \\
 
 OIDL.sysDescr0\\
 
