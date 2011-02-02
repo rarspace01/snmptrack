@@ -13,7 +13,7 @@ Zur Untersuchung von Netzwerk-Traffic zwischen verschiedenen Netzwerken kommt da
 Dieses wird im Unternehmen hauptsächlich zum Erfassen der Bandbreitennutzung der Router bzw. der WAN-Verbindungen verwendet.
 Dies ist vor allem wichtig, um den aktuellen Traffic zwischen den einzelnen Standorten in Deutschland im Überblick zu behalten.\\
 Abschließend gibt es noch ein System von Cisco, mit dem Namen “CiscoWorks”, welches dazu dient, mit einem speziellen Programmteil die Hosts an den jeweiligen Switches zu erkennen und zu identifizieren.
-Hier werden nicht nur simple Zuordnungen zwischen Mac-Adresse des Hosts und des Switches, bzw. des Port des Switches hergestellt,
+Hier werden nicht nur simple Zuordnungen zwischen MAC-Adresse des Hosts und des Switches, bzw. des Port des Switches hergestellt,
 sondern umfangreiche Informationen gesammelt, z.B. über die Geschwindigkeit des Anschlusses, die IP und der DNS-Hostname des Gerätes.
 Hinzu kommen Details, wie der Gerätetyp, welcher einem die Möglichkeit gibt, zu erkennen, ob es sich hierbei um ein Switch oder Router handelt.\\
 Da es bei diesem System notwendig ist, regelmäßig die Lizenz zu verlängern, um auch weiterhin die neusten Router und Switches zu unterstützen, ist hier eine gewisse Abhängigkeit gegeben.
@@ -25,9 +25,9 @@ Die Überwachung des Netzwerks lässt sich bei näherer Betrachtung in folgende 
 Darstellung und Überwachung des Netzwerkequipments\\
 Überwachung von einzelnen Hosts im Netzwerk\\
 
-Das Netzwerk bei PD ist in verschiedenen Hierachie-Ebenen konzipiert.
+Das Netzwerk bei PD ist in verschiedenen Hierarchieebenen konzipiert.
 In der untersten Ebene stehen die Switches an denen die Hosts angeschlossen sind. Diese Ebene wird als Access-Layer bezeichnet.
-Über dieser Ebene wiederrum befindet sich der Distribution-Layer. In diesem sind Switches zu finden, welche alle Access-Layer Switches verbinden und als Schnittstelle zu den Layer 3 Switchen, den sogenannten Core-Switches, dienen.
+Über dieser Ebene wiederrum befindet sich der Distribution-Layer. In diesem sind Switches zu finden, welche alle Access-Layer Switches verbinden und als Schnittstelle zu den Layer 3 Switches, den sogenannten Core-Switches, dienen.
 Die Core-Switches können zusätzlich anhand von OSI-Layer-3 Informationen Forwarding betreiben.
 Die komplette Anordnung ist in Abbildung X zu sehen.
 
@@ -91,9 +91,9 @@ Um die Anforderungen bewerten zu können, muss man sich zunächst mit den Techno
 Zunächst einmal muss untersucht werden, ob die im Unternehmen befindlichen Switches auch das SNMP-Protokoll soweit unterstützen, um das Auslesen zu ermöglichen.
 Dies wurde überprüft und bei vereinzelten Switches musste die Konfiguration angepasst werden, da hier teilweise SNMP deaktiviert oder nur für spezielle Hosts zugelassen war.\\
 Im nächsten Schritt galt es zu überprüfen, ob die benötigten Informationen per SNMP überhaupt abfragbar sind. Problematisch hierbei ist vor allem, dass Hersteller zwar eigene MIBs bei SNMP verwenden, über diese lassen sich jedoch nicht die gleichen Informationen abfragen, wie über die proprietären Protokolle der Hersteller.
-Bei der Überprüfung der Zuordnung zwischen Mac-Adresse der angeschlossenen Ports wurde festgestellt, dass diese zwar möglich ist, aber eine sehr spezielle Vorgehensweise vorrausetzt.\footnote{vgl. SNMP Cisco PDF}\\
-Problematisch ist vorallem die genaue Zuordnung der Hosts an den korrekten Switch. So kann es sein, dass die Mac-Adresse eines Hosts sowohl auf einem Access-Switch als auch auf einem Distribution-Switch zu finden ist.
-Hierfür muss eine eindeutige Identifizierung stattfinden, welcher Switch welche Hierarchieebene angehört. Diese Informationen müssten manuell gepflegt werden oder anhand einer automatischen Hierachieerkennung erhalten werden.\\
+Bei der Überprüfung der Zuordnung zwischen MAC-Adresse der angeschlossenen Ports wurde festgestellt, dass diese zwar möglich ist, aber eine sehr spezielle Vorgehensweise vorrausetzt.\footnote{vgl. SNMP Cisco PDF}\\
+Problematisch ist vorallem die genaue Zuordnung der Hosts an den korrekten Switch. So kann es sein, dass die MAC-Adresse eines Hosts sowohl auf einem Access-Switch als auch auf einem Distribution-Switch zu finden ist.
+Hierfür muss eine eindeutige Identifizierung stattfinden, welcher Switch welche Hierarchieebene angehört. Diese Informationen müssten manuell gepflegt werden oder anhand einer automatischen Hierarchieerkennung erhalten werden.\\
 Die Anforderung alle Hosts hinter einem Port zu finden, stellt kein Problem dar, da dies von allen Switches per SNMP unterstützt wird. \\
 Eine Historie, die es ermöglicht, nur neue Kombinationen aus MAC-Adresse des Hosts und des zugehörigen Ports als neuen Eintrag zu sehen ist, ohne Probleme möglich und kann durch die demensptrechende Erstellung der Datenbank sichergestellt werden.\\
 Aussagen über die Geschwindigkeit können leider im Voraus nicht getroffen werden, jedoch ist anzunehmen, dass die Geschwindigkeit über der des manuellen Auslesens per Telnet liegen muss, da SNMP nicht verbindungsorientiert ist und somit die Endgeräte weniger belastet werden und der Overhead reduziert ist. Genauere Aussagen über die Geschwindigkeit lassen sich erst durch Benchmarks machen, welche in Kapitel [Kapitel X] durchgeführt werden.\\
@@ -300,16 +300,22 @@ Dieser wird später in den Switch Threads benötigt, um eine Zuordnung zwischen 
 Anschließend wird in einer Schleife geprüft, ob die Anzahl der aktiven Threads gleich oder höher der maximalen Thread Anzahl ist.
 Ist dies der Fall, wird eine Pause eingelegt, bis die Anzahl der aktiven Threads gesunken ist und ein Thread gestartet.
 Dies stellt sicher, dass nie mehr als X Threads aktiv sind.
-Dies ist vor allem in Hinblick auf die, während der Benchmarks festgestellten, Probleme wichtig. Während der Implementierungsphase wurde der Wert im Bereich 8-32 variiert und schließlich auf 10 gesetzt, welches als Sicherstellung dient, dass keine Verbindungsprobleme zum Oracle Server auftreten. Die Threads starten jeweils den Switch-Code, welcher im nächsten Paragraphen besprochen wird. Nach dem Durchlauf der Schleife wird gewartet bis alle Threads beendet wurden, da zuerst alle Hosts in der Datenbank abgelegt werden müssen um dann eine Duplikatserkennung durchführen zu können. Zuerst werden die Switch Hierachie-Levels anhand der Nagios-Datenbank aktualisiert, da diese ausschlaggebend für die Einordnung der Hosteinträge sind. Im Anschluss werden die Duplikate anhand eines Algorithmuses entfernt, welcher alle bekannten Duplikate untereinander vergleicht und bei bedarf “falsche” Hosteinträge löscht. Hierbei handelt es um Host die sich auf nicht identifzierten Uplinkports befinden. Die Problematik der Identifizierung des Uplinkports wurde bereits in Kapitel X angesprochen. Zum Abschluss werden die von den Duplikaten gesäuberten Daten in die sogenannten Livetabellen übertragen. Diese Übertragung ist notwendig, da es während des Auslesevorganges Inkonsistenzen im Hinblick auf die Verknüpfung der Beziehungen gibt und daher darf erst der “finale” Status in die Livetabellen übertragen werden. Durch diese Übertragung wird auch sichergestellt, dass während des Ausleseprozesses die Datenbank trotzdem nutzbar ist vom User und dieser keine Ausfallzeit des Systems bemmerkt.\\
+Dies ist vor allem in Hinblick auf die, während der Benchmarks festgestellten, Probleme wichtig.
+Während der Implementierungsphase wurde der Wert im Bereich 8-32 variiert und schließlich auf 10 gesetzt, um sicherzustellen, dass keine Verbindungsprobleme mehr zum Oracle Server auftreten. Die Threads starten jeweils den Switch-Code, welcher im nächsten Absatz besprochen wird. Nachdem Durchlauf der Schleife wird gewartet bis alle Threads beendet wurden, da zuerst alle Hosts in der Datenbank abgelegt werden müssen, um dann eine Duplikatserkennung durchführen zu können. Zuerst werden die Switch Hierarchieebenen anhand der Nagios-Datenbank aktualisiert, da diese ausschlaggebend für die Einordnung der Hosteinträge sind. Im Anschluss werden die Duplikate anhand eines Algorithmuses entfernt, welcher alle bekannten Duplikate untereinander vergleicht und bei Bedarf “falsche” Hosteinträge löscht. Hierbei handelt es sich um Host, die sich auf nicht identifzierten Uplinkports befinden. Die Problematik der Identifizierung des Uplinkports wurde bereits in Kapitel X angesprochen. Zum Abschluss werden die von den Duplikaten gesäuberten Daten in die sogenannten Livetabellen übertragen. Diese Übertragung ist notwendig, da es während des Auslesevorganges Inkonsistenzen im Hinblick auf die Verknüpfung der Beziehungen gibt und daher darf erst der “finale” Status in die Livetabellen übertragen werden. Durch diese Übertragung wird auch sichergestellt, dass während des Ausleseprozesses die Datenbank trotzdem nutzbar vom User ist und dieser keine Ausfallzeit des Systems bemerkt.\\
 Im Folgenden wird nun der Auslese Prozess etwas detaillierter für die Switch Threads beschrieben. Auch in diesem Fall gilt der Hinweis, dass es sich hierbei um eine starke Vereinfachung handelt, da das Abbilden der zusätzlich geschriebenen Algorithmen z.B. für das Erhalten der passenden Host-MAC-Adressen eines Ports den Umfang der Bachelor-Arbeit bei weitem übersteigt. 
-Die Erste Überprüfung die durchgeführt wird, ist das Vorhanden sein von SNMP auf der entsprechenden IP. Ist dies nicht der Fall wird das Auslesen des vermeindlichen Switches mit einer Fehlermeldung abgebrochen und der Thread beendet. Im Anschluss dieser Überprüfung werden alle Informationen bezüglich des Switches ausgelesen. Das heißt Hersteller, Modell, IOS-Version, Uptime, Alias usw. . Im Anschluss wird der Switch spezifische SQL-Befehl generiert um die Informationen in die Datenbank abzuspeichern. Jedoch wird diese nicht direkt durchgeführt sondern in einem Stapel gesammelt. Der Grund hierfür liegt in der Reduzierung der Last des Datenbankservers, wie bereits in Kapitel X bei den Benchmarks entdeckt wurde, dass das Absetzten mehrerer Einträge auf einmal die Performence erhöht.
-Im Anschluss werden alle Port relevanten Informationen abgefragt. 
-Nachdem die Liste der VLANs ausgelesen wurden werden die VLAN spezifischen Listen zur MAC-Adressen Zuordnung geladen. Das heißt, für jedes auf dem Switch bekannten VLAN wird eine Abfrage an den Switch gestellt, welche Host-Adressen in dem jeweiligen VLAN mit den dazugehörigen Virtuellen Ports zurückliefert.
-Nach dem alle SNMP-Daten nun ausgelesen und zwischengespeichert sind wird überprüft, ob der jeweilige Port eine MAC-Adresse hat und es sich hierbei auch nicht um eine virtuelle Schnittstelle handelt. Sofern dies der Fall sein sollte wird der Port ignoriert und der nächste bearbeitet. Im Normalfall wird der Bearbeitungs-Prozess anschließend fortgesetzt. Hierbei wird überprüft, ob der Port den Status Up oder Down hat und ob dieser, sofern der Status Up ist CDP-Informationen enthält.
+Die erste Überprüfung, die durchgeführt wird, ist das Vorhanden sein von SNMP auf der entsprechenden IP.
+Ist dies nicht der Fall, wird das Auslesen des vermeindlichen Switches mit einer Fehlermeldung abgebrochen und der Thread beendet.
+Im Anschluss dieser Überprüfung werden alle Informationen bezüglich des Switches ausgelesen.
+Das heißt, Hersteller, Modell, IOS-Version, Uptime, Alias des Switches werden ausgelesen.
+Im Anschluss wird der Switch spezifische SQL-Befehl generiert, um die Informationen in die Datenbank abzuspeichern.
+Jedoch wird diese nicht direkt durchgeführt, sondern in einem Stapel gesammelt. Der Grund hierfür liegt in der Reduzierung der Last des Datenbankservers, wie bereits in Kapitel X bei den Benchmarks entdeckt wurde, dass das Absetzten mehrerer Einträge auf einmal die Performence erhöht.
+Danach werden alle Port relevanten Informationen abgefragt. 
+Nachdem die Liste der VLANs ausgelesen wurde, werden die VLAN spezifischen Listen zur MAC-Adressen Zuordnung geladen. Das heißt, für jedes auf dem Switch bekannten VLAN wird eine Abfrage an den Switch gestellt, welche Host-Adressen in dem jeweiligen VLAN mit den dazugehörigen virtuellen Ports zurückliefert.
+Nachdem alle SNMP-Daten nun ausgelesen und zwischengespeichert sind, wird überprüft, ob der jeweilige Port eine MAC-Adresse hat und es sich hierbei auch nicht um eine virtuelle Schnittstelle handelt. Sofern dies der Fall sein sollte, wird der Port ignoriert und der nächste bearbeitet. Im Normalfall wird der Bearbeitungsprozess anschließend fortgesetzt. Hierbei wird überprüft, ob der Port den Status Up oder Down hat und ob dieser, sofern der Status Up ist CDP-Informationen enthält.
 Diese CDP Informationen werden bei Bedarf ausgelesen und es findet eine Überprüfung per Spanning-Tree-Protokoll statt, ob es sich hierbei um einen Uplink-Port handelt. Im Anschluss wird der jeweilige SQL-Befehl generiert und im Puffer abgelegt.
-Nachdem die Informationen des Ports bekannt sind müssen die Hostinformationen ausgelesen werden. Hierzu wird als allererstes geprüft ob ein Endgerät an den Port angeschlossen ist. Ist dies nicht der Fall, wird das Auslesen der Hostinformationen abgebrochen und alle SQL Abfragen an die Datenbank übertragen. Sind jedoch Hosts vorhanden wird jeweils unterschieden, ob es sich hierbei um ein Uplink-Port handelt oder nicht. Im Falle des Uplink-Ports werden die CDP-Daten ausgewertet und diese als Host Eintrag hinzugefügt. Handelt es um keinen Uplinkport, so werden alle Hosts ausgewertet und für jeden Host die passende IP im ARP-Cache gesucht und aufgrund dieser IP der passende DNS-Hostname rekursiv abgefragt.
+Nachdem die Informationen des Ports bekannt sind, müssen die Hostinformationen ausgelesen werden. Hierzu wird als aller Erstes geprüft, ob ein Endgerät an den Port angeschlossen ist. Ist dies nicht der Fall, wird das Auslesen der Hostinformationen abgebrochen und alle SQL Abfragen an die Datenbank übertragen. Sind jedoch Hosts vorhanden wird jeweils unterschieden, ob es sich hierbei um ein Uplink-Port handelt oder nicht. Im Falle des Uplink-Ports werden die CDP-Daten ausgewertet und diese als Host Eintrag hinzugefügt. Handelt es sich um keinen Uplinkport, so werden alle Hosts ausgewertet und für jeden Host die passende IP im ARP-Cache gesucht und aufgrund dieser IP der passende DNS-Hostname rekursiv abgefragt.
 Im Anschluss wird, sofern es sich um ein Host mit Windows handelt, das Active Directory befragt, welcher Benutzer zuletzt am genannten Host angemeldet war. Auf Grundlage dieser Daten wird wiederum ein SQL-Befehl generiert, der anschließend dem Puffer hinzugefügt wird.
-Bevor der Switch-Thread beendet wird, werden die Abfragen aus dem SQL-Puffer an einen speziellen Datenbank Thread übergeben der sich anschließend um das Absetzten der SQL-Befehle kümmert. So kann Der Switch Thread bereits beendet werden und das Auslesen des nächsten Switches beginnen, auch wenn noch nicht alle Datensätze in der Datenbank sind. Dies dient vor allem der Reduzierung der Wartezeit und somit einer Reduzierung der Auslesezeit.
+Bevor der Switch-Thread beendet wird, werden die Abfragen aus dem SQL-Puffer an einen speziellen Datenbank Thread übergeben der sich anschließend um das Absetzen der SQL-Befehle kümmert. So kann Der Switch Thread bereits beendet werden und das Auslesen des nächsten Switches beginnen, auch wenn noch nicht alle Datensätze in der Datenbank sind. Dies dient vor allem der Reduzierung der Wartezeit und somit einer Reduzierung der Auslesezeit.
 
 \begin{figure}[H]
 \centering
@@ -318,10 +324,10 @@ Bevor der Switch-Thread beendet wird, werden die Abfragen aus dem SQL-Puffer an 
 \label{fig:activitydiagram2}
 \end{figure}
 
-\subsection{ERM}
+\subsection{Enitity Relationship Model}
 \label{subsec:erm-diagram}
 
-Aufgrund der vorherigen Analysen ist ein Enitity Relationship Model erstellt
+Aufgrund der vorherigen Analysen ist ein Enitity Relationship Model (ERM) erstellt
 worden. Zum Erstellen wurde das Programm Dia verwendet, welches nicht der Chen
 Notation folgt, aber eine einfache und schnelle Erstellung einer schemenhaften Abbildung ermöglicht und auch flexibel gegenüber Veränderungen ist.
 Der Entwurf der Datenbank als ERM ist in Abbildung X zu sehen.
@@ -333,27 +339,30 @@ Der Entwurf der Datenbank als ERM ist in Abbildung X zu sehen.
 \label{fig:erm}
 \end{figure}
 
-Um alle Daten verwalten zu können werden vier verschiedene Tabellen benötigt.\\
+Um alle Daten verwalten zu können, werden vier verschiedene Tabellen benötigt.\\
 Zunächst wird eine Tabelle zum Speichern der VLAN-Informationen benötigt.
 Hierzu existiert die Tabelle VLANs mit dem Primärschlüssel VLANID, welcher für jedes VLAN im Netwerk eindeutig ist und somit auch als Primärschlüssel geeignet ist. Über diesen Schlüssel werden alle VLAN relevanten Informationen abgelegt. Dazu gehören neben dem Namen bzw. Alias des VLANs auch die VTP-Domain und ein Zeitstempel, um unterscheiden zu können, welche VLANs eventuell in der Vergangenheit aktiv waren und in der Gegenwart nicht mehr existieren.\\
 Die Tabelle Switches dient dazu, alle Switch relevanten Informationen zu speichern. 
-Um den Switch eindeutig zu identifizieren reicht die IP Adresse des Switches aus. Über diese werden anschließend Informationen über den Switch gespeichert. Dazu gehören Dinge wie IOS-Version, Modell, Ort, Uptime, aber auch Hostname, sofern vorhanden und die entsprechende Hierachiestufe, welche anhand de Nagios-Systems ausgelesen wurde.\\
+Um den Switch eindeutig zu identifizieren reicht die IP Adresse des Switches aus. Über diese werden anschließend Informationen über den Switch gespeichert. Dazu gehören Dinge wie IOS-Version, Modell, Ort, Uptime, aber auch Hostname, sofern vorhanden und die entsprechende Hierarchiestufe, welche anhand des Nagios-Systems ausgelesen wurde.\\
 In der Port Tabelle werden alle Ports der Switches gespeichert. Die Ports selbst sind eindeutig über ihre jeweilige MAC-Adresse identifizierbar, jedoch soll ein neuer Eintrag angelegt werden, sofern sich die VLAN Einstellung ändert.
 Daher dient nicht nur die MAC-Adresse als Primärschlüssel, sondern auch die VLAN ID.
-Neben dem Namen des Ports und der MAC-Adresse gibt es auch ein Fremdschlüssel, welcher die IP des angehörigen Switches enthält um eine eindeutige Zuordnung des Ports an einen Switch zu ermöglichen.
+Neben dem Namen des Ports und der MAC-Adresse gibt es auch ein Fremdschlüssel, welcher die IP des angehörigen Switches enthält, um eine eindeutige Zuordnung des Ports an einen Switch zu ermöglichen.
 Zusätzlich sind Attribute des Ports bezüglich des Status untergebracht.
-So ist zum Beispiel möglich zu sehen, ob der Port gerade Up oder Down ist, mit welcher Geschwindgkeit auf dem Port kommuniziert wird und welcher Duplex Modus aktiv ist. Auch wird gespeichert, ob es sich bei dem Port um einen Uplinkport handelt.\\
-In der Host Tabelle werden alle im Netzwerk befindlichen Hosts gespeichert.
-Zur eindeutigen Identifikation der Hosts genügt die MAC-Adresse, jedoch geht aus der Anforderungsdefinition hervor, dass sofern der Host an einen anderen Port angeschlossen wird ein neuer Eintrag angelegt werden muss, daher wurde nicht nur die MAC-Adresse des Hosts, sondern auch die MAC-Adresse des Ports am Switch als Primärschlüssel genommen. Neben den üblichen Informationen wie IP und DNS-Hostname, werden auch Teile des Port Status abgespeichert, da man, sofern der Host an einem anderen Switch angeschlossen wird (z.B. ein Notebook der den Accesspoint wechselt), immernoch wissen möchte, mit welcher Geschwindigkeit dieser PC ursprünglich angeschlossen war. Es reicht aber auch schon das Suchen eines PCs der gerade ausgeschaltet ist. Um trotzdem herauszufinden mit welcher Geschwindigkeit dieser angeschlossen war ist diese Differenzierung notwendig. Zusätzlich dazu werden Informationen abgespeichert, sofern CDP Informationen über den Host bekannt sind. Hier werden dann CDP-Gerätetyp und der CDP-Port gespeichert, dies ist vor allem hilfreich bei Switches, Routern und Firewalls die das CDP Protokoll unterstützen um eine bessere Einordnung zu erhalten. Neben diesen Informationen wird im Feld VHOST zusätzlich vermerkt ob es sich bei diesem Host um einen physikalischen Host oder um ein logischen Host handelt. Das heißt, handelt es sich bei dem Host um einen virtuellen Server wird dieser explizit als Vhost markiert. Erkannt werden alle gängigen virtuellen Hosts. Dazu zählen mit VMWare, Virtualbox, VirtualPC, aber auch mit Parallels (Virtual Desktop, Server, Virtruzzo) oder Xen erzeugte Hosts. Zu beachten ist jedoch das z.B. das spezielle VMWare ESXi Server Betriebssystem selbst über eine virtuelle Schnittstelle kommuniziert, also das Host-System selbst und nicht die Gast-VMs.
+So ist zum Beispiel möglich, zu sehen, ob der Port gerade Up oder Down ist, mit welcher Geschwindgkeit auf dem Port kommuniziert wird und welcher Duplex Modus aktiv ist. Auch wird gespeichert, ob es sich bei dem Port um einen Uplinkport handelt.\\
+In der Host-Tabelle werden alle im Netzwerk befindlichen Hosts gespeichert.
+Zur eindeutigen Identifikation der Hosts genügt die MAC-Adresse, jedoch geht aus der Anforderungsdefinition hervor, dass sofern der Host an einen anderen Port angeschlossen wird ein neuer Eintrag angelegt werden muss, daher wurde nicht nur die MAC-Adresse des Hosts, sondern auch die MAC-Adresse des Ports am Switch als Primärschlüssel genommen. Neben den üblichen Informationen wie IP und DNS-Hostname, werden auch Teile des Port Status abgespeichert, da man, sofern der Host an einem anderen Switch angeschlossen wird (z.B. ein Notebook der den Accesspoint wechselt), immernoch wissen möchte, mit welcher Geschwindigkeit dieser PC ursprünglich angeschlossen war. Es reicht aber auch schon das Suchen eines PCs der gerade ausgeschaltet ist.
+Um trotzdem herauszufinden, mit welcher Geschwindigkeit dieser angeschlossen war, ist diese Differenzierung notwendig. Zusätzlich dazu werden Informationen abgespeichert, sofern CDP Informationen über den Host bekannt sind. Hier werden dann CDP-Gerätetyp und der CDP-Port gespeichert, dies ist vor allem hilfreich bei Switches, Routern und Firewalls die das CDP Protokoll unterstützen, um eine bessere Einordnung zu erhalten.
+Neben diesen Informationen wird im Feld VHOST zusätzlich vermerkt, ob es sich bei diesem Host um einen physikalischen Host oder um einen logischen Host handelt. Das heißt, handelt es sich bei dem Host um einen virtuellen Server wird dieser explizit als Vhost markiert. Erkannt werden alle gängigen virtuellen Hosts. Dazu zählen mit VMWare, Virtualbox, VirtualPC, aber auch mit Parallels (Virtual Desktop, Server, Virtruzzo) oder Xen erzeugte Hosts. Zu beachten ist jedoch, dass z.B. das spezielle VMWare ESXi Server Betriebssystem selbst über eine virtuelle Schnittstelle kommuniziert, also das Host-System selbst und nicht die Gast-VMs.
 
 
 \section{Design Entscheidungen}
 \label{sec:designent}
 
 Für die Umsetzung des Projektes müssen verschiedene Entscheidungen bezüglich der Umsetzung getroffen werden. Einige der Entscheidungen sind entweder durch die Anforderungen spezifiziert oder müssen unter Abwegung der Vor- und Nachteile ausgewählt werden.\\
-Zuerst muss eine Entscheidung fallen, welche Programmiersprache gewählt wird. Nach dem Abgleich der Anforderungen und der Absprache mit der Fachabteilung, standen Perl und Java zur Auswahl. Da einer der Anforderungen auch die Geschwindigkeit betrifft, wurde zuerst eine Test Applikation in beiden Sprachen geschrieben. Dise hat jeweils einen Switch mit wenig Netzwerk-Traffic mit einer Vielzahl von SNMP Abfragen beschäftigt, um Benchmakrwerte zu erhalten.\\
+Zuerst muss eine Entscheidung fallen, welche Programmiersprache gewählt wird. Nachdem Abgleich der Anforderungen und der Absprache mit der Fachabteilung, standen Perl und Java zur Auswahl. Da einer der Anforderungen auch die Geschwindigkeit betrifft, wurde zuerst eine Test Applikation in beiden Sprachen geschrieben.
+Dieses hat jeweils einen Switch mit wenig Netzwerk-Traffic mit einer Vielzahl von SNMP Abfragen beschäftigt, um Benchmakrwerte zu erhalten.\\
 Im Benchmark-Programm wird die Zeit gemessen, wie lange es dauert um 1000 Abfragen durchzuführen.
-Der, in Millisekunden gemessene, Wert wird in die nachfolgende Formel eingesetzt:\\
+Der in Millisekunden gemessene Wert wird in die nachfolgende Formel eingesetzt:\\
 
 Anzahl der Requests*1000/Benötigte Zeit in ms= Abfragen pro Sekunde\\
 
@@ -364,15 +373,16 @@ In der nachfolgenden Grafik sind die beide Programmiersprachen aufgezeichnet:\\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{bench_j_p.PNG}
-\caption{Benchmark - Perl, Java}
+\caption{Benchmark - Vergleich zwischen Perl und Java}
 \label{fig:benchperljava}
 \end{figure}
 
-Wie in der Grafik zu erkennen, liegt Java ein Bruchteil vor Perl. Der geringe Unterschied zwischen den beiden Programmiersprachen lässt sich dadurch erklären, dass die Implementierung der SNMP Abfragen minimal anders sind, der bei beiden fast gleich hohe Wert lässt darauf schließen, dass der Flaschenhals des Benchmarks der Switch selbst ist. Dies konnte dadurch validiert werden, wenn beide Benchmarks  gleichzeitig gestartet wurden und dann eine Halbierung beider Benchmark Werte erfolgte.\\
+Wie in der Abbildung zu erkennen, liegt Java ein Bruchteil vor Perl. Der geringe Unterschied zwischen den beiden Programmiersprachen lässt sich dadurch erklären, dass die Implementierung der SNMP-Abfragen minimal anders sind, der bei beiden fast gleich hohe Wert lässt darauf schließen, dass der Flaschenhals des Benchmarks der Switch selbst ist. Dies konnte dadurch validiert werden, wenn beide Benchmarks  gleichzeitig gestartet wurden und dann eine Halbierung beider Benchmark Werte erfolgte.\\
 Da es somit kein Unterschied macht, welche der beiden Sprachen zum Einsatz kommt, wird die Entscheidung anhand der Möglichkeiten beider Sprachen und deren Modularität gefällt und somit fällt die Wahl auf Java.\\
 
-Da unter anderem eine Vielzahl an Switches abgefragt werden muss, empfiehlt es sich eine Parallelisierung anzustreben, da jeder Switch nur eine begrenzte Geschwindigkeit aufweist.
-Hierfür eignet sich die Verwendung von Threads um den Teil der Abfragen zu parallelisieren der unabhängig voneinander ablaufen kann. Um den Nutzen einer Parallelisierung zu validieren wurde wiederum ein Benchmark durchgeführt. Bei diesem Benchmark wurde die Anzahl der Threads variiert und jeweils die Zeit gemessen.\\
+Da unter anderem eine Vielzahl an Switches abgefragt werden muss, empfiehlt es sich, eine Parallelisierung anzustreben, da jeder Switch nur eine begrenzte Geschwindigkeit aufweist.
+Hierfür eignet sich die Verwendung von Threads, um den Teil der Abfragen zu parallelisieren, der unabhängig voneinander ablaufen kann.
+Um den Nutzen einer Parallelisierung zu validieren, wurde wiederum ein Benchmark durchgeführt. Bei diesem Benchmark wurde die Anzahl der Threads variiert und jeweils die Zeit gemessen.\\
 
 \begin{figure}[H]
 \centering
@@ -381,10 +391,11 @@ Hierfür eignet sich die Verwendung von Threads um den Teil der Abfragen zu para
 \label{fig:benchparallel}
 \end{figure}
 
-Wie in der Grafik zu erkennen ist lässt sich feststellen, dass durch die Parallelisierung ein bedeutender Geschwindigkeitszuwachs zu messen ist.
-Für die Abfragen pro Switch wurden jeweils 2000 Abfragen angenommen was ein geschätzer Maximalwert pro Switch später darstellen sollte.\\
-Bei der Durchführung dieses Benchmarks wurde aber zugleich ein Problem erkannt und zwar kommt es zu Problemen bei Thread-Zahlen über 20. Hierbei reicht der UDP-Puffer für die SNMP Abfragen nicht mehr aus und somit kam der Empfang aller SNMP-Pakete nicht mehr sicher gestellt werden. Daher empfiehlt es sich bei der Implementierung ein niedrigeren Wert zu wählen und auf Nummer sicher zu gehen.\\
-Bei der Version 2 des SNMP-Protokolls gibt es ein speziellen Abfrage Modus “BULKGET”. Bei diesem musste auch überprüft werden, in welchem Umfang dieser dem normalen GET ein Geschwindigkeitsvorteil bringt. Hierfür wurden der erste Benchmark angepasst und die Liste der Ports von einem Switch abgefragt, einmal alle Ports sequentiell und einmal per BULK.\\
+Wie in der Abbildung \ref{fig:benchparallel} zu erkennen ist, lässt sich feststellen, dass durch die Parallelisierung ein bedeutender Geschwindigkeitszuwachs zu messen ist.
+Für die Abfragen pro Switch wurden jeweils 2000 Abfragen angenommen, das ein geschätzer Maximalwert pro Switch später darstellen sollte.\\
+Bei der Durchführung dieses Benchmarks wurde aber zugleich ein Problem erkannt und zwar kommt es zu Problemen bei Thread-Zahlen über 20. Hierbei reicht der UDP-Puffer für die SNMP-Abfragen nicht mehr aus und somit kann der Empfang aller SNMP-Pakete nicht mehr sicher gestellt werden.
+Daher empfiehlt es sich bei der Implementierung einen niedrigeren Wert zu wählen und auf Nummer sicher zu gehen.\\
+Bei der Version 2 des SNMP-Protokolls gibt es einen speziellen Abfrage Modus “BULKGET”. Bei diesem musste auch überprüft werden, in welchem Umfang dieser dem normalen GET ein Geschwindigkeitsvorteil bringt. Hierfür wurden der erste Benchmark angepasst und die Liste der Ports von einem Switch abgefragt, ein Mal alle Ports sequentiell und ein Mal per BULK-Befehl.\\
 Die Ergebnisse des Benchmarks lassen sich im nachfolgenden Bild erkennen.\\
 
 \begin{figure}[H]
@@ -394,10 +405,11 @@ Die Ergebnisse des Benchmarks lassen sich im nachfolgenden Bild erkennen.\\
 \label{fig:benchsnmpbulk}
 \end{figure}
 
-Es lässt sich feststellen, dass der BULK Modus einen bis zu fünfachen Geschwindigkeitsvorteil bringt. Jedoch muss beachtet werden, dass im Falle einer größeren Anzahl von Antworten (ab 50) diese nicht vom BULK Modus zurückgegeben werden, daher ist der Einsatz nur partiell sinnvoll.\\
+Es lässt sich feststellen, dass der BULK Modus einen bis zu dreifachen Geschwindigkeitsvorteil bringt. Jedoch muss beachtet werden, dass im Falle einer größeren Anzahl von Antworten (ab 50) diese nicht vom BULK Modus zurückgegeben werden, daher ist der Einsatz nur partiell sinnvoll.\\
 Hierbei muss bei der Implementierung dann genaustens beachtet werden, wann welche Methode eingesetzt werden kann.\\
 
-Eine weitere Sache die überprüft werden muss ist die Abwegung, ob es sinnvoller ist die SQL-Befehle, welche neue Datensätze hinzufügen, zuerst zu sammeln und mit einem Commit abzusetzten oder jeden einzelnen Datensatz separat abzusetzen. Hierfür wurde ebenfalls ein Benchmark durchgeführt um eine Entscheidung in dieser Hinsicht treffen zu können.\\
+Eine weitere Sache, die überprüft werden muss, ist die Abwegung, ob es sinnvoller ist die SQL-Befehle, welche neue Datensätze hinzufügen, zuerst zu sammeln und mit einem Commit abzusetzen oder aber jeden einzelnen Datensatz separat abzusetzen.
+Hierfür wurde ebenfalls ein Benchmark durchgeführt, um eine Entscheidung in dieser Hinsicht treffen zu können.\\
 
 \begin{figure}[H]
 \centering
@@ -406,77 +418,88 @@ Eine weitere Sache die überprüft werden muss ist die Abwegung, ob es sinnvolle
 \label{fig:benchoracletransactions}
 \end{figure}
 
-Wie in der Grafik zu erkennen ist es von Vorteil die Commits zuerst zu sammeln und dann abzusetzten.
-Während des Benchmarks wurde jedoch erkannt, dass durch eine Vielzahl von vorgehaltenen Abfragen, die durch die Parallelisierung entstehen, die Anzahl der gleichzeitig offenen Tabellen Einträgen sich stark erhöht und somit das Limit der Datenbank überschreiten wird.
-Zwar wurde anschließend das Limit der maximal offenen Einträge erhöht, jedoch kam es selbst dann zu Überschreitungen, daher wurde der Algroithmus so angepasst, dass er immer in Paketen zuje 100 Befehlen arbeitet. Durch diese Maßnahme ist es trotzdem möglich einen Geschwindigkeitsvorteil zu erhalten, bei gleichzeitiger Einhaltung der Limits.
+In Abbildung \ref{fig:benchoracletransactions} ist zu erkennen, dass es von Vorteil ist, die Commits zuerst zu sammeln und dann abzusetzen.
+Während des Benchmarks wurde jedoch erkannt, dass durch eine Vielzahl von vorgehaltenen Abfragen, die durch die Parallelisierung entstehen, die Anzahl der gleichzeitig offenen Tabelleneinträgen sich stark erhöht und somit das Limit der Datenbank überschreiten wird.
+Zwar wurde anschließend das Limit der maximal offenen Einträge erhöht, jedoch kam es selbst dann zu Überschreitungen. Daher wurde der Algorithmus so angepasst, dass er immer in Paketen zu je 100 Befehlen arbeitet. Durch diese Maßnahme ist es trotzdem möglich, einen Geschwindigkeitsvorteil zu erhalten, bei gleichzeitiger Einhaltung der Limits.
 
 \section{Auswahl der Hilfsmittel}
 \label{sec:hilfsmittelwahl}
 
 Für die Umsetzung des Projektes sind verschiedene Hilfmittel notwendig.\\
 Zum einen wird eine Entwicklungsumgebung benötigt.
-Da die Wahl der Programmiersprache auf Java gefallen ist und kommerzielle Lösungen nicht zur Auswahl stehen wurde sich für Eclipse entschieden, da es neben NetBeans zu den wenigen Open Source IDEs gehört, welche eine Vielzahl von Erweiterungsmöglichkeiten bietet und interaktive Funktionen wie Code-Vervollständigung oder Code-Vorlagen unterstützt aber auch standardmäßige Dinge wie Syntaxhervorhebung.\\
+Da die Wahl der Programmiersprache auf Java gefallen ist und kommerzielle Lösungen nicht zur Auswahl stehen, fiel die Wahl auf Eclipse, da es neben NetBeans zu den wenigen Open Source IDEs gehört, welche eine Vielzahl von Erweiterungsmöglichkeiten bietet und interaktive Funktionen wie Code-Vervollständigung oder Code-Vorlagen, aber auch standardmäßige Dinge wie Syntaxhervorhebung unterstützt .\\
 
-Zur Softwareversionverwaltung wurde Subversion verwendet. Dies ist eines in der Praxis am weitesten verbreiteten Systeme.\\
-Die Auswahl wurde auf ein Open-Source System gelegt und zusätzlich auf ein zentrales System um ein großes Maß an Interpolität zu erreichen. Die Wahl fiehl speziell auf Subversion, da es im Gegenzug zu CVS das Versionsschema nicht auf einzelene Dateien sondern auf das ganze Projekt bezieht. Das hat den Vorteil, dass das Hinzufügen einer neuen Funktion nicht in der Hauptklasse Version 50 und in der Methodenklasse Version 70 gespeichert wird. Somit wäre kein Zusammenhang erkennbar. Bei Subversion hingegen kann dies direkt erkannt werden, da die neue Funktion in der Revision 33 in beiden Dateien erkennbar ist.\\
+Zur Softwareversionverwaltung wurde Subversion verwendet.
+Die Auswahl wurde auf ein Open-Source System gelegt und zusätzlich auf ein zentrales System, um ein großes Maß an Interpolität zu erreichen.
+Die Wahl fiel speziell auf Subversion, da es im Gegenzug zu CVS das Versionsschema nicht auf einzelene Dateien sondern auf das ganze Projekt bezieht.
+Das hat den Vorteil, dass das Hinzufügen einer neuen Funktion nicht in der Hauptklasse Version 50 und in der Methodenklasse Version 70 gespeichert wird, sondern in einer gemeinsamen Version.
+Somit ist es für dne Entwickler möglich den Zusammenhang zwischen den einzelnen Dateien direkt zu erkennen, da die neue Funktion z.B. in der Revision 60 in beiden Dateien erkennbar ist.\\
 
 \section{Schnittstellen}
 \label{sec:schnitt}
 
-Um ein Projekt mit vielen Einlese und Export Funktionalitäten erstellen zu können, werden viele Schnittstellen benötigt.
-Zum einen wird bei diesem Projekt eine Schnittstelle für die SNMP Abfragen benötigt, zum anderen wird eine Anbindung an das Active Directory angestrebt. Zusätzlich müssen aber auch alle Datenbankzugriffe sowohl vom Einleseprogramm, als auch von der Website bewerkstelligt werden.\\
+Um ein Projekt mit vielen Einlese- und Exportfunktionalitäten erstellen zu können, werden viele Schnittstellen benötigt.
+Zum Einen wird bei diesem Projekt eine Schnittstelle für die SNMP-Abfragen benötigt, zum Anderen wird eine Anbindung an das Active Directory angestrebt. Zusätzlich müssen aber auch alle Datenbankzugriffe sowohl vom Einleseprogramm, als auch von der Website bewerkstelligt werden.\\
 Im Folgenden wird auf die jeweiligen Schnittstellen eingegangen, wie diese sequentiell im Ablauf des Ausleseprogramms verwendet werden. Diese lassen sich wiefolgt zusammenfassen:\\
 \\
-Einlesen aller benötigten Konfigurationsdaten\\
-Auslesen per SNMP\\
-Rekursive DNS Abfragen\\
-Auslesen per LDAP\\
-Datenbankverbindung Java\\
-Datenbankverbindung Webserver\\
-
+\begin{itemize}
+\item Einlesen aller benötigten Konfigurationsdaten
+\item Auslesen per SNMP
+\item Rekursive DNS Abfragen
+\item Auslesen per LDAP
+\item Datenbankverbindung Java
+\item Datenbankverbindung Webserver
+\end{itemize}
 
 Die erste Schnittstelle ist beim Start des Programmes zum Auslesen der Daten angesiedelt. Hierbei muss der Benutzer dem Programm eine Großzahl von Informationen übergeben.\\
 Es existiert eine spezielle XML-Datei in der die Switches, welche ausgelesen werden müssen, die Router, welche den ARP-Cache enthalten, sowie die notwendigen Zugangsdaten für die Datenbanken, enthalten sind. \\
 Das Programm selbst bietet dem Nutzer keine Möglichkeit Übergabe-Parameter zu definieren, damit ein möglichst einfacher Ablauf ermöglicht und zusätzliche Fehleingaben des Benutzers vermieden werden.\\
-Die nächste Schnittstelle ist die Kommunikation mit den Switches per SNMP. Um nicht die komplette SNMP-Kommnuikation selbst per UDP implmentieren zu müssen, emfiehlt es sich hierbei eine bereits vorhandene API zu nutzen.\\
-Speziell für Java gibt es hierfür mehrere Möglichkeiten (keine vollständige Liste):\\
-SNMP4J\\
-jSNMP\\
-WebNMS SNMP\\
-iReasoning SNMP API\\
-netsnmpj\\
-
+Die nächste Schnittstelle ist die Kommunikation mit den Switches per SNMP. Um nicht die komplette SNMP-Kommnunikation selbst per UDP implementieren zu müssen, empfiehlt es sich hierbei, eine bereits vorhandene API zu nutzen.\\
+Speziell für Java gibt es hierfür unter anderem folgende Möglichkeiten:\\
+\\
+\begin{itemize}
+\item SNMP4J
+\item jSNMP
+\item WebNMS SNMP
+\item iReasoning SNMP API
+\item netsnmpj
+\end{itemize}
 
 Schließt man nun alle kommerziellen Lösungen aus, so bleiben lediglich SNMP4J und netsnmpj übrig.
-Da mehrere SNMP Abfragen später gleichzeitig durchgeführt werden müssen ist die Wahl auf SNMP4J gefallen, da dieses threadsicher ist und auch ein größeren Funktionsumfang wie netsnmpk bei der Implementierung mitsichbringt.\\
-Um anhand der ermittelten IP-Adressen die dementsprechende DNS-Namen zu erhalten ist es notwendig ein Reserve DNS-Lookup zu machen. Hierfür muss das sogenannte JNDI verwendet werden, welches einem erlaubt selbstdefinierte DNS-Abfragen zu erstellen.\\
-Um beispielsweise den DNS-Namen der IP 192.168.0.1 herausfinden zu können muss dieser aber erst in ein spezielles Format gebracht werden. Hierzu wird die IP Adresse umgekehrt zu 1.0.168.192 und der Zusatz “.in-addr.arpa” angehängt. Daraus folgt dann:\\
+Da mehrere SNMP-Abfragen später gleichzeitig durchgeführt werden müssen, ist die Wahl auf SNMP4J gefallen, da dieses threadsicher ist und auch ein größeren Funktionsumfang als netsnmpk bei der Implementierung mit sich bringt.\\
+Um anhand der ermittelten IP-Adressen die dementsprechende DNS-Namen zu erhalten, ist es notwendig, ein Reserve DNS-Lookup zu machen.
+Hierfür muss das sogenannte JNDI verwendet werden, welches einem erlaubt, selbstdefinierte DNS-Abfragen zu erstellen.\\
+Um beispielsweise den DNS-Namen der IP 192.168.0.1 herausfinden zu können, muss dieser aber erst in ein spezielles Format gebracht werden. Hierzu wird die IP Adresse umgekehrt zu 1.0.168.192 und der Zusatz “.in-addr.arpa” angehängt. Daraus folgt dann:\\
 
 1.0.168.192.in-addr.arpa\\
 
 Diese Adresse wird inklusive dem Modus “PTR”, welche für einen Reserve-DNS-Lookup steht, an den DNS Service Provider übermittelt und das Resultat wiederum zurückgegeben.\\
 
-Für das Auslesen des zugehörigen Benutzers muss das Active Directory befragt werden, hierzu gibt es eine Mehrzahl von Möglichkeiten, die jedoch dadurch eingeschränkt werden, dass diese nur unter Windows lauffähig sind. Daher muss auf Ansätze zurückgegriffen werden bei denen es möglich ist Plattformunabhängig zu agieren. Hierzu muss man die Architektur vom Active Directory von Windows genauer untersuchen.\\
+Für das Auslesen des zugehörigen Benutzers muss das Active Directory befragt werden.
+Hierzu gibt es eine Mehrzahl von Möglichkeiten, die jedoch dadurch eingeschränkt werden, dass diese nur unter Windows lauffähig sind. Daher muss auf Ansätze zurückgegriffen werden, bei denen es möglich ist plattformunabhängig zu agieren. Hierzu muss man die Architektur vom Active Directory von Windows genauer untersuchen.\\
 Generell lässt sich das Active Directory in folgende Komponenten unterteilen:\\
 \\
-LDAP-Verzeichnis\\
-Kerberos-Protokoll\\
-Common Internet File System\\
-Domain Name System (DNS)\\
+\begin{itemize}
+\item LDAP-Verzeichnis
+\item Kerberos-Protokoll
+\item Common Internet File System
+\item Domain Name System (DNS)
+\end{itemize}
 
-
-Hiervon ist vor allem das LDAP-Verzeichnis interessant, welches es ermöglicht den Benutzer des jeweiligen Computers herauszufinden.
+Hiervon ist vor allem das LDAP-Verzeichnis bedeutend, welches es ermöglicht den Benutzer des jeweiligen Computers herauszufinden.
 Da LDAP per RFC genaustens spezifiziert ist (aktuell im RFC 4511) und Microsoft diesen Standard ebenfalls nutzt kann mit einer LDAP-API auf das Verzeichnis zugegriffen werden.\\
 Hierfür bietet Java mit seinen enthaltenen Bibliotheken ebenfalls eine Schnittstelle ähnlich der DNS-Abfragen an. Über diese können die Attribute eines Objektes im Verzeichnis abgefragt und gesetzt werden. In diesem Verzeichnis befinden sich auch die einzelnen Computer als Objekte. Diese wiederum haben diverse Attribute, welche unter anderem auch den aktiven Nutzer enthalten.\\
-Für die Verbindung des Java-Programms zur Oracle und MySQL-Datenbank gibt es verschiedene Möglichkeiten. Hierzu zählen die verschiedenen Arten von Treibern, die eine Datenbankverbindung ermöglichen. Zu allererst ist die ODBC-Schnittstelle zu nennen welches es ermöglicht unabhängig von der eingesetzten Datenbank, die Anbindung an das Programm immer auf die gleiche Art zu realisieren zu können. Da diese Unabhängigkeit dadurch erreicht wird, dass Befehle erst in die Datenbankspezifischen umgewandelt werden müssen und somit ein Overhead entsteht, ist diese Lösung meist langsamer wie eine native Lösung. Daher ist es von Vorteil spezielle vom Hersteller angebotene JDBC-Treiber einzusetzten, welche anstelle des JDBC-ODBC Brücken-Treibers den zusätzlichen Overhead meiden und direkt mit dem DBMS kommunizieren.\\
+Für die Verbindung des Java-Programms zur Oracle und MySQL-Datenbank gibt es verschiedene Möglichkeiten. Hierzu zählen die verschiedenen Arten von Treibern, die eine Datenbankverbindung ermöglichen. Zu allererst ist die ODBC-Schnittstelle zu nennen, welche es ermöglicht, unabhängig von der eingesetzten Datenbank, die Anbindung an das Programm immer auf die gleiche Art realisieren zu können.
+Da diese Unabhängigkeit dadurch erreicht wird, dass die SQL-Befehle erst in die datenbankspezifischen umgewandelt werden müssen und somit ein Overhead entsteht, ist diese Lösung meist langsamer als eine native Lösung. Daher ist es von Vorteil spezielle vom Hersteller angebotene JDBC-Treiber einzusetzen, welche anstelle des JDBC-ODBC Brücken-Treibers den zusätzlichen Overhead meiden und direkt mit dem DBMS kommunizieren.\\
 Bei der Verbindung mit dem Webserver kann wiederum ein ODBC-Treiber einsetzt werden oder speziell für die Programmiersprache PHP geschriebene Bibliotheken, die es erlauben, ähnlich wie bei Java direkt mit dem DBMS zu kommunizieren um unnötigen Overhead zu vermeiden.\\
 
 \section{Zeitplan}
 \label{sec:timetable}
 
 Für die Umsetzung eines Softwareprojektes ist nicht nur ein Entwurf notwendig, sondern auch die Planung über den zeitlichen Ablauf. Der Faktor Zeit spielt eine wichtige Rolle, da er die beiden Variablen Qualität und Kosten begrenzt. Da bei diesem Projekt keine externen Kosten anfallen werden, kann dieser Punkt des magischen Dreiecks außenvor gelassen werden.
-Aufgrund der sehr knappen Zeit war es vor allem wichtig einen zuvor definierten Plan zu haben, welcher die genauen Schritte spezifiziert. Um einen Überblick über den Umfang des Projektes zu bekommen, lohnt sich wiederum ein Blick auf die Usecases in Kapitel X, sowie die Anforderungsdefinition in Kapitel Y. Diese bilden eine gute und wichtige Basis um einen Projektstrukturplan zu erstellen, welcher im Projektmanagement eine wichtige Rolle spielt. Aufgrund dieses Planes ist es möglich die einzelnen Arbeitspakete zu definieren. Eine Zuordnung der Arbeitspakete zu einer Person muss nicht erfolgen, da die Software nur von einer Person entwickelt und umgesetzt wird. Nachdem die Arbeitspakete definiert wurden, mussten diesen jeweils eine Dauer zugewiesen und die jeweiligen Abhängigkeiten angegeben werden.
-Bei den Zeitangaben wurden Näherungswerte von bereits umgesetzten Projekten verwendet, jedoch muss bedacht werden, dass neben dem kompletten Verlauf der Entwicklung gleichzeitig immernoch ein Lernprozess, sowie das Dokumentieren und das Schreiben der Bachelor-Arbeit stattfindet.  Normalerweise kann eine Ressource (in diesem Fall ein Mitarbeiter) nur immer einem Arbeitspaket aktiv zugewiesen werden, alle anderen Arbeitspakete können immer nur einzeln und nacheinander abgearbeitet werden, nie aber parallel. Aus diesem Grund wurde auch auf eine ausgiebige Planung der Resourcen verzichtet. Viel wichtiger war hingegen die Terminplanung, welche aufgrund der Angaben (Dauer und Abhängigkeiten) anhand der Arbeitspakete erstellt werden kann.\\
+Aufgrund der sehr knappen Zeit war es vor allem wichtig, einen zuvor definierten Plan zu haben, welcher die genauen Schritte spezifiziert. Um einen Überblick über den Umfang des Projektes zu bekommen, lohnt sich wiederum ein Blick auf die Usecases in Kapitel X, sowie die Anforderungsdefinition in Kapitel Y. Diese bilden eine gute und wichtige Basis, um einen Projektstrukturplan zu erstellen, welcher im Projektmanagement eine wichtige Rolle spielt. Aufgrund dieses Planes ist es möglich, die einzelnen Arbeitspakete zu definieren. Eine Zuordnung der Arbeitspakete zu einer Person muss nicht erfolgen, da die Software nur von einer Person entwickelt und umgesetzt wird. Nachdem die Arbeitspakete definiert wurden, mussten diesen jeweils eine Dauer zugewiesen und die jeweiligen Abhängigkeiten angegeben werden.
+Bei den Zeitangaben wurden Näherungswerte von bereits umgesetzten Projekten verwendet.
+Normalerweise kann eine Ressource (in diesem Fall ein Mitarbeiter) nur immer einem Arbeitspaket aktiv zugewiesen werden, alle anderen Arbeitspakete können immer nur einzeln und nacheinander abgearbeitet werden, nie aber parallel. Aus diesem Grund wurde auch auf eine ausgiebige Planung der Resourcen verzichtet. Viel wichtiger war hingegen die Terminplanung, welche aufgrund der Angaben (Dauer und Abhängigkeiten) anhand der Arbeitspakete erstellt werden kann.\\
 Im nachfolgenden sieht man in Abbildung X den Terminplan für das Projekt.\\
 
 \begin{figure}[H]
@@ -495,9 +518,9 @@ Anhand des Terminplans kann wiederum ein Gantt-Diagramm erzeugt werden, welches 
 \label{fig:benchsnmpbulk}
 \end{figure}
 
-In diesem ist sehr leicht erkennbar, dass das Projekt einen konstanten sequentiellen Ablauf hat.
-Zwar hätte die Möglichkeit bestanden ein paar einzelne Arbeitspakete parallel aufzuführen, jedoch in Verbindung mit dem bereits angesprochenen Problem, dass nur eine Person an der Umsetzung arbeitet und diese ein Arbeitspaket nach dem anderen abarbeitet, keine zeitliche Möglichkeit für eine Parallelisierung gegeben ist.
-Zu beachten sind auch die zwei rot gefärbten Balken am unteren Ende des Diagramms, welche als kritischer Pfad angedeutet sind. Hierbei handelt es sich um die Dokumentation und das Schreiben der Bachelor-Arbeit. Diese werden zwar als kritische Pfade angezeigt aber da die Umsetzung des Projektes sequentiell voranschreitet, ist diesem keine weitere Betrachtung zu schenken. Die Bachelor-Arbeit hat ein fest definierten End-Zeitpunkt und ist als solcher nicht verschiebbar. Die Zeiten der einzelnen Arbeitspakete hingegen sind flexibeler anzusehen, jedoch gibt es hierbei auch die Einschränkung, dass diese in Summe nicht den Endtermin überschreiten dürfen.
+In diesem ist erkennbar, dass das Projekt einen konstanten sequentiellen Ablauf hat.
+Zwar hätte die Möglichkeit bestanden, ein paar einzelne Arbeitspakete parallel auszuführen, jedoch in Verbindung mit dem bereits angesprochenen Problem, dass nur eine Person an der Umsetzung arbeitet und diese ein Arbeitspaket nachdem anderen abarbeitet, keine zeitliche Möglichkeit für eine Parallelisierung gegeben ist.
+Zu beachten ist auch der rot gefärbte Balken am unteren Ende des Diagramms, welcher als kritischer Pfad angedeutet ist. Hierbei handelt es sich um die Dokumentation. Diese wird zwar als kritischer Pfad angezeigt, aber da die Umsetzung des Projektes sequentiell voranschreitet und immer ein Teil der Dokumentation bearbeitet wird, ist diesem keine weitere Betrachtung zu schenken. Die Zeiten der einzelnen Arbeitspakete sind flexibler anzusehen als diese im Detail definiert wurden, jedoch gibt es hierbei die Einschränkung, dass diese in Summe nicht den Endtermin überschreiten dürfen.
 
 \section{Realisierung}
 \label{sec:implementation}
@@ -506,15 +529,23 @@ Nachdem sowohl die Umsetzung als auch der zeitliche Ablauf im Detail geplant wur
 Zuerst wurde, wie im Zeitplan definiert, das Ausleseprogramm umgesetzt und im Anschluss die dazugehörige Webseite.\\
 Realisiert wurde das System auf einem virtuellen VMWare Server mit dem Betriebssystem OpenSuse (Linux). Als Webserver diente Apache 2 in Verbindung mit PHP 5.3.2. Die PHP Version wurde speziell mit einer Oracle Datenbank Anbindung kompiliert.
 Auf diesem Server lief zusätzlich neben dem Webserver ein Oracle Datenbankserver in der Enterprise Edition in Version 11g R2.\\
-Das Ausleseprogramm selbst läuft Betriebssystemunabhängig und mit einer beliebigen Java Version ab dem Jahre 2006. Zusätzlich ist es unerheblich ob das Programm mit der original Sun Java VM ausgeführt wird oder mit dem quelloffenen OpenJDK, welches bevorzugt in Linux-Distributionen eingesetzt wird.
-Beim Start des Ausleseprogramms wird zunächst überprüft, ob die Datei Switch.xml existiert und bei Bedarf diese ausgelesen, welche wiederum die Switches inklusive deren Read-Community enthält. Ist die Datei nicht existent, werden die auszulesenden Switches anhand der Nagiosdatenbank ausgelesen. Die Daten für die Nagiosdatenbank, sowie für die Oracle Datenbank in der später die Informationen abgelegt werden befinden sich in der config.xml. Diese enthält neben der maximalen Threadanzahl auch die Einstellung für den SNMP Intervall, der in Kapitel X angesprochen wurde. Dieser Intervall dient zur Reduzierung der Last auf den Switches während des Auslesevorgangs. In dieser Konfigurationsdatei ist ebenfalls ein Parameter zu finden, welcher es ermöglicht ein Debuglevel zu setzten. Je nach Höhe dieses Levels werden nicht nur Fehler sondern auch Warnungen, Hinweise oder auch Meldungen ausgegeben. Die Levels lassen sich wiefolgt einordnen:\\
+Das Ausleseprogramm selbst läuft betriebssystemunabhängig und mit einer beliebigen Java Version ab dem Jahre 2006. Zusätzlich ist es unerheblich, ob das Programm mit der original Sun Java VM ausgeführt wird oder mit dem quelloffenen OpenJDK, welches bevorzugt in Linux-Distributionen eingesetzt wird.
+Beim Start des Ausleseprogramms wird zunächst überprüft, ob die Datei Switch.xml existiert und bei Bedarf diese ausgelesen, welche wiederum die Switches inklusive deren Read-Community enthält. Ist die Datei nicht existent, werden die auszulesenden Switches anhand der Nagiosdatenbank ausgelesen. Die Daten für die Nagiosdatenbank, sowie für die Oracle Datenbank, in der später die Informationen abgelegt werden, befinden sich in der config.xml.
+Diese enthält neben der maximalen Threadanzahl auch die Einstellung für den SNMP Intervall, der in Kapitel X angesprochen wurde.
+Dieser Intervall dient zur Reduzierung der Last auf den Switches während des Auslesevorgangs.
+In der Konfigurationsdatei ist ebenfalls ein Parameter zu finden, welcher es ermöglicht, ein Debuglevel zu setzen.
+Je nach Höhe dieses Levels werden nicht nur Fehler, sondern auch Warnungen, Hinweise oder auch Meldungen ausgegeben.
+Die Levels lassen sich wie folgt einordnen:\\
 \\
-Level 0: Anzeige von Fehlern\\
-Level 1: Zusätzliche Anzeige von Warnungen\\
-Level 2: Zusätzliche Anzeige von Hinweisen und Warnungen\\
-Level 3: Alle Meldungen\\
+\begin{itemize}
+\item Level 0: Anzeige von Fehlern\\
+\item Level 1: Zusätzliche Anzeige von Warnungen\\
+\item Level 2: Zusätzliche Anzeige von Hinweisen und Warnungen\\
+\item Level 3: Alle Meldungen\\
+\end{itemize}
 \\
-Zusätzlich werden alle Meldungen die per Programm ausgegeben werden auch in der Log-Datei gespeichert. Diese Meldungen sind abhängig vom Loglevel.
+Zusätzlich werden alle Meldungen, die per Programm ausgegeben werden, auch in der Log-Datei gespeichert.
+Diese Meldungen sind abhängig vom Loglevel.
 \\
 \begin{figure}[H]
 \centering
@@ -522,8 +553,11 @@ Zusätzlich werden alle Meldungen die per Programm ausgegeben werden auch in der
 \caption{Programm - Ausschnitt}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
-In Abbildung X ist der Start des Programms zu sehen. In diesem ist auch zu erkennen, dass keinerlei Parameter übergeben wurden. Dies wurde in der Art realisiert um Bedienfehler zu vermeiden und die Ausführung per Skripte zu erleichtern. Zusätzlich werden Fehlerhafte Einträge innerhalb der XML-Dateien einfach ignoriert.\\
-Die Weboberfläche des Systems wurde per PHP realisiert. Zusätzlich kommen Cascading Style Sheets und Java Script zum Einsatz. Um die Zeit für die Implementierung zu veringern, wurde auf die freie CMS Tints zurückgegriffen \footnote{http://sourceforge.net/projects/tints-system/}.
+In Abbildung X ist der Start des Programms zu sehen. In diesem ist auch zu erkennen, dass keinerlei Parameter übergeben wurden. Dies wurde in der Art realisiert, um Bedienfehler zu vermeiden und die Ausführung per Skripte zu erleichtern.
+Zusätzlich werden fehlerhafte Einträge innerhalb der XML-Dateien einfach ignoriert.\\
+Die Weboberfläche des Systems wurde per PHP realisiert.
+Bei dieser kommen Cascading Style Sheets und Java Script zum Einsatz.
+Um die Zeit für die Implementierung zu veringern, wurde auf die freie CMS Tints zurückgegriffen.\footnote{http://sourceforge.net/projects/tints-system/}
 \\
 \begin{figure}[H]
 \centering
@@ -538,43 +572,57 @@ Diese Sortierung wird durch die Übergabe der GET-Parameter realisiert. Klickt d
 sort=model\_A\\
 \\
 Hierbei stellt ‘model’ 1:1 den Spaltennamen der zu sortierenden Spalte dar und 'A' gibt die Sortierrichtung an. In diesem Fall steht A für das englische Wort ‘ascending’, d.h. aufsteigend. Für eine absteigende Sortierung wird ‘D’ angegeben für ‘descending’.
-Zusätzlich gibt es in der Weboberfläche die Möglichkeit sich Duplikate in der Datenbank anzeigen zu lassen. Hierbei handelt es sich um Rechner die auf zwei unterschiedlichen Ports im Netzwerk auf der selben Switch-Ebene gefunden wurden. Bei diesen Einträgen handelt es sich um 90\% der Fälle um Hosts die sich im Netzwerk bewegen. Ein Großteil dieser sind entweder Notebooks die per WLAN die Access Points wechseln oder ein Computer, der die Abteilung wechselt.
+Zusätzlich gibt es in der Weboberfläche die Möglichkeit, sich Duplikate in der Datenbank anzeigen zu lassen.
+Hierbei handelt es sich um Rechner, die auf zwei unterschiedlichen Ports im Netzwerk auf der selben Switch-Ebene gefunden wurden.
+Bei diesen Einträgen handelt es sich um 90\% der Fälle um Hosts, die sich im Netzwerk bewegen.
+Ein Großteil dieser sind entweder Notebooks, die per WLAN die Access Points wechseln oder ein Computer, der die Abteilung wechselt.
 
 \section{Probleme bei der Implementierung}
 \label{sec:probimp}
 
-Während der Implementierung traten verschiedene Probleme auf, welche berücksichtigt werden mussten in der Implementierung, um abschließend trotzdem die gewünschten Anforderungen alle Umsetzen zu können.
-Die Probleme lassen sich vor allem zu den Folgenden Punkten Einordnen:\\
-Zuordnung Host --> Switchport\\
-Verwendete VLANs (“unsichtbare VLANs”)\\
-Uplinkport-Identifizierung\\
-Differenzierung der Switchlevels\\
-SNMP Abfragen und CPU-last auf den Switches\\
-
+Während der Implementierung traten verschiedene Probleme auf, welche berücksichtigt werden mussten, um abschließend trotzdem alle gewünschten Anforderungen alle umsetzen zu können.
+Die Probleme lassen sich vor allem zu den folgenden Punkten einordnen:\\
+\\
+\begin{itemize}
+\item Zuordnung Host --> Switchport\\
+\item Verwendete VLANs (“unsichtbare VLANs”)\\
+\item Uplinkport-Identifizierung\\
+\item Differenzierung der Switchlevels\\
+\item SNMP-Abfragen und CPU-last auf den Switches\\
+\end{itemize}
 
 Als erstes Problem ist die genaue Zuordnung zwischen Host und Switchport zu nennen.
-Hierbei hat sich während der Implementierungsphase gezeigt, dass die Daten, welche per SNMP auslesbar sind, nicht denen gleichen, die lokal auf den Switches per Telnet über das Cisco System zu erhalten sind. So kann das Cisco System einem direkt anzeigen welche MAC-Adressen sich hinter welchem Port verbiergt. Über SNMP sind diese Informationen jedoch nicht direkt erhaltbar, hier müssen erst verschiedene abrufbare “Tabellen” verknüpft werden. Als erstes müssen die verwendeten VLANs des Switches abgefragt werden (die Problematik der VLAN Abfrage wird im anschließenden Paragraphen erläutert). Danach muss eine Liste der MAC-Adressen auf den virtuellen Ports pro VLAN abgefragt werden. Diese einzelnen Listen müssen miteinander kombiniert werden und alle Duplikate entfernt werden. Im Anschluss muss diese Liste mit einer weiteren Liste, welche die Zuordnung zwischen Port und virtuellen Port enthält verknüpft werden. Aufgrund dieser Liste kann dann eine Verbindung zwischen Mac-Adresse des Ports und der Mac-Adresse des Hosts hergestellt werden. Durch diese Komplexität steigt die Anzahl der Abfragen deutlich um die gleichen Informationen zu erhalten.\\
-Eine weitere Problematik stellte sich beim Auslesen der verwendeten VLANs. Es gibt die Möglichkeit per SNMP eine Liste abzufragen, welche einem ermöglicht das verwendete VLAN für den jeweiligen Port zu erhalten. Ports die mehrere VLAN Zuordnungen haben werden nicht angezeigt und sind Trunk-Ports, welche eigentlich Uplink-Ports sind bzw. an solche angeschlossen sind. In diesem Zusammenhang stellt sich die Problematik, dass es passieren kann, dass zwar ein Port für eine spezielles VLAN fesgelegt wurde, jedoch sich dahinter noch ein VOIP-Telefon befindet, dass über ein “nicht sichtbares” VLAN kommuniziert, welches über die Liste im SNMP nicht erkennbar ist. Um trotzdem an die Mac-Adresse des VOIP-Telefons zu bekommen, müssen alle im Netzwerk bekannten VLANs an einem Switch abgefragt werden, was wiederum die Anzahl der Abfragen erhöht, aber auch eine Problematik mit sich bringt. In diesem Zusammenhang gibt es spezielle Cisco spezifische VLANs die sich im Bereich 1002-1005 befinden, welche ausgeschlossen werden müssen, da eine Abfrage der MAC-Adressen dieser VLANs zu einem Timeout führt und unnötig den Ausleseprozess verzögert.\\
-Eine weitere Problematik stellt sich in der Identifizierung der Uplink-Ports an den Switchen. Hier gibt es keine einfache anwendbare Regel. Zuerst wurde angenommen, dass jeder Trunk Port ein Uplink Port ist. Diese Annahme war jedoch falsch, da in dem Vorher aufgeführten Beispiel sich dahinter auch ein durchgeschleifter Computer an einem VOIP-Telefon befinden kann. Daher scheidet das Attribut “Trunk-Port” als solches zur Identifizierung aus. Das nächste Attribut, welches ausgewählt wurde, ist ein spezielles Cisco spezifisches Protokoll mit dem Namen CDP. Es dient dazu Cisco Geräte an einem Port zu Identifizieren. Um einen Uplink Port zu identifizieren wurde dann angenommen, dass sofern das Protokoll CDP vorhanden ist, es sich hierbei um einen Switch handelt. Hier stellt sich jedoch die Problematik, dass es auch Geräte gibt die auf CDP antowrten, welche weder Switches noch Router sind. Ein Beispiel sind VOIP-Telefone, die es auch von Cisco gibt. Daher wurde zusätzlich die Typerkennung des CDP Gerätes abgefragt, welche Auskunft über diverse Eigenschaften des Gerätes gibt. Über diese kann überprüft werden, ob es sich hierbei um einen Switch handelt. Leider hat sich in der Praxis gezeigt das dieses nicht vollständig ausreicht, da nicht alle Switches sämtliche Abfragen unterstützen, somit musste nach einer zusätzlichen Identifikationsmöglichkeit gesucht werden. Hier wurde auf das Spannign Tree Protokoll gestoßen, welches zur Kommnuikation zwischen den einzelnen Switches dient, um unter anderem Pfadkosten der einzelnen Verbindungen auszutauschen. Nun wurde per SNMP die Anzahl der ausgehenden STP-Pakete auf dem jeweiligen Port ausgelesen und dieses als weiteres Kriterium eingeführt, über welches eine Identifikation des Portes ermöglicht wird und zusammen in Kombination mit CDP eine sehr verlässliche Identifikation zur Verfügung stellt.\\
-Ein weiteres Problem hat die Einordnung der Hierachie Ebenen der Router dargestellt. Um Duplikate reduzieren zu können, ist es notwendig zu wissen, ob die MAC-Adresse eines Hosts auf einem Uplink/Downlink Port eines Switches erkannt wurde oder an seinem normalen Port. Hierzu muss man wissen, ob der Switch ein Access-Switch ist oder ein Switch einer höheren Ebene.\\
+Hierbei hat sich während der Implementierungsphase gezeigt, dass die Daten, welche per SNMP auslesbar sind, nicht denen gleichen, die lokal auf den Switches per Telnet über das Cisco System zu erhalten sind. So kann das Cisco System einem direkt anzeigen, welche MAC-Adressen sich hinter welchem Port verbirgt. Über SNMP sind diese Informationen jedoch nicht direkt erhaltbar, hier müssen erst verschiedene abrufbare “Tabellen” verknüpft werden. Als erstes müssen die verwendeten VLANs des Switches abgefragt werden (die Problematik der VLAN Abfrage wird im anschließenden Absatz erläutert). Danach muss eine Liste der MAC-Adressen auf den virtuellen Ports pro VLAN abgefragt werden. Diese einzelnen Listen müssen miteinander kombiniert werden und alle Duplikate entfernt werden. Im Anschluss muss diese Liste mit einer weiteren Liste, welche die Zuordnung zwischen Port und virtuellen Port enthält, verknüpft werden. Aufgrund dieser Liste kann dann eine Verbindung zwischen MAC-Adresse des Ports und der MAC-Adresse des Hosts hergestellt werden. Durch diese Komplexität steigt die Anzahl der Abfragen deutlich, um die gleichen Informationen zu erhalten.\\
+Eine weitere Problematik stellte sich beim Auslesen der verwendeten VLANs. Es besteht die Möglichkeit per SNMP eine Liste abzufragen, welche ermöglicht, das verwendete VLAN für den jeweiligen Port zu erhalten. Ports die mehrere VLAN Zuordnungen haben, werden nicht angezeigt und sind Trunk-Ports, welche eigentlich Uplink-Ports sind bzw. an solche angeschlossen sind. In diesem Zusammenhang stellt sich die Problematik, dass es passieren kann, dass zwar ein Port für eine spezielles VLAN fesgelegt wurde, jedoch sich dahinter noch ein VOIP-Telefon befindet, dass über ein “nicht sichtbares” VLAN kommuniziert, welches über die Liste im SNMP nicht erkennbar ist. Um trotzdem die MAC-Adresse des VOIP-Telefons zu erhalten, müssen alle im Netzwerk bekannten VLANs an einem Switch abgefragt werden, was wiederum die Anzahl der Abfragen erhöht, aber auch eine Problematik mit sich bringt. In diesem Zusammenhang gibt es spezielle Cisco spezifische VLANs, die sich im Bereich 1002-1005 befinden, welche ausgeschlossen werden müssen, da eine Abfrage der MAC-Adressen dieser VLANs zu einem Timeout führt und unnötig den Ausleseprozess verzögert.\\
+Eine weitere Problematik stellt sich in der Identifizierung der Uplink-Ports an den Switches. Hier gibt es keine einfache anwendbare Regel. Zuerst wurde angenommen, dass jeder Trunk Port ein Uplink Port ist. Diese Annahme war jedoch falsch, da in dem vorher aufgeführten Beispiel sich dahinter auch ein durchgeschleifter Computer an einem VOIP-Telefon befinden kann. Daher scheidet das Attribut “Trunk-Port” als solches zur Identifizierung aus. Das nächste Attribut, welches ausgewählt wurde, ist ein spezielles Cisco spezifisches Protokoll mit dem Namen CDP. Es dient dazu Cisco Geräte an einem Port zu identifizieren. Um einen Uplink Port zu identifizieren, wurde dann angenommen, dass sofern das Protokoll CDP vorhanden ist, es sich hierbei um einen Switch handelt. Hier stellt sich jedoch die Problematik, dass es auch Geräte gibt, die auf CDP antowrten, welche weder Switches noch Router sind. Ein Beispiel sind VOIP-Telefone, die es auch von Cisco gibt. Daher wurde zusätzlich die Typerkennung des CDP Gerätes abgefragt, welche Auskunft über diverse Eigenschaften des Gerätes gibt. Über diese kann überprüft werden, ob es sich hierbei um einen Switch handelt. Leider hat sich in der Praxis gezeigt, dass dieses nicht vollständig ausreicht, da nicht alle Switches sämtliche Abfragen unterstützen, somit musste nach einer zusätzlichen Identifikationsmöglichkeit gesucht werden.
+Hier ist der Verfasser auf die Möglichkeit gestoßen, dass Spanning Tree Protokoll per SNMP abzufragen. Dieses ermöglicht die Kommunikation zwischen den einzelnen Switches, um unter anderem Pfadkosten der einzelnen Verbindungen auszutauschen. Nun wurde per SNMP die Anzahl der ausgehenden STP-Pakete auf dem jeweiligen Port ausgelesen und dieses als weiteres Kriterium eingeführt, über welches eine Identifikation des Portes ermöglicht wird und zusammen in Kombination mit CDP eine sehr verlässliche Identifikation zur Verfügung stellt.\\
+Ein weiteres Problem hat die Einordnung der Hierarchieebenen der Router dargestellt. Um Duplikate reduzieren zu können, ist es notwendig, zu wissen, ob die MAC-Adresse eines Hosts auf einem Uplink/Downlink Port eines Switches erkannt wurde oder an seinem normalen Port. Hierzu muss man wissen, ob der Switch ein Access-Switch ist oder ein Switch einer höheren Ebene.\\
 
-Die Hosts im Netzwerk sind, mit einer geringen Anzahl von Ausnahmen, alle an Access-Switche angeschlossen. Zusätzlich gibt es Endgräte die auch an die Distribution-Switches angeschlossen sein können, z.B. die Server im Rechenzentrum. 
+Die Hosts im Netzwerk sind, mit einer geringen Anzahl von Ausnahmen, alle an Access-Switche angeschlossen.
+Zusätzlich gibt es Endgräte, die auch an die Distribution-Switches angeschlossen sein können, z.B. die Server im Rechenzentrum. 
 
-Um diese Problematik lösen zu können wurde überlegt, die Hierachie Ebenen jeweils numerischen äquivlanten Zahlen zuzuordnen. Hierzu wurden die Core Switches mit der Zahl 0, die Distribution Switches mit der Zahl 1 und die Access Switches mit der Zahl 2 definiert.\\
-Da die Information der Ebene des Switches nicht direkt von diesen selbst auslesbar ist, gibt es effektiv nur zwei Möglichkeiten. zum Einen kann man die komplette Hierachie anhand der Uplink Ports mit einem Programm logisch ab bilden und manuell einen Hauptknoten auswählen anhanddessen dann eine Einordnung der Switches erfolgt, was jedoch äußerst komplet ist und den Zeitlichen Rahmen de Projektes sprengt, daher wurde auf die zweite Möglichkeit zurückgegriffen, nämlich diese Informationen extern von einer anderen Quelle einzulesen.\\
-Hierzu wird das bereits existierende Nagios System im Unternehmen verwendet. Zu diesem wird mittels JDBC zu einer MySQL Datenbank eine Verbindung aufgebaut, über diese dann im Anschluss die Gruppen Informationen der zu kontrollierenden Hosts, in diesem Fall der Switches, ausgelesen werden. Die Switches sind in verschiedene Host-Gruppen einsortiert, unter anderem auch in die benötigten Access, Distribution und Core Hierachien. Über diese Gruppen werden die jeweiligen Hosts bzw. Switches erfasst und deren Hierachielevel in der Datenbank eingetragen.\\
-Neben den hauptsächlich logischen Probleme zur Identifikation stellte sich unter anderem noch ein weiteres Problem heraus bei der Abfrage der Informationen per SNMP.\\
-Wie bereits in vorherigen Kapitel angedeutet, werden die auszulesenden Switches besonders belastet bei SNMP Abfragen, weshalb eine Erhöhung der Anzahl der Abfragen stehts kritisch bewertet wurde in den Ausführungen. In den Beschreibung zur Zuordnung zwischen MAC-Adresse des Hosts und der Mac-Adresse des Swicths von Cisco, wird diese Problematik nicht angesprochen, jedoch gibt es von Cisco weitere Informationen zu der Problematik, speziell bei einem Artikel zum Auslesen der CPU-Last per SNMP. In diesem wird angeführt, dass die Abfrage des Wertes selbst zu einer Verfälschung des Wertes führt. Zudem wird empfohlen nicht mehr als 1 Abfrage pro Sekunde per SNMP auf einen Switch zu machen, da geringere Intervalle bereits zu Beeinträchtigungen führen. Vergleicht man dies mit den Benchmarks aus Kapitel X, so lässt sich feststellen, dass diese Grenze um ein hundertfaches überschritten wird beim Ausleseprozess. Es muss auch bedacht werden, dass die Switches nicht für solche Operationen konzipiert wurden, sondern vielmehr für ihre eigentliche Aufgabe, insofern ist das Ziel die Last auf den Switches möglichst gering zu halten, um den Netzwerk-Betrieb in keinster Weise zu beeinflussen. Aufgrund eines logischen Fehlers im Programmablauf kam es während diverser Tests dazu, dass einer der Core-Switches übermäßig ausgelastet war und dies dazu geführt hat, dass das Überwachungsystem der Switches anschließend Warnungen versendet hat. Solche Fälle dürfen im Betrieb nicht passieren, da die Ursache für die hohe Last der Switches nicht erkennbar ist und neben der Störung des Betriebes auch zusätzlich für Verwirrung sorgt. Daher ist es wichtig, die Anzahl der Abfragen per SNMP auf ein Minimum zu halten und im späteren Verlauf der Implementierung weiter zu optimieren, sofern sich Möglichkeiten ergeben.
+Um diese Problematik lösen zu können, wurden die Hierarchieebenen jeweils numerischen äquivlanten Zahlen zugeordnet.
+Hierzu wurden die Core Switches mit der Zahl 0, die Distribution Switches mit der Zahl 1 und die Access Switches mit der Zahl 2 definiert.\\
+Da die Information der Ebene des Switches nicht direkt von diesen selbst auslesbar ist, gibt es effektiv nur zwei Möglichkeiten.
+Zum Einen kann man die komplette Hierarchie anhand der Uplink Ports mit einem Programm logisch abbilden.
+Dazu müsste man einen Hauptknoten auswählen und anhanddessen eine Einordnung der Switches erfolgen lassen, was jedoch äußerst komplet ist und den Zeitlichen Rahmen de Projektes sprengt.
+Zum Anderen besteht die Möglichkeit diese Informationen von einer extern Quelle einzulesen, wovon auch gebraucht gmeacht wurde.
+In diesem Zusammenhang wird das bereits existierende Nagios System im Unternehmen verwendet. Zu diesem wird mittels JDBC zu einer MySQL Datenbank eine Verbindung aufgebaut, über diese dann im Anschluss die Gruppeninformationen der zu kontrollierenden Hosts, in diesem Fall der Switches, ausgelesen werden. Die Switches sind in verschiedene Host-Gruppen einsortiert, unter anderem auch in die benötigten Access, Distribution und Core Hierarchien. Über diese Gruppen werden die jeweiligen Hosts bzw. Switches erfasst und deren Hierarchielevel in der Datenbank eingetragen.\\
+Neben den hauptsächlich logischen Probleme zur Identifikation stellte sich unter anderem noch ein weiteres Problem bei der Abfrage der Informationen per SNMP heraus.\\
+Wie bereits in vorherigen Kapitel angedeutet, werden die auszulesenden Switches besonders bei SNMP-Abfragen belastet, weshalb eine Erhöhung der Anzahl von Abfragen stehts kritisch in den Ausführungen bewertet wurde.
+In den Beschreibung zur Zuordnung zwischen MAC-Adresse des Hosts und der MAC-Adresse des Switches von Cisco, wird diese Problematik nicht angesprochen, jedoch gibt es von Cisco weitere Informationen zu der Problematik, speziell bei einem Artikel zum Auslesen der CPU-Last per SNMP. In diesem wird angeführt, dass die Abfrage des Wertes selbst zu einer Verfälschung des Wertes führt. Zudem wird empfohlen nicht mehr als 1 Abfrage pro Sekunde per SNMP auf einen Switch zu machen, da geringere Intervalle bereits zu Beeinträchtigungen führen.
+Vergleicht man dies mit den Benchmarks aus Kapitel X, so lässt sich feststellen, dass diese Grenze beim Ausleseprozess um ein hundertfaches überschritten wird. Es muss auch bedacht werden, dass die Switches nicht für solche Operationen konzipiert wurden, sondern vielmehr für ihre eigentliche Aufgabe, insofern ist das Ziel die Last auf den Switches möglichst gering zu halten, um den Netzwerk-Betrieb in keinster Weise zu beeinflussen. Aufgrund eines logischen Fehlers im Programmablauf kam es während diverser Tests dazu, dass einer der Core-Switches übermäßig ausgelastet war und dies dazu geführt hat, dass das Überwachungsystem der Switches anschließend Warnungen versendet hat. Solche Fälle dürfen im Betrieb nicht passieren, da die Ursache für die hohe Last der Switches nicht erkennbar ist und neben der Störung des Betriebes auch zusätzlich für Verwirrung sorgt. Daher ist es wichtig, die Anzahl der Abfragen per SNMP auf ein Minimum zu halten und im späteren Verlauf der Implementierung weiter zu optimieren, sofern sich Möglichkeiten ergeben.
 
 \section{Tests}
 \label{sec:tests}
 
-Im Zuge der Implementierung müssen diverse Tests durchgeführt werden. Hierzu kommen neben dem obligatorischen Test der kompletten Implementierung, Test welche Teile des Programm testen oder aber auch Tests die als Basis für Entscheidungen dienen.
-Im Nachfolgenden soll darauf eingegangen werden, welche Tests explizit durchgeführt werden müssen und welche Ergebnisse diese Tests hatten bzw. welche Konsequenz daraus gezogen wurden. Hierbei wird chronologisch vorgegangen, um die Tests in der Reihenfolge aufzuführen, in der Sie für die Realisierung benötigt wurden.\\
+Im Zuge der Implementierung müssen diverse Tests durchgeführt werden. Hierzu kommen neben dem obligatorischen Test der kompletten Implementierung, Tests welche Teile des Programm testen oder aber auch Tests die als Basis für Entscheidungen dienen.
+Im Nachfolgenden soll darauf eingegangen werden, welche Tests explizit durchgeführt werden müssen und welche Ergebnisse diese Tests hatten bzw. welche Konsequenz daraus gezogen wurden. Hierbei wird chronologisch vorgegangen, um die Tests in der Reihenfolge aufzuführen, in der sie für die Realisierung benötigt wurden.\\
 Zu Beginn des Projektes standen mehrere Tests an, welche diverse APIs überprüft haben. Diese dienten dazu, sicherzustellen, dass eine Kommunikation über die benötigten Schnittstellen erfolgreich ist. Darunter sind Tests gefallen, wie die Überprüfung von SNMP4J, aber auch die des Programmcodes zum Reserve-DNS-Lookup, Abfrage des Active Directory oder die  Überprüfung der Datenbank-Anbindung. Das Ergebnis der Überprüfungen hat dazu geführt, dass eventuell eine andere API verwendet werden musste, sofern ein Test nicht erfolgreich war oder spezielle Einstellungen gemacht werden mussten.\\
 Nachdem die APIs und Grundfunktionalitäten überprüft wurden, kam es zu den nächsten Tests. Diese dienten zur Entscheidungsfindung über die Nutzung von speziellen Algorithmen oder Design-Entscheidungen, wie sie in Kapitel X angeführt wurden.
-Die erste Entscheidung die getroffen werden musste, war die Wahl der Programmiersprache. Hier zu wurde ein Benchmark des SNMP Aufrufs durchgeführt und die Anzahl der maximalen  Abfragen pro Sekunde miteinander verglichen. Das Ergebnis war, dass die Programmiersprache als solche keinen Einfluss auf die Auslesegeschwindgikeit hat, da der Flaschenhals der Switch selbst darstellt. Der nächste Test der durchgeführt wurde, war die Überprüfung, ob eine Parallelisierung den gewünschten, zuvor prognostizierten Geschwindigkeitsvorteil erbringt. Das Ergebnis dieses Tests war, dass die gleichzeitige Ausführung des Programmcode antiproportional wirkt im bezug auf Anzahl der verwendeten Threads und Laufzeit. Jedoch traten bei einer bestimmten Anzahl zunehmend Fehler aufgrund des Pufferüberlaufs auf. Dies führte dazu, dass die Anzahl der gleichzeitig aktiven Threads auf ein Maximum begrenzt wurde. Neben der Parallelisierung wurden auch die Auslesemethoden von SNMP selbst überprüft. So wurde getestet, ob eine Geschwindigkeitsverbesseung erreicht wird, wenn der SNMP-Bulk Modus, welcher in Version 2c spezifiziert wurde, verwendet wird.
-Das Ergbnis dieses Tests war eine fünf-fache\footnote{hier korrekten Wert nachtragen} Leistungssteigerung, aber auch die Erkenntnis, dass per SNMP-Bulk nur eine begrenzte Anzahl von Tabelleneinträgen abfragbar ist. Diese Information war wiederum wichtig für die Implementierung des Ausleseskripts und hat zur Vermeidung von potentiellen Fehlern im Betrieb geführt. Ebenfalls überprüft wurde die Möglichkeit, mehrere Datensätze gesammelt an die Datenbank zu übertragen. Ziel war es zu überprüfen, ob dies den Overhead der einzelnen Verbindungen reduziert und generell für einen Geschwindigkeitszuwachs sorgt. Aufgrund des Benchmark wurde festgestellt, dass dies der Fall ist, jedoch Probleme auftreten, da die Anzahl der gleichzeitig geöffneten Tabelleneinträge stark erhöht wird. Im Fall der einzelnen Abarbeitung und bei einer maximalen Anzahl aktiv arbeitender Switchthreads von N beläuft sich die maximale offene Tabelleneintragszahl auf N.
+Die erste Entscheidung, die getroffen werden musste, war die Wahl der Programmiersprache. Hier zu wurde ein Benchmark des SNMP Aufrufs durchgeführt und die Anzahl der maximalen  Abfragen pro Sekunde miteinander verglichen. Das Ergebnis war, dass die Programmiersprache als solche keinen Einfluss auf die Auslesegeschwindgikeit hat, da der Flaschenhals der Switch selbst darstellt. Der nächste Test der durchgeführt wurde, war die Überprüfung, ob eine Parallelisierung den gewünschten, zuvor prognostizierten Geschwindigkeitsvorteil erbringt. Das Ergebnis dieses Tests war, dass die gleichzeitige Ausführung des Programmcode antiproportional im Bezug auf Anzahl der verwendeten Threads und Laufzeit wirkt. Jedoch traten bei einer bestimmten Anzahl zunehmend Fehler aufgrund des Pufferüberlaufs auf. Dies führte dazu, dass die Anzahl der gleichzeitig aktiven Threads auf ein Maximum begrenzt wurde. Neben der Parallelisierung wurden auch die Auslesemethoden von SNMP selbst überprüft. So wurde getestet, ob eine Geschwindigkeitsverbesserung erreicht wird, wenn der SNMP-Bulk Modus, welcher in Version 2c spezifiziert wurde, verwendet wird.
+Das Ergbnis dieses Tests war eine dreifache\footnote{Vgl. Kapitel X} Leistungssteigerung, aber auch die Erkenntnis, dass per SNMP-Bulk nur eine begrenzte Anzahl von Tabelleneinträgen abfragbar ist. Diese Information war wiederum wichtig für die Implementierung des Ausleseskripts und hat zur Vermeidung von potentiellen Fehlern im Betrieb geführt. Ebenfalls überprüft wurde die Möglichkeit, mehrere Datensätze gesammelt an die Datenbank zu übertragen.
+Ziel war es, zu überprüfen, ob dies den Overhead der einzelnen Verbindungen reduziert und generell für einen Geschwindigkeitszuwachs sorgt. Aufgrund des Benchmark wurde festgestellt, dass dies der Fall ist, jedoch Probleme auftreten, da die Anzahl der gleichzeitig geöffneten Tabelleneinträge stark erhöht wird. Im Fall der einzelnen Abarbeitung und bei einer maximalen Anzahl aktiv arbeitender Switchthreads von N beläuft sich die maximale offene Tabelleneintragszahl auf N.
 \\ Bei einer gesammelten Übertragung beträgt die Anzahl der offenen Tabelleneinträge:\\
 N*M\\
 Wobei N wiederum die Anzahl der maximal aktiven Threads darstellt und M die maximale Anzahl der SQL-Befehle die vom Switch abgesetzt werden müssen. Eine Näherungszahl für M ist:\\
@@ -589,13 +637,14 @@ Dieser wiederum eingesetzt in die ursprüngliche Formel ergibt:\\
 \\
 N*157\\
 \\
-Für N kann der Wert angenommen werden der auf Grundlage der Benchmarks in Kapitel X empfohlen wurde. Das heißt es wird für N der Wert 10 angesetzt und führt somit zu:
+Für N kann der Wert angenommen werden, der auf Grundlage der Benchmarks in Kapitel X empfohlen wurde. Das heißt, es wird für N der Wert 10 angesetzt und führt somit zu:
 \\
 10*157=1570\\
 \\
-Vergleicht man dies mit dem Wert der gleichzeitig offenen Tabelleneinträge bei einzelner Ausführung von 10 ist ein merklicher Unterschied zu erkennen. Vergleicht man nun die erhaltene Zahl mit dem Standard Wert von 50,\footnote{vgl. http://download.oracle.com/docs/cd/B19306\_01/server.102/b14237/initparams138.htm  http://wiki.oracle.com/page/OPEN\_CURSORS} so lässt sich feststellen, dass der Wert einer gesammelten Durchführung den Standard-Wert um ein vielfaches überschreitet. Orcale selbst empfiehlt den Wert zu erhöhen und liefert teilweise \footnote{vgl.} die Oracle Datenbank mit dem Wert 300 aus. Eine Erhöhung des Wertes bringt keinerlei Performencenachteile mit sich, jedoch dient die Begrenzung dazu, um Applikationen, welche die Tabelleneinträge nicht korrekt schließen daran zu hindern, ein Großteil der Tabellen zu blockieren. Daher wurde der Wert auf 2000 erhöht um auch die Spitzen im Ausleseprozess abzufangen.\\
-Neben diesen Tests, welche zu Design Entscheidungen ausgeholfen haben, wurden während der Implementierung durchgängig Tests durchgeführt, die den Funktionsumfang sicherstellen bzw. Funktionen an Ort und Stelle zu Überprüfen.\\
-Der Abschließende Test, welcher alle Funktionen des Programms überprüfen soll wird anhand der Usecases bzw. der Anforderungen abgeleitet. Von diesen wiederum kommt man auch auf die technischen Einzelheiten, wie z.B. das Ausleseprogramm.
+Vergleicht man dies mit dem Wert der gleichzeitig offenen Tabelleneinträge bei einzelner Ausführung von 10, ist ein merklicher Unterschied zu erkennen. Vergleicht man nun die erhaltene Zahl mit dem Standard Wert von 50,\footnote{vgl. http://download.oracle.com/docs/cd/B19306\_01/server.102/b14237/initparams138.htm  http://wiki.oracle.com/page/OPEN\_CURSORS} so lässt sich feststellen, dass der Wert einer gesammelten Durchführung den Standard-Wert um ein vielfaches überschreitet.
+Oracle selbst empfiehlt den Wert zu erhöhen und liefert teilweise \footnote{vgl.} die Oracle Datenbank mit dem Wert 300 aus. Eine Erhöhung des Wertes bringt keinerlei Performencenachteile mit sich, jedoch dient die Begrenzung dazu, um Applikationen, welche die Tabelleneinträge nicht korrekt schließen, daran zu hindern, ein Großteil der Tabellen zu blockieren. Daher wurde der Wert auf 2000 erhöht, um auch die Spitzen im Ausleseprozess abzufangen.\\
+Neben diesen Tests, welche zu Design Entscheidungen dienten, wurden während der Implementierung durchgängig Tests durchgeführt, die den Funktionsumfang sicherstellen bzw. Funktionen an Ort und Stelle zu überprüfen.\\
+Der abschließende Test, welcher alle Funktionen des Programms überprüfen soll, wird anhand der Usecases bzw. der Anforderungen abgeleitet. Von diesen wiederum kommt man auch auf die technischen Einzelheiten, wie z.B. das Ausleseprogramm.
 Es müssen folgende Programmteile getestet werden:\\
 \\
 Webapplikation:\\
@@ -604,7 +653,7 @@ Webapplikation:\\
 -Switchinformationen anzeigen\\
 -VLANinformationen anzeigen\\
 -Suche anhand von IP/DNS/Benutzername\\
--Hierachie Übersicht\\
+-Hierarchie Übersicht\\
 \\
 Ausleseprogramm:\\
 -Auslesen der SNMP-Informationen\\
@@ -614,29 +663,31 @@ Ausleseprogramm:\\
 -Abfrage des Benutzers\\
 -Entfernung von Duplikaten\\
 \\
-Nachdem diese jeweils auf Funktionalität und Korrektheit überprüft wurden kann das Programm für die Nutzung übergeben werden.\\
+Nachdem diese jeweils auf Funktionalität und Korrektheit überprüft wurden, kann das Programm für die Nutzung übergeben werden.\\
 \\
 Ergebnis der finalen Tests\\
 \\
-Bei den finalen Tests wurde das komplette zusammengesetzte System getestet als Black-Box-Test. Dabei wurden alle Usecases durchgeführt und überprüft ob das erwartete Ergebnis mit dem erhaltenen übereinstimmt. Dabei wurde unter anderem festgestellt, dass es passieren kann, dass zwei DNS-Hostnamen einer IP zugewiesen sind. Zuerst wurde vermutet, dass es sich hierbei um ein programminterner Fehler handelt und ein Puffer verwendet wurde der eventuell nicht geleert wurde. Nach der Durchsicht des Codes konnte jedoch kein Fehler entdeckt werden. Im Anschluss wurden mit Betriebssystemmitteln (nslookup) die DNS-Auflösung überprüft. Hierbei wurde festgestellt, dass das Problem beim DNS-Server selbst liegt. Dieser behält über einen festen Zeitraum die Zuordnung von DNS zu IP. Jedoch prüft dieser im Gegensatz zum DHCP Server nicht ob eine IP bereits vergeben wurde oder doppelt in der Namensauflösung vorliegt. Durch diesen Umstand kann es passieren, dass Hosts die keinen DNS-Namen am Name-Server gemeldet haben einen alten Eintrag übernehmen.
+Bei den finalen Tests wurde das komplette zusammengesetzte System als Black-Box-Test getestet.
+Dabei wurden alle Usecases durchgeführt und überprüft ob das erwartete Ergebnis mit dem erhaltenen übereinstimmt.
+Dabei wurde unter anderem festgestellt, dass es passieren kann, dass zwei DNS-Hostnamen einer IP zugewiesen sind. Zuerst wurde vermutet, dass es sich hierbei um ein programminterner Fehler handelt und ein Puffer verwendet wurde der eventuell nicht geleert wurde. Nach der Durchsicht des Codes konnte jedoch kein Fehler entdeckt werden. Im Anschluss wurden mit Betriebssystemmitteln (nslookup) die DNS-Auflösung überprüft. Hierbei wurde festgestellt, dass das Problem beim DNS-Server selbst liegt. Dieser behält über einen festen Zeitraum die Zuordnung von DNS zu IP. Jedoch prüft dieser im Gegensatz zum DHCP Server nicht ob eine IP bereits vergeben wurde oder doppelt in der Namensauflösung vorliegt. Durch diesen Umstand kann es passieren, dass Hosts die keinen DNS-Namen am Name-Server gemeldet haben einen alten Eintrag übernehmen.
 
 
 \section{Weitere Anwendungsfelder / Datamining}
 \label{sec:otherthoughts}
 
-Neben den Anforderungen die von der Abteilung für das neue System angebracht wurden, gibt es weitere Anwendungsmöglichkeiten. Neben dem Anzeigen der jeweiligen Sichten (VLAN, Switch, Ports, Hosts) und der Suche in diesen ergeben sich weitere Nutzungsmöglichkeiten. Eine bereits erwähnte Möglichkeit ist die sogenannte Top-Down Sicht, welche es ermöglicht die Elemente hierarchisch zu durchsuchen. Ein Klick auf einen Switch öffnet somit die Liste mit allen dessen enthaltenen Ports. Diese sind wiederum auswählbar und führen zu den Hosts, welche an dem jeweiligen Port angeschlossen sind. Da es sich hierbei um mehre Hosts handeln kann, da eventuell ein WLAN-Access-Point an einen Port angeschlossen ist, muss eventuell einer der Hosts explizit noch einmal ausgewählt werden um dessen Detail Informationen zu erhalten. Die Möglichkeit, die sich hier zusätzlich bietet ist, das Modell ebenfalls in die umgekehrte Richtung zu erweitern, sodass auch ein Ablauf der Hierachie von unten nach oben ermöglicht wird. So soll über den Host zu dessen zugehörigen Port und von diesem wiederum zum Switch gelangt werden.\\
+Neben den Anforderungen die von der Abteilung für das neue System angebracht wurden, gibt es weitere Anwendungsmöglichkeiten. Neben dem Anzeigen der jeweiligen Sichten (VLAN, Switch, Ports, Hosts) und der Suche in diesen ergeben sich weitere Nutzungsmöglichkeiten. Eine bereits erwähnte Möglichkeit ist die sogenannte Top-Down Sicht, welche es ermöglicht die Elemente hierarchisch zu durchsuchen. Ein Klick auf einen Switch öffnet somit die Liste mit allen dessen enthaltenen Ports. Diese sind wiederum auswählbar und führen zu den Hosts, welche an dem jeweiligen Port angeschlossen sind. Da es sich hierbei um mehre Hosts handeln kann, da eventuell ein WLAN-Access-Point an einen Port angeschlossen ist, muss eventuell einer der Hosts explizit noch einmal ausgewählt werden um dessen Detail Informationen zu erhalten. Die Möglichkeit, die sich hier zusätzlich bietet ist, das Modell ebenfalls in die umgekehrte Richtung zu erweitern, sodass auch ein Ablauf der Hierarchie von unten nach oben ermöglicht wird. So soll über den Host zu dessen zugehörigen Port und von diesem wiederum zum Switch gelangt werden.\\
 Eine weitere Anwendungsmöglichkeit stellt das anzeigen von statistischen Daten dar.
 So könnte berechnet werden, wie viele Switch-Ports aktiv belegt sind oder welche Switches am meisten freie Ports haben oder die wenigsten. Solche oder ähnliche Abfragen könnte man dazu verwenden, wenn neue Hosts im System an Switches angeschlossen werden müssen.\\ Zusätzlich bietet sich auch die Möglichkeit potentiell nicht erwünschte Hardware zu erkennen.  Dies ist möglich mit dem Abgleich von diverser Listen gegeneinander.\\
 Eine weitere Anwendungsmöglichkeit ergibt sich, wenn die Hosts in Verbindung mit den Ports gespeichert und deren Verknüpfung inklusive des Zeitstempels genutzt werden.
 So ist es anhand von diesen Daten möglich eine Historie zu erstellen, die zeigt, an welchen Switches/ bzw. deren Ports der Host angeschlossen war. Diese Historie ist chronologisch sortierbar und gibt den “Pfad” des Hosts wieder. Im Beispiel könnte dies ein Notebook sein, welcher an verschiedenen Accesspoints angeschlossen war. Somit ist nicht nur dessen aktuelle Position erkennbar sondern auch die vorherig genutzen Ports. Sofern man alle Switches auf einen Geländeplan grafisch darstellen würde könnte man farblich den Weg des Notebooks darstellen.
 Die gleiche Möglichkeit ergibt sich für die Benutzer die teilweise bei den Hosts gespeichert wurden. Jedoch wird diese Möglichkeit aus Datenschutzgründen nicht weiter verfolgt, da ansonsten der Aufenthalt einer Person nachvollzogen werden könnte.\\
-Neben der grafischen Darstellung der Switches auf dem Werksgelände bietet sich durch die anhand von CDP ausgelesenen Informationen die Möglichkeit die Hierachien zwischen den Switches grafisch dazustellen. D.h. durch die jeweils gespeicherten Uplink IPs auf den Ports kann somit eine Verbindung zu dem jeweiligen Nachbar-Switch hergestellt werden. Nimmt man nun die Core Switches als Hauptknoten, so kann man einen grafischen Baum bilden welcher in den Blättern, in diesem Fall den Access Switchen, endet. Theoretisch gesehen könnte man aus den Blättern ein weiteren Knoten machen und den Baum bei den Hosts enden lassen, jedoch leidet in der Praxis vor allem die Übersicht an einer solchen Darstellungsweise und wird daher abgeraten zu verwenden.
+Neben der grafischen Darstellung der Switches auf dem Werksgelände bietet sich durch die anhand von CDP ausgelesenen Informationen die Möglichkeit die Hierarchien zwischen den Switches grafisch dazustellen. D.h. durch die jeweils gespeicherten Uplink IPs auf den Ports kann somit eine Verbindung zu dem jeweiligen Nachbar-Switch hergestellt werden. Nimmt man nun die Core Switches als Hauptknoten, so kann man einen grafischen Baum bilden welcher in den Blättern, in diesem Fall den Access Switches, endet. Theoretisch gesehen könnte man aus den Blättern ein weiteren Knoten machen und den Baum bei den Hosts enden lassen, jedoch leidet in der Praxis vor allem die Übersicht an einer solchen Darstellungsweise und wird daher abgeraten zu verwenden.
 
 \section{Wirtschaftliche Betrachtung}
 \label{sec:economicloverview}
 
 Möchte man das Projekt wirtschaftlich untersuchen, so muss zuerst die Ausgangsituation betrachtet werden. In dieser existiert die bereits bestehende Lösung CiscoWorks, welche in einer veralteten Version vorliegt. Für diese wurde bereits ein Angebot eingeholt, welches sich auf ungefähr 8000€ bewegt. Sofern hier kein Update durchgeführt wird, können alle neueren Switches nicht unterstützt werden. Ein weiterer Aspekt ist, dass nur ein Bruchteil der Funktionen die von CiscoWorks angeboten werden auch tatsächlich genutzt werden.\\
-Im Vergleich dazu hat eine selbst entwickelte Lösung keinerlei Lizenzkosten und kann auch neuere Swicths unterstützen. Betrachtet man beide Möglichkeiten von der monetären Seite, so lässt sich eine Einsparung von 8000€ erreichen. Jedoch muss bedacht werden, dass eine selbstentwickelte Lösung hingegen mit Arbeitszeit  verbunden ist.  Diese müssen als Kosten angerechnet werden. Jedoch handelt es sich bei diesem Projekt um ein Sonderfall, da die Aufgabenstellung während der Praxisphase des Studenten mit der Bachelorarbeit einhergeht, somit fällt keine zusätzliche Mehrarbeit an, da die betreffende Person in jedem Fall mit dem Projekt beschäftigt sein muss. Trotzdem ist es sinnvoll zu kalkulieren wie viel Kosten bei der eigenständigen Entwicklung entstehen.
+Im Vergleich dazu hat eine selbst entwickelte Lösung keinerlei Lizenzkosten und kann auch neuere Switches unterstützen. Betrachtet man beide Möglichkeiten von der monetären Seite, so lässt sich eine Einsparung von 8000€ erreichen. Jedoch muss bedacht werden, dass eine selbstentwickelte Lösung hingegen mit Arbeitszeit  verbunden ist.  Diese müssen als Kosten angerechnet werden. Jedoch handelt es sich bei diesem Projekt um ein Sonderfall, da die Aufgabenstellung während der Praxisphase des Studenten mit der Bachelorarbeit einhergeht, somit fällt keine zusätzliche Mehrarbeit an, da die betreffende Person in jedem Fall mit dem Projekt beschäftigt sein muss. Trotzdem ist es sinnvoll zu kalkulieren wie viel Kosten bei der eigenständigen Entwicklung entstehen.
 Um die Personalkosten zu beziffern zu können muss zuerst erst ein Stundensatz definiert werden. Um einen Vergleich erstellen zu können ist es ratsam die Kosten zu berechnen, wenn System von einer externe Person und wenn es von einer internen Person erstellt wird.
 Vergleicht man die Zahlen für eine Software-Entwickler im externen Umfeld, so lässt sich ein Durchschnittswert von 65€/Stunde festlegen. Neben den Kosten spielt natürlich der Faktor Zeit ebenfalls eine wichtige Rolle. Für die Umsetzung des Projektes wurde in Kapitel X eine Annahme getroffen über die Zeit, die benötigt wird, das Projekt umzusetzten. Jedoch muss bei dieser Schätzung bedacht werden, dass hierbei, neben einer Einarbeitungszeit, gleichzeitig eine Bachelorarbeit geschrieben wird und die Erfahrung des Entwickelers nicht auf dem selben Level eines externen Spezialisten ist. Grob geschätzt ist also die Annahme von 50 Werktagen auf etwas mehr als die Hälfte reduzierbar. Bei einer Annahme von 30 Tagen (zu je 8 Stunden pro Tag) ergibt sich eine Stundenzahl von 240 für das Projekt.
 Verrechnet man diese Stundenzahl mit dem Stundenlohn, so erhält man 15600€. Dieser Wert liegt deutlich über dem Wert einer neuen Lizenz. Daher ist von einer Umsetzung des Projektes von einem externen Entwickler abzuraten. Für die Umsetzung durch einen internen Entwickler liegen leider keine genauen Zahlenwerte vor, daher wird ein Beispielhafter Wert angenommen, wie er in jedem Unternehmen gültig sein könnte. Für einen Mitarbeiter, der mit allen Kosten (inkl. betrieblicher Anteil der Versicherungen) 5000€ pro Monat Kosten verursacht, lässt sich bei einer durchschnittlichen Zahl von 20 Werktagen pro Monat und einer 40 Stunden Woche, ein Stundenlohn wie folgt berechnen:\\
