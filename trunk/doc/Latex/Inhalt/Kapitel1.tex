@@ -378,14 +378,16 @@ Im Folgenden ist in Abbildung X ein beispielhaftes Aktivitätsdiagramm zu sehen.
 Für das bessere Verständnis der späteren Implementierung ist das Sequenzdiagramm ebenfalls von größerer Bedeutung.\footnote{Analyse und Design mit UML 2.3: Objektorientierte Softwareentwicklung, S. 361f. ,Bernd Oestereich, Stefan Bremer, Verlag: Oldenbourg; Auflage: 9., aktualisierte und erweiterte Auflage. (15. September 2009)} 
 Es dient dazu, einen Überblick über die Lebensdauer und Interaktion zwischen den einzelnen Klassen bzw. deren Objekte zu erhalten.
 Bei diesen wird nicht nur auf die bei den Klassendiagrammen gezeigte Beziehung, sondern auch auf den Nachrichtenaustausch zwischen den Objekten eingegangen.
-Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus folgenden Aktion, wird es notwendig zu unterscheiden, welche Art von Kommunikation stattfindet.
+Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus folgenden Aktion, wird es notwendig, zu unterscheiden, welche Art von Kommunikation stattfindet.
 Hierbei gibt es die synchrone, als auch asynchrone Kommunikation.
-Bei der synchronen Kommunikation handelt es sich um einen Nachrichtenaustausch bei der das aufrufende Element, beispielsweise ein Browser der Daten anfordert (eine Webseite), wartet, bis die Daten empfangen wurden.
-Hierbei sendet er die Anfrage für die jeweilige Seite ab und muss anschließend warten bis der Server ihm diese zurückgeliefert hat. Erst im Anschluss kann der Browser die Webseite dem Nutzer darstellen.
+Bei der synchronen Kommunikation handelt es sich um einen Nachrichtenaustausch, bei dem das der Sender wartet, bis der Empfänger die Nachricht bearbeitet hat.
+Beispielsweise könnte ein Browser eine Webseite angefordert haben.
+Dieser muss nach dem Absenden seiner Anforderung abwarten bis er eine Antwort erhalten hat und kann erst im Anschluss die Webseite dem Benutzer darstellen.
 Bei der asynchronen Kommunikation handelt es sich um einen Austausch, welcher es nicht erfordert, dass ein Teilnehmer auf die Bestätigung des Anderen warten muss. Beispielsweise beim Versand einer Email.
 Hier muss der Sender weder warten bis der Empfänger online ist, noch muss er den Empfang der Email abwarten.
 Somit können Nachrichten gesendet werden, ohne dass für den Sender ein Ergebnis zur Laufzeit erwartet wird.
-Eine Nachricht wird im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nachrichten werden mit gefüllten Pfeilspitzen, asynchrone Nachrichten mit offenen Pfeilspitzen gekennzeichnet. In der Nachfolgenden Abbildung ist ein beispielhaftes Sequenzdiagramm zu sehen.\\
+Eine Nachricht wird im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nachrichten werden mit gefüllten Pfeilspitzen, asynchrone Nachrichten mit offenen Pfeilspitzen gekennzeichnet.
+In der nachfolgenden Abbildung ist ein beispielhaftes Sequenzdiagramm zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
@@ -397,14 +399,15 @@ Eine Nachricht wird im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nachr
 \section{Media Access Control}
 \label{sec:mac}
 
-Bei der MAC-Adresse (Media-Access-Controll-Adresse) handelt es sich um eine Adresse eines Netzwerkadapters, die zur eindeutigen Identifizierung in einem Netzwerk dient.
+Bei der Media-Access-Controll-Adresse (MAC-Adresse) handelt es sich um eine Adresse eines Netzwerkadapters, die zur eindeutigen Identifizierung in einem Netzwerk dient.
 MAC-Adressen werden in einer Vielzahl von Netzwerk Protokollen verwendet.
 Unter Anderem wird sie im Ethernet-Protokoll (IEEE 802.3), aber auch vielen anderen Netzwerktechnologien genutzt die unter den IEEE 802 Gruppen zu finden sind.
 Das MAC-Protokoll steuert die Adressierung auf Hardwareebene, sowie die Zugriffsart.
 Im ISO/OSI-Modell ist das MAC-Protokoll auf Schicht 2, der Sicherungsschicht, angesiedelt.
 Somit hat das MAC-Protokoll zwei Aufgaben.
-Zum Einen die Adressierung eines Gerätes und zum Anderen wie dieses Gerät auf das Medium zugreift.\footnote{Business Data Communications and Networking, S.119f. , Jerry Fitzgerald , Alan Dennis, Fitzgerald, Verlag: John Wiley \& Sons; Auflage: 10. (19. Januar 2009)}\\
-Zur eindeutigen Adressierung der Netzwerkadapter  dient die sogenannte MAC-Adresse. Hierbei handelt es sich um einen 48-bit Wert, der einzigartig auf der ganzen Welt sein sollte.\footnote{Designing Large Scale LANs, S.135 , Kevin Dooley, Verlag: O'Reilly Media; Auflage: 1 (November 2001)} Durch die Änderbarkeit der MAC-Adresse kann es jedoch vorkommen, dass dies nicht immer gegeben ist. Die Wahrscheinlichkeit eine doppelte MAC-Adresse im Netzwerk zu haben ist jedoch extrem gering, da der Adressraum nach aktuellen Kalkulationen noch bis in das Jahr 2100 ausreicht.\footnote{http://standards.ieee.org/develop/regauth/tut/eui.pdf} Die ersten 24-bit kennzeichnen den Hersteller des Netzwerkadapters, die anschließenden 24-bit sind beliebig vom Hersteller vergebbar.
+Zum Einen die Adressierung eines Gerätes und zum Anderen, wie dieses Gerät auf das Medium zugreift.\footnote{Business Data Communications and Networking, S.119f. , Jerry Fitzgerald , Alan Dennis, Fitzgerald, Verlag: John Wiley \& Sons; Auflage: 10. (19. Januar 2009)}\\
+Zur eindeutigen Adressierung der Netzwerkadapter  dient die sogenannte MAC-Adresse. Hierbei handelt es sich um einen 48-bit Wert, der einzigartig auf der ganzen Welt sein sollte.\footnote{Designing Large Scale LANs, S.135 , Kevin Dooley, Verlag: O'Reilly Media; Auflage: 1 (November 2001)} Durch die Änderbarkeit der MAC-Adresse kann es jedoch vorkommen, dass dies nicht immer gegeben ist.
+Die Wahrscheinlichkeit eine doppelte MAC-Adresse im Netzwerk zu haben, ist jedoch extrem gering, da der Adressraum nach aktuellen Kalkulationen noch bis in das Jahr 2100 ausreicht.\footnote{http://standards.ieee.org/develop/regauth/tut/eui.pdf} Die ersten 24-bit kennzeichnen den Hersteller des Netzwerkadapters, die anschließenden 24-bit sind beliebig vom Hersteller vergebbar.
 Einige bestimmte MAC-Adressen können jedoch nicht reserviert werden, da es sich hierbei handelt um Broadcast-Adressen und Multicast-Adressen handelt.
 Eine MAC-Adresse kann wie folgt dargestellt werden:\\
 \\
@@ -414,11 +417,12 @@ Anhand der Herstellerkennung lassen sich wiederum Rückschlüsse auf das Netzwer
 Die Hersteller, welche sich jeweils hinter der Herstellerkennung verbergen, sind öffentlich bei der IEEE einsehbar, z.B. per Internet.\footnote{http://standards.ieee.org/develop/regauth/oui/public.html}\\
 Das MAC-Protokoll regelt ebenfalls den Zugriff auf das Transportmedium. Hierbei wird in zwei verschiedene Zugriffsarten unterteilt. Zum Einen den kontrollierten Zugriff und zum Anderen der konkurrierende Zugriff.
 Beim kontrollierten Zugriff wird darauf geachtet, dass keine Kollision auftritt. Somit kommuniziert keines der Netzwerkgeräte gleichzeitig über einen Kanal, sondern es ist immer nur ein Gerät aktiv.\\
-Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen, jedoch gibt es bestimmte Regeln, wenn eine Kollision auftritt. In diesen wird geregelt in welcher Art und Weise die Kollisionen behandelt werden.
+Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen, jedoch gibt es bestimmte Regeln, wenn eine Kollision auftritt. In diesen wird geregelt, in welcher Art und Weise die Kollisionen behandelt werden.
 In der Praxis gibt es unter Anderem das Protokoll Carrier sense multiple access with collision detection (CSMA/CD).
 Dieses stellt bei einer Kollision durch ein Stör-Signal sicher, dass alle beteiligten Geräte die Kollision ebenfalls erkennen.\footnote{Rechnernetze, S.157, Wolfgang P. Kowalk , Manfred Burke, Verlag: Teubner Verlag; Auflage: 1 (1994)}
-Zusätzlich versendet das Gerät das Paket nach einer Zeit wiederum erneut, bis dieses ankommt oder die Anzahl der maximalen Versuche überschritten wurde. Die Wartezeit steigt exponentiell anhand der Versuche.
-Hierzu wird eine Zufallszahl aus dem Bereich 0 und (2\^i)-1 und diese mit 51µs multipliziert gewählt.\footnote{TBA}
+Zusätzlich versendet das Gerät das Paket nach einiger Zeit wiederum erneut, bis dieses ankommt oder die Anzahl der maximalen Versuche überschritten wurde.
+Die Wartezeit steigt exponentiell anhand der Versuche.
+Hierzu wird eine Zufallszahl aus dem Bereich 0 und (2\^i)-1 und diese mit einem festen Intervall (z.B. 50µs) multipliziert gewählt.\footnote{IEEE 802.3}
 Wobei i für den i-ten Versuch steht.
 
 \section{Virtual Local Area Network}
@@ -427,7 +431,7 @@ Wobei i für den i-ten Versuch steht.
 Bei einem VLAN (Virtual Local Area Network) handelt es sich um ein logisches Netzwerk innerhalb eines physikalischen Netzwerkes.
 Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes.
 VLANs können über einen oder mehrere Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen.
-Um ein Netzwerk durch VLANs in mehrere Teilnetze zu unterteilen gibt es den Ansatz Ports bzw. die einzelnen Datenpakete jeweils VLANs zuzuweisen.
+Um ein Netzwerk durch VLANs in mehrere Teilnetze zu unterteilen, gibt es den Ansatz Ports bzw. die einzelnen Datenpakete jeweils VLANs zuzuweisen.
 Durch diese Zuweisung findet eine logische Trennung statt, da nur die Geräte in einem VLAN untereinander kommunizieren können.
 VLANs können über verschiedene Arten realisiert werden.
 VLANs lassen sich in portbasierte VLANs und tagged VLANs unterschieden.
@@ -447,48 +451,51 @@ So ist es möglich, z.B. ein mobiles Endgerät im Netzwerk immer dem gleichen VL
 Die Gründe für die Verwendung eines VLANs lassen sich in drei Punkte aufteilen.
 Zuerst macht eine Verwendung wie oben bereits erwähnt Sinn, wenn eine flexible Zuordnung eines Endgerätes immer zum selben VLAN gemacht werden muss.\\
 Ein weitere Grund für VLANs sind Performance-Aspekte. Neben der Priorisierung von speziellen Daten (z.B. VOIP), dient ein VLAN meist der Verkleinerung der Broadcast-Domänen.
-Durch die Verkleinerung der Domänen, wird ein Broadcast nicht über das gesamte Netzwerk hinweg geschickt.\\
+Durch die Verkleinerung der Domänen, wird ein Broadcast nicht über das gesamte Netzwerk hinweggeschickt.\\
 Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle.
-Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein, VLANs einzusetzen.
-Der Grund hierfür liegt darin, dass VLANs gegenüber Layer-2-Attacken architekturbedingt unempfindlich sind.
+Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein, VLANs einzusetzen, da diese gegenüber Layer-2-Attacken architekturbedingt unempfindlich sind.
 
 
 \section{Simple Network Management Protocol}
 \label{sec:snmp}
-Unter dem Simple Network Management Protocol (SNMP) ist ein Netzwerkprotokoll zu verstehen, welches einem erlaubt Netzwerkgeräte (z.B. Drucker, Router, Switches, Router) per Netzwerk zu überwachen und zu steuern.\footnote{vgl. Essential SNMP, S. 1}
+Unter dem Simple Network Management Protocol (SNMP) ist ein Netzwerkprotokoll zu verstehen, welches einem erlaubt, Netzwerkgeräte (z.B. Drucker, Router, Switches, Router) per Netzwerk zu überwachen und zu steuern.\footnote{vgl. Essential SNMP, S. 1}
 Diese Abfragen werden von einem zentralen Punkt aus durchgeführt, dem sogenannten SNMP-Manager, welcher die Daten von den SNMP-Agenten (Netzwerkelementen) abruft.\footnote{vgl. Essential SNMP: Help for System and Network Administrators, , S. 3}\\
 Bei SNMP handelt es sich um ein Protokoll, welches sich auf der Schicht 7, die Anwendungs-Ebene, des ISO/OSI-Schichtenmodells, ansiedeln lässt.
 Entwickelt wurde das Protokoll von der IEFT und ist über diverse RFCs definiert.
 Durch die hohe Modularität ist SNMP unabhängig von IP und funktioniert somit auch über IPX oder AppleTalk. Dies ist mitunter auch ein Grund für die weite Verbreitung von SNMP, welches mittlerweile als Standard gilt.\\
 Die Funktionsweise von  SNMP spiegelt sich in der Verwendung der Agenten und Manager wieder.
-Zunächst gibt es die sogenannten Agenten welche als Dienst auf dem jeweiligen Endgerät laufen und die Informationen zur Verfügung stellen. Diese werden dann auf einem Manager jeweils abgerufen per SNMP. Die Nachrichten werden entweder angefordert vom Manager oder aufgrund eines Ereignisses vom Agent an den Manager selbständig gesendet.\\
-SNMP selbst definiert nicht welche Daten/Werte die Netzwerkkomponenten liefern, sondern gibt nur eine Baumstruktur vor, an die sogenannte Management Information Base (MIB) angliedert.
+Zunächst gibt es die sogenannten Agenten welche als Dienst auf dem jeweiligen Endgerät laufen und die Informationen zur Verfügung stellen. Diese werden dann auf einem Manager jeweils per SNMP abgerufen.
+Die Nachrichten werden entweder vom Manager angefordert oder aufgrund eines Ereignisses vom Agent an den Manager selbstständig gesendet.\\
+SNMP selbst definiert nicht welche Daten/Werte die Netzwerkkomponenten liefern, sondern gibt nur eine Baumstruktur vor, welche an die sogenannte Management Information Base (MIB) angliedert.
 Diese beschreibt die jeweils enthaltenen Informationen und sind teilweise ebenfalls über RFCs spezifiziert.\footnote{vgl. RFC 1213} Zusätzlich gibt es herstellerspezifische MIBs z.b. von Cisco , die in einem speziellen Punkt im Baum hinterlegt werden können. Diese MIBs werden unter dem  Object Identifier (OID) 1.3.6.1.4.1 (iso.org.dod.internet.private.enterprises) bei der IANA registriert.\\
-Bei der Kommunikation untereinander werden verschiedene Paket-Typen verwendet.
-
+Bei der Kommunikation untereinander werden verschiedene Paket-Typen verwendet.\\
+\\
 GET\\
 
 Bei den GET Paketen handelt es sich um jeweils unterschiedliche Arten der Anforderung die vom Manager an den Agent gesendet werden.\\
 Bei einem normalen GET-Paket wird ein einzelnes Attribut vom Agenten angefordert. Jedoch gibt es Abfragen, bei denen nicht im Voraus bekannt ist, wie viele Attribute abgefragt werden müssen. Beispielsweise der Status mehrerer Ports an einem Switch. Da dem SNMP-Manager jedoch keine Informationen vorliegen wie viele Ports der Switch hat, kann er nicht im Voraus die entsprechende Abfrage starten.\\
-
+\\
 GETNEXT\\
 
 Um diese Problematik zu lösen gibt es den sogenannten GETNEXT-Befehl, der es ermöglicht anhand einer OID, die OID und den Wert des darauffolgenden Elementes zu erhalten.\\
 
 Die Abfrage von x Ports erzeugt x+1 Abfragen (Bei einem 48 Port Switch somit 49 Abfragen) ist ineffektiv , da der Manager nur eine Informationsmenge erhalten möchte aber dazu eine Vielzahl an Anfragen durchführen muss.
-
+\\
 GETBULK\\
 
 Daher wurde mit SNMP v2 der GETBULK Befehl eingeführt. Dieser ermöglicht es mehrere Werte mit einer Abfrage zu erhalten, die am Knoten im Baum hinterlegt sind.\\
-
+\\
 SET\\
-Das SET-Paket dient zum setzten spezieller Werte, so kann zum Beispiel darüber der Status des Ports von einem Switch  geändert werden, oder es könnte eine Firewall konfiguriert werden.
 
+Das SET-Paket dient zum Setzen spezieller Werte, so kann zum Beispiel darüber der Status des Ports von einem Switch  geändert werden, oder es könnte eine Firewall konfiguriert werden.
+\\
 RESPONSE\\
-Auf diese bisher genannten Pakete antwortet der Agent mit einem RESPONSE Paket, welcher die benötigten Werte oder eine Fehlermeldung enthält.
-Sofern beim SNMP-Agent z.B. gewisse Grenzwerte hinterlegt wurden kann dieser sich bei einer Überschreitung mittels eines Trap-Paketes beim Manager melden, ohne das dieser die Information explizit abgefragt hat.\\
-Um möglichst wenig Netzwerklast zu erzeugen kommuniziert SNMP über das UDP Protokoll, da es eine verbindungslose Kommunikation ermöglicht. Der Agent erhält die Anfragen auf Port 161, während der Manager auf Port 162 die Trap Meldungen empfängt.\\
+Auf diese bisher genannten Pakete antwortet der Agent mit einem RESPONSE Paket, welcher die benötigten Werte oder eine Fehlermeldung enthält.\\
+\\
 TRAP\\
+\\
+Sofern beim SNMP-Agent z.B. gewisse Grenzwerte hinterlegt wurden, kann dieser sich bei einer Überschreitung mittels eines Trap-Paketes beim Manager melden, ohne dass dieser die Information explizit abgefragt hat.\\
+Um möglichst wenig Netzwerklast zu erzeugen, kommuniziert SNMP über das UDP Protokoll, da es eine verbindungslose Kommunikation ermöglicht. Der Agent erhält die Anfragen auf Port 161, während der Manager auf Port 162 die Trap Meldungen empfängt.\\
 
 
 
@@ -502,5 +509,8 @@ Die Cisco Geräte senden jeweils zur Multicast-Adresse\footnote{Designing Large 
 Dies geschieht in einem Intervall von 60 Sekunden auf allen Netzwerk-Schnittstellen.
 Jedes der CDP-fähigen Geräte führt intern eine Tabelle mit Informationen über die Geräte, welche im Netzwerk gefunden wurden.
 Diese können per internen CDP oder per SNMP abgefragt werden.
-Bei jedem Empfang von CDP Daten, werden die internen Tabellen aktualisiert. Geräte die sich nicht mehr melden, werden nach einer bestimmten Zeit (standardmäßig nach 180 Sekunden) aus den Tabellen entfernt. Die Informationen welche übertragen werden sind einfach erweiterbar, da diese auf dem “Type-Length-Value” Format basieren. Das heißt in einer Nachricht wird zuerst der Typ des Attributs bestimmt (Z.b. String, Zahl, Datum) danach die Zeichenlänge des Wertes und der Wert selbst.\\
+Bei jedem Empfang von CDP Daten, werden die internen Tabellen aktualisiert.
+Geräte die sich nicht mehr melden, werden nach einer bestimmten Zeit (standardmäßig nach 180 Sekunden) aus den Tabellen entfernt.
+Die Informationen welche übertragen werden sind einfach erweiterbar, da diese auf dem “Type-Length-Value” Format basieren.
+Das heißt in einer Nachricht wird zuerst der Typ des Attributs bestimmt (z.B. String, Zahl, Datum) danach die Zeichenlänge des Wertes und der Wert selbst.\\
 Hersteller wie HP, distanzieren sich zunehmend von diesem proprietären Protokoll und unterstützen das durch die IEEE spezifizierte offene Protokoll LLDP, welches Hersteller unabhängig ist und den selben Funktionsumfang beinhaltet.
