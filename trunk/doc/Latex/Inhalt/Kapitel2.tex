@@ -193,19 +193,18 @@ Mit reellen Daten gefüllt könnte ein Rückgabewert wiefolgt sein:\\
 
 
 Durch das Zusammensetzten mit ! kann eine einfachere Verarbeitung stattfinden bzw. der Wert auch manuell besser gelesen werden.\\
+
 Für das Auslesen eines Switches wird jeweils ein Objekt der Klasse \textit{SwitchWorkerThread} erzeugt. Hierbei handelt es sich jeweils um einen separaten Thread, dem jeweils das \textit{Switch}-Objekt aus der Liste des \textit{SwitchListe} Objekts übergeben wird.
 Der Thread ruft anschließend die Methode refresh() der Klasse \textit{Switch} auf.
 Diese Methode beginnt daraufhin alle relevanten Informationen eines Switches über die \textit{SNMPHandler} Klasse, wie in Kapitel X beschrieben, auszulesen.
-Hierzu verwendet die Methode eine programminterne OID-Bibliothek. Diese wird über die Klasse \textit{OIDL} bereitgestellt. Im Detail enthält die Klasse verschiedene Strings, deren Variablennamne dem Namen der im RFC
-Diese Aliase sind per RFC spezifiziert und 1:1 abgebildet. So ergibt z.b. der Aufruf: \\
-
-OIDL.sysDescr0\\
-
+Hierzu verwendet die Methode eine programminterne OID-Bibliothek. Diese wird über die Klasse \textit{OIDL} bereitgestellt. Im Detail enthält die Klasse verschiedene Strings, deren Variablenname dem Namen der OIDS im RFC X übereinstimmt.\\
+Somit kann auf einfache Art und Weise ein übersichtlicher Befehl in den notwendigne String übersetzt werden, wie im folgenden Beispiel:\\
+\\
+OIDL.vtpVlanName\\
 den String:\\
-
-1.3.6.1.2.1.1.1.0\\
-
-Dies ist vor allem notwendig um eine Übersicht über die verwendeten OID zu behalten bzw. erkennen zu können welcher Funktion hinter der OID steckt. Der nachfolgende Quellcode-Abschnitt verdeutlicht die Wichtigkeit der Text-Äquivalenz zu den IDs:\\
+1.3.6.1.4.1.9.9.46.1.3.1.1.4\\
+\\
+Dies ist vor allem notwendig um eine Übersicht über die verwendeten OID zu behalten bzw. erkennen zu können welcher Wert hinter der jeweiligen OID steckt. Der nachfolgende Quellcode-Abschnitt verdeutlicht die Wichtigkeit der Aliase:\\
 
 \begin{figure}[H]
 \centering
@@ -214,11 +213,16 @@ Dies ist vor allem notwendig um eine Übersicht über die verwendeten OID zu beh
 \label{fig:classdiagramcode}
 \end{figure}
 
-Im Programm selbst existieren jedoch auch Klassen die nicht nur zur Hilfe der eigenen Algorithmen Umsetzung dienen, sondern auch, welche externe Datenquellen anbinden.
-Hierzu gehört die Klasse Nagios, welche per HTTP oder per MySQL Datenbank ermöglicht die Gruppenzuordnung der Switches auszulesen.
-Hierzu gehört auch die Klasse LDAP, welche das Auslesen des Active Directories der Windows Domaine ermöglicht oder aber die Klasse DNSHelperClass, welche es ermöglicht auf mehreren DNS Servern einen DNS Namen anhand einer IP zu finden. Neben diesen Klassen gibt es aber auch speziell erstellte Klassen die es ermöglichen SQL-Befehle die keine Resultsets erwarten, dass heißt welche keinen Rückgabewert erwarten, in Stapel auszuführen.
+Neben den zuvorgenannten Klassen, gibt auch eine Menge an Klassen, die s ausschließlich als Schnittstelle zu anderen Datenquellen dienen.
+Hierzu gehört die Klasse \textit{Nagios}, die es ermöglicht Switches, inklusive Zugangsdaten und deren Gruppenzugehörigkeit, anhand einer existierenden Datenbank mit Daten eines Nagios-Systems auszulesen.\\
+Eine weitere Schnittstelle stellt die Klasse \textit{LDAP} dar. Diese ermöglicht das Auslesen der Active-Directories der Windows Domäne.
+Die Klasse \textit{DNSHelper} ermöglicht es den DNS Namen anhand einer IP zu finden, in dem jeweils der DNS-Server angesprochen wird.\\
+Für die Kommunikation mit der Datenbank wurde eine spezielle Klasse \textit{DataManagerOracleMulti} erstellt, die es ermöglicht SQL-Befehle die keine Rückgabe erwarten in Stapel auszuführen.
 Dies bedeutet, dass die Datenbank nicht jeden Befehl einzeln erhält sondern eine große Anzahl (>100 Stück) auf einmal und somit weniger Overhead für den Verbindungsaufbau entsteht.\\
-Neben der Vielzahl von Klassen, welche zur Vereinfachung der Übersicht und Wartbarkeit dienen, gibt es trotzdem Objekte welche auch die Realtät abbilden. Dazu gehören die Klassen Switch (welche bereits beschrieben wurde), Ports, sowie Hosts. Diese bieten jeweils Methoden an, welche von sich selbst die passenden SQL-Befehle anhand der enthaltenen Daten generieren. Dies macht es vorallem einfach die Objekte zu serialisieren. Das heißt die Objekte im Programm wiederum abzubilden auf eine Textuale-Ebene, um sie in die Datenbank übertragen zu können.\\
+Neben der Vielzahl an Klassen, die einer Vereinfachung des Programmablaufs dienen, gibt es trotzdem Objekte welche auch die Realtät abbilden.
+Dazu gehören die Klassen \textit{Switch} (welche bereits beschrieben wurde), \textit{Port}, sowie \textit{Host}.
+Diese bieten jeweils Methoden an, welche von sich selbst die passenden SQL-Befehle anhand der enthaltenen Daten generieren. Dies macht es einfacher die Objekte zu serialisieren.
+Das heißt, die Objekte im Programm wiederum abzubilden auf eine Textuale-Ebene, um sie in die Datenbank übertragen zu können.\\
 
 \begin{figure}[H]
 \centering
