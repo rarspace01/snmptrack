@@ -50,7 +50,7 @@ Die komplette Anordnung ist in Abbildung X zu sehen.
 \label{sec:anfdef}
 
 Um das bestehende System ersetzen zu können, muss zunächst untersucht werden, welche der bereits vorhandenen Funktionen im aktuell verwendeten System genutzt werden und welche in Zukunft benötigt werden.\\
-Im Anschluss dieser Untersuchung müssen auch weitere potentielle Aufgaben berücksichtigt werden, um eine Erweiterbarkeit des Systems zu garantieren.
+Im Anschluss an diese Untersuchung müssen auch weitere potentielle Aufgaben berücksichtigt werden, um eine Erweiterbarkeit des Systems zu garantieren.
 Damit das neue System allen Anforderungen gerecht wird, empfiehlt es sich zunächst, sich mit den Personen zusammen zu setzen, die das bestehende Programm zurzeit nutzen.\\
 Hierbei wird nicht nur auf die aktuelle Nutzung eingegangen, sondern auch diese kritisch hinterfragt, ob eventuelle Anforderungen bereits von anderen Systemen erfüllt werden.
 Durch Gespräche mit den zuständigen Mitarbeitern wurden diverse Anforderungen erörtert.\\
@@ -83,7 +83,7 @@ Im Hinblick auf die Geschwindigkeit des Auslese-Prozesses wurde vorausgesetzt, d
 Eine weitere Anforderung die als optional angesehen wird, ist die Möglichkeit die Verbindungen zwischen den Switches und Routern zu erfassen. Das heißt, es soll eine Topologie anhand der Daten erstellt werden können.\\
 Zu den optionalen Anforderungen gehört die Möglichkeit einer Benutzerzuordnung zu den jeweiligen Hosts. Die Zuordnung soll über das bestehende Active Directory passieren und somit die Möglichkeit bieten den entsprechenden Nutzer bei Problemen direkt anrufen zu können.\\
 Kombiniert man diese Anforderungen, so bildet sich eine weitere Anwendungsmöglichkeit und zwar kann es in der Praxis vorkommen, dass ein Switch gewechselt und somit abgeschaltet werden muss.
-Hierfür kann man nun im Voraus kontrollieren, welche Hosts an diesen angeschlossen sind und die dementsprechenden Nutzer im Voraus informieren.\\
+Hierfür kann man nun im Voraus kontrollieren, welche Hosts an diesen angeschlossen sind und welche Nutzer somit im Voraus informiert werden müssen.\\
 
 Neben den Anforderungen zu den Anwendungsmöglichkeiten wurden auch Anforderungen an das Programm selbst gestellt.
 Zu diesen gehört die Betriebssystemunabhängigkeit.
@@ -102,15 +102,19 @@ Problematisch ist vorallem die genaue Zuordnung der Hosts an den korrekten Switc
 Hierfür muss eine eindeutige Identifizierung stattfinden, welcher Switch welche Hierarchieebene angehört. Diese Informationen müssten manuell gepflegt werden oder anhand einer automatischen Hierarchieerkennung erhalten werden.\\
 Die Anforderung alle Hosts hinter einem Port zu finden, stellt kein Problem dar, da dies von allen Switches per SNMP unterstützt wird. \\
 Eine Historie, die es ermöglicht, nur neue Kombinationen aus MAC-Adresse des Hosts und des zugehörigen Ports als neuen Eintrag zu sehen ist, ohne Probleme möglich und kann durch die demensptrechende Erstellung der Datenbank sichergestellt werden.\\
-Aussagen über die Geschwindigkeit können leider im Voraus nicht getroffen werden, jedoch ist anzunehmen, dass die Geschwindigkeit über der des manuellen Auslesens per Telnet liegen muss, da SNMP nicht verbindungsorientiert ist und somit die Endgeräte weniger belastet werden und der Overhead reduziert ist. Genauere Aussagen über die Geschwindigkeit lassen sich erst durch Benchmarks machen, welche in Kapitel [Kapitel X] durchgeführt werden.\\
+Neben den Anforderungen die sich auf die Systemstruktur beziehen, gibt es auch solche, die sich auf den Ausleseprozess konzentrieren.
+In diesem Zusammenhang wurde die Auslesegeschwindigkeit und die Last auf den Switches angeführt.
+Aussagen über die Auslesegeschwindigkeit können leider im Voraus nicht getroffen werden, jedoch ist anzunehmen, dass die Geschwindigkeit über der des manuellen Auslesens per Telnet liegen muss, da SNMP nicht verbindungsorientiert ist und somit die Endgeräte weniger belastet werden und der Overhead reduziert ist. Genauere Aussagen über die Geschwindigkeit lassen sich erst durch Benchmarks machen, welche in Kapitel [Kapitel X] durchgeführt werden.\\
 Um mögliche Verbindungen zwischen den Switches und Routern zu erfassen, muss es möglich sein, auf einem Port einen Switch zu identifizieren, was per SNMP in Verbindung mit STP und CDP möglich ist.\\
 Eine Zuordnung der einzelnen Nutzer lässt sich über das Active Directiry per LDAP bewerkstelligen, hierfür muss aber ein spezieller Benutzer eingerichtet werden, der vollständige Leserechte für alle Hosts im Netzwerk besitzt.\\
 Die Betriebssystemunabhängigkeit ist mit einer Vielzahl von Interpreter-Sprachen (Perl, Phyton, ...) oder einer Platform unabhänigen Sprache (Java, C Sharp/Mono) gegeben.\\
 Da für alle gängigen Sprachen diverse Datenbankanbindungen angeboten werden, gibt es bei der Wahl des DBMS auf Oracle keine Probleme.\\
 Insgesamt betrachtet gibt es von der technischen Seite zwar gewisse Schwierigkeiten bei der Implementierung, diese verohindern aber nicht eine Umsetzung des Projektes.\\
 
-Ein weiterer wichtiger Punkt sind auch die Ressourcen, da für die komplette Implementierung nur 11 Wochen zur Verfügung stehen. Für eine Implementierung eines Systems mit diesem Umfang und einer ausreichenden Testphase bei nur einem Entwickler ist dies ein zu geringer Zeitraum. Da vor der Implementierung und den Tests zuerst einmal der Entwurf und gewisse Design Entscheidungen stehen müssen, wird es hier zu Engpässen kommen, welche nur durch Kompromisse im Hinblick auf die Implementierung und den Tests gelöst werden können.\\
-Da ein Großteil der Zeit für das Auslesen der Daten aufgebracht werden muss, wird die Zeit für die Umsetzung der Weboberfläche relativ kurz geraten. Hier muss dann im Laufe des Projektes zwischen einzelnen Punkten abgewägt werden.\\
+Ein weiterer wichtiger Punkt sind auch die Ressourcen, da für die komplette Implementierung nur 11 Wochen zur Verfügung stehen.
+Für eine Implementierung eines Systems mit diesem Umfang und einer ausreichenden Testphase bei nur einem Entwickler ist dies ein zu geringer Zeitraum. Da vor der Implementierung und den Tests zuerst einmal der Entwurf und gewisse Design Entscheidungen stehen müssen, wird es hier zu Engpässen kommen, welche nur durch Kompromisse im Hinblick auf die Implementierung und den Tests gelöst werden können.\\
+Da ein Großteil der Zeit für das Auslesen der Daten aufgebracht werden muss, wird die Zeit für die Umsetzung der Weboberfläche deutlich geringer angesetzt, wie die für eine Umfassende Umsetzung notwendig wäre.
+Hier muss dann im Laufe des Projektes zwischen einzelnen Funktionen der Weboberfläche abgewägt werden.\\
 
 Im Hinblick auf die Kosten entstehen bei der Umsetzung keine weitere Kosten bzw. bei der Wahl eines existierenden Open Source-Systems. Ziel des Projektes ist das bestehende kommerzielle Produkt zu ersetzen und somit eine monetäre Einsparung, aber auch der Anforderung einer gewissen Modularität gerecht zu werden.\\
 
@@ -120,12 +124,14 @@ Im Hinblick auf die Kosten entstehen bei der Umsetzung keine weitere Kosten bzw.
 Betrachtet man die bereits existierenden Lösungen zum Überwachen von Switches und Hosts, so lassen sich einige Produkte finden, die kommerzieller Natur als auch Open Source sind.
 Bei HP Openview handelt es sich um eine kommerziell Lösung von HP, die dazu dient eine komplette Netzwerk und Systemmanagement-Lösung anzubieten. Diese Software-Umgebung besteht nicht nur aus HP eigenen Modulen sondern auch von verschiedenen Fremdherstellern.
 Die wichtigste Komponente des HP Openview für die Netzwerküberwachung stellt der sogenannte ‘HP OpenView Network Node Manager’ dar.
-Dieser ermöglicht es, neben dem Überblick über die Netzwergeräte und deren Stati zusätzlich detailierte Informationen zu den einzelnen Geräten anzuzeigen. Es bietet zusätzlich Histogramme z.B. für den aktuellen Durchsatz an.
+Dieser ermöglicht es, neben dem Überblick über die Netzwergeräte und deren Stati zusätzlich detailierte Informationen zu den einzelnen Geräten anzuzeigen.
+Diese Daten können bei Bedarf als Histogramme angezeigt werden, z.B. für den aktuellen Daten-Durchsatz an.
 Ebenso bietet sich die Möglichkeit einer Art Übersichtskarte die automatisch anhand der vorhandenden Netzwerkgeräte generiert wird. Die notwendigen Informationen hierfür werden per SNMP und CDP ausgelesen. Zusätzlich wird zur Statusüberprüfung auf Funktionen wie ein Ping zurückgegriffen\\
-Eine weiteres kommerzielles System ist CiscoWorks von Cisco. Dieses bietet untere anderem ein spezielles Usertracking-Modul, welches einem ermöglicht, alle Hosts in einem Netzwerk zu identifizieren, aber auch die dazugehörigen Switches, an die jeweils die Geräte angeschlossen sind anzuzeigen. Diese Informationen können teilweise auch per CDP (Cisco Discovery Protokoll) ausgelesen werden. Über die per CDP bereitgestellten Daten wird auch ein automatisches sequentielles Auslesen aller Switches im Netzwerk ermöglicht, ohne zuvor diese zu kennen (Zugriffsrechte werden trotzdem benötigt).\\
+Eine weiteres kommerzielles System ist CiscoWorks von Cisco. Dieses bietet untere anderem ein spezielles Usertracking-Modul, welches einem ermöglicht, alle Hosts in einem Netzwerk zu identifizieren, aber auch die dazugehörigen Switches, an die jeweils die Geräte angeschlossen sind anzuzeigen. Diese Informationen können teilweise auch per CDP (Cisco Discovery Protokoll) ausgelesen werden.
+Über die per CDP bereitgestellten Daten wird auch ein automatisches sequentielles Auslesen aller Switches im Netzwerk ermöglicht, ohne zuvor diese zu kennen, jedoch müssen die notwendigen Zugangsdaten trotzdem zur Verfügung gestellt werden.\\
 Das Open Source Programm Nagios dient vor allem zum Überwachen von verschiedenen Geräten im Netzwerk, sowie deren Dienste.\footnote{Nagios: System and Network Monitoring, S. 66+96 , Wolfgang Barth, No Starch Press; Auflage: 2nd Edition. (7. Oktober 2008)}
-Hierbei arbeitet es ebenfalls per SNMP.\\
-Es ist aber nicht auf dieses allein angewiesen. Sofern eingerichtet, kann auch per einfach TCP oder UDP Dienste überprüft werden.
+Hierbei arbeitet es ebenfalls per SNMP, jedoch ist es aber nicht auf dieses allein angewiesen.
+Sofern eingerichtet, kann es auch einfach per TCP oder UDP die Dienste überprüfen.
 Es können aber auch Remote Skripts per SSH aufgerufen werden.
 Jedoch ist hierbei zu beachten, dass Nagios nur das Überwachen von bekannten und zuvor konfigurierten Hosts und Diensten unterstützt und somit für die gewünschte Anforderung nicht in Frage kommt.\\
 Ein System , welches die Anforderungen teilweise erfüllt, ist Tirtih.
