@@ -1,12 +1,24 @@
-\chapter{Analyse}
+\chapter{Analyse der jetzigen Situation der Pirelli Deutschland GbmH}
 \label{cha:analyse}
 
 \section{Situationsbeschreibung}
 \label{sec:situation}
 
 Die bestehende Situation der PD spielt für die spätere Umsetzung eine große Rolle und muss somit im Näheren betrachtet werden.
-Zu Beginn des Projektes wurden bereits diverse Systeme zur Überwachung des Netzwerkes eingesetzt. Hierunter fällt die Überwachung der Stati der einzelnen Netzwerkgeräte, im Speziellen die Switches und Router, welche über das Programm “OpenView” von HP erfasst werden. Über dieses Programm können ebenfalls Server und deren Dienste erfasst werden. Diese Funktion wird jedoch aktuell nicht mehr mit Daten gepflegt, da hier ein Transfer zu einem anderen System stattfindet, aufgrund der Tatsache, dass die Wartung von OpenView ausgelaufen ist. Im Moment dient das OpenView System bei PD dazu, dass eine automatische Übersicht über die Relationen zwischen den Switches und Routern erstellt werden kann.\\
-Für die Überwachung spezieller Hosts (in der Praxis meist Server) und Diensten, kommt ein weiteres System zum Einsatz, welches eine Open Source Software ist und ein hohes Maß an Flexibilität und Modularität bietet. Dieses “Nagios” genannte Programm ermöglicht es, diverse Dienste im Netzwerk auf vorgegebenen Hosts abzufragen und diese anschließend zu Visualisieren.
+Zu Beginn des Projektes wurden bereits diverse Systeme zur Überwachung des Netzwerkes eingesetzt.
+Die Überwachung des Netzwerks lässt sich bei näherer Betrachtung in folgende Punkte unterteilen:\\
+\\
+Darstellung und Überwachung des Netzwerkequipments\\
+Überwachung von Diensten/Servern\\
+Überwachung des Netzwerkverkehrs\\
+Überwachung von einzelnen Hosts im Netzwerk\\
+
+Zur Überwachung der Stati der einzelnen Netzwerkgeräte, im Speziellen die Switches und Router, wird das Programm “OpenView Network Node Manager” von HP verwendet.
+Zurzeit wird das Programm verwendet um eine automatische Übersicht über die Relationen zwischen den Switches und Routern und eine grafische Übersicht über den Status der Switchs und Router zu haben zu erhalten.
+Über dieses Programm können auch Server und deren Dienste erfasst werden.
+Diese Funktion wird jedoch aktuell nicht mehr mit Daten gepflegt, da hier aktuell ein Transfer zum Nagios System stattfindet, aufgrund der Tatsache, dass die Wartung von OpenView ausgelaufen ist.\\
+Für die Überwachung spezieller Hosts (in der Praxis meist Server) und Diensten, kommt das Open Source System Nagios zum Einsatz, welches ein hohes Maß an Flexibilität und Modularität bietet.
+Dieses Programm ermöglicht es, diverse Dienste im Netzwerk auf vorgegebenen Hosts abzufragen und diese anschließend zu visualisieren.
 Zusätzlich können verschiedene Warn- und Fehlerlevels für einen Service definiert werden, die im Falle einer Störung Warnungen an vordefinierte Personen verschicken.\\
 Dieses System ist somit hauptsächlich für die Überwachung der Dienste zuständig.\\
 Zur Untersuchung von Netzwerk-Traffic zwischen verschiedenen Netzwerken kommt das System MRTG zum Einsatz, welches hauptsächlich für das Anzeigen des Netzwerktraffics auf Routern ausgelegt ist.
@@ -19,23 +31,17 @@ Hinzu kommen Details, wie der Gerätetyp, welcher einem die Möglichkeit gibt, z
 Da es bei diesem System notwendig ist, regelmäßig die Lizenz zu verlängern, um auch weiterhin die neusten Router und Switches zu unterstützen, ist hier eine gewisse Abhängigkeit gegeben.
 Weil von CiscoWorks selbst nur ein kleiner Teil genutzt wird und somit die Lizenzkosten unverhältnismäßig zur Nutzung sind, wurde entschieden, dieses in Zukunft zu ersetzen.\\
 
-Die Überwachung des Netzwerks lässt sich bei näherer Betrachtung in folgende Punkte unterteilen:\\
-Überwachung von Diensten/Servern\\
-Überwachung des Netzwerkverkehrs\\
-Darstellung und Überwachung des Netzwerkequipments\\
-Überwachung von einzelnen Hosts im Netzwerk\\
-
+Neben der eingesetzten Software, ist es auch wichtig ein Überblick über die Netzwerk-Architektur zu haben.
+Auf diese wird im nachfolgenden Abschnitt eingegangen.
 Das Netzwerk bei PD ist in verschiedenen Hierarchieebenen konzipiert.
 In der untersten Ebene stehen die Switches an denen die Hosts angeschlossen sind. Diese Ebene wird als Access-Layer bezeichnet.
 Über dieser Ebene wiederrum befindet sich der Distribution-Layer. In diesem sind Switches zu finden, welche alle Access-Layer Switches verbinden und als Schnittstelle zu den Layer 3 Switches, den sogenannten Core-Switches, dienen.
 Die Core-Switches können zusätzlich anhand von OSI-Layer-3 Informationen Forwarding betreiben.
 Die komplette Anordnung ist in Abbildung X zu sehen.
 
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{network_ex1.png}
-%\includegraphics[width=0.8\textwidth]{000.PNG}
 \caption{Netzwerkarchitektur PD}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
