@@ -173,19 +173,22 @@ In Abbildung X ist das Usecase-Diagramm für das System zu sehen.
 \label{fig:usecase001}
 \end{figure}
 
-Zum einen ist festzustellen, dass es nur einen Akteur gibt. Das liegt daran, dass keine Einschränkung vorgesehen ist für die aktiven Nutzer des Systems. Bei der Implementierung wird jedoch eine mögliche spätere Einführung von verschiedenen Benutzerrechten bedacht und diese Funktionalität als Möglichkeit offen gelassen. Zur Einfachheit halber wird der Netzwerkdaminstrator im Laufe des Textes als Benutzer beschrieben.
-Die erste Sicht die dem Nutzer zur Verfügung stehen muss ist eine Übersicht über alle Switches, hier muss neben der Switch IP auch der per SNMP ausgelesene Alias stehen, aber auch die vorhandene IOS-Version und die Seriennummer des Switches.\\
+Zum einen ist festzustellen, dass es nur einen Akteur gibt. Das liegt daran, dass keine Einschränkung vorgesehen ist für die aktiven Nutzer des Systems.
+Bei der Implementierung wird jedoch eine mögliche spätere Einführung von verschiedenen Benutzerrechten bedacht und diese Funktionalität als Möglichkeit offen gelassen.
+Zur Einfachheit halber wird der Netzwerkdaminstrator im Laufe des Textes als Benutzer beschrieben.
+Die erste Sicht, die dem Nutzer zur Verfügung stehen muss, ist eine Übersicht über alle Switches, hier muss neben der Switch IP auch der per SNMP ausgelesene Alias stehen, aber auch die vorhandene IOS-Version und die Seriennummer des Switches.\\
 In einer weiteren Sicht soll eine Übersicht auf die Ports eines Switches geben werden.
-Neben der MAC-Adresse des Ports, sowie des Port Namens (z.B. Fa0/1) sind weitere Informationen sichtbar, unter Anderem der Status (Up/Down), Geschwindigkeit des Ports, sofern zugewiesen die VLAN ID, Duplexmodus, aber auch Informationen, ob es sich hierbei um ein Uplinkport handelt.
+Neben der MAC-Adresse des Ports, sowie des Port Namens (z.B. Fa0/1) sind weitere Informationen sichtbar, unter Anderem der Status (Up/Down), Geschwindigkeit des Ports, Duplexmodus, sofern zugewiesen die VLAN ID, aber auch Informationen, ob es sich hierbei um ein Uplinkport handelt.
 Zusätzlich wird eine Sicht benötigt, die Informationen über den angeschlossenen Host anzeigt.
 Hierunter fallen Informationen, wie MAC-Adresse, IP, DNS, sowie der zuletzt angemeldete Benutzer an einer Workstation. Zusätzlich sollen aber auch Informationen angezeigt werden, welche in Verbindung mit dem Port in Verbindung stehen. Diese werden im Zuge der Historie zusätzlich beim Host gespeichert.
 Sofern es sich um ein CDP-fähiges Gerät handeln sollte, werden diese zusätzliche Informationen ebenfalls angezeigt.
-Neben den Sichten zu den Geräten wird es auch eine Übersicht der VLANs geben, welche es erlaubt, eine Verbindnug herzustellen zwischen VLAN ID und des jeweiligen VLANs inkl. Name und  VTP-Domain.\\
+Neben den Sichten zu den Geräten wird es auch eine Übersicht der VLANs geben, welche es erlaubt, eine Verbindung zwischen der VLAN ID und des jeweiligen VLANs herzustellen.
+Somit kann nicht nur der Alias sondern auch die entsprechende VTP-Domäne abgelesen werden.\\
 Der Benutzer soll weiterhin auf jeder dieser Sichten eine Möglichkeit zur Suche eines Hosts/Switches haben, wie auch eine Option zur Sortierung der Einträge.
 Neben diesen grundlegenden Funktionen wurde empfohlen, zusätzlich eine Art hierarchische Übersicht zu ermöglichen. Das heißt, der Nutzer kann über die Switchübersicht einen Switch selektieren und erhält dann die Übersicht der dort verfügbaren Ports. Wählt er nun einen Port auf diesem Switch aus, so erhält er alle Hosts die an diesen Port angeschlossen sind.
 Sofern es sich dabei um mehrere Hosts handelt, wählt er wiederum einen aus und landet schließlich in der Übersicht über den Host mit den detailierten Informationen.\\
 Als optionaler Usecase wird das Anzeigen einer Art Dashboard gesehen.
-In diesem werden Informationen zusammen gefasst, die nicht direkt erkenntlich über die einzelnene Sichten sind. Beispielsweise könnte man hier Dinge anzeigen lassen, wie z.B. Anzahl freier Ports, Switch mit den meisten freien Ports, TOP 5 Switches mit der höchsten Last, um nur eine Liste der potentiellen Informationen zu nennen.
+In diesem werden Informationen zusammen gefasst, die nicht direkt erkenntlich über die einzelnene Sichten sind. Beispielsweise könnte man hier Dinge anzeigen lassen, wie z.B. Anzahl freier Ports, Switch mit den meisten freien Ports, Switchs mit der höchsten Auslastung, um nur eine Liste der potentiellen Informationen zu nennen.
 
 \subsection{Klassendiagramme}
 \label{subsec:classdiagrams}
