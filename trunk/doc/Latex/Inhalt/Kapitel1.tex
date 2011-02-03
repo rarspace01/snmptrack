@@ -443,11 +443,9 @@ Jedoch muss sichergestellt werden, dass Geräte ohne VLAN-Unterstützung keine m
 Neben der Art der Zuweisung gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.\footnote{Cisco Networking Academy Program 3. und 4. Semester: Autorisiertes Kursmaterial zur Bildungsinitiative Networking, S. 292f., Cisco, , Verlag: Markt und Technik; Auflage: 3. A. }
 Bei einem statischen VLAN ist ein Port immer einem VLAN zugeordnet.
 \\
-Das dynamische VLAN hingegen ist nicht portbasierend und richtet sich nach dem Inhalt der Frames.
-Dabei ist zu beachten, dass die Inhalte eines Frames beliebig veränderbar sind und somit dynamische VLANs nicht in sicherheitskritischen Netzwerken verwendet werden sollten.
-Die Zugehörigkeit zu einem VLAN kann per Adresse (MAC oder IP), auf Basis des Protokolls (IP, AppleTalk, IPX) oder auch auf Anwendungsebene nach Portnummern (80,443) sichergestellt werden.
-So ist es möglich, z.B. ein mobiles Endgerät im Netzwerk immer dem gleichen VLAN zuordnen zu lassen, unabhängig an welchem Ort dieses angeschlossen ist.\\
-
+Das dynamische VLAN hingegen ist nicht portbasierend und wird je nach Inhalt der Datenpakete festgelegt.
+Die Zugehörigkeit zu einem VLAN kann auf Basis der Adressierung (MAC- oder IP-Adresse) geschehen oder aber auf Basis der Anwendung (TCP Port 80 - HTTP).
+Dadurch ergibt sich z.B. die Möglichkeit ein mobiles Endgerät (Notebook, Handscanner), das per WLAN an unterschiedliche Accesspoints und somit auch an verschiedenen Ports angeschlossen wird, immer dem gleichen VLAN zuzuordnen.
 Die Gründe für die Verwendung eines VLANs lassen sich in drei Punkte aufteilen.
 Zuerst macht eine Verwendung wie oben bereits erwähnt Sinn, wenn eine flexible Zuordnung eines Endgerätes immer zum selben VLAN gemacht werden muss.\\
 Ein weitere Grund für VLANs sind Performance-Aspekte. Neben der Priorisierung von speziellen Daten (z.B. VOIP), dient ein VLAN meist der Verkleinerung der Broadcast-Domänen.
@@ -464,10 +462,11 @@ Bei SNMP handelt es sich um ein Protokoll, welches sich auf der Schicht 7, die A
 Entwickelt wurde das Protokoll von der IEFT und ist über diverse RFCs definiert.
 Durch die hohe Modularität funktioniert SNMP nicht nur über IP und sondern auch über IPX oder AppleTalk.
 Dies ist unteranderem auch ein Grund für die weite Verbreitung von SNMP, welches mittlerweile als Standard gilt.\\
-Die Funktionsweise von  SNMP spiegelt sich in der Verwendung der Agenten und Manager wieder.
-Zunächst gibt es die sogenannten Agenten, welche als Dienst auf dem jeweiligen Endgerät laufen und die Informationen zur Verfügung stellen.
-Diese werden dann auf einem Manager jeweils per SNMP abgerufen.
-Die Nachrichten werden entweder vom Manager angefordert oder aufgrund eines Ereignisses vom Agent an den Manager selbstständig gesendet.\\
+Die Funktionsweise von SNMP ist einfach gehalten, um eine größtmögliche Portabilität zu erreichen.
+Zum Einen gibt es die sogennanten ‘Agenten’ die Daten zur Verfügung stellen. Zum Anderen gibt es die sogenannten Manager, welche die Daten abfragen.
+Die Informationen der Agenten können von einem Manager über das SNMP-Protokoll abgefragt werden.
+Zusätzlich besteht die Möglichkeit, dass ein Agent eine Nachricht an einen Manager sendet, sofern ein vordefinierter Wert überschritten wurde.
+Neben dem Anfordern von Informationen kann der Manager auch Werte auf dem Agenten setzen.\\
 SNMP selbst enthält keine Vorschrift, welche Daten/Werte die Netzwerkkomponenten liefern, sondern gibt nur eine Baumstruktur vor.
 Die Art der Werte wird über die sogenannte Management Information Base (MIB) definiert, welche die einzelnen Knoten des Baums beschreibt.
 Diese MIBs sind teilweise über RFCs spezifiziert.\footnote{vgl. RFC 1213}
