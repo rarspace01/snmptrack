@@ -230,9 +230,9 @@ Die native Methode besitzt den Vorteil, dass sie den vollen Umfang der Funktione
 Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht, ohne Veränderung des Quellcodes, das Datenbanksystem zu wechseln.
 Hierzu muss lediglich der ODBC-Eintrag angepasst werden.
 Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit, alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom verwendeten DBMS.
-Neben der ODBC-Schnittstelle gibt es auch das JDBC System bei Java.
+Neben der ODBC-Schnittstelle gibt es auch die JDBC-Schnittstelle bei Java.
 Zwar kann Java auch die ODBC-Schnittstelle über eine Treiber-Brücke nutzen, aber laut Oracle \footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html} soll dies nur im experimentellen Gebrauch stattfinden.
-Da der Einsatz eines nativen JDBC Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind, ist die Verwendeung des nativen Treibers vorzuziehen.
+Da der Einsatz eines nativen JDBC-Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind, ist die Verwendeung des nativen Treibers vorzuziehen.
 Zusätzlich gibt es noch ADO von Microsoft, welches auch als Schnittstelle für Webserver mit IIS bzw. ASP dient.
 Diese ähnelt in der Verwendung JDBC, da ebenfalls ein ODBC-Treiber angesteuert werden kann.
 Der Verbindungsaufbau ist ähnlich einfach gestaltet und ermöglicht auch für Webanwendungen eine einfache Anbindung an die Datenbank.
