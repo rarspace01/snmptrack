@@ -151,7 +151,8 @@ Die Microsoft Jet Engine (Access) ist ein dateibasierendes DBMS, welches dem Ben
 Bei diesem System, wie bei allen anderen dateibasierenden DBMS, steht meist die einfache Konfigurierbarkeit im Vordergrund. Die Datenbanken sind meist für einen Einzeluser-Betrieb ausgelegt und spielen hier auch ihre Stärken aus.
 Wird eine dateibasierende Datenbank von mehreren Usern benutzt, so zeigen sich die Nachteile einer solchen Datenbank.
 Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht, entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Daher nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.
-Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, da sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.\\
+Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, da sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.
+
 MS-SQL ist ein relationales DBMS, welches von Microsoft erwerbbar
 und in den verschiedenen Windows-Serverbetriebssystemen enthalten ist.
 Für Entwickler ohne Enterprise Lizenz wird eine eingeschränkte Express Version zur Verfügung gestellt.
@@ -159,7 +160,8 @@ MS-SQL ist im Gegensatz zu Access kein dateibasierendes DBMS, sondern ein zentra
 Hierdurch werden die Nachteile des dateibasierenden zu den Vorteilen des serverbasierenden Systems.
 Da der Server selbst die Abfragen verwaltet und zusätzlich Abfragen im Arbeitsspeicher ablegt, sowie dem Benutzer nur die Daten
 sendet, die er auch angefordert hat und nicht die komplette Datei, werden Zugriffszeiten
-und Netzwerk/Festplattenlast optimiert.\\
+und Netzwerk/Festplattenlast optimiert.
+
 Ein weiteres DBMS stellt der Datenbankserver 'Oracle Database' von Oracle dar.
 Die Lizenzstruktur ähnelt der von Microsoft.
 So gibt es auch hier kostenfreie und kostenpflichtige Varianten.
@@ -249,14 +251,16 @@ Die Software wird anhand von bestimmten Schritten fertiggestellt, welche miteina
 Unterschieden wird bei der Softwareentwicklung zwischen Individualsoftware und Standardsoftware.
 Bei der Standard-Software handelt es sich um Software, welche einen klar definierten Anwendungsbereich abdeckt und als vorgefertigtes Produkt erworben werden kann.
 Standardsoftware zeichnet sich somit aus, dass diese über mehrere Kunden hinweg ohne Anpassung einsetzbar ist.\footnote{Integrales Logistikmanagement. Planung und Steuerung der umfassenden Supply Chain, Paul Schönsleben, S. 435, Verlag: Springer, Berlin; Auflage: 4., überarb. u. erw. A. (März 2007)}
-Ein Beispiel hierfür sind branchenunabhängige Software, wie z.B. das Office-Paket, aber auch Branchensoftware, welche zielgerichtet für eine Branche ist und in dieser übergreifend eingesetzt werden kann.\\
+Ein Beispiel hierfür sind branchenunabhängige Software, wie z.B. das Office-Paket, aber auch Branchensoftware, welche zielgerichtet für eine Branche ist und in dieser übergreifend eingesetzt werden kann.
+
 Bei der Individualsoftware handelt es sich um Software, welche individuell für einen Kunden angefertigt wurde.\footnote{Integrales Logistikmanagement. Planung und Steuerung der umfassenden Supply Chain, Paul Schönsleben, S. 436f, Verlag: Springer, Berlin; Auflage: 4., überarb. u. erw. A. (März 2007)}
 Typisch für Individualsoftware ist es, dass zuvor keine passenden Lösungen an Standardsoftware existiert haben. 
 Es kann aber auch sein, dass die Entwicklung einer Individualsoftware trotz existierender Standardsoftware Sinn macht, sofern es monetär vorteilhaft ist.
-Eine weitere Überlegung könnte der Versuch einen Wettbewerbsvorteil gegenüber den Wettbewerbern zu erhalten oder die Optimierung einer vorhandenen Lösung sein.\\
+Eine weitere Überlegung könnte der Versuch einen Wettbewerbsvorteil gegenüber den Wettbewerbern zu erhalten oder die Optimierung einer vorhandenen Lösung sein.
+
 Die Umsetzung eines Projektes findet entweder intern oder von einem externen Dienstleister statt.
 Eine wichtige Rolle spielen ebenfalls die Vorgehensweisen bei der Umsetzung eines Projektes.
-Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexiblen, z.B. der Agilen Softwareentwicklung.\footnote{Praxishandbuch IT im Gesundheitswesen. Erfolgreich einführen, entwickeln, anwenden und betreiben, Christian Johner, S. 5-7, Peter Haas, Hanser Fachbuch (5. März 2009)}\\
+Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexiblen, z.B. der Agilen Softwareentwicklung.\footnote{Praxishandbuch IT im Gesundheitswesen. Erfolgreich einführen, entwickeln, anwenden und betreiben, Christian Johner, S. 5-7, Peter Haas, Hanser Fachbuch (5. März 2009)}
 Im Folgenden soll auf die wichtigsten Kernprozesse bei der Umsetzung eines Systems in einem Projekt eingegangen werden.\\
 \\
 Planung\\
@@ -330,7 +334,7 @@ In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einord
 \> * Zeitverlaufsdiagramm\\
 \> * Zustandsdiagramm\\
 \end{tabbing}    
-Im Folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche für die Umsetzung des Projekts selbst verwendet wurden.\\
+Im Folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche für die Umsetzung des Projekts selbst verwendet wurden.
 Das erste verwendete Diagramm, ist das Anwendungsfalldiagramm (im Folgenden als Usecase-Diagramm benannt).\footnote{Analyse und Design mit UML 2.3: Objektorientierte Softwareentwicklung, S. 245f. ,Bernd Oestereich, Stefan Bremer, Verlag: Oldenbourg; Auflage: 9., aktualisierte und erweiterte Auflage. (15. September 2009)} 
 Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als 'Strichmännchen' dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
 Anwendungsfälle hingegen werden als Ellipsen dargestellt und enthalten eine Beschreibung.
@@ -407,7 +411,7 @@ unter anderem wird sie im Ethernet-Protokoll (IEEE 802.3), aber auch vielen ande
 Das MAC-Protokoll steuert die Adressierung auf Hardwareebene, sowie die Zugriffsart.
 Im ISO/OSI-Modell ist das MAC-Protokoll auf Schicht 2, der Sicherungsschicht, angesiedelt.
 Somit hat das MAC-Protokoll zwei Aufgaben.
-Zum Einen die Adressierung eines Gerätes und zum Anderen, wie dieses Gerät auf das Medium zugreift.\footnote{Business Data Communications and Networking, S.119f. , Jerry Fitzgerald , Alan Dennis, Fitzgerald, Verlag: John Wiley \& Sons; Auflage: 10. (19. Januar 2009)}\\
+Zum Einen die Adressierung eines Gerätes und zum Anderen, wie dieses Gerät auf das Medium zugreift.\footnote{Business Data Communications and Networking, S.119f. , Jerry Fitzgerald , Alan Dennis, Fitzgerald, Verlag: John Wiley \& Sons; Auflage: 10. (19. Januar 2009)}
 Zur eindeutigen Adressierung der Netzwerkadapter  dient die sogenannte MAC-Adresse. Hierbei handelt es sich um einen 48-bit Wert, der einzigartig auf der ganzen Welt sein sollte.\footnote{Designing Large Scale LANs, S.135 , Kevin Dooley, Verlag: O'Reilly Media; Auflage: 1 (November 2001)} Durch die Änderbarkeit der MAC-Adresse kann es jedoch vorkommen, dass dies nicht immer gegeben ist.
 Die Wahrscheinlichkeit eine doppelte MAC-Adresse im Netzwerk zu haben, ist jedoch extrem gering, da der Adressraum nach aktuellen Kalkulationen noch bis in das Jahr 2100 ausreicht.\footnote{http://standards.ieee.org/develop/regauth/tut/eui.pdf} Die ersten 24-bit kennzeichnen den Hersteller des Netzwerkadapters, die anschließenden 24-bit sind beliebig vom Hersteller vergebbar.
 Einige bestimmte MAC-Adressen können jedoch nicht reserviert werden, da es sich hierbei handelt um Broadcast-Adressen und Multicast-Adressen handelt.
@@ -416,9 +420,11 @@ Eine MAC-Adresse kann wie folgt dargestellt werden:\\
 01-23-45-67-89-ab oder 01:23:45:67:89:ab oder 0123.4567.89ab\\
 \\
 Anhand der Herstellerkennung lassen sich wiederum Rückschlüsse auf das Netzwerkgerät ziehen.
-Die Hersteller, welche sich jeweils hinter der Herstellerkennung verbergen, sind öffentlich bei der IEEE einsehbar, z.B. per Internet.\footnote{http://standards.ieee.org/develop/regauth/oui/public.html}\\
+Die Hersteller, welche sich jeweils hinter der Herstellerkennung verbergen, sind öffentlich bei der IEEE einsehbar, z.B. per Internet.\footnote{http://standards.ieee.org/develop/regauth/oui/public.html}
 Das MAC-Protokoll regelt ebenfalls den Zugriff auf das Transportmedium. Hierbei wird in zwei verschiedene Zugriffsarten unterteilt. Zum Einen den kontrollierten Zugriff und zum Anderen der konkurrierende Zugriff.
-Beim kontrollierten Zugriff wird darauf geachtet, dass keine Kollision auftritt. Somit kommuniziert keines der Netzwerkgeräte gleichzeitig über einen Kanal, sondern es ist immer nur ein Gerät aktiv.\\
+
+Beim kontrollierten Zugriff wird darauf geachtet, dass keine Kollision auftritt. Somit kommuniziert keines der Netzwerkgeräte gleichzeitig über einen Kanal, sondern es ist immer nur ein Gerät aktiv.
+
 Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen, jedoch gibt es bestimmte Regeln, wenn eine Kollision auftritt. In diesen wird geregelt, in welcher Art und Weise die Kollisionen behandelt werden.
 In der Praxis gibt es unter anderem das Protokoll Carrier sense multiple access with collision detection (CSMA/CD).
 Dieses stellt bei einer Kollision durch ein Stör-Signal sicher, dass alle beteiligten Geräte die Kollision ebenfalls erkennen.\footnote{Rechnernetze, S.157, Wolfgang P. Kowalk , Manfred Burke, Verlag: Teubner Verlag; Auflage: 1 (1994)}
@@ -441,17 +447,19 @@ Bei den portbasierten VLANs gehört ein Port je einem oder mehreren VLANs an.\fo
 Beim sogenannten tagged VLAN hingegen findet die VLAN-Zuordnung durch eine Kennzeichnung des Datenpaketes (im Ethernet-Frame) statt.
 %Dieses 'tagging' ist nach IEEE 802.1q spezifiziert.\footnote{Vgl. IEEE 802.1q}
 Das markieren der Datenpakete kann sowohl von VLAN fähigen Endgeräten als auch von Switches geschehen.
-Jedoch muss sichergestellt werden, dass Geräte ohne VLAN-Unterstützung keine markierten Pakete erhalten.\\
+Jedoch muss sichergestellt werden, dass Geräte ohne VLAN-Unterstützung keine markierten Pakete erhalten.
+
 Neben der Art der Zuweisung gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.\footnote{Cisco Networking Academy Program 3. und 4. Semester: Autorisiertes Kursmaterial zur Bildungsinitiative Networking, S. 292f., Cisco, , Verlag: Markt und Technik; Auflage: 3. A. }
 Bei einem statischen VLAN ist ein Port immer einem VLAN zugeordnet.
-\\
+
 Das dynamische VLAN hingegen ist nicht portbasierend und wird je nach Inhalt der Datenpakete festgelegt.
 Die Zugehörigkeit zu einem VLAN kann auf Basis der Adressierung (MAC- oder IP-Adresse) geschehen oder aber auf Basis der Anwendung (TCP Port 80 - HTTP).
 Dadurch ergibt sich z.B. die Möglichkeit ein mobiles Endgerät (Notebook, Handscanner), das per WLAN an unterschiedliche Accesspoints und somit auch an verschiedenen Ports angeschlossen wird, immer dem gleichen VLAN zuzuordnen.
 Die Gründe für die Verwendung eines VLANs lassen sich in drei Punkte aufteilen.
 Zuerst macht eine Verwendung wie oben bereits erwähnt Sinn, wenn eine flexible Zuordnung eines Endgerätes immer zum selben VLAN gemacht werden muss.\\
 Ein weitere Grund für VLANs sind Performance-Aspekte. Neben der Priorisierung von speziellen Daten (z.B. VOIP), dient ein VLAN meist der Verkleinerung der Broadcast-Domänen.
-Durch die Verkleinerung der Domänen, wird ein Broadcast nicht über das gesamte Netzwerk hinweggeschickt.\\
+Durch die Verkleinerung der Domänen, wird ein Broadcast nicht über das gesamte Netzwerk hinweggeschickt.
+
 Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle.
 Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein, VLANs einzusetzen, da diese gegenüber Layer-2-Attacken architekturbedingt unempfindlich sind.
 
@@ -463,12 +471,12 @@ Diese Abfragen werden von einem zentralen Punkt aus durchgeführt, dem sogenannt
 Bei SNMP handelt es sich um ein Protokoll, welches sich auf der Schicht 7, die Anwendungs-Ebene, des ISO/OSI-Schichtenmodells, ansiedeln lässt.
 Entwickelt wurde das Protokoll von der IEFT und ist über diverse RFCs definiert.
 Durch die hohe Modularität funktioniert SNMP nicht nur über IP und sondern auch über IPX oder AppleTalk.
-Dies ist unteranderem auch ein Grund für die weite Verbreitung von SNMP, welches mittlerweile als Standard gilt.\\
+Dies ist unteranderem auch ein Grund für die weite Verbreitung von SNMP, welches mittlerweile als Standard gilt.
 Die Funktionsweise von SNMP ist einfach gehalten, um eine größtmögliche Portabilität zu erreichen.
 Zum Einen gibt es die sogennanten ‘Agenten’ die Daten zur Verfügung stellen. Zum Anderen gibt es die sogenannten Manager, welche die Daten abfragen.
 Die Informationen der Agenten können von einem Manager über das SNMP-Protokoll abgefragt werden.
 Zusätzlich besteht die Möglichkeit, dass ein Agent eine Nachricht an einen Manager sendet, sofern ein vordefinierter Wert überschritten wurde.
-Neben dem Anfordern von Informationen kann der Manager auch Werte auf dem Agenten setzen.\\
+Neben dem Anfordern von Informationen kann der Manager auch Werte auf dem Agenten setzen.
 SNMP selbst enthält keine Vorschrift, welche Daten/Werte die Netzwerkkomponenten liefern, sondern gibt nur eine Baumstruktur vor.
 Die Art der Werte wird über die sogenannte Management Information Base (MIB) definiert, welche die einzelnen Knoten des Baums beschreibt.
 Diese MIBs sind teilweise über RFCs spezifiziert.\footnote{vgl. RFC 1213}
@@ -477,7 +485,7 @@ Bei der Kommunikation untereinander werden verschiedene Paket-Typen verwendet.\\
 \\
 GET\\
 
-Bei den GET-Paketen handelt es sich um jeweils unterschiedliche Arten der Anforderung die vom Manager an den Agent gesendet werden.\\
+Bei den GET-Paketen handelt es sich um jeweils unterschiedliche Arten der Anforderung die vom Manager an den Agent gesendet werden.
 Bei einem normalen GET-Paket wird ein einzelnes Attribut vom Agenten angefordert. Jedoch gibt es Abfragen, bei denen nicht im Voraus bekannt ist, wie viele Attribute abgefragt werden müssen. Beispielsweise der Status mehrerer Ports an einem Switch. Da dem SNMP-Manager jedoch keine Informationen vorliegen wie viele Ports der Switch hat, kann er nicht im Voraus die entsprechende Abfrage starten.\\
 \\
 GETNEXT\\
@@ -502,7 +510,7 @@ Auf diese bisher genannten Pakete antwortet der Agent mit einem RESPONSE Paket, 
 \\
 TRAP\\
 \\
-Sofern beim SNMP-Agent z.B. gewisse Grenzwerte hinterlegt wurden, kann dieser sich bei einer Überschreitung mittels eines Trap-Paketes beim Manager melden, ohne dass dieser die Information explizit abgefragt hat.\\
+Sofern beim SNMP-Agent z.B. gewisse Grenzwerte hinterlegt wurden, kann dieser sich bei einer Überschreitung mittels eines Trap-Paketes beim Manager melden, ohne dass dieser die Information explizit abgefragt hat.
 Um möglichst wenig Netzwerklast zu erzeugen, kommuniziert SNMP über das UDP Protokoll, da es eine verbindungslose Kommunikation ermöglicht.
 Der Agent erhält die Anfragen auf Port 161, während der Manager auf Port 162 die Trap-Meldungen empfängt.\\
 
@@ -521,5 +529,6 @@ Diese können per internen CDP oder per SNMP abgefragt werden.
 Bei jedem Empfang von CDP Daten, werden die internen Tabellen aktualisiert.
 Geräte die sich nicht mehr melden, werden nach einer bestimmten Zeit (standardmäßig nach 180 Sekunden) aus den Tabellen entfernt.
 Die Informationen welche übertragen werden sind einfach erweiterbar, da diese auf dem “Type-Length-Value” Format basieren.
-Das heißt in einer Nachricht wird zuerst der Typ des Attributs bestimmt (z.B. String, Zahl, Datum) danach die Zeichenlänge des Wertes und der Wert selbst.\\
+Das heißt in einer Nachricht wird zuerst der Typ des Attributs bestimmt (z.B. String, Zahl, Datum) danach die Zeichenlänge des Wertes und der Wert selbst.
+
 Hersteller, wie HP, distanzieren sich zunehmend von diesem proprietären Protokoll und unterstützen das durch die IEEE spezifizierte offene Protokoll LLDP, welches Hersteller unabhängig ist und den selben Funktionsumfang beinhaltet.
