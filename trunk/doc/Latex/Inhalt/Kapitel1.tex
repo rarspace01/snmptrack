@@ -12,8 +12,7 @@ Der Entwurf der Datenbank vor der Implementierung ist essentiell, da im spätere
 Um die Beziehungen zwischen den einzelnen Tabellen korrekt darstellen zu können, wird das Entity-Relationship-Modell\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.10} verwendet.
 Durch dieses Modell lassen sich sogenannte ER-Diagramme zeichnen, z.B. nach der Chen Notation\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.19}.
 Ein ER-Diagramm nach Chen stellt die Entitätstypen (Klassen), Attribute, sowie Beziehungen (Relationen/Kardinalitäten) dar.
-Im Folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation erläutert werden.\\
-
+Im Folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation erläutert werden.\\\\
 Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
 
 \begin{itemize}
@@ -47,8 +46,7 @@ Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
 
 Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten.\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.20}
 In Abbildung \ref{chenpic1} ist eine 1:n Kardinalität gegeben.
-Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.
-
+Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.\\\\
 In Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
 Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 angehören, einem Objekt der Relation 2 werden ebenfalls mehrere Objekten der Relation 1 zugewiesen.
 Diese n:m Kardinalitäten müssen bei einem Datenbankentwurf aufgelöst werden, da hier keine eindeutige Zuordnung möglich ist. Meistens lässt sich eine solche Kardinalität wie in Abbildung \ref{chenpic2} durch das Hinzufügen einer zusätzliche Tabelle, welche beide Objekte verknüpft, lösen.
@@ -115,10 +113,8 @@ Um eine Normalform zu erfüllen, müssen auch alle vorhergehenden Normalformen e
 \label{sec:dbms}
 
 Ein Datenbankmanagementsystem (DBMS) organisiert die Speicherung der Daten einer Datenbank und legt die Anordnung der Daten fest.
-Zur Kommunikation mit diesem wird eine Sprache benötigt. In diesem Zusammenhang wird die deskriptive Sprache SQL verwendet.\footnote{vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 382}
-
-Das DBMS legt auch die Art der Beziehung fest, in der die Daten der Datenbank stehen.
-
+Zur Kommunikation mit diesem wird eine Sprache benötigt. In diesem Zusammenhang wird die deskriptive Sprache SQL verwendet.\footnote{vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 382}\\\\
+Das DBMS legt auch die Art der Beziehung fest, in der die Daten der Datenbank stehen.\\\\
 Es gibt verschiedene Arten von DBMS:
 
 \begin{itemize}
@@ -134,8 +130,7 @@ Im Gegensatz hierzu stehen die relationalen Datenbanksysteme, welche heutzutage 
 Diese bieten eine flexible Auswertung der Daten durch die deklarative Abfragesprache SQL.
 Es muss lediglich die Verknüpfung zwischen den Tabellen durch sogenannte JOINs hergestellt werden. Somit werden Primär- und Fremdschlüssel miteinander verknüpft.
 Hinzu kommen die objektorientierten Datenbanksysteme. Diese bieten die Möglichkeit Objekte von beliebiger Art und Weise abzuspeichern.
-Problematisch hierbei sind jedoch die Formulierung von geeigneten Abfragen, weswegen diese in der Praxis eher selten und meist im Bereich von Multimedialen-Anwendungen anzutreffen sind.%\footnote{NOTIZ ODBMS evtl}
-
+Problematisch hierbei sind jedoch die Formulierung von geeigneten Abfragen, weswegen diese in der Praxis eher selten und meist im Bereich von Multimedialen-Anwendungen anzutreffen sind.%\footnote{NOTIZ ODBMS evtl}\\\\
 Wird versucht, verschiedene relationale DBMS in der Praxis zu vergleichen, so ist eine große Anzahl an verschiedenen Systemen zu finden.
 Im Anschluss soll auf die, in der Praxis verwendeten relationalen DBMS eingegangen werden.
 
@@ -151,8 +146,7 @@ Die Microsoft Jet Engine (Access) ist ein dateibasierendes DBMS, welches dem Ben
 Bei diesem System, wie bei allen anderen dateibasierenden DBMS, steht meist die einfache Konfigurierbarkeit im Vordergrund. Die Datenbanken sind meist für einen Einzeluser-Betrieb ausgelegt und spielen hier auch ihre Stärken aus.
 Wird eine dateibasierende Datenbank von mehreren Usern benutzt, so zeigen sich die Nachteile einer solchen Datenbank.
 Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht, entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Daher nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.
-Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, da sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.
-
+Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, da sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.\\\\
 MS-SQL ist ein relationales DBMS, welches von Microsoft erwerbbar
 und in den verschiedenen Windows-Serverbetriebssystemen enthalten ist.
 Für Entwickler ohne Enterprise Lizenz wird eine eingeschränkte Express Version zur Verfügung gestellt.
@@ -160,8 +154,7 @@ MS-SQL ist im Gegensatz zu Access kein dateibasierendes DBMS, sondern ein zentra
 Hierdurch werden die Nachteile des dateibasierenden zu den Vorteilen des serverbasierenden Systems.
 Da der Server selbst die Abfragen verwaltet und zusätzlich Abfragen im Arbeitsspeicher ablegt, sowie dem Benutzer nur die Daten
 sendet, die er auch angefordert hat und nicht die komplette Datei, werden Zugriffszeiten
-und Netzwerk/Festplattenlast optimiert.
-
+und Netzwerk/Festplattenlast optimiert.\\\\
 Ein weiteres DBMS stellt der Datenbankserver 'Oracle Database' von Oracle dar.
 Die Lizenzstruktur ähnelt der von Microsoft.
 So gibt es auch hier kostenfreie und kostenpflichtige Varianten.
@@ -182,8 +175,7 @@ Eine weitere Datenbank stellt PostgreSQL dar, welches unter der BSD-Lizenz zur V
 
 Ein Webserver dient zum Bereitstellen von statischen, sowie dynamischen HTML Seiten.
 Der Vorteil bei Webservern liegt darin, dass nur Informationen ausgetauscht werden, die der Nutzer auch angefordert hat.
-Weiterhin bietet es den Vorteil, diese zielgerichteten Informationen einer größeren Menge an Benutzern zur Verfügung zu stellen, ohne dass spezielle Vorkehrungen zur späteren Skalierung getroffen werden müssen.
-
+Weiterhin bietet es den Vorteil, diese zielgerichteten Informationen einer größeren Menge an Benutzern zur Verfügung zu stellen, ohne dass spezielle Vorkehrungen zur späteren Skalierung getroffen werden müssen.\\\\
 Um dynamische Webseiten erzeugen zu können, bedarf es einer Skriptsprache.
 Aktuell haben sich folgende Sprachen etabliert:\footnote{vgl. Tiobe Software(2009): TIOBE Programming Community Index for August 2009, http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html}
 
@@ -196,8 +188,7 @@ Aktuell haben sich folgende Sprachen etabliert:\footnote{vgl. Tiobe Software(200
 ASP ist eine Skriptsprache der Firma Microsoft und basiert grundlegend auf der Syntax von Visual Basic.
 JSP dient dem selben Zweck, wurde jedoch von Sun entwickelt und besitzt die Syntax von Java.
 PHP ist eine Skriptsprache, welche sich hauptsächlich an der C Syntax orientiert und speziell für das Erstellen von
-dynamischen Webseiten entwickelt wurde. Sie ist die am weitesten verbreitete Scriptsprache zum Erstellen von dynamischen Webseiten.
-
+dynamischen Webseiten entwickelt wurde. Sie ist die am weitesten verbreitete Scriptsprache zum Erstellen von dynamischen Webseiten.\\\\
 Da alle der aufgeführten Skriptsprachen weitgehend Webserver-/Plattformunabhängig sind, kann man frei zwischen den meist benutzten Webserverprogrammen wählen, hierunter fallen unter anderem:
 
 
@@ -216,8 +207,7 @@ Der IIS Webserver von Microsoft läuft ausschließlich unter Windows, zudem ist 
 
 
 Um eine Verbindung zwischen den einzelnen Komponenten herzustellen, wird eine passende API benötigt.
-Idealerweise enthält jedes DBMS und jeder Webserver passende Treiber, obwohl dieser Fall nicht immer gegeben ist.
-
+Idealerweise enthält jedes DBMS und jeder Webserver passende Treiber, obwohl dieser Fall nicht immer gegeben ist.\\\\
 Zurzeit haben sich verschiedene Varianten etabliert:
 
 \begin{itemize}
@@ -229,8 +219,7 @@ Zurzeit haben sich verschiedene Varianten etabliert:
 
 Jedes etablierte DBMS bietet für Entwickler eine native Schnittstelle zum Ansprechen der Datenbank an.
 Diese wird meist in verschiedenen Programmiersprachen angeboten, unter anderem C/C++, PHP usw..
-Die native Methode besitzt den Vorteil, dass sie den vollen Umfang der Funktionen der Datenbank ermöglicht. Dahingegen existieren diese keine einheitlichen Design Patterns , was die Verwendungen von verschiedenen DBMS erschwert.
-
+Die native Methode besitzt den Vorteil, dass sie den vollen Umfang der Funktionen der Datenbank ermöglicht. Dahingegen existieren diese keine einheitlichen Design Patterns , was die Verwendungen von verschiedenen DBMS erschwert.\\\\
 Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht, ohne Veränderung des Quellcodes, das Datenbanksystem zu wechseln.
 Hierzu muss lediglich der ODBC-Eintrag angepasst werden.
 Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit, alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom verwendeten DBMS.
@@ -251,13 +240,11 @@ Die Software wird anhand von bestimmten Schritten fertiggestellt, welche miteina
 Unterschieden wird bei der Softwareentwicklung zwischen Individualsoftware und Standardsoftware.
 Bei der Standard-Software handelt es sich um Software, welche einen klar definierten Anwendungsbereich abdeckt und als vorgefertigtes Produkt erworben werden kann.
 Standardsoftware zeichnet sich somit aus, dass diese über mehrere Kunden hinweg ohne Anpassung einsetzbar ist.\footnote{Integrales Logistikmanagement. Planung und Steuerung der umfassenden Supply Chain, Paul Schönsleben, S. 435, Verlag: Springer, Berlin; Auflage: 4., überarb. u. erw. A. (März 2007)}
-Ein Beispiel hierfür sind branchenunabhängige Software, wie z.B. das Office-Paket, aber auch Branchensoftware, welche zielgerichtet für eine Branche ist und in dieser übergreifend eingesetzt werden kann.
-
+Ein Beispiel hierfür sind branchenunabhängige Software, wie z.B. das Office-Paket, aber auch Branchensoftware, welche zielgerichtet für eine Branche ist und in dieser übergreifend eingesetzt werden kann.\\\\
 Bei der Individualsoftware handelt es sich um Software, welche individuell für einen Kunden angefertigt wurde.\footnote{Integrales Logistikmanagement. Planung und Steuerung der umfassenden Supply Chain, Paul Schönsleben, S. 436f, Verlag: Springer, Berlin; Auflage: 4., überarb. u. erw. A. (März 2007)}
 Typisch für Individualsoftware ist es, dass zuvor keine passenden Lösungen an Standardsoftware existiert haben. 
 Es kann aber auch sein, dass die Entwicklung einer Individualsoftware trotz existierender Standardsoftware Sinn macht, sofern es monetär vorteilhaft ist.
-Eine weitere Überlegung könnte der Versuch einen Wettbewerbsvorteil gegenüber den Wettbewerbern zu erhalten oder die Optimierung einer vorhandenen Lösung sein.
-
+Eine weitere Überlegung könnte der Versuch einen Wettbewerbsvorteil gegenüber den Wettbewerbern zu erhalten oder die Optimierung einer vorhandenen Lösung sein.\\\\
 Die Umsetzung eines Projektes findet entweder intern oder von einem externen Dienstleister statt.
 Eine wichtige Rolle spielen ebenfalls die Vorgehensweisen bei der Umsetzung eines Projektes.
 Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexiblen, z.B. der Agilen Softwareentwicklung.\footnote{Praxishandbuch IT im Gesundheitswesen. Erfolgreich einführen, entwickeln, anwenden und betreiben, Christian Johner, S. 5-7, Peter Haas, Hanser Fachbuch (5. März 2009)}
@@ -421,10 +408,8 @@ Eine MAC-Adresse kann wie folgt dargestellt werden:\\
 \\
 Anhand der Herstellerkennung lassen sich wiederum Rückschlüsse auf das Netzwerkgerät ziehen.
 Die Hersteller, welche sich jeweils hinter der Herstellerkennung verbergen, sind öffentlich bei der IEEE einsehbar, z.B. per Internet.\footnote{http://standards.ieee.org/develop/regauth/oui/public.html}
-Das MAC-Protokoll regelt ebenfalls den Zugriff auf das Transportmedium. Hierbei wird in zwei verschiedene Zugriffsarten unterteilt. Zum Einen den kontrollierten Zugriff und zum Anderen der konkurrierende Zugriff.
-
-Beim kontrollierten Zugriff wird darauf geachtet, dass keine Kollision auftritt. Somit kommuniziert keines der Netzwerkgeräte gleichzeitig über einen Kanal, sondern es ist immer nur ein Gerät aktiv.
-
+Das MAC-Protokoll regelt ebenfalls den Zugriff auf das Transportmedium. Hierbei wird in zwei verschiedene Zugriffsarten unterteilt. Zum Einen den kontrollierten Zugriff und zum Anderen der konkurrierende Zugriff.\\\\
+Beim kontrollierten Zugriff wird darauf geachtet, dass keine Kollision auftritt. Somit kommuniziert keines der Netzwerkgeräte gleichzeitig über einen Kanal, sondern es ist immer nur ein Gerät aktiv.\\\\
 Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen, jedoch gibt es bestimmte Regeln, wenn eine Kollision auftritt. In diesen wird geregelt, in welcher Art und Weise die Kollisionen behandelt werden.
 In der Praxis gibt es unter anderem das Protokoll Carrier sense multiple access with collision detection (CSMA/CD).
 Dieses stellt bei einer Kollision durch ein Stör-Signal sicher, dass alle beteiligten Geräte die Kollision ebenfalls erkennen.\footnote{Rechnernetze, S.157, Wolfgang P. Kowalk , Manfred Burke, Verlag: Teubner Verlag; Auflage: 1 (1994)}
@@ -447,27 +432,23 @@ Bei den portbasierten VLANs gehört ein Port je einem oder mehreren VLANs an.\fo
 Beim sogenannten tagged VLAN hingegen findet die VLAN-Zuordnung durch eine Kennzeichnung des Datenpaketes (im Ethernet-Frame) statt.
 %Dieses 'tagging' ist nach IEEE 802.1q spezifiziert.\footnote{Vgl. IEEE 802.1q}
 Das markieren der Datenpakete kann sowohl von VLAN fähigen Endgeräten als auch von Switches geschehen.
-Jedoch muss sichergestellt werden, dass Geräte ohne VLAN-Unterstützung keine markierten Pakete erhalten.
-
+Jedoch muss sichergestellt werden, dass Geräte ohne VLAN-Unterstützung keine markierten Pakete erhalten.\\\\
 Neben der Art der Zuweisung gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.\footnote{Cisco Networking Academy Program 3. und 4. Semester: Autorisiertes Kursmaterial zur Bildungsinitiative Networking, S. 292f., Cisco, , Verlag: Markt und Technik; Auflage: 3. A. }
-Bei einem statischen VLAN ist ein Port immer einem VLAN zugeordnet.
-
+Bei einem statischen VLAN ist ein Port immer einem VLAN zugeordnet.\\\\
 Das dynamische VLAN hingegen ist nicht portbasierend und wird je nach Inhalt der Datenpakete festgelegt.
 Die Zugehörigkeit zu einem VLAN kann auf Basis der Adressierung (MAC- oder IP-Adresse) geschehen oder aber auf Basis der Anwendung (TCP Port 80 - HTTP).
 Dadurch ergibt sich z.B. die Möglichkeit ein mobiles Endgerät (Notebook, Handscanner), das per WLAN an unterschiedliche Accesspoints und somit auch an verschiedenen Ports angeschlossen wird, immer dem gleichen VLAN zuzuordnen.
 Die Gründe für die Verwendung eines VLANs lassen sich in drei Punkte aufteilen.
 Zuerst macht eine Verwendung wie oben bereits erwähnt Sinn, wenn eine flexible Zuordnung eines Endgerätes immer zum selben VLAN gemacht werden muss.\\
 Ein weitere Grund für VLANs sind Performance-Aspekte. Neben der Priorisierung von speziellen Daten (z.B. VOIP), dient ein VLAN meist der Verkleinerung der Broadcast-Domänen.
-Durch die Verkleinerung der Domänen, wird ein Broadcast nicht über das gesamte Netzwerk hinweggeschickt.
-
+Durch die Verkleinerung der Domänen, wird ein Broadcast nicht über das gesamte Netzwerk hinweggeschickt.\\\\
 Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle.
 Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein, VLANs einzusetzen, da diese gegenüber Layer-2-Attacken architekturbedingt unempfindlich sind.
-
 
 \section{Simple Network Management Protocol}
 \label{sec:snmp}
 Unter dem Simple Network Management Protocol (SNMP) ist ein Netzwerkprotokoll zu verstehen, welches einem erlaubt, Netzwerkgeräte (z.B. Drucker, Router, Switches, Router) per Netzwerk zu überwachen und zu steuern.\footnote{vgl. Essential SNMP, S. 1}
-Diese Abfragen werden von einem zentralen Punkt aus durchgeführt, dem sogenannten SNMP-Manager, welcher die Daten von den SNMP-Agenten (Netzwerkelementen) abruft.\footnote{vgl. Essential SNMP: Help for System and Network Administrators, , S. 3}\\
+Diese Abfragen werden von einem zentralen Punkt aus durchgeführt, dem sogenannten SNMP-Manager, welcher die Daten von den SNMP-Agenten (Netzwerkelementen) abruft.\footnote{vgl. Essential SNMP: Help for System and Network Administrators, , S. 3}\\\\
 Bei SNMP handelt es sich um ein Protokoll, welches sich auf der Schicht 7, die Anwendungs-Ebene, des ISO/OSI-Schichtenmodells, ansiedeln lässt.
 Entwickelt wurde das Protokoll von der IEFT und ist über diverse RFCs definiert.
 Durch die hohe Modularität funktioniert SNMP nicht nur über IP und sondern auch über IPX oder AppleTalk.
@@ -505,7 +486,9 @@ SET\\
 Das SET-Paket dient zum Setzen spezieller Werte.
 So kann zum Beispiel darüber der Status des Ports von einem Switch  geändert werden, oder es könnte eine Firewall konfiguriert werden.
 \\
+\\
 RESPONSE\\
+\\
 Auf diese bisher genannten Pakete antwortet der Agent mit einem RESPONSE Paket, welcher die benötigten Werte oder eine Fehlermeldung enthält.\\
 \\
 TRAP\\
