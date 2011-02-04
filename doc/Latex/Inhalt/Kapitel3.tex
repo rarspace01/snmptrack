@@ -10,20 +10,20 @@ Dies ist sehr gut in der Abbildung des Benchmarks zur Parallelisierung zu sehen,
 Hierbei konzentriert sich die Literatur auch vermehrt auf einzelne Punkte, wenn der Hauptaugenmerk vielmehr auf das komplette System gelegt werden sollte.
 Daher empfiehlt es sich, nicht unreflektiert Ansätze aus der Theorie zu übernehmen, sondern diese selbstständig zu überprüfen, ob die diskutierten Ansätze für ein Projekt passend sind und in wiefern diese eine Auswirkung haben.
 Zudem sind Empfehlungen von Herstellern nicht einfach als gegeben hinzunehmen.
-So ist es korrekt, dass bei der Abfrage eines Switchs die CPU Last erhöht wird, jedoch ist eine Begrenzung der SNMP Abfragen auf eine Abfrage in der Sekunde sehr zurückhaltend formuliert, da je nach Switch bis zu über 450 Abfragen in einer Sekunde bearbeitet werden können. Somit kann mit einer Limitierung auf 20 Abfragen pro Sekunde trotzdem ein Kompromiss zwischen Last und Geschwindigkeit getroffen werden.\\
+So ist es korrekt, dass bei der Abfrage eines Switchs die CPU Last erhöht wird, jedoch ist eine Begrenzung der SNMP Abfragen auf eine Abfrage in der Sekunde sehr zurückhaltend formuliert, da je nach Switch bis zu über 450 Abfragen in einer Sekunde bearbeitet werden können. Somit kann mit einer Limitierung auf 20 Abfragen pro Sekunde trotzdem ein Kompromiss zwischen Last und Geschwindigkeit getroffen werden.\\\\
 Interessant ist auch, dass in der Literatur eine scheinbare Lücke zwischen den abstrakten Vorgehensweisen und den einzelnen implementierten Algorithmen zu finden ist.
-Hier wird sehr detailiert meist auf Einzelfälle eingegangen, jedoch nicht so stark auf Aspekte, die eine Anwendung als Ganzes betrachten.\\
+Hier wird sehr detailiert meist auf Einzelfälle eingegangen, jedoch nicht so stark auf Aspekte, die eine Anwendung als Ganzes betrachten.\\\\
 In diesem Zusammenhang ließ sich feststellen, dass für die Umsetzung des Systems eine beachtliche Menge an Technologien zusammenspielt, um letztenendes die gewünschten Informationen zu erhalten.
 Neben Dingen wie MAC-Adresse, IP, DNS, müssen auch Details wie der ARP-Cache, SNMP, LDAP/Active Directory beachtet werden.
-Diese muss man für die Implementierung eines Systems mit diesem Ausmaß nicht nur kennen und deren Funktionsweise verstanden haben, sondern auch die Transferleistung erbringen wie diese in Kombination einzusetzten sind.\\
+Diese muss man für die Implementierung eines Systems mit diesem Ausmaß nicht nur kennen und deren Funktionsweise verstanden haben, sondern auch die Transferleistung erbringen wie diese in Kombination einzusetzten sind.\\\\
 Bei der Auswertung der Tests wurde vermehrt festgestellt, dass es zur Speicherung von nicht eindeutigen Daten kommen kann.
 Ein Beispiel hierfür war die umgekehrte Auflösung einer IP Adresse zu einem DNS-Hostnamen.
 Hier kommt es vor, dass der DNS-Server für zwei DNS-Hostnamen die gleiche IP Adresse hinterlegt hat.
 In solchen Fällen muss abgewegt werden was mit den Daten passiert. Diese Entscheidung muss jeweils im Einzelfall getroffen werden.
 Wichtig in diesem Zusammenhang ist vor allem, dass es in der Realität vorkommen kann, dass Daten uneindeutig sind und diese Uneindeutigkeit nicht durch einen Algorithmus lösen ist bzw. zu einer Eindeutigkeit gebracht werden kann.
-Hierbei ist es wichtig im Dialog zu stehen mit den betreffenden Personen und eine Lösung zu finden.\\
+Hierbei ist es wichtig im Dialog zu stehen mit den betreffenden Personen und eine Lösung zu finden.\\\\
 Ein weitere Aspekt, der als Ergebnis gesehen werden kann, ist in der Aufwandschätzung zu sehen.
-Durch Erfahrungen, die durch frühere Projekte gesammelt wurden, konnten für das Projekt sehr genaue Zeitschätzungen erstellt werden und damit auch eine bessere Einhaltung der vorgegeben Parameter gegeben werden.\\
-Im Zusammenhang mit der Planung lässt sich auch feststellen, dass durch das vorherige Modellieren anhand von ERM und UML bedeutend Zeit bei der Implementierung eingespart werden konnte und auch eine deutlich bessere Übersicht über die zu implementierenden Funktionen und der Zusammenhänge der einzelnen Programmteile möglich ist.\\
+Durch Erfahrungen, die durch frühere Projekte gesammelt wurden, konnten für das Projekt sehr genaue Zeitschätzungen erstellt werden und damit auch eine bessere Einhaltung der vorgegeben Parameter gegeben werden.\\\\
+Im Zusammenhang mit der Planung lässt sich auch feststellen, dass durch das vorherige Modellieren anhand von ERM und UML bedeutend Zeit bei der Implementierung eingespart werden konnte und auch eine deutlich bessere Übersicht über die zu implementierenden Funktionen und der Zusammenhänge der einzelnen Programmteile möglich ist.\\\\
 Zum Abschluss lässt sich feststellen, dass durch eine gekonnte Kombination aus Theorie und praktischer Erfahrung ein sehr effizientes System erstellen lässt, jedoch muss bedacht werden, dass nur durch eine solide Basis dies ermöglicht wird.
 Die Basis für ein System liegt immer auf Grundlage der Gespräche und Abstimmungen mit den Beteiligten. Ohne diese wird zwar das vermeintliche Ziel erreicht, nicht aber die Anforderungen der Benutzer erfüllt.
