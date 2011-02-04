@@ -292,8 +292,7 @@ Darunter fallen Umformatierungen, die für das Auslesen der Uptime und des Switc
 \subsection{Aktivitätsdiagramme}
 \label{subsec:acitvitydiagrams}
 
-Zur Darstellung des Programmablaufs eigenen sich vor allem Aktivitäts-Diagramme von UML.
-In Abbildung X ist ein solches Diagramm zu sehen.\\
+Zur Darstellung des Programmablaufs eigenen sich vor allem Aktivitäts-Diagramme von der UML. In Abbildung X ist das Diagramm, welches das Hauptprogramm beschreibt, zu sehen..\\
 
 \begin{figure}[H]
 \centering
@@ -302,19 +301,15 @@ In Abbildung X ist ein solches Diagramm zu sehen.\\
 \label{fig:activitydiagram1}
 \end{figure}
 
-In dieser Abbildung ist der Ablauf des Hauptprogrammteils zu sehen. Dieser Programmteil soll im Näheren angesprochen werden.
-Jedoch ist dabei zu beachten, das es sich bei der Darstellung um eine merkliche Vereinfachung des Programmablaufs handelt, da eine detailierte Beschreibung den Umfang dieser Arbeit überschreitet.\\\\
-Zu Beginn des Programms wird die SNMP-Schnittstelle initialisiert, da diese später allen Switch Threads übergeben werden muss.
-Im Anschluss wird die XML-Konfigurationsdatei der Switches ausgelesen.
-Dies ist notwendig, zum Einen um die definierte Liste der auszulesenden Switches zu erhalten, aber zum Anderen auch, um die zugehörige ReadCommunity auszulesen.
-Diese wird benötigt, um Zugriff auf die jeweiligen Switches zu erhalten.
-Nachdem die Switch Liste per XML eingelesen wurde, wird nun per SNMP der ARP-Cache aller relevanten Router abgefragt.
-Dieser wird später in den Switch Threads benötigt, um eine Zuordnung zwischen MAC-Adresse und IP-Adresse herstellen zu können und anhand derer weitere Informationen, wie den DNS-Hostname, zu erhalten.
-Anschließend wird in einer Schleife geprüft, ob die Anzahl der aktiven Threads gleich oder höher der maximalen Thread Anzahl ist.
-Ist dies der Fall, wird eine Pause eingelegt, bis die Anzahl der aktiven Threads gesunken ist und ein Thread gestartet.
-Dies stellt sicher, dass nie mehr als X Threads aktiv sind.
-Dies ist vor allem in Hinblick auf die, während der Benchmarks festgestellten, Probleme wichtig.
-Während der Implementierungsphase wurde der Wert im Bereich 8-32 variiert und schließlich auf 10 gesetzt, um sicherzustellen, dass keine Verbindungsprobleme mehr zum Oracle Server auftreten. Die Threads starten jeweils den Switch-Code, welcher im nächsten Absatz besprochen wird. Nachdem Durchlauf der Schleife wird gewartet bis alle Threads beendet wurden, da zuerst alle Hosts in der Datenbank abgelegt werden müssen, um dann eine Duplikatserkennung durchführen zu können. Zuerst werden die Switch Hierarchieebenen anhand der Nagios-Datenbank aktualisiert, da diese ausschlaggebend für die Einordnung der Hosteinträge sind. Im Anschluss werden die Duplikate anhand eines Algorithmuses entfernt, welcher alle bekannten Duplikate untereinander vergleicht und bei Bedarf “falsche” Hosteinträge löscht. Hierbei handelt es sich um Host, die sich auf nicht identifzierten Uplinkports befinden. Die Problematik der Identifizierung des Uplinkports wurde bereits in Kapitel X angesprochen. Zum Abschluss werden die von den Duplikaten gesäuberten Daten in die sogenannten Livetabellen übertragen. Diese Übertragung ist notwendig, da es während des Auslesevorganges Inkonsistenzen im Hinblick auf die Verknüpfung der Beziehungen gibt und daher darf erst der “finale” Status in die Livetabellen übertragen werden. Durch diese Übertragung wird auch sichergestellt, dass während des Ausleseprozesses die Datenbank trotzdem nutzbar vom User ist und dieser keine Ausfallzeit des Systems bemerkt.\\\\
+Im folgenden Abschnitt, soll dieses näher beschrieben werden.
+Anzumerken ist, das es sich bei der Darstellung um eine merkliche Vereinfachung des Programmablaufs handelt, da eine detaillierte Beschreibung den Umfang dieser Arbeit überschreitet. Zusätzlich wurde aus Gründen der Übersichtlichkeit und des verwendeten Programms von der UML-Notation abgewichen. \\\\
+Zu Beginn des Programms wird die SNMP-Schnittstelle initialisiert, um das Auslesen der Switches zu ermöglichen. Darauf hin werden die Switches, welche ausgelesen werden sollen, anhand einer existierenden XML-Datei oder einer Datenbank erfasst. Durch diese Datenquelle werden auch die notwendigen Zugangsdaten ausgelesen, die für den Zugriff benötigt werden.
+Anschließend wird der ARP-Cache von den Routern eingelesen, der es später ermöglicht, anhand einer MAC-Adresse die passende IP-Adresse zu erhalten.\\\\
+Der nächste Abschnitt des Programms steuert die einzelnen Ausleseprogramme, da für jeden Switch ein separater Thread gestartet wird, der unabhängig von den anderen Arbeiten kann. Durch diese Nebenläufigkeit ist ein deutlicher Geschwindigkeitsvorteil bezüglich der kompletten Auslesezeit erwarten. Jedoch muss ein Kontrollemechanismus existieren, der diese Threads verwaltet. Der Mechanismus überprüft zunächst die Anzahl der aktiven Threads. Liegt diese unter dem definierten Maximalwert, wird ein neuer Thread gestartet. Ist dies nicht der Fall, so wartet dieser, bis die Anzahl der aktiven Threads unter den Maximalwert sinkt und startet danach einen neuen Thread. Nach jedem Start eines Threads wird überprüft, ob noch weitere Threads gestartet werden müssen und je nachdem entweder wiederholt dieser die Prozedur erneut oder setzt das Hauptprogramm fort.\\\\
+Im Anschluss werden werden die Hierarchielevels der Switches anhand der Nagios-Datenbank geupdatet. Dies ist für die nachfolgende Duplikatsentfernung notwendig.
+Bei dieser werden Duplikate in der Datenbank untersucht und bei Bedarf gelöscht.
+Duplikaten sind die Hosts, die auf mehr als einem Port gesichtet wurden. Hierbei kann es sich um ein Rechner, der an einen neuen Port angeschlossen wurde oder um einen Switch handeln.
+Da Switches mehr als ein Interface haben, tauchen diese auch mehrmals in der Liste auf. Der Grund hierfür lieht darin, dass nicht auf allen Switches eine Uplink-Port Erkennung unterstützt wird. Nach dem die Hosts auf den unerkannten Uplink-Ports entfernt wurden, werden alle Daten in die sogenannten ‘Live’-Tabellen übertragen. Diese Übertragung ist notwendig,  da während des Ausleseprozesses die Daten nicht konsistent in der Datenbank vorliegen. Durch dieÜbertragung wird auch sichergestellt, dass während des Ausleseprozesses die Datenbank trotzdem nutzbar vom User ist und dieser keine Ausfallzeit des Systems bemerkt.\\\\
 Im Folgenden wird nun der Auslese Prozess etwas detaillierter für die Switch Threads beschrieben. Auch in diesem Fall gilt der Hinweis, dass es sich hierbei um eine starke Vereinfachung handelt, da das Abbilden der zusätzlich geschriebenen Algorithmen z.B. für das Erhalten der passenden Host-MAC-Adressen eines Ports den Umfang der Bachelor-Arbeit bei weitem übersteigt. 
 Die erste Überprüfung, die durchgeführt wird, ist das Vorhanden sein von SNMP auf der entsprechenden IP.
 Ist dies nicht der Fall, wird das Auslesen des vermeindlichen Switches mit einer Fehlermeldung abgebrochen und der Thread beendet.
