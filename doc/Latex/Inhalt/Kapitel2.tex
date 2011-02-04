@@ -301,35 +301,34 @@ Zur Darstellung des Programmablaufs eigenen sich vor allem Aktivitäts-Diagramme
 \label{fig:activitydiagram1}
 \end{figure}
 
-Im folgenden Abschnitt, soll dieses näher beschrieben werden.
-Anzumerken ist, das es sich bei der Darstellung um eine merkliche Vereinfachung des Programmablaufs handelt, da eine detaillierte Beschreibung den Umfang dieser Arbeit überschreitet. Zusätzlich wurde aus Gründen der Übersichtlichkeit und des verwendeten Programms von der UML-Notation abgewichen. \\\\
-Zu Beginn des Programms wird die SNMP-Schnittstelle initialisiert, um das Auslesen der Switches zu ermöglichen. Darauf hin werden die Switches, welche ausgelesen werden sollen, anhand einer existierenden XML-Datei oder einer Datenbank erfasst. Durch diese Datenquelle werden auch die notwendigen Zugangsdaten ausgelesen, die für den Zugriff benötigt werden.
-Anschließend wird der ARP-Cache von den Routern eingelesen, der es später ermöglicht, anhand einer MAC-Adresse die passende IP-Adresse zu erhalten.\\\\
-Der nächste Abschnitt des Programms steuert die einzelnen Ausleseprogramme, da für jeden Switch ein separater Thread gestartet wird, der unabhängig von den anderen Arbeiten kann. Durch diese Nebenläufigkeit ist ein deutlicher Geschwindigkeitsvorteil bezüglich der kompletten Auslesezeit erwarten. Jedoch muss ein Kontrollemechanismus existieren, der diese Threads verwaltet. Der Mechanismus überprüft zunächst die Anzahl der aktiven Threads. Liegt diese unter dem definierten Maximalwert, wird ein neuer Thread gestartet. Ist dies nicht der Fall, so wartet dieser, bis die Anzahl der aktiven Threads unter den Maximalwert sinkt und startet danach einen neuen Thread. Nach jedem Start eines Threads wird überprüft, ob noch weitere Threads gestartet werden müssen und je nachdem entweder wiederholt dieser die Prozedur erneut oder setzt das Hauptprogramm fort.\\\\
-Im Anschluss werden werden die Hierarchielevels der Switches anhand der Nagios-Datenbank geupdatet. Dies ist für die nachfolgende Duplikatsentfernung notwendig.
-Bei dieser werden Duplikate in der Datenbank untersucht und bei Bedarf gelöscht.
-Duplikaten sind die Hosts, die auf mehr als einem Port gesichtet wurden. Hierbei kann es sich um ein Rechner, der an einen neuen Port angeschlossen wurde oder um einen Switch handeln.
-Da Switches mehr als ein Interface haben, tauchen diese auch mehrmals in der Liste auf. Der Grund hierfür lieht darin, dass nicht auf allen Switches eine Uplink-Port Erkennung unterstützt wird. Nach dem die Hosts auf den unerkannten Uplink-Ports entfernt wurden, werden alle Daten in die sogenannten ‘Live’-Tabellen übertragen. Diese Übertragung ist notwendig,  da während des Ausleseprozesses die Daten nicht konsistent in der Datenbank vorliegen. Durch dieÜbertragung wird auch sichergestellt, dass während des Ausleseprozesses die Datenbank trotzdem nutzbar vom User ist und dieser keine Ausfallzeit des Systems bemerkt.\\\\
-Im Folgenden wird nun der Auslese Prozess etwas detaillierter für die Switch Threads beschrieben. Auch in diesem Fall gilt der Hinweis, dass es sich hierbei um eine starke Vereinfachung handelt, da das Abbilden der zusätzlich geschriebenen Algorithmen z.B. für das Erhalten der passenden Host-MAC-Adressen eines Ports den Umfang der Bachelor-Arbeit bei weitem übersteigt. 
-Die erste Überprüfung, die durchgeführt wird, ist das Vorhanden sein von SNMP auf der entsprechenden IP.
-Ist dies nicht der Fall, wird das Auslesen des vermeindlichen Switches mit einer Fehlermeldung abgebrochen und der Thread beendet.
-Im Anschluss dieser Überprüfung werden alle Informationen bezüglich des Switches ausgelesen.
-Das heißt, Hersteller, Modell, IOS-Version, Uptime, Alias des Switches werden ausgelesen.
-Im Anschluss wird der Switch spezifische SQL-Befehl generiert, um die Informationen in die Datenbank abzuspeichern.
-Jedoch wird diese nicht direkt durchgeführt, sondern in einem Stapel gesammelt. Der Grund hierfür liegt in der Reduzierung der Last des Datenbankservers, wie bereits in Kapitel X bei den Benchmarks entdeckt wurde, dass das Absetzten mehrerer Einträge auf einmal die Performence erhöht.
-Danach werden alle Port relevanten Informationen abgefragt. 
-Nachdem die Liste der VLANs ausgelesen wurde, werden die VLAN spezifischen Listen zur MAC-Adressen Zuordnung geladen. Das heißt, für jedes auf dem Switch bekannten VLAN wird eine Abfrage an den Switch gestellt, welche Host-Adressen in dem jeweiligen VLAN mit den dazugehörigen virtuellen Ports zurückliefert.
-Nachdem alle SNMP-Daten nun ausgelesen und zwischengespeichert sind, wird überprüft, ob der jeweilige Port eine MAC-Adresse hat und es sich hierbei auch nicht um eine virtuelle Schnittstelle handelt. Sofern dies der Fall sein sollte, wird der Port ignoriert und der nächste bearbeitet. Im Normalfall wird der Bearbeitungsprozess anschließend fortgesetzt. Hierbei wird überprüft, ob der Port den Status Up oder Down hat und ob dieser, sofern der Status Up ist CDP-Informationen enthält.
-Diese CDP Informationen werden bei Bedarf ausgelesen und es findet eine Überprüfung per Spanning-Tree-Protokoll statt, ob es sich hierbei um einen Uplink-Port handelt. Im Anschluss wird der jeweilige SQL-Befehl generiert und im Puffer abgelegt.
-Nachdem die Informationen des Ports bekannt sind, müssen die Hostinformationen ausgelesen werden. Hierzu wird als aller Erstes geprüft, ob ein Endgerät an den Port angeschlossen ist. Ist dies nicht der Fall, wird das Auslesen der Hostinformationen abgebrochen und alle SQL Abfragen an die Datenbank übertragen. Sind jedoch Hosts vorhanden wird jeweils unterschieden, ob es sich hierbei um ein Uplink-Port handelt oder nicht. Im Falle des Uplink-Ports werden die CDP-Daten ausgewertet und diese als Host Eintrag hinzugefügt. Handelt es sich um keinen Uplinkport, so werden alle Hosts ausgewertet und für jeden Host die passende IP im ARP-Cache gesucht und aufgrund dieser IP der passende DNS-Hostname rekursiv abgefragt.
-Im Anschluss wird, sofern es sich um ein Host mit Windows handelt, das Active Directory befragt, welcher Benutzer zuletzt am genannten Host angemeldet war. Auf Grundlage dieser Daten wird wiederum ein SQL-Befehl generiert, der anschließend dem Puffer hinzugefügt wird.
-Bevor der Switch-Thread beendet wird, werden die Abfragen aus dem SQL-Puffer an einen speziellen Datenbank Thread übergeben der sich anschließend um das Absetzen der SQL-Befehle kümmert. So kann Der Switch Thread bereits beendet werden und das Auslesen des nächsten Switches beginnen, auch wenn noch nicht alle Datensätze in der Datenbank sind. Dies dient vor allem der Reduzierung der Wartezeit und somit einer Reduzierung der Auslesezeit.
+In Abbildung X ist der erste Teil des Aktivitätdiagramm des Ausleseprogramms zu sehen.
+Die Notation ist wie in Abbildung X angepasst.
+Der Auslesevorgang lässt sich in drei Teile aufteilen. Zuerst werden die Informationen des Switches, dann die der Ports und letztendlich die der Hosts ausgelesen.
+Zuerst wird überprüft, ob der Switch SNMP unterstützt, ansonsten wird das Programm beendet.
+Ist dies der Fall werden die Informationen über den Switch ausgelesen und anhandessen der SQL-Befehl erzeugt, der zwischengespeichert wird, um die Vorteile der Datenbank-Transaktion zu nutzen, welche in Kapitel X näher erläutert werden.\\\\
+Im nächsten Teil Werden alle Informationen über die Ports ausgelesen.
+Dann wird im Anschluss für jeden Port überprüft, ob dieser eine MAC-Adresse hat und kein virtuelles Interface ist, trifft dies nicht zu wird der jeweilige Port verworfen.
+Anschließend wird anhand der Informationen von CDP und STP entschieden, ob es sich hierbei um ein Uplink-Port handelt und diese Informationen hinterlegt. Daraufhin wird wiederum der passende SQL-Befehl generiert und zwischengespeichert.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{activity_diagram_switch_thread.png}
-\caption{Aktivitätsdiagramm2}
-\label{fig:activitydiagram2}
+\includegraphics[width=0.5\textwidth]{activity_diagram_switch_thread_01.png}
+\caption{Aktivitätsdiagramm 2- Teil 1}
+\label{fig:activitydiagram21}
+\end{figure}
+
+Im letzten Teil des Auslesevorgangs werden wie in Abbildung X zu erkennen die Hosts erfasst.
+Zu Beginn wird überprüft, ob am jeweiligen Port ein Gerät angeschlossen ist, sollte keins angeschlossen sein wird der Port übersprungen. Ist jedoch ein Gerät angeschlossen, so wird unterschieden ob es sich hierbei um ein Uplink-Port handelt. Ist dies der Fall, so werden die per CDP ausgelesenen Informationen verwendet um den Hosteintrag zu erstellen.
+Handelt es sich bei dem Gerät um ein normales Gerät, dass keine CDP Informationen enthält, so wird der Hosteintrag anhand der per SNMP ausgelesenen Informationen erzeugt.
+Hierzu wird die MAC-Adresse mit dem zuvor ausgelesenen IP-Adressen des ARP-Cache verknüpft. Anhand dieser IP-Adresse wird wiederum der DNS-Name vom DNS-Server angefordert und sofern es sich um ein Computer des Active Directories handelt, wird zusätzlich der Benutzer ausgelesen.
+Auf Grundlage dieser Daten wird wiederum ein SQL-Befehl generiert, der anschließend zwishcengespeichert wird.\\\\
+Bevor der Switch-Thread beendet wird, werden die Abfragen aus dem SQL-Puffer an einen speziellen Datenbank Thread übergeben der sich anschließend um das Absetzen der SQL-Befehle kümmert. So kann der Switch Thread bereits beendet werden und im Hauptprogramm das Auslesen des nächsten Switches begonnen werden, auch wenn noch nicht alle Datensätze in der Datenbank sind. Dies dient vor allem der Reduzierung der Wartezeit und somit einer Reduzierung der Auslesezeit.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{activity_diagram_switch_thread_02.png}
+\caption{Aktivitätsdiagramm 2- Teil 2}
+\label{fig:activitydiagram22}
 \end{figure}
 
 \subsection{Enitity Relationship Model}
