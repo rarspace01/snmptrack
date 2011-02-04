@@ -22,7 +22,7 @@ Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.4]{img_chen_001.png}
+\includegraphics[width=0.9\textwidth]{img_chen_001.png}
 \caption{Chen Notation 1:N}
 \label{chenpic1}
 \end{center}
@@ -35,7 +35,7 @@ Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.4]{img_chen_002.png}
+\includegraphics[width=0.9\textwidth]{img_chen_002.png}
 \caption{Chen Notation N:M}
 \label{chenpic2}
 \end{center}
@@ -54,7 +54,7 @@ Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.6]{chen_n_m_aufloesung.png}
+\includegraphics[width=1.0\textwidth=0.6]{chen_n_m_aufloesung.png}
 \caption{Aufgelöste Chen N:M Notation}
 \label{chenpic3}
 \end{center}
@@ -250,6 +250,7 @@ Eine wichtige Rolle spielen ebenfalls die Vorgehensweisen bei der Umsetzung eine
 Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexiblen, z.B. der Agilen Softwareentwicklung.\footnote{Praxishandbuch IT im Gesundheitswesen. Erfolgreich einführen, entwickeln, anwenden und betreiben, Christian Johner, S. 5-7, Peter Haas, Hanser Fachbuch (5. März 2009)}
 Im Folgenden soll auf die wichtigsten Kernprozesse bei der Umsetzung eines Systems in einem Projekt eingegangen werden.\\
 \\
+\\
 Planung\\
 \\
 Zu Beginn einer Systementwicklung steht die Planung, in der die Anforderungen erhoben werden.\footnote{CSCW-Kompendium: Lehr- und Handbuch zum computerunterstützten kooperativen Arbeiten, S.98,  Gerhard Schwabe, Norbert Streitz, Rainer Unland, Springer, Berlin; Auflage: 1 (1. August 2001)}
@@ -281,7 +282,7 @@ Programmierung\\
 Bei der Programmierung geht es letztendlich um die Umsetzung des zuvor entworfenen Systems. Hierbei wird je nach Vorgehensweise die strukturierte oder objektorientierte Programmierung angewandt.
 \\
 \\
-Validierung und Verifizierung
+Validierung und Verifizierung\\
 \\
 Bei der Validierung  und Verifizierung geht es vor allem um Tests. Hierbei wird unterschieden zwischen Low-Level-Tests und High-Level-Tests.\footnote{Software Testing: A Guide to the Tmap(r) Approach: A Guide to the TMap Approach, S.16 f., Martin Pol, Ruud Teunissen, Erik Van Veenendaal, Verlag: Addison-Wesley Longman, Amsterdam; Auflage: illustrated edition (20. November 2001)}
 Unter Low-Level-Tests sind solche Test zu verstehen, die während der Implementierung an Teilen des Systems stattfinden. Bei High-Level-Tests wird das komplette System getestet. Einer der Low-Level-Tests ist der Modultest. Bei diesem werden einzelne Module im Programm getestet.  Diese Tests werden regelmäßig während der Entwicklung durchgeführt. Ein weiterer Low-Level-Test ist der Integrationstest. Bei diesem werden verschiedene Module in Kombination getestet. Für jede Verbindung zwischen zwei Komponenten wird ein Test erstellt, welcher überprüft, ob diese ordnungsgemäß nach der Spezifikation funktionieren. In kleineren Projekten findet der Integrationstest meist während der Implementierung durch die Programmierer statt.
@@ -319,8 +320,9 @@ In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einord
 \> * Kommunikationsdiagramm\\
 \> * Sequenzdiagramm\\
 \> * Zeitverlaufsdiagramm\\
-\> * Zustandsdiagramm\\
+\> * Zustandsdiagramm
 \end{tabbing}    
+
 Im Folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche für die Umsetzung des Projekts selbst verwendet wurden.
 Das erste verwendete Diagramm, ist das Anwendungsfalldiagramm (im Folgenden als Usecase-Diagramm benannt).\footnote{Analyse und Design mit UML 2.3: Objektorientierte Softwareentwicklung, S. 245f. ,Bernd Oestereich, Stefan Bremer, Verlag: Oldenbourg; Auflage: 9., aktualisierte und erweiterte Auflage. (15. September 2009)} 
 Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als 'Strichmännchen' dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
@@ -449,7 +451,7 @@ Um zu verhindern, dass das Netzwerk abgehört wird, kann es sinnvoll sein, VLANs
 \label{sec:snmp}
 Unter dem Simple Network Management Protocol (SNMP) ist ein Netzwerkprotokoll zu verstehen, welches einem erlaubt, Netzwerkgeräte (z.B. Drucker, Router, Switches, Router) per Netzwerk zu überwachen und zu steuern.\footnote{vgl. Essential SNMP, S. 1}
 Diese Abfragen werden von einem zentralen Punkt aus durchgeführt, dem sogenannten SNMP-Manager, welcher die Daten von den SNMP-Agenten (Netzwerkelementen) abruft.\footnote{vgl. Essential SNMP: Help for System and Network Administrators, , S. 3}\\\\
-Bei SNMP handelt es sich um ein Protokoll, welches sich auf der Schicht 7, die Anwendungs-Ebene, des ISO/OSI-Schichtenmodells, ansiedeln lässt.
+Bei SNMP handelt es sich um ein Protokoll, welches sich auf der Schicht 7, die An"-wen"-dungs-Ebene, des ISO/OSI-Schichtenmodells, ansiedeln lässt.
 Entwickelt wurde das Protokoll von der IEFT und ist über diverse RFCs definiert.
 Durch die hohe Modularität funktioniert SNMP nicht nur über IP und sondern auch über IPX oder AppleTalk.
 Dies ist unteranderem auch ein Grund für die weite Verbreitung von SNMP, welches mittlerweile als Standard gilt.
