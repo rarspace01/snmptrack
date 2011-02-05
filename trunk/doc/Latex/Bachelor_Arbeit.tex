@@ -103,7 +103,11 @@
 %\label{sec:Glossar}
 \include{Inhalt/Abkurz}
 
-\listoffigures					% Abbildungsverzeichnis
+%Hack für listoffigures
+\begingroup
+\renewcommand*{\addvspace}[1]{}
+\listoffigures
+\endgroup					% Abbildungsverzeichnis
 %\listoftables					% Tabellenverzeichnis
 %\renewcommand{\lstlistlistingname}{Verzeichnis der Listings}
 %\lstlistoflistings			% Listings-Verzeichnis
