@@ -57,22 +57,22 @@ Als wichtigster Punkt ist die Erkennung der Hosts, sowie der zugehörigen Ports 
 Diese ist notwendig um den Ort eines Hosts im Netzwerk festzustellen. Praktische Anwendung hat dies, wenn zum Beispiel ein Host aufgefunden werden muss, wenn der zugehörige Mietschein des Computers ausläuft und dieser zurückgegeben werden muss.
 Hier ist es nicht selten der Fall, dass der Computer mit seinem dazugehörigen Besitzer bereits die damalige Abteilung verlassen hat und dieser somit nicht mehr auffindbar ist.
 Eine weiterere Anwendungsmöglichkeit ist, dass der Helpdesk wissen möchte, wenn es Probleme mit einem Computer gibt, ob die Netzwerk-Hardware bis zum Host einwandfrei funktioniert. Hierfür musss man nicht nur wissen, an welchem Ort der Host sich befindet, sondern auch die dazugehörigen Ports.
-Da die Ports als auch die Switches ausgelesen werden, kann man somit zeitnah eine Rückmeldung geben, dass der Switch, sowie dessen Port einwandfrei funktionieren, oder falls dies nicht der Fall ist, den Fehler besser lokalisieren. Somit ist selbst bei keinerlei Kenntnis des Hosts außer der DNS oder der IP eine direkte Lokalisierung und Bewertung des Status möglich.\\\\
+Da die Ports als auch die Switches ausgelesen werden, kann man somit zeitnah eine Rückmeldung geben, dass der Switch, sowie dessen Port einwandfrei funktionieren, oder falls dies nicht der Fall ist, den Fehler besser lokalisieren. Somit ist selbst bei keinerlei Kenntnis des Hosts außer der DNS oder der IP, eine direkte Lokalisierung und Bewertung des Status möglich.\\\\
 Ein weiterer wichtiger Aspekt ist die Möglichkeit genau herauszufinden, welche Hosts hinter einem Port angeschlossen sind.
 In der Praxis ist dies wichtig, da es vorkommen kann, dass unerwünschte Netzwerkgeräte angeschlossen wurden.
 Normalerweise befinden sich im Unternehmen an einem Port eines Switches der untersten Ebene maximal zwei Hosts. Der Großteil der Ports hat nur einen Host zum Beispiel den Computer eines Mitarbeiters oder ein Netzwerkgerät.
 In einem Teil der Fälle ist dieser Computer nicht direkt an den Port des Switches angeschlossen, sondern wird über den Port eines VOIP-Telefons durchgeschleift, welches dann an den Switch angeschossen ist.
 In diesem Fall sind auf dem Port zwei Hosts zu sehen.
 Dies ist der Soll Zustand. Jedoch kann es vorkommen, das Mitarbeiter im Werk ohne Erlaubnis fremde Netzwerkgeräte anbringen, sei es ein Hub, ein eigener WLAN-Router oder andere Geräte. Da diese Geräte die Sicherheit des Netzwerkes beeinflussen, müssen diese identifiziert und gleichzeitig lokalisiert werden können um eine Entfernung zu ermöglichen.
-Hinzu kommt der Punkt einer möglichen Historie, wann welcher Host an welchem Port bzw. Switch angeschlossen war. Hierbei soll erkennbar sein, an welchem Port der Host war, jedoch ist es nicht notwendig zu wissen wie oft dieser dort angeschlossen war. Beispielsweise gibt es den Switch S1 und S2. Zu Beginn ist der Host, in diesem Falle ein Notebook N1, an einen Port P1 an S1 angeschlossen.
-Nun wechselt N1 zu P1 an S2.
-Hierfür soll nun ein Eintrag in der Datenbank erzeugt werden. Wenn N1 jetzt wieder von P1 auf S2 auf P1 auf S1 wechselt, so soll kein neuer Eintrag entstehen, sondern nur der bereits existierende aktualisiert werden. Wechselt N1 jedoch von P1 auf S1 zu P2 auf S1, so soll ebenfalls ein neuer Eintrag erzeugt werden.\\
+Hinzu kommt der Punkt einer möglichen Historie, wann welcher Host an welchem Port bzw. Switch angeschlossen war. Hierbei soll erkennbar sein, an welchem Port der Host war, jedoch ist es nicht notwendig zu wissen wie oft dieser dort angeschlossen war.
+Daraus lassen sich zwei Regeln definieren. Erstens, sofern ein Host an ein Port angeschlossen wird, so entsteht ein Datensatz. Die zweite Regel besagt, dass wenn ein Host an einen Port angeschlossen wird, an dem er bereits zuvor angeschlossen war, so wird der alte Datensatz für diese Host-Port-Kombination nur aktualisiert. 
+In der nachfolgenden Abbildung X wird dies durch die beiden Switches S1 und S2 dargestellt. Bei den angeschlossenen Hosts handelt es sich jeweils um das Notebook N1, das an jedem Port des jeweiligen Switches ein Datenbank-Eintrag erzeugt.\\
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.4\textwidth]{network_ex2.png}
 %\includegraphics[width=0.5\textwidth]{000.PNG}
-\caption{Grafik mit S1+S2 sowie jeweils P1 und N1}
+\caption{Grafik mit Switches, Ports und Host}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
 
@@ -196,7 +196,8 @@ Für die Umsetzung des Projektes wurde eine objektorientierte Programmiersprache
 Diese dienen dazu, Objekte abzuleiten und die jeweiligen Methoden von diesen zu nutzen.
 Um das System zu entwerfen wurden 25 Klassen verwendet, da eine möglichst hohe Abstraktion erwünscht war.
 Zusätzlich muss auch sichergestellt werden, dass die Beziehungen zwischen den Klassen modular sind, damit ein einfacher Zugriff und eine Austauschbarkeit gegeben ist.
-Um ein Einblick in die Struktur des Projektes zu erhalten wird in diesem Kapitel auf die wichtigsten Klassen des Projektes eingegangen. \\\\
+Um ein Einblick in die Struktur des Projektes zu erhalten wird in diesem Kapitel auf die wichtigsten Klassen des Projektes eingegangen.
+Die Abbildungen der Klassen befindet sich aus Platzgründen im Anhang.\\\\
 Das Ausleseprogramm wird als Objekt der Klasse \textit{SNMPTrack} instanziiert, welche auch den Namen des Auslese-Programms repräsentiert.
 Hierbei handelt es sich um die Ausgangsklasse, welche die Steuerung des Programms beinhaltet. Von dieser Klasse aus, wird, wie in Kapitel X beschrieben, ein Objekt der Klasse \textit{SwitchListe} erzeugt.
 Dieses stellt alle Switches inklusive deren Passwörter in einer Liste zur Verfügung.
@@ -231,7 +232,7 @@ Dies ist vor allem notwendig um eine Übersicht über die verwendeten OID zu beh
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{code_example_OIDL.png}
+\includegraphics[width=1.0\textwidth]{code_example_OIDL.png}
 \caption{Codebeispiel}
 \label{fig:classdiagramcode}
 \end{figure}
@@ -247,12 +248,6 @@ Dazu gehören die Klassen \textit{Switch} (welche bereits beschrieben wurde), \t
 Diese bieten jeweils Methoden an, welche von sich selbst die passenden SQL-Befehle anhand der enthaltenen Daten generieren. Dies macht es einfacher die Objekte zu serialisieren.
 Das heißt, die Objekte im Programm wiederum abzubilden auf eine Textuale-Ebene, um sie in die Datenbank übertragen zu können.\\
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{model.png}
-\caption{Klassendiagramm}
-\label{fig:classdiagram}
-\end{figure}
 
 \subsection{Sequenzdiagramme}
 \label{subsec:seqdiagrams}
@@ -267,8 +262,8 @@ Zum aktuellen Zeitpunkt ist dies eine XML-Datei, in naher Zukunft werden diese D
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{seq.png}
-\caption{Sequenzdiagramm1}
+\includegraphics[width=0.7\textwidth]{seq.png}
+\caption{Sequenzdiagramm 1}
 \label{fig:sequecediagram1}
 \end{figure}
 
@@ -284,8 +279,8 @@ Darunter fallen Umformatierungen, die für das Auslesen der Uptime und des Switc
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{seq2.png}
-\caption{Sequenzdiagramm2}
+\includegraphics[width=0.8\textwidth]{seq2.png}
+\caption{Sequenzdiagramm 2}
 \label{fig:sequecediagram2}
 \end{figure}
 
@@ -297,7 +292,7 @@ Zur Darstellung des Programmablaufs eigenen sich vor allem Aktivitäts-Diagramme
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{activity_diagram.png}
-\caption{Aktivitätsdiagramm1}
+\caption{Aktivitätsdiagramm 1}
 \label{fig:activitydiagram1}
 \end{figure}
 
@@ -326,7 +321,7 @@ Bevor der Switch-Thread beendet wird, werden die Abfragen aus dem SQL-Puffer an 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{activity_diagram_switch_thread_02.png}
+\includegraphics[width=0.7\textwidth]{activity_diagram_switch_thread_02.png}
 \caption{Aktivitätsdiagramm 2 - Teil 2}
 \label{fig:activitydiagram22}
 \end{figure}
@@ -341,7 +336,7 @@ Der Entwurf der Datenbank als ERM ist in Abbildung X zu sehen.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{ERM.png}
+\includegraphics[width=0.7\textwidth]{ERM.png}
 \caption{ERM}
 \label{fig:erm}
 \end{figure}
@@ -556,7 +551,7 @@ Diese Meldungen sind abhängig vom Loglevel.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{snmptrack_start.png}
-\caption{Programm - Ausschnitt}
+\caption{Programm - Ausleseprogramm}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
 In Abbildung X ist der Start des Programms zu sehen. In diesem ist auch zu erkennen, dass keinerlei Parameter übergeben wurden. Dies wurde in der Art realisiert, um Bedienfehler zu vermeiden und die Ausführung per Skripte zu erleichtern.
@@ -568,7 +563,7 @@ Um die Zeit für die Implementierung zu veringern, wurde auf die freie CMS Tints
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{snmptrack_overview.png}
-\caption{Programm - Ausschnitt}
+\caption{Programm - Weboberfläche}
 \label{fig:show_s1_s2_p1_n1}
 \end{figure}
 Die Oberfläche in einem frühen Stadium der Entwicklung ist in Abbildung X zu sehen.
