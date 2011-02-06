@@ -128,7 +128,7 @@ Ein hierarchisches DBMS dient vor allem der schnellen Suche in großen Datenbank
 Der Nachteil liegt darin, dass nur eine sequentielle Abarbeitung möglich ist und somit die Art der Abfragen mehr oder weniger schon im Voraus bestimmt sein muss.
 Im Gegensatz hierzu stehen die relationalen Datenbanksysteme, welche heutzutage den höchsten Verbreitungsrad besitzen.\footnote{Quelle}
 Diese bieten eine flexible Auswertung der Daten durch die deklarative Abfragesprache SQL.
-Es muss lediglich die Verknüpfung zwischen den Tabellen durch sogenannte JOINs hergestellt werden. Somit werden Primär- und Fremdschlüssel miteinander verknüpft.
+Es muss lediglich die Verknüpfung zwischen den Tabellen hergestellt werden. Dabei werden Primär- und Fremdschlüssel miteinander verknüpft.
 Hinzu kommen die objektorientierten Datenbanksysteme. Diese bieten die Möglichkeit Objekte von beliebiger Art und Weise abzuspeichern.
 Problematisch hierbei sind jedoch die Formulierung von geeigneten Abfragen, weswegen diese in der Praxis eher selten und meist im Bereich von Multimedialen-Anwendungen anzutreffen sind.%\footnote{NOTIZ ODBMS evtl}\\\\
 Wird versucht, verschiedene relationale DBMS in der Praxis zu vergleichen, so ist eine große Anzahl an verschiedenen Systemen zu finden.
@@ -233,6 +233,8 @@ Der Verbindungsaufbau ist ähnlich einfach gestaltet und ermöglicht auch für W
 \section{Softwareentwicklung}
 \label{sec:softdev}
 
+\subsection{Allgemeines}
+
 Unter der Softwarentwicklung ist die Herstellung und Entwicklung von Software, sowie die dazugehörige Planung und Modellierung dieser zu verstehen.
 Die Softwareentwicklung umfasst eine Vielzahl von Teilgebieten.
 Die Entwicklung einer komplexen Software wird anhand eines strukturierten Projektplans vorgenommen, welcher den Entwicklungsprozess inhaltlich und zeitlich abgrenzt.\footnote{Softwareentwicklung kompakt und verständlich: Wie Softwaresysteme entstehen, Hans Brandt-Pook, Rainer Kollmeier, Verlag: Vieweg+Teubner; Auflage: 1 (27. Mai 2008)}
@@ -249,18 +251,16 @@ Die Umsetzung eines Projektes findet entweder intern oder von einem externen Die
 Eine wichtige Rolle spielen ebenfalls die Vorgehensweisen bei der Umsetzung eines Projektes.
 Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexiblen, z.B. der Agilen Softwareentwicklung.\footnote{Praxishandbuch IT im Gesundheitswesen. Erfolgreich einführen, entwickeln, anwenden und betreiben, Christian Johner, S. 5-7, Peter Haas, Hanser Fachbuch (5. März 2009)}
 Im Folgenden soll auf die wichtigsten Kernprozesse bei der Umsetzung eines Systems in einem Projekt eingegangen werden.\\
-\\
-\\
-Planung\\
-\\
+
+\subsection{Planung}
+
 Zu Beginn einer Systementwicklung steht die Planung, in der die Anforderungen erhoben werden.\footnote{CSCW-Kompendium: Lehr- und Handbuch zum computerunterstützten kooperativen Arbeiten, S.98,  Gerhard Schwabe, Norbert Streitz, Rainer Unland, Springer, Berlin; Auflage: 1 (1. August 2001)}
 Hierbei handelt es sich um das Sammeln aller Anforderungen, die seitens des Kundens oder aufgrund von externen Einflüssen (z.B. Gesetze) gegeben sind.
 Währenddessen ist vor allem der Dialog mit dem Kunden, aber auch mit den späteren Benutzern sowie den fachlichen Experten notwendig.
 In dieser Phase wird neben dem Lastenheft (Anforderungsdefinition) auch das Pflichtenheft erstellt. Es erfolgt auch eine Aufwandseinschätzung, sowie die Wahl des Vorgehensmodells.\\
-\\
-\\
-Analyse\\
-\\
+
+\subsection{Analyse}
+
 Im Analyse-Prozess findet die Auswertung der zuvor gesammelten Anforderungen statt.
 Bei dieser Auswertung kommt es auch zur Analyse der Prozesse und des Systems.
 Bei der Systemanalyse kommt es bereits zum ersten Modellentwurf, wobei dieser explizit ohne “Maschinen”, d.h. ohne systemspezifische Inhalte, ist und somit technische Details noch nicht ins Modell aufgenommen werden.
@@ -269,21 +269,18 @@ Bei einem Mock-up handelt es sich um ein Modell bzw. einer Nachbildung, welche m
 In der Softwareentwicklung wird darunter ein Prototyp verstanden, welcher rudimentär die Benutzerschnittstelle widerspiegelt.
 Er wird vor allem zu Beginn des Projektes eingesetzt, um eine bessere Zusammenarbeit mit dem Auftraggeber und dem späteren Anwender zu erlangen.
 Somit können die Anforderungen an die Benutzeroberfläche direkt besprochen werden und die Beteiligten sich ein besseres Bild über die spätere Anwendung machen.\\
-\\
-\\
-Entwurf\\
-\\
+
+\subsection{Entwurf}
+
 Beim Entwurfsprozess geht es um die Planung der Software-Lösung. Zur Planung von dieser werden unterschiedliche Sprachen zur Modellierung verwendet. Die wichtigste Sprache hierbei ist UML, welche unter anderem auch die Modellierung von Klassen und Objekten, sowie deren Beziehungen untereinander ermöglicht. Auf UML wird in Kapitel X detailliert eingegangen.
 Zum Entwurf gehören ebenfalls System- bzw. Designentscheidungen, die später in die Programmierung einfließen.
-\\
-\\
-Programmierung\\
-\\
+
+\subsection{Programmierung}
+
 Bei der Programmierung geht es letztendlich um die Umsetzung des zuvor entworfenen Systems. Hierbei wird je nach Vorgehensweise die strukturierte oder objektorientierte Programmierung angewandt.
-\\
-\\
-Validierung und Verifizierung\\
-\\
+
+\subsection{Validierung und Verifizierung}
+
 Bei der Validierung  und Verifizierung geht es vor allem um Tests. Hierbei wird unterschieden zwischen Low-Level-Tests und High-Level-Tests.\footnote{Software Testing: A Guide to the Tmap(r) Approach: A Guide to the TMap Approach, S.16 f., Martin Pol, Ruud Teunissen, Erik Van Veenendaal, Verlag: Addison-Wesley Longman, Amsterdam; Auflage: illustrated edition (20. November 2001)}
 Unter Low-Level-Tests sind solche Test zu verstehen, die während der Implementierung an Teilen des Systems stattfinden. Bei High-Level-Tests wird das komplette System getestet. Einer der Low-Level-Tests ist der Modultest. Bei diesem werden einzelne Module im Programm getestet.  Diese Tests werden regelmäßig während der Entwicklung durchgeführt. Ein weiterer Low-Level-Test ist der Integrationstest. Bei diesem werden verschiedene Module in Kombination getestet. Für jede Verbindung zwischen zwei Komponenten wird ein Test erstellt, welcher überprüft, ob diese ordnungsgemäß nach der Spezifikation funktionieren. In kleineren Projekten findet der Integrationstest meist während der Implementierung durch die Programmierer statt.
 Der so genannte Systemtest ist ein High-Level-Test bei dem das gesamte Programm gegen die zuvor definierten Anforderungen gegen geprüft wird. Dieser Systemtest findet meist in einer Testumgebung statt und erhält meist simulierte Testdaten um die bestehende Produktivumgebung nicht weiter zu beeinträchtigen. Die simulierten Testdaten können trotz Allem den reellen Daten entsprechen, sollen jedoch verhindern, dass das System direkt in die Produktivumgebung einwirkt.
@@ -473,8 +470,7 @@ Bei einem normalen GET-Paket wird ein einzelnes Attribut vom Agenten angefordert
 \\
 GETNEXT\\
 
-Um diese Problematik zu lösen gibt es den sogenannten GETNEXT-Befehl, der es ermöglicht anhand einer OID, die OID und den Wert des darauffolgenden Elementes zu erhalten.\\
-
+Um diese Problematik zu lösen gibt es den sogenannten GETNEXT-Befehl, der es ermöglicht anhand einer OID, die OID und den Wert des darauffolgenden Elementes zu erhalten.
 Die Abfrage von einer Anzahl von n Ports erzeugt n+1 Abfragen die vom Manager ausgehen.
 Bei einem 48 Port Switch müssten somit 49 Abfragen abgesetzt werden.
 Dies ist aber inefektiv, da der Manager nur eine Informationsmenge erhalten möchte aber dazu eine Vielzahl an Anfragen durchführen muss.

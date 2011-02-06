@@ -279,7 +279,7 @@ Darunter fallen Umformatierungen, die für das Auslesen der Uptime und des Switc
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{seq2.png}
+\includegraphics[width=0.9\textwidth]{seq2.png}
 \caption{Sequenzdiagramm 2}
 \label{fig:sequecediagram2}
 \end{figure}
@@ -442,29 +442,27 @@ Somit ist es für dne Entwickler möglich den Zusammenhang zwischen den einzelne
 
 Um ein Projekt mit vielen Einlese- und Exportfunktionalitäten erstellen zu können, werden viele Schnittstellen benötigt.
 Zum Einen wird bei diesem Projekt eine Schnittstelle für die SNMP-Abfragen benötigt, zum Anderen wird eine Anbindung an das Active Directory angestrebt. Zusätzlich müssen aber auch alle Datenbankzugriffe sowohl vom Einleseprogramm, als auch von der Website bewerkstelligt werden.\\\\
-Im Folgenden wird auf die jeweiligen Schnittstellen eingegangen, wie diese sequentiell im Ablauf des Ausleseprogramms verwendet werden. Diese lassen sich wiefolgt zusammenfassen:\\
-\\
+Im Folgenden wird auf die jeweiligen Schnittstellen eingegangen, wie diese sequentiell im Ablauf des Ausleseprogramms verwendet werden. Diese lassen sich wiefolgt zusammenfassen:
 \begin{itemize}
 \item Einlesen aller benötigten Konfigurationsdaten
 \item Auslesen per SNMP
 \item Rekursive DNS Abfragen
 \item Auslesen per LDAP
 \item Datenbankverbindung Java
-\item Datenbankverbindung Webserver
+\item Datenbankverbindung Webserver\\
 \end{itemize}
 
 Die erste Schnittstelle ist beim Start des Programmes zum Auslesen der Daten angesiedelt. Hierbei muss der Benutzer dem Programm eine Großzahl von Informationen übergeben.
 Es existiert eine spezielle XML-Datei in der die Switches, welche ausgelesen werden müssen, die Router, welche den ARP-Cache enthalten, sowie die notwendigen Zugangsdaten für die Datenbanken, enthalten sind. \\\\
 Das Programm selbst bietet dem Nutzer keine Möglichkeit Übergabe-Parameter zu definieren, damit ein möglichst einfacher Ablauf ermöglicht und zusätzliche Fehleingaben des Benutzers vermieden werden.\\\\
 Die nächste Schnittstelle ist die Kommunikation mit den Switches per SNMP. Um nicht die komplette SNMP-Kommnunikation selbst per UDP implementieren zu müssen, empfiehlt es sich hierbei, eine bereits vorhandene API zu nutzen.
-Speziell für Java gibt es hierfür unter anderem folgende Möglichkeiten:\\
-\\
+Speziell für Java gibt es hierfür unter anderem folgende Möglichkeiten:
 \begin{itemize}
 \item SNMP4J
 \item jSNMP
 \item WebNMS SNMP
 \item iReasoning SNMP API
-\item netsnmpj
+\item netsnmpj\\
 \end{itemize}
 
 Schließt man nun alle kommerziellen Lösungen aus, so bleiben lediglich SNMP4J und netsnmpj übrig.
@@ -479,13 +477,12 @@ Diese Adresse wird inklusive dem Modus “PTR”, welche für einen Reverse-DNS-
 
 Für das Auslesen des zugehörigen Benutzers muss das Active Directory befragt werden.
 Hierzu gibt es eine Mehrzahl von Möglichkeiten, die jedoch dadurch eingeschränkt werden, dass diese nur unter Windows lauffähig sind. Daher muss auf Ansätze zurückgegriffen werden, bei denen es möglich ist plattformunabhängig zu agieren. Hierzu muss man die Architektur vom Active Directory von Windows genauer untersuchen.\\\\
-Generell lässt sich das Active Directory in folgende Komponenten unterteilen:\\
-\\
+Generell lässt sich das Active Directory in folgende Komponenten unterteilen:
 \begin{itemize}
 \item LDAP-Verzeichnis
 \item Kerberos-Protokoll
 \item Common Internet File System
-\item Domain Name System (DNS)
+\item Domain Name System (DNS)\\
 \end{itemize}
 
 Hiervon ist vor allem das LDAP-Verzeichnis bedeutend, welches es ermöglicht den Benutzer des jeweiligen Computers herauszufinden.
@@ -506,7 +503,7 @@ Im nachfolgenden sieht man in Abbildung X den Terminplan für das Projekt.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{netzplan1.png}
+\includegraphics[width=1.0\textwidth]{netzplan1.png}
 \caption{Zeitplan - Arbeitspakete}
 \label{fig:benchsnmpbulk}
 \end{figure}
@@ -515,7 +512,7 @@ Anhand des Terminplans kann wiederum ein Gantt-Diagramm erzeugt werden, welches 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{netzplan2.png}
+\includegraphics[width=1.0\textwidth]{netzplan2.png}
 \caption{Zeitplan - Ganttdiagramm}
 \label{fig:benchsnmpbulk}
 \end{figure}
