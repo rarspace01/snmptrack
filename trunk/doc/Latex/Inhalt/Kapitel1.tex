@@ -9,8 +9,8 @@
 Unter dem Datenbankentwurf ist der Prozess zur Erstellung eines Schemas zu verstehen, welches die spätere Datenbank abbilden wird.
 Hierunter fallen unter anderem die Analyse der Anforderungen, aber auch die grafische Darstellung der Tabellen, in denen die Daten gespeichert werden.
 Der Entwurf der Datenbank vor der Implementierung ist essentiell, da im späteren Prozess Änderungen der Datenbankstruktur nicht nur die Datenbank selbst, sondern auch alle mit ihr verbundenen Applikationen betreffen werden.
-Um die Beziehungen zwischen den einzelnen Tabellen korrekt darstellen zu können, wird das Entity-Relationship-Modell\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.10} verwendet.
-Durch dieses Modell lassen sich sogenannte ER-Diagramme zeichnen, z.B. nach der Chen Notation\footnote{vgl. Peter Pin-Shan Chen(1976): The Entity-Relationship Model--Toward a Unified View of Data. In: ACM Transactions on Database Systems, Vol 1, No 1, S.19}.
+Um die Beziehungen zwischen den einzelnen Tabellen korrekt darstellen zu können, wird das Entity-Relationship-Modell\footnote{vgl. Chen, P. (1976), S. 10} verwendet.
+Durch dieses Modell lassen sich sogenannte ER-Diagramme zeichnen, z.B. nach der Chen Notation\footnote{vgl. Chen, P. (1976), S. 19}.
 Ein ER-Diagramm nach Chen stellt die Entitätstypen (Klassen), Attribute, sowie Beziehungen (Relationen/Kardinalitäten) dar.
 Im Folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation erläutert werden.\\\\
 Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
@@ -40,11 +40,10 @@ Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
 \label{chenpic2}
 \end{center}
 \end{figure}
-\footnotetext{In Anlehnung an}
 
 \subsection{Kardinalitäten}
 
-Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten.\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.20}
+Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten.\footnote{vgl. Burnus, H. (2007), S. 20}
 In Abbildung \ref{chenpic1} ist eine 1:n Kardinalität gegeben.
 Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.\\\\
 In Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
@@ -67,10 +66,10 @@ Wenn es bereits bestehende Datenbanken gibt, so muss geprüft werden, ob diese e
 Eine Optimierung der Struktur ergibt sich nicht nur, um eine bessere Übersichtlichkeit zu haben, sondern auch aus Gründen der Redundanz und der damit verbundenen Probleme.
 Durch eine nicht benötige Redundanz kommt es zu Integritäts- und Platzverlusten innerhalb der Datenbank.
 Da ein Wert an mehreren Stellen in der Datenbank steht, kann es zu Problemen bei der Aktualisierung und Löschungen kommen, da alle Werte in der Datenbank geändert werden müssten und nicht nur ein Wert.
-Dies kann anhand der sogenannten Normalisierung verhindert werden, sodass eine Optimierung stattfindet.\footnote{vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 381}\footnote{vgl. Prof. Dr. Paul. Alpar(2001): Vorlesung, Datenorganisation und Datenbanken,  http://www.tekinci.de/skripte/DBDM/DB-SS2001.pdf}
+Dies kann anhand der sogenannten Normalisierung verhindert werden, sodass eine Optimierung stattfindet.\footnote{vgl. Codd, E. (1970), S. 381}\footnote{vgl. Alpar, P. (2001), S. 33}
 Bei der Normalisierung wird überprüft, ob Tabellen gewisse Eigenschaften erfüllen und sofern dies nicht der Fall ist, wird versucht diese zu erreichen.
 Hierzu stehen bis zu fünf Stufen der Normalformen zur Verfügung.
-Diese fünf Normalformen lassen sich durch die folgenden Attribute beschreiben.\footnote{vgl. Heinz Burnus(2007): Datenbankentwicklung in IT-Berufen, 1. Auflage, S.292-308}
+Diese fünf Normalformen lassen sich durch die folgenden Attribute beschreiben.\footnote{vgl. Burnus, H. (2007), S. 292-308}
 
 \begin{enumerate}
 \item Normalform: Alle Attribute besitzen einen atomaren Wertebereich
@@ -81,7 +80,7 @@ Diese fünf Normalformen lassen sich durch die folgenden Attribute beschreiben.\
 \end{enumerate}
 
 
-In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitzt, dass heißt es enthält nur einen Wert und ist frei von Wiederholungen.\footnote{vgl. Matthias Schubert(2007): Datenbanken, Theorie, Entwurf und Programmierung relationaler Datenbanken, 2. Auflage, S.293}
+In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitzt, dass heißt es enthält nur einen Wert und ist frei von Wiederholungen.\footnote{vgl. Schubert, M. (2007), S. 293}
 
 
 \begin{figure}[H]
@@ -113,7 +112,7 @@ Um eine Normalform zu erfüllen, müssen auch alle vorhergehenden Normalformen e
 \label{sec:dbms}
 
 Ein Datenbankmanagementsystem (DBMS) organisiert die Speicherung der Daten einer Datenbank und legt die Anordnung der Daten fest.
-Zur Kommunikation mit diesem wird eine Sprache benötigt. In diesem Zusammenhang wird die deskriptive Sprache SQL verwendet.\footnote{vgl. E. F. Codd(1970): A Relational Model of Data for Large Shared Data Banks in Commun. ACM, Vol 13, Nr. 6, S. 382}\\\\
+Zur Kommunikation mit diesem wird eine Sprache benötigt. In diesem Zusammenhang wird die deskriptive Sprache SQL verwendet.\footnote{vgl. Codd, E. (1970), S. 382}\\\\
 Das DBMS legt auch die Art der Beziehung fest, in der die Daten der Datenbank stehen.\\\\
 Es gibt verschiedene Arten von DBMS:
 
@@ -124,9 +123,9 @@ Es gibt verschiedene Arten von DBMS:
 \end{itemize}
 
 %BuchURL http://www.amazon.com/gp/product/354043187X
-Ein hierarchisches DBMS dient vor allem der schnellen Suche in großen Datenbanken.\footnote{vgl. Bernd-Jürgen Falkowski(2002): Business Computing: Grundlagen und Standardsoftware, 1. Auflage, S.235}
+Ein hierarchisches DBMS dient vor allem der schnellen Suche in großen Datenbanken.\footnote{vgl. Falkowski, B. (2002), S. 235}
 Der Nachteil liegt darin, dass nur eine sequentielle Abarbeitung möglich ist und somit die Art der Abfragen mehr oder weniger schon im Voraus bestimmt sein muss.
-Im Gegensatz hierzu stehen die relationalen Datenbanksysteme, welche heutzutage den höchsten Verbreitungsrad besitzen.\footnote{Quelle}
+Im Gegensatz hierzu stehen die relationalen Datenbanksysteme, welche heutzutage den höchsten Verbreitungsrad besitzen.\footnote{Singh, S. (2009), S. 35}
 Diese bieten eine flexible Auswertung der Daten durch die deklarative Abfragesprache SQL.
 Es muss lediglich die Verknüpfung zwischen den Tabellen hergestellt werden. Dabei werden Primär- und Fremdschlüssel miteinander verknüpft.
 Hinzu kommen die objektorientierten Datenbanksysteme. Diese bieten die Möglichkeit Objekte von beliebiger Art und Weise abzuspeichern.
@@ -163,11 +162,11 @@ Dieses wiederum macht sich im höheren Preis bemerkbar.
 Weitere Vorteile der Oracle-Datenbank sind die weitgehende Betriebssystemunabhängigkeit, gute Dokumentation und der Support.
 
 MySQL ist der Open Source Pendant zu MS-SQL, welches im Internet eine sehr hohen Verbreitungsgrad aufweist.
-So wird dieses von Seiten wie Wikipedia\footnote{vgl. Mysql, http://www.mysql.com/why-mysql/scaleout/wikipedia.html} oder
-Youtube\footnote{vgl. University of Maryland: How YouTube scales MySQL for its large databases, http://ebiquity.umbc.edu/blogger/2007/12/28/how-youtube-scales-mysql-for-its-large-databases/} verwendet.
-Im Gegensatz zu MS-SQL erlaubt das GPL Lizenzmodell, dass die Datenbank für Privatanwender kostenlos ist und die Lizenzgebhren für Unternehmen einen Bruchteil der Kosten ausmachen, die für ein Microsoft System bezahlt werden müssten.\footnote{Vgl http://www.mindfactory.de/product\_info.php/pid/geizhals/info/p155132}
+So wird dieses von Seiten wie Wikipedia\footnote{vgl. Mysql, http://www.mysql.com/why-mysql/scaleout/wikipedia.html - Aufruf der Seite: 06.02.2011} oder
+Youtube\footnote{vgl. University of Maryland: How YouTube scales MySQL for its large databases, http://ebiquity.umbc.edu/blogger/2007/12/28/how-youtube-scales-mysql-for-its-large-databases/ - Aufruf der Seite: 06.02.2011} verwendet.
+Im Gegensatz zu MS-SQL verwendet MySQL das GPL Lizenzmodell, sodass die Datenbank für Privatanwender kostenlos ist und die Lizenzgebühren für Unternehmen einen Bruchteil der Kosten ausmachen, die für ein Microsoft System bezahlt werden müssten.\footnote{vgl. http://www.mindfactory.de/product\_info.php/pid/geizhals/info/p155132 - Aufruf der Seite: 06.02.2011}
 
-Eine weitere Datenbank stellt PostgreSQL dar, welches unter der BSD-Lizenz zur Verfügung gestellt wird und somit auch für kommerzielle Projekte ohne Kosten nutzbar ist\footnote{vgl. PostgreSQL: BSD-Lizenz, http://www.postgresql.org/about/licence}.
+Eine weitere Datenbank stellt PostgreSQL dar, welches unter der PostgreSQL-Lizenz zur Verfügung gestellt wird und somit auch für kommerzielle Projekte ohne Kosten nutzbar ist\footnote{vgl. PostgreSQL: Lizenz, http://www.postgresql.org/about/licence - Aufruf der Seite: 06.02.2011}.
 
 
 \section{Webserver}
@@ -177,7 +176,7 @@ Ein Webserver dient zum Bereitstellen von statischen, sowie dynamischen HTML Sei
 Der Vorteil bei Webservern liegt darin, dass nur Informationen ausgetauscht werden, die der Nutzer auch angefordert hat.
 Weiterhin bietet es den Vorteil, diese zielgerichteten Informationen einer größeren Menge an Benutzern zur Verfügung zu stellen, ohne dass spezielle Vorkehrungen zur späteren Skalierung getroffen werden müssen.\\\\
 Um dynamische Webseiten erzeugen zu können, bedarf es einer Skriptsprache.
-Aktuell haben sich folgende Sprachen etabliert:\footnote{vgl. Tiobe Software(2009): TIOBE Programming Community Index for August 2009, http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html}
+Aktuell haben sich folgende Sprachen etabliert:\footnote{vgl. Tiobe Software (Hrsg.), (2011)}
 
 \begin{itemize}
 \item ASP - Active Server Pages
@@ -200,7 +199,7 @@ Da alle der aufgeführten Skriptsprachen weitgehend Webserver-/Plattformunabhän
 Der Apache Webserver ist ein Open Source Webserver der Apache Foundation.
 Er kann unter vielen verschiedenen Betriebssystemen eingesetzt werden und unterstützt durch seine Module alle verbreiteten Scriptsprachen, sowie Datenbanken.
 
-Der IIS Webserver von Microsoft läuft ausschließlich unter Windows, zudem ist es auch nur unter dem Serverbetriebssystem von Windows möglich, mehr als zehn Verbindungen gleichzeitig aufzubauen.\footnote{vgl. Microsoft: IIS 7.0: Übersicht über die verfügbaren Features in IIS 7.0, http://msdn.microsoft.com/de-de/library/cc753198\%28WS.10\%29.aspx}
+Der IIS Webserver von Microsoft läuft ausschließlich unter Windows, zudem ist es auch nur unter dem Serverbetriebssystem von Windows möglich, mehr als zehn Verbindungen gleichzeitig aufzubauen.\footnote{vgl. Microsoft: IIS 7.0: Übersicht über die verfügbaren Features in IIS 7.0, http://msdn.microsoft.com/de-de/library/cc753198\%28WS.10\%29.aspx - Aufruf der Seite: 06.02.2011}
 
 \section{Schnittstellen}
 \label{sec:schnittstellen}
@@ -224,7 +223,7 @@ Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open 
 Hierzu muss lediglich der ODBC-Eintrag angepasst werden.
 Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit, alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom verwendeten DBMS.
 Neben der ODBC-Schnittstelle gibt es auch die JDBC-Schnittstelle bei Java.
-Zwar kann Java auch die ODBC-Schnittstelle über eine Treiber-Brücke nutzen, aber laut Oracle \footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html} soll dies nur im experimentellen Gebrauch stattfinden.
+Zwar kann Java auch die ODBC-Schnittstelle über eine Treiber-Brücke nutzen, aber laut Oracle \footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html  - Aufruf der Seite: 06.02.2011} soll dies nur im experimentellen Gebrauch stattfinden.
 Da der Einsatz eines nativen JDBC-Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind, ist die Verwendeung des nativen Treibers vorzuziehen.
 Zusätzlich gibt es noch ADO von Microsoft, welches auch als Schnittstelle für Webserver mit IIS bzw. ASP dient.
 Diese ähnelt in der Verwendung JDBC, da ebenfalls ein ODBC-Treiber angesteuert werden kann.
@@ -241,20 +240,20 @@ Die Entwicklung einer komplexen Software wird anhand eines strukturierten Projek
 Die Software wird anhand von bestimmten Schritten fertiggestellt, welche miteinander eng verzahnt sind.
 Unterschieden wird bei der Softwareentwicklung zwischen Individualsoftware und Standardsoftware.
 Bei der Standard-Software handelt es sich um Software, welche einen klar definierten Anwendungsbereich abdeckt und als vorgefertigtes Produkt erworben werden kann.
-Standardsoftware zeichnet sich somit aus, dass diese über mehrere Kunden hinweg ohne Anpassung einsetzbar ist.\footnote{Integrales Logistikmanagement. Planung und Steuerung der umfassenden Supply Chain, Paul Schönsleben, S. 435, Verlag: Springer, Berlin; Auflage: 4., überarb. u. erw. A. (März 2007)}
+Standardsoftware zeichnet sich somit aus, dass diese über mehrere Kunden hinweg ohne Anpassung einsetzbar ist.\footnote{vgl. Schönsleben, P. (2007), S. 435}
 Ein Beispiel hierfür sind branchenunabhängige Software, wie z.B. das Office-Paket, aber auch Branchensoftware, welche zielgerichtet für eine Branche ist und in dieser übergreifend eingesetzt werden kann.\\\\
-Bei der Individualsoftware handelt es sich um Software, welche individuell für einen Kunden angefertigt wurde.\footnote{Integrales Logistikmanagement. Planung und Steuerung der umfassenden Supply Chain, Paul Schönsleben, S. 436f, Verlag: Springer, Berlin; Auflage: 4., überarb. u. erw. A. (März 2007)}
+Bei der Individualsoftware handelt es sich um Software, welche individuell für einen Kunden angefertigt wurde.\footnote{vgl. Schönsleben, P. (2007), S. 436f.}
 Typisch für Individualsoftware ist es, dass zuvor keine passenden Lösungen an Standardsoftware existiert haben. 
 Es kann aber auch sein, dass die Entwicklung einer Individualsoftware trotz existierender Standardsoftware Sinn macht, sofern es monetär vorteilhaft ist.
 Eine weitere Überlegung könnte der Versuch einen Wettbewerbsvorteil gegenüber den Wettbewerbern zu erhalten oder die Optimierung einer vorhandenen Lösung sein.\\\\
 Die Umsetzung eines Projektes findet entweder intern oder von einem externen Dienstleister statt.
 Eine wichtige Rolle spielen ebenfalls die Vorgehensweisen bei der Umsetzung eines Projektes.
-Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexiblen, z.B. der Agilen Softwareentwicklung.\footnote{Praxishandbuch IT im Gesundheitswesen. Erfolgreich einführen, entwickeln, anwenden und betreiben, Christian Johner, S. 5-7, Peter Haas, Hanser Fachbuch (5. März 2009)}
+Hier gibt es die Wahl zwischen stark strukturierten Herangehensweisen, wie das Wasserfallmodell bis hin zu sehr flexiblen, z.B. der Agilen Softwareentwicklung.\footnote{Haas, P./Johner, C. (2009), S. 5-7}
 Im Folgenden soll auf die wichtigsten Kernprozesse bei der Umsetzung eines Systems in einem Projekt eingegangen werden.\\
 
 \subsection{Planung}
 
-Zu Beginn einer Systementwicklung steht die Planung, in der die Anforderungen erhoben werden.\footnote{CSCW-Kompendium: Lehr- und Handbuch zum computerunterstützten kooperativen Arbeiten, S.98,  Gerhard Schwabe, Norbert Streitz, Rainer Unland, Springer, Berlin; Auflage: 1 (1. August 2001)}
+Zu Beginn einer Systementwicklung steht die Planung, in der die Anforderungen erhoben werden.\footnote{Schwabe, G./Streitz, N./Unland, R. (2001), S. 98}
 Hierbei handelt es sich um das Sammeln aller Anforderungen, die seitens des Kundens oder aufgrund von externen Einflüssen (z.B. Gesetze) gegeben sind.
 Währenddessen ist vor allem der Dialog mit dem Kunden, aber auch mit den späteren Benutzern sowie den fachlichen Experten notwendig.
 In dieser Phase wird neben dem Lastenheft (Anforderungsdefinition) auch das Pflichtenheft erstellt. Es erfolgt auch eine Aufwandseinschätzung, sowie die Wahl des Vorgehensmodells.\\
