@@ -18,7 +18,7 @@
 % Kopfzeile ----------------------------------------------------------------
 \ihead{\headmark} %\small{\untertitel}
 \chead{\hspace{1mm}}
-\ohead{\thepage}
+\ohead{Seite \thepage}
 \setlength{\headheight}{21mm} % Hhe der Kopfzeile
 %\setheadwidth[0pt]{textwithmarginpar} % Kopfzeile ber den Text hinaus verbreitern
 \setheadsepline[text]{0.4pt} % Trennlinie unter Kopfzeile
@@ -27,6 +27,31 @@
 %\ifoot{\copyright\ \autor}
 \cfoot{\hspace{1mm}}
 \ofoot{\hspace{1mm}}
+
+%Abbildungen
+%Figures anpassung
+\makeatletter
+\@removefromreset{figure}{chapter}
+\renewcommand*\thefigure{\@arabic\c@figure}
+\makeatother
+
+\makeatletter
+\def\list@ftable{Tab. }\def\list@ffigure{Abbildung }
+\long\def\@caption#1[#2]#3{%
+  \par
+  \addcontentsline{\csname ext@#1\endcsname}{#1}%
+    {\csname list@f#1\endcsname\protect\numberline{%
+      \csname the#1\endcsname}{\ignorespaces #2}}%
+  \begingroup
+    \@parboxrestore
+    \if@minipage
+      \@setminipage
+    \fi
+    \normalsize
+    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
+  \endgroup}
+\makeatother
+
 
 
 % erzeugt ein wenig mehr Platz hinter einem Punkt --------------------------

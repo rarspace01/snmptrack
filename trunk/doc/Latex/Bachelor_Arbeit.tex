@@ -1,11 +1,11 @@
 % --------------------------------------------------------------------------
-% Formatvorlage fr Diplomarbeiten der FHWT
+% Formatvorlage für die Bacheloarbeit an der DHBW, angelehnt an eine Vorlage von Stefan Macke
 % --------------------------------------------------------------------------
-% 	Angelehnt an die Word-Vorlage von Herrn Sthrenberg
-% 	Download unter http://www.atlando.de/fhwt.htm
+% 	Angelehnt an die Vorlage von Stefan Macke. 12.07.2007
+% 	Download unter http://blog.stefan-macke.com
 %
-% 	erstellt von Stefan Macke. 12.07.2007
-% 	http://blog.stefan-macke.de
+% 	erstellt von Denis Hamann, 14.02.2011
+% 	Email: denis-hamann@arcor.de
 
 
 
@@ -80,8 +80,17 @@
 
 % keine Kopf-/Fuzeilen bei Deckblatt und Abstract
 \ofoot{}
+\ohead{}
+
+\begingroup 
+\setlength{\leftmargin}{-20mm}%
+\setlength{\rightmargin}{10mm}%
+\setlength{\topmargin}{-20mm}%
+\setlength{\footskip}{-10mm}
 \include{Deckblatt}
+\endgroup
 \include{Inhalt/Abstract}
+\ohead{Seite \thepage}
 %\ofoot{\pagemark}
 
 % Seitennummerierung -------------------------------------------------------
