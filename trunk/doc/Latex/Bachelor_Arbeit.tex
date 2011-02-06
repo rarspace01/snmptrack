@@ -18,14 +18,13 @@
 \documentclass[
 	12pt,						% Schriftgre
 	DIV10,
-	german,					% fr Umlaute, Silbentrennung etc.
+	ngerman,					% fr Umlaute, Silbentrennung etc.
 	a4paper,					% Papierformat
 	oneside,					% einseitiges Dokument
 	titlepage,				% es wird eine Titelseite verwendet
 	halfparskip,			% Abstand zwischen Abstzen (halbe Zeile)
 	normalheadings,		% Gre der berschriften verkleinern
-	liststotoc,				% Verzeichnisse im Inhaltsverzeichnis auffhren
-	bibtotoc,				% Literaturverzeichnis im Inhaltsverzeichnis auffhren
+	liststotoc,				% Verzeichnisse im Inhaltsverzeichnis auffhren %bibtotoc,				% Literaturverzeichnis im Inhaltsverzeichnis auffhren
 	idxtotoc,				% Index im Inhaltsverzeichnis auffhren
 	tablecaptionabove,	% Beschriftung von Tabellen oberhalb ausgeben
 	final						% Status des Dokuments (final/draft)
@@ -149,14 +148,18 @@
 % 		erstellt. Die genaue Verwendung von bibtex wird hier jedoch nicht erklrt.
 %		Link: http://de.wikipedia.org/wiki/BibTeX
 % --------------------------------------------------------------------------
-\bibliography{Bibliographie}
+%\bibliography{Bibliographie}
 %\bibliographystyle{natdin}		% DIN-Stil des Literaturverzeichnisses
-\bibliographystyle{gerplain}
+%\bibliographystyle{gerplain}
+
+\ihead{Quellen/Literaturverzeichnis}
+\include{Inhalt/bib}
 
 % Anhang -------------------------------------------------------------------
 %		Die Inhalte des Anhangs werden analog zu den Kapiteln inkludiert.
 %		Dies geschieht in der Datei Anhang.tex
 % --------------------------------------------------------------------------
+\ihead{\headmark}
 \begin{appendix}
 	\clearpage
 
