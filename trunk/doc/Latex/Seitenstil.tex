@@ -35,23 +35,27 @@
 \renewcommand*\thefigure{\@arabic\c@figure}
 \makeatother
 
-\makeatletter
-\def\list@ftable{Tab. }\def\list@ffigure{Abbildung }
-\long\def\@caption#1[#2]#3{%
-  \par
-  \addcontentsline{\csname ext@#1\endcsname}{#1}%
-    {\csname list@f#1\endcsname\protect\numberline{%
-      \csname the#1\endcsname}{\ignorespaces #2}}%
-  \begingroup
-    \@parboxrestore
-    \if@minipage
-      \@setminipage
-    \fi
-    \normalsize
-    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
-  \endgroup}
-\makeatother
+%%%
+%\makeatletter
+%\def\list@ftable{Tab. }\def\list@ffigure{Abbildung }
+%\long\def\@caption#1[#2]#3{%
+%  \par
+%  \addcontentsline{\csname ext@#1\endcsname}{#1}%
+%    {\csname list@f#1\endcsname\protect\numberline{%
+%      \csname the#1\endcsname}{\ignorespaces #2}}%
+%  \begingroup
+%    \@parboxrestore
+%    \if@minipage
+%      \@setminipage
+%    \fi
+%    \normalsize
+%    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
+%  \endgroup}
+%\makeatother
+%%%
+\DeclareCaptionListFormat{TESTLF}{\hspace{-19mm}Abbildung #1 #2}
 
+\captionsetup{listformat=TESTLF}
 
 
 % erzeugt ein wenig mehr Platz hinter einem Punkt --------------------------
