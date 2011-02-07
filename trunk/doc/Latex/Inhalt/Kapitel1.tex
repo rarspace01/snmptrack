@@ -45,10 +45,10 @@ Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
 
 Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten.\footnote{vgl. Burnus, H. (2007), S. 20}
 In Abbildung \ref{chenpic1} ist eine 1:n Kardinalität gegeben.
-Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.\\\\
+Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.\footnote{vgl. Moos, A. (2004), S.37}\\\\
 In Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
 Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 angehören, einem Objekt der Relation 2 werden ebenfalls mehrere Objekten der Relation 1 zugewiesen.
-Diese n:m Kardinalitäten müssen bei einem Datenbankentwurf aufgelöst werden, da hier keine eindeutige Zuordnung möglich ist. Meistens lässt sich eine solche Kardinalität wie in Abbildung \ref{chenpic2} durch das Hinzufügen einer zusätzliche Tabelle, welche beide Objekte verknüpft, lösen.
+Diese n:m Kardinalitäten müssen bei einem Datenbankentwurf aufgelöst werden,\footnote{vgl. Pernul, G./Unland R. (2003), S. 177} da hier keine eindeutige Zuordnung möglich ist. Meistens lässt sich eine solche Kardinalität wie in Abbildung \ref{chenpic2} durch das Hinzufügen einer zusätzliche Tabelle, welche beide Objekte verknüpft, lösen.
 Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
 
 \begin{figure}[H]
@@ -64,11 +64,11 @@ Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
 %\cite{codd1}
 Wenn es bereits bestehende Datenbanken gibt, so muss geprüft werden, ob diese eine optimale Struktur aufweisen.
 Eine Optimierung der Struktur ergibt sich nicht nur, um eine bessere Übersichtlichkeit zu haben, sondern auch aus Gründen der Redundanz und der damit verbundenen Probleme.
-Durch eine nicht benötige Redundanz kommt es zu Integritäts- und Platzverlusten innerhalb der Datenbank.
-Da ein Wert an mehreren Stellen in der Datenbank steht, kann es zu Problemen bei der Aktualisierung und Löschungen kommen, da alle Werte in der Datenbank geändert werden müssten und nicht nur ein Wert.
+Durch eine nicht benötige Redundanz kommt es zu Integritäts- und Platzverlusten innerhalb der Datenbank.\footnote{vgl. King, T./Reese, G./Yarger, R. (2002), S. 137}
+Da ein Wert an mehreren Stellen in der Datenbank steht, kann es zu Problemen bei der Aktualisierung und Löschungen kommen, da alle Werte in der Datenbank geändert werden müssten und nicht nur ein Wert.\footnote{vgl. Eickler, A./Kemper, A. (2006), S. 174f.}
 Dies kann anhand der sogenannten Normalisierung verhindert werden, sodass eine Optimierung stattfindet.\footnote{vgl. Codd, E. (1970), S. 381}\footnote{vgl. Alpar, P. (2001), S. 33}
 Bei der Normalisierung wird überprüft, ob Tabellen gewisse Eigenschaften erfüllen und sofern dies nicht der Fall ist, wird versucht diese zu erreichen.
-Hierzu stehen bis zu fünf Stufen der Normalformen zur Verfügung.
+Hierzu stehen bis zu fünf Stufen der Normalformen zur Verfügung.\footnote{vgl. Dietrich, M./Ussar M. (2007), S. 98}
 Diese fünf Normalformen lassen sich durch die folgenden Attribute beschreiben.\footnote{vgl. Burnus, H. (2007), S. 292-308}
 
 \begin{enumerate}
@@ -80,7 +80,7 @@ Diese fünf Normalformen lassen sich durch die folgenden Attribute beschreiben.\
 \end{enumerate}
 
 
-In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitzt, dass heißt es enthält nur einen Wert und ist frei von Wiederholungen.\footnote{vgl. Schubert, M. (2007), S. 293}
+In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitzt, dass heißt es enthält nur einen Wert und ist frei von Wiederholungen.\footnote{vgl. Schubert, M. (2007), S. 293}\footnote{vgl. Preiß, N. (2007), S. 71f.}
 
 
 \begin{figure}[H]
@@ -90,8 +90,6 @@ In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitz
 \label{chenpic4}
 \end{center}
 \end{figure}
-
-
 
 In Abbildung \ref{chenpic4} ist eine Verletzung der 1. Normalform zu sehen. Um diese aufzuheben, müssen die einzelnen Werte, wie in Abbildung \ref{chenpic5} zu sehen, getrennt werden.
 
@@ -111,7 +109,7 @@ Um eine Normalform zu erfüllen, müssen auch alle vorhergehenden Normalformen e
 \subsection{Datenbankmanagementsysteme}
 \label{sec:dbms}
 
-Ein Datenbankmanagementsystem (DBMS) organisiert die Speicherung der Daten einer Datenbank und legt die Anordnung der Daten fest.
+Ein Datenbankmanagementsystem (DBMS) organisiert die Speicherung der Daten einer Datenbank und legt die Anordnung der Daten fest.\footnote{vgl. Vossen, G. (2008), S. 27}
 Zur Kommunikation mit diesem wird eine Sprache benötigt. In diesem Zusammenhang wird die deskriptive Sprache SQL verwendet.\footnote{vgl. Codd, E. (1970), S. 382}\\\\
 Das DBMS legt auch die Art der Beziehung fest, in der die Daten der Datenbank stehen.\\\\
 Es gibt verschiedene Arten von DBMS:
@@ -124,12 +122,13 @@ Es gibt verschiedene Arten von DBMS:
 
 %BuchURL http://www.amazon.com/gp/product/354043187X
 Ein hierarchisches DBMS dient vor allem der schnellen Suche in großen Datenbanken.\footnote{vgl. Falkowski, B. (2002), S. 235}
-Der Nachteil liegt darin, dass nur eine sequentielle Abarbeitung möglich ist und somit die Art der Abfragen mehr oder weniger schon im Voraus bestimmt sein muss.
+Der Nachteil liegt darin, dass nur eine sequentielle Abarbeitung möglich ist und somit die Art der Abfragen mehr oder weniger schon im Voraus bestimmt sein muss.\footnote{vgl. Heuer, A./Saake, G./Sattler, K. (2005), S. 242}
 Im Gegensatz hierzu stehen die relationalen Datenbanksysteme, welche heutzutage den höchsten Verbreitungsrad besitzen.\footnote{Singh, S. (2009), S. 35}
-Diese bieten eine flexible Auswertung der Daten durch die deklarative Abfragesprache SQL.
+Diese bieten eine flexible Auswertung der Daten und erlauben auch einen selektiven Zugriff.
+Abfragen werden meist durch die deklarative Abfragesprache SQL bewerkstelligt.
 Es muss lediglich die Verknüpfung zwischen den Tabellen hergestellt werden. Dabei werden Primär- und Fremdschlüssel miteinander verknüpft.
-Hinzu kommen die objektorientierten Datenbanksysteme. Diese bieten die Möglichkeit Objekte von beliebiger Art und Weise abzuspeichern.
-Problematisch hierbei sind jedoch die Formulierung von geeigneten Abfragen, weswegen diese in der Praxis eher selten und meist im Bereich von Multimedialen-Anwendungen anzutreffen sind.%\footnote{NOTIZ ODBMS evtl}\\\\
+Hinzu kommen die objektorientierten Datenbanksysteme. Diese bieten die Möglichkeit Objekte von beliebiger Art und Weise abzuspeichern und ähnlich wie in der objektorientierten Programmierung Objekte von Klassen abzuleiten.\footnote{vgl. Schicker, E. (2000), S. 278f.}
+Problematisch hierbei sind jedoch die Formulierung von geeigneten Abfragen, weswegen diese in der Praxis eher selten und meist im Bereich von Multimedialen-Anwendungen anzutreffen sind.\footnote{vgl. Fonth, E. (2007), S. 9}\\\\
 Wird versucht, verschiedene relationale DBMS in der Praxis zu vergleichen, so ist eine große Anzahl an verschiedenen Systemen zu finden.
 Im Anschluss soll auf die, in der Praxis verwendeten relationalen DBMS eingegangen werden.
 
