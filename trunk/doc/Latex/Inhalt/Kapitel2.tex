@@ -95,7 +95,7 @@ Um die Anforderungen bewerten zu können, muss man sich zunächst mit den Techno
 Zunächst einmal muss untersucht werden, ob die im Unternehmen befindlichen Switches auch das SNMP-Protokoll soweit unterstützen, um das Auslesen zu ermöglichen.
 Dies wurde überprüft und bei vereinzelten Switches musste die Konfiguration angepasst werden, da hier teilweise SNMP deaktiviert oder nur für spezielle Hosts zugelassen war.\\\\
 Im nächsten Schritt galt es zu überprüfen, ob die benötigten Informationen per SNMP überhaupt abfragbar sind. Problematisch hierbei ist vor allem, dass Hersteller zwar eigene MIBs bei SNMP verwenden, über diese lassen sich jedoch nicht die gleichen Informationen abfragen, wie über die proprietären Protokolle der Hersteller.
-Bei der Überprüfung der Zuordnung zwischen MAC-Adresse der angeschlossenen Ports wurde festgestellt, dass diese zwar möglich ist, aber eine sehr spezielle Vorgehensweise vorrausetzt.\footnote{vgl. SNMP Cisco PDF}\\\\
+Bei der Überprüfung der Zuordnung zwischen MAC-Adresse der angeschlossenen Ports wurde festgestellt, dass diese zwar möglich ist, aber eine sehr spezielle Vorgehensweise vorrausetzt.\footnote{vgl. Cisco (Hrsg.) (2005)}\\\\
 Problematisch ist vorallem die genaue Zuordnung der Hosts an den korrekten Switch. So kann es sein, dass die MAC-Adresse eines Hosts sowohl auf einem Access-Switch als auch auf einem Distribution-Switch zu finden ist.
 Hierfür muss eine eindeutige Identifizierung stattfinden, welcher Switch welche Hierarchieebene angehört. Diese Informationen müssten manuell gepflegt werden oder anhand einer automatischen Hierarchieerkennung erhalten werden.\\\\
 Die Anforderung alle Hosts hinter einem Port zu finden, stellt kein Problem dar, da dies von allen Switches per SNMP unterstützt wird.\\\\
@@ -128,23 +128,23 @@ Diese Daten können bei Bedarf als Histogramme angezeigt werden, z.B. für den a
 Ebenso bietet sich die Möglichkeit einer Art Übersichtskarte die automatisch anhand der vorhandenden Netzwerkgeräte generiert wird. Die notwendigen Informationen hierfür werden per SNMP und CDP ausgelesen. Zusätzlich wird zur Statusüberprüfung auf Funktionen wie ein Ping zurückgegriffen\\\\
 Eine weiteres kommerzielles System ist CiscoWorks von Cisco. Dieses bietet untere anderem ein spezielles Usertracking-Modul, welches einem ermöglicht, alle Hosts in einem Netzwerk zu identifizieren, aber auch die dazugehörigen Switches, an die jeweils die Geräte angeschlossen sind anzuzeigen. Diese Informationen können teilweise auch per CDP (Cisco Discovery Protokoll) ausgelesen werden.
 Über die per CDP bereitgestellten Daten wird auch ein automatisches sequentielles Auslesen aller Switches im Netzwerk ermöglicht, ohne zuvor diese zu kennen, jedoch müssen die notwendigen Zugangsdaten trotzdem zur Verfügung gestellt werden.\\\\
-Das Open Source Programm Nagios dient vor allem zum Überwachen von verschiedenen Geräten im Netzwerk, sowie deren Dienste.\footnote{Nagios: System and Network Monitoring, S. 66+96 , Wolfgang Barth, No Starch Press; Auflage: 2nd Edition. (7. Oktober 2008)}
+Das Open Source Programm Nagios dient vor allem zum Überwachen von verschiedenen Geräten im Netzwerk, sowie deren Dienste.\footnote{vgl. Barth, W. (2008), S. 66+96}
 Hierbei arbeitet es ebenfalls per SNMP, jedoch ist es aber nicht auf dieses allein angewiesen.
 Sofern eingerichtet, kann es auch einfach per TCP oder UDP die Dienste überprüfen.
 Es können aber auch Remote Skripts per SSH aufgerufen werden.
 Jedoch ist hierbei zu beachten, dass Nagios nur das Überwachen von bekannten und zuvor konfigurierten Hosts und Diensten unterstützt und somit für die gewünschte Anforderung nicht in Frage kommt.\\\\
-Ein System , welches die Anforderungen teilweise erfüllt, ist Tirtih.
-Dieses Programm wird vom Fraunhofer Institut eingesetzt im Kompetenzzentrum Netzwerkmanagement und ist Open Source. Es unterstützt das Auslesen von diversen Cisco Switches sowie deren jeweiligen Hosts.
-Zusätzlich liest Tirtih eine Großzahl an Infromationen über die Switches sowie das bestehende VLAN aus.
-Funktionen die Tirtih nicht bietet, sind ein paralleles Auslesen der Switches und es verfügt auch nicht über eine Historie, wenn ein Port an einem Switch getauscht werden sollte.
-\footnote{http://www.gambitcomm.com/site/products/mgmt\_apps/interopnet98.htm
-http://www.fernuni-hagen.de/BWLPIT/LADV\_/PDF\_Dateien/Hinweise\_Anfertigung\_wiss\_Arbeiten.PDF}
+Ein System , welches die Anforderungen teilweise erfüllt, ist Tirith.
+Dieses Programm wird vom Fraunhofer Institut eingesetzt im Kompetenzzentrum Netzwerkmanagement und ist Open Source.\footnote{Siehe: http://www.cc-lan.fraunhofer.de/projekte/tirith/ - Aufruf der Seite: 07.02.2011}
+Es unterstützt das Auslesen von diversen Cisco Switches sowie deren jeweiligen Hosts.
+Zusätzlich liest Tirith eine Großzahl an Infromationen über die Switches sowie das bestehende VLAN aus.
+Funktionen die Tirith nicht bietet, sind ein paralleles Auslesen der Switches und es verfügt auch nicht über eine Historie, wenn ein Port an einem Switch getauscht werden sollte.
+\footnote{vgl. Müller, J. (2004)}
 
 \section{Entscheidung zur eigenen Programmierung}
 \label{sec:decisionowncreating}
 
 Vergleicht man alle aufgeführten Systeme, so lässt sich feststellen, dass keine der genannten Lösungen den Anforderungen entspricht.
-Zwar bietet Tirtih einen Teil der gewünschten Funktionen, jedoch müsste dies erst auf die speziellen Bedürfnisse angepasst werden, die das Unternehmen benötigt.
+Zwar bietet Tirith einen Teil der gewünschten Funktionen, jedoch müsste dies erst auf die speziellen Bedürfnisse angepasst werden, die das Unternehmen benötigt.
 Aufgrund dieser Tatsache empfiehlt sich eine eigene Implementierung, da diese die Möglichkeit gibt, besonders auf die Anforderungen einzugehen und keine Einarbeitungszeit in eine fremde System-Architektur notwendig macht.
 Selbstverständlich sind mit einer eigenen Implementierung gewisse Risiken verbunden, darunter auch der knappe Zeitrahmen.
 In der Anforderungsanalyse wurden diese aber bereits abgewegt und eine Machbarkeit des Systems festgestellt.
@@ -555,7 +555,7 @@ In Abbildung X ist der Start des Programms zu sehen. In diesem ist auch zu erken
 Zusätzlich werden fehlerhafte Einträge innerhalb der XML-Dateien einfach ignoriert.\\\\
 Die Weboberfläche des Systems wurde per PHP realisiert.
 Bei dieser kommen Cascading Style Sheets und Java Script zum Einsatz.
-Um die Zeit für die Implementierung zu veringern, wurde auf die freie CMS Tints zurückgegriffen.\footnote{http://sourceforge.net/projects/tints-system/}
+Um die Zeit für die Implementierung zu veringern, wurde auf die freie CMS Tints zurückgegriffen und diese dementsprechend angepasst.\footnote{http://sourceforge.net/projects/tints-system/}
 \\
 \begin{figure}[H]
 \centering
@@ -639,8 +639,8 @@ Das heißt, es wird für N der Wert 10 angesetzt und führt somit zu:
 \\
 10*157=1570\\
 \\
-Vergleicht man dies mit dem Wert der gleichzeitig offenen Tabelleneinträge bei einzelner Ausführung von 10, ist ein merklicher Unterschied zu erkennen. Vergleicht man nun die erhaltene Zahl mit dem Standard Wert von 50,\footnote{vgl. http://download.oracle.com/docs/cd/B19306\_01/server.102/b14237/initparams138.htm  http://wiki.oracle.com/page/OPEN\_CURSORS} so lässt sich feststellen, dass der Wert einer gesammelten Durchführung den Standard-Wert um ein vielfaches überschreitet.
-Oracle selbst empfiehlt den Wert zu erhöhen und liefert teilweise \footnote{vgl.} die Oracle Datenbank mit dem Wert 300 aus. Eine Erhöhung des Wertes bringt keinerlei Performencenachteile mit sich, jedoch dient die Begrenzung dazu, um Applikationen, welche die Tabelleneinträge nicht korrekt schließen, daran zu hindern, ein Großteil der Tabellen zu blockieren. Daher wurde der Wert auf 2000 erhöht, um auch die Spitzen im Ausleseprozess abzufangen.\\\\
+Vergleicht man dies mit dem Wert der gleichzeitig offenen Tabelleneinträge bei einzelner Ausführung von 10, ist ein merklicher Unterschied zu erkennen. Vergleicht man nun die erhaltene Zahl mit dem Standard Wert von 50,\footnote{vgl. Oracle® Database Reference, http://download.oracle.com/docs/cd/B19306\_01/server.102/b14237/initparams138.htm - Aufruf der Seite: 07.02.2011} so lässt sich feststellen, dass der Wert einer gesammelten Durchführung den Standard-Wert um ein vielfaches überschreitet.
+Oracle selbst empfiehlt den Wert zu erhöhen und liefert teilweise \footnote{vgl. Oracle Wiki, http://wiki.oracle.com/page/OPEN\_CURSORS - Aufruf der Seite: 07.02.2011} die Oracle Datenbank mit dem Wert 300 aus. Eine Erhöhung des Wertes bringt keinerlei Performencenachteile mit sich, jedoch dient die Begrenzung dazu, um Applikationen, welche die Tabelleneinträge nicht korrekt schließen, daran zu hindern, ein Großteil der Tabellen zu blockieren. Daher wurde der Wert auf 2000 erhöht, um auch die Spitzen im Ausleseprozess abzufangen.\\\\
 Neben diesen Tests, welche zu Design Entscheidungen dienten, wurden während der Implementierung durchgängig Tests durchgeführt, die den Funktionsumfang sicherstellen bzw. Funktionen an Ort und Stelle zu überprüfen.\\\\
 Der abschließende Test, welcher alle Funktionen des Programms überprüfen soll, wird anhand der Usecases bzw. der Anforderungen abgeleitet. Von diesen wiederum kommt man auch auf die technischen Einzelheiten, wie z.B. das Ausleseprogramm.
 Es müssen folgende Programmteile getestet werden:\\
@@ -699,7 +699,7 @@ Im Vergleich dazu hat eine selbst entwickelte Lösung keinerlei Lizenzkosten und
 Trotzdem ist es sinnvoll zu kalkulieren, in welcher Höhe Kosten bei der eigenständigen Entwicklung entstehen.
 Da für eine detailierte Berechnung die Personalkosten eingeplant werden müssen, ist es notwendig zuerst erst ein Stundensatz zu definieren.
 Um einen Vergleich erstellen zu können, ist es ratsam die Kosten zu berechnen, wenn das System von einer externe Person und wenn es von einer internen Person erstellt wird.
-Vergleicht man die Zahlen für einen Software-Entwickler im externen Umfeld, so lässt sich ein Durchschnittswert von 65€/Stunde festlegen.\footnote{Vgl. Diverse Stundensätze in der Software-Entwicklung}
+Vergleicht man die Zahlen für einen Software-Entwickler im externen Umfeld, so lässt sich ein Durchschnittswert von 65€/Stunde festlegen.\footnote{vgl. GULP-Stundesatz Kalkulator, http://www.gulp.de/cgi-gulp/trendneu.exe/MONEYFORMDLL?txtPosition=IT+Allgemein+&txtFachSchwer=Java+Oracle&lstvAndOr=und&resultsample=10 - Abgerufen - 07.02.2011}
 Neben den Kosten spielt natürlich der Faktor Zeit ebenfalls eine wichtige Rolle. Für die Umsetzung des Projektes wurde in Kapitel X eine Annahme getroffen über die Zeit, die benötigt wird, das Projekt umzusetzen. Jedoch muss bei dieser Schätzung bedacht werden, dass hierbei, neben einer Einarbeitungszeit, gleichzeitig eine Bachelorarbeit geschrieben wird und die Erfahrung des Entwicklers nicht auf dem selben Level eines externen Spezialisten ist. Grob geschätzt ist also die Annahme von 50 Werktagen auf ca. die Hälfte reduzierbar. Bei einer Annahme von 30 Tagen (zu je 8 Stunden pro Tag) ergibt sich eine Stundenzahl von 240 für das Projekt.
 Verrechnet man diese Stundenzahl mit dem Stundenlohn, so erhält man 15.600€. Dieser Wert liegt deutlich über dem Wert einer neuen Lizenz. Daher ist von einer Umsetzung des Projektes von einem externen Entwickler abzuraten. Für die Umsetzung durch einen internen Entwickler liegen leider keine genauen Zahlenwerte vor, daher wird ein Beispielhafter Wert angenommen, wie er in jedem Unternehmen gültig sein könnte. Für einen Mitarbeiter, der mit allen Kosten (inkl. betrieblicher Anteil der Versicherungen) 5000€ pro Monat Kosten verursacht, lässt sich bei einer durchschnittlichen Zahl von 20 Werktagen pro Monat und einer 40 Stunden Woche, ein Stundenlohn wie folgt berechnen:\\
 \\
@@ -733,7 +733,8 @@ CiscoWorks LMS 4.0 -> September 2010\\
 \\
 Diese Daten ergeben einen Durschnittswert von einer Version in 2,5 Jahren.
 Setzt man diesen auf drei Jahre, ist dies dann auch ein realistischer Wert, wenn die beiden letzten Versionen im Bezug gesehen werden. Somit kann man von einem Kostenpunkt von fortlaufend von 8000/3=2667€ pro Jahr ausgehen. Mit diesen Werten lässt sich eine grobe Schätzung für die kommenden Jahre bewerkstelligen.
-Um ebenfalls der Inflation gerecht zu werden wird eine Inflation von 2\% angenommen, basierend auf der Inflation von 3,06\% der letzten 36 Jahre \footnote{vgl. stat. Bundesamt} und der aktuellen Situation (vgl. stat. Bundesamt).
+Um ebenfalls der Inflation gerecht zu werden wird eine Inflation von 2\% angenommen, basierend auf der Inflation von 3,06\% der letzten 36 Jahre \footnote{vgl. Statistisches Bundesamt - Genesis-Datenbank} und der aktuellen Situation (vgl. stat. Bundesamt).
+%https://www-genesis.destatis.de/genesis/online;jsessionid=EAB152D1233569D94D5BBAD6DD0E8733.tomcat_GO_1_1?operation=previous&levelindex=3&levelid=1297088550526&step=3
 Kosten die bei der Wahl der Updates für die nächsten fünf Jahre entstehen:\\
 \\
 2667*(1,02)\^(1-1)+2667*(1,02)\^(2-1)+2667*(1,02)\^(3-1)+2667*(1,02)\^(4-1)+2667*(1,02)\^(5-1)=
