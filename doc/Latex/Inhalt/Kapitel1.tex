@@ -140,15 +140,15 @@ Im Anschluss soll auf die, in der Praxis verwendeten relationalen DBMS eingegang
 \item PostgreSQL
 \end{itemize}
 
-Die Microsoft Jet Engine (Access) ist ein dateibasierendes DBMS, welches dem Benutzer eine einfache Möglichkeit bietet, Daten in einer Datenbank zu speichern und passende Oberflächen (Frontends) in der Datenbank zu integrieren.
+Die Microsoft Jet Engine (Access) ist ein dateibasierendes DBMS, welches dem Benutzer eine einfache Möglichkeit bietet, Daten in einer Datenbank zu speichern und passende Oberflächen (Frontends) in der Datenbank zu integrieren.\footnote{vgl. Birnbam, D. (2003), S. 328}
 Bei diesem System, wie bei allen anderen dateibasierenden DBMS, steht meist die einfache Konfigurierbarkeit im Vordergrund. Die Datenbanken sind meist für einen Einzeluser-Betrieb ausgelegt und spielen hier auch ihre Stärken aus.
 Wird eine dateibasierende Datenbank von mehreren Usern benutzt, so zeigen sich die Nachteile einer solchen Datenbank.
-Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht, entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Daher nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.
+Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht, entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Daher nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.\footnote{vgl. Nicol, N./Albrecht, R. (2004), S. 963}
 Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, da sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.\\\\
 MS-SQL ist ein relationales DBMS, welches von Microsoft erwerbbar
 und in den verschiedenen Windows-Serverbetriebssystemen enthalten ist.
 Für Entwickler ohne Enterprise Lizenz wird eine eingeschränkte Express Version zur Verfügung gestellt.
-MS-SQL ist im Gegensatz zu Access kein dateibasierendes DBMS, sondern ein zentralisiertes, dass auf einem Server läuft.
+MS-SQL ist im Gegensatz zu Access kein dateibasierendes DBMS, sondern ein zentralisiertes, dass auf einem Server läuft.\footnote{vgl. MacDonald, M. (2007), S. 5}
 Hierdurch werden die Nachteile des dateibasierenden zu den Vorteilen des serverbasierenden Systems.
 Da der Server selbst die Abfragen verwaltet und zusätzlich Abfragen im Arbeitsspeicher ablegt, sowie dem Benutzer nur die Daten
 sendet, die er auch angefordert hat und nicht die komplette Datei, werden Zugriffszeiten
@@ -156,16 +156,16 @@ und Netzwerk/Festplattenlast optimiert.\\\\
 Ein weiteres DBMS stellt der Datenbankserver 'Oracle Database' von Oracle dar.
 Die Lizenzstruktur ähnelt der von Microsoft.
 So gibt es auch hier kostenfreie und kostenpflichtige Varianten.
-Im Gegenzug zum MS-SQL Server bietet Oracle ein breiteres Spektrum an Funktionalitäten und eine größere Konfigurationsmöglichkeit.
+Im Gegenzug zum MS-SQL Server bietet Oracle ein breiteres Spektrum an Funktionalitäten und eine größere Konfigurationsmöglichkeit.\footnote{vgl. Zehoo, E. (2010), S. 2}
 Dieses wiederum macht sich im höheren Preis bemerkbar.
 Weitere Vorteile der Oracle-Datenbank sind die weitgehende Betriebssystemunabhängigkeit, gute Dokumentation und der Support.
 
 MySQL ist der Open Source Pendant zu MS-SQL, welches im Internet eine sehr hohen Verbreitungsgrad aufweist.
-So wird dieses von Seiten wie Wikipedia\footnote{vgl. Mysql, http://www.mysql.com/why-mysql/scaleout/wikipedia.html - Aufruf der Seite: 06.02.2011} oder
-Youtube\footnote{vgl. University of Maryland: How YouTube scales MySQL for its large databases, http://ebiquity.umbc.edu/blogger/2007/12/28/how-youtube-scales-mysql-for-its-large-databases/ - Aufruf der Seite: 06.02.2011} verwendet.
-Im Gegensatz zu MS-SQL verwendet MySQL das GPL Lizenzmodell, sodass die Datenbank für Privatanwender kostenlos ist und die Lizenzgebühren für Unternehmen einen Bruchteil der Kosten ausmachen, die für ein Microsoft System bezahlt werden müssten.\footnote{vgl. http://www.mindfactory.de/product\_info.php/pid/geizhals/info/p155132 - Aufruf der Seite: 06.02.2011}
+So wird dieses von Seiten wie Wikipedia\footnote{vgl. Gilmore, J. (2010), S. 484} oder
+Youtube\footnote{vgl. Cronan, J./Matthews, M. (2009), S. 240} verwendet.
+Im Gegensatz zu MS-SQL verwendet MySQL das GPL Lizenzmodell, sodass die Datenbank für Privatanwender kostenlos ist und die Lizenzgebühren für Unternehmen einen Bruchteil der Kosten ausmachen, die für ein Microsoft System bezahlt werden müssten.\footnote{vgl. http://www.mindfactory.de/product\_info.php/info/p700694 - Aufruf der Seite: 06.02.2011}
 
-Eine weitere Datenbank stellt PostgreSQL dar, welches unter der PostgreSQL-Lizenz zur Verfügung gestellt wird und somit auch für kommerzielle Projekte ohne Kosten nutzbar ist\footnote{vgl. PostgreSQL: Lizenz, http://www.postgresql.org/about/licence - Aufruf der Seite: 06.02.2011}.
+Eine weitere Datenbank stellt PostgreSQL dar, welches unter der PostgreSQL-Lizenz zur Verfügung gestellt wird und somit auch für kommerzielle Projekte ohne Kosten nutzbar ist.\footnote{vgl. PostgreSQL: Lizenz, http://www.postgresql.org/about/licence - Aufruf der Seite: 06.02.2011}\footnote{vgl. Eisentraut, P./Helmle, B. (2010), S. 277}
 
 
 \section{Webserver}
@@ -195,7 +195,7 @@ Da alle der aufgeführten Skriptsprachen weitgehend Webserver-/Plattformunabhän
 \item IIS - Internet Information Services
 \end{itemize}
 
-Der Apache Webserver ist ein Open Source Webserver der Apache Foundation.
+Der Apache Webserver ist ein Open Source Webserver der Apache Foundation.\footnote{vgl. Apache Software Foundation (Hrsg.) (2010), S. 16}
 Er kann unter vielen verschiedenen Betriebssystemen eingesetzt werden und unterstützt durch seine Module alle verbreiteten Scriptsprachen, sowie Datenbanken.
 
 Der IIS Webserver von Microsoft läuft ausschließlich unter Windows, zudem ist es auch nur unter dem Serverbetriebssystem von Windows möglich, mehr als zehn Verbindungen gleichzeitig aufzubauen.\footnote{vgl. Microsoft: IIS 7.0: Übersicht über die verfügbaren Features in IIS 7.0, http://msdn.microsoft.com/de-de/library/cc753198\%28WS.10\%29.aspx - Aufruf der Seite: 06.02.2011}
@@ -217,14 +217,14 @@ Zurzeit haben sich verschiedene Varianten etabliert:
 
 Jedes etablierte DBMS bietet für Entwickler eine native Schnittstelle zum Ansprechen der Datenbank an.
 Diese wird meist in verschiedenen Programmiersprachen angeboten, unter anderem C/C++, PHP usw..
-Die native Methode besitzt den Vorteil, dass sie den vollen Umfang der Funktionen der Datenbank ermöglicht. Dahingegen existieren diese keine einheitlichen Design Patterns , was die Verwendungen von verschiedenen DBMS erschwert.\\\\
-Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht, ohne Veränderung des Quellcodes, das Datenbanksystem zu wechseln.
+Die native Bibliothek besitzt den Vorteil, dass sie den vollen Funktionsumfang, sowie den größten Datendurchsatz mit der Datenbank ermöglicht. \footnote{vgl. Wutka, M. (2001), S. 76}Im Gegensatz dazu, existieren keine einheitlichen Design Patterns für diese, wodruch die Verwendungen von verschiedenen DBMS erschwert wird.\\\\
+Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht, ohne Veränderung des Quellcodes, das Datenbanksystem zu wechseln.\footnote{vgl. Taylor, A. (2007), S. 322}
 Hierzu muss lediglich der ODBC-Eintrag angepasst werden.
 Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit, alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom verwendeten DBMS.
 Neben der ODBC-Schnittstelle gibt es auch die JDBC-Schnittstelle bei Java.
 Zwar kann Java auch die ODBC-Schnittstelle über eine Treiber-Brücke nutzen, aber laut Oracle \footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html  - Aufruf der Seite: 06.02.2011} soll dies nur im experimentellen Gebrauch stattfinden.
 Da der Einsatz eines nativen JDBC-Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind, ist die Verwendeung des nativen Treibers vorzuziehen.
-Zusätzlich gibt es noch ADO von Microsoft, welches auch als Schnittstelle für Webserver mit IIS bzw. ASP dient.
+Zusätzlich gibt es noch ADO von Microsoft, welches auch als Schnittstelle für Webserver mit IIS bzw. ASP dient.\footnote{vgl. Roff, J. (2000), S. 3}
 Diese ähnelt in der Verwendung JDBC, da ebenfalls ein ODBC-Treiber angesteuert werden kann.
 Der Verbindungsaufbau ist ähnlich einfach gestaltet und ermöglicht auch für Webanwendungen eine einfache Anbindung an die Datenbank.
 
