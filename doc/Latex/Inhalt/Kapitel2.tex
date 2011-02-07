@@ -14,9 +14,9 @@ Darstellung und Überwachung des Netzwerkequipments\\
 Überwachung von einzelnen Hosts im Netzwerk\\
 
 Zur Überwachung der Stati der einzelnen Netzwerkgeräte, im Speziellen die Switches und Router, wird das Programm “OpenView Network Node Manager” von HP verwendet.
-Zurzeit wird das Programm verwendet um eine automatische Übersicht über die Relationen zwischen den Switches und Routern und eine grafische Übersicht über den Status der Switchs und Router zu haben zu erhalten.
+Zurzeit wird das Programm verwendet, um eine automatische Übersicht über die Relationen zwischen den Switches und Routern und eine grafische Übersicht über den Status der Switchs und Router zu erhalten.
 Über dieses Programm können auch Server und deren Dienste erfasst werden.
-Diese Funktion wird jedoch aktuell nicht mehr mit Daten gepflegt, da hier aktuell ein Transfer zum Nagios System stattfindet, aufgrund der Tatsache, dass die Wartung von OpenView ausgelaufen ist.\\\\
+Diese Funktion wird jedoch aktuell nicht mehr mit Daten gepflegt, da hier aktuell ein Transfer zum Nagios System stattfindet. Der Transfer findet aufgrund der Tatsache, dass die Wartung von OpenView ausgelaufen ist, statt.\\\\
 Für die Überwachung spezieller Hosts (in der Praxis meist Server) und Diensten, kommt das Open Source System Nagios zum Einsatz, welches ein hohes Maß an Flexibilität und Modularität bietet.
 Dieses Programm ermöglicht es, diverse Dienste im Netzwerk auf vorgegebenen Hosts abzufragen und diese anschließend zu visualisieren.
 Zusätzlich können verschiedene Warn- und Fehlerlevels für einen Service definiert werden, die im Falle einer Störung Warnungen an vordefinierte Personen verschicken.
@@ -24,7 +24,7 @@ Dieses System ist somit hauptsächlich für die Überwachung der Dienste zustän
 Zur Untersuchung von Netzwerk-Traffic zwischen verschiedenen Netzwerken kommt das System MRTG zum Einsatz, welches hauptsächlich für das Anzeigen des Netzwerktraffics auf Routern ausgelegt ist.
 Dieses wird im Unternehmen hauptsächlich zum Erfassen der Bandbreitennutzung der Router bzw. der WAN-Verbindungen verwendet.
 Dies ist vor allem wichtig, um den aktuellen Traffic zwischen den einzelnen Standorten in Deutschland im Überblick zu behalten.\\\\
-Abschließend gibt es noch ein System von Cisco, mit dem Namen “CiscoWorks”, welches dazu dient, mit einem speziellen Programmteil die Hosts an den jeweiligen Switches zu erkennen und zu identifizieren.
+Abschließend gibt es noch ein System von Cisco mit dem Namen “CiscoWorks”, welches dazu dient, mit einem speziellen Programmteil die Hosts an den jeweiligen Switches zu erkennen und zu identifizieren.
 Hier werden nicht nur simple Zuordnungen zwischen MAC-Adresse des Hosts und des Switches, bzw. des Port des Switches hergestellt,
 sondern umfangreiche Informationen gesammelt, z.B. über die Geschwindigkeit des Anschlusses, die IP und der DNS-Hostname des Gerätes.
 Hinzu kommen Details, wie der Gerätetyp, welcher einem die Möglichkeit gibt, zu erkennen, ob es sich hierbei um ein Switch oder Router handelt.\\
@@ -56,7 +56,7 @@ Durch Gespräche mit den zuständigen Mitarbeitern wurden diverse Anforderungen 
 Als wichtigster Punkt ist die Erkennung der Hosts, sowie der zugehörigen Ports an den Switches zu sehen.
 Diese ist notwendig um den Ort eines Hosts im Netzwerk festzustellen. Praktische Anwendung hat dies, wenn zum Beispiel ein Host aufgefunden werden muss, wenn der zugehörige Mietschein des Computers ausläuft und dieser zurückgegeben werden muss.
 Hier ist es nicht selten der Fall, dass der Computer mit seinem dazugehörigen Besitzer bereits die damalige Abteilung verlassen hat und dieser somit nicht mehr auffindbar ist.
-Eine weiterere Anwendungsmöglichkeit ist, dass der Helpdesk wissen möchte, wenn es Probleme mit einem Computer gibt, ob die Netzwerk-Hardware bis zum Host einwandfrei funktioniert. Hierfür musss man nicht nur wissen, an welchem Ort der Host sich befindet, sondern auch die dazugehörigen Ports.
+Eine weiterere Anwendungsmöglichkeit ist, dass der Helpdesk wissen möchte, wenn es Probleme mit einem Computer gibt, ob die Netzwerk-Hardware bis zum Host einwandfrei funktioniert. Hierfür muss man nicht nur wissen, an welchem Ort der Host sich befindet, sondern auch die dazugehörigen Ports.
 Da die Ports als auch die Switches ausgelesen werden, kann man somit zeitnah eine Rückmeldung geben, dass der Switch, sowie dessen Port einwandfrei funktionieren, oder falls dies nicht der Fall ist, den Fehler besser lokalisieren. Somit ist selbst bei keinerlei Kenntnis des Hosts außer der DNS oder der IP, eine direkte Lokalisierung und Bewertung des Status möglich.\\\\
 Ein weiterer wichtiger Aspekt ist die Möglichkeit genau herauszufinden, welche Hosts hinter einem Port angeschlossen sind.
 In der Praxis ist dies wichtig, da es vorkommen kann, dass unerwünschte Netzwerkgeräte angeschlossen wurden.
@@ -95,7 +95,7 @@ Um die Anforderungen bewerten zu können, muss man sich zunächst mit den Techno
 Zunächst einmal muss untersucht werden, ob die im Unternehmen befindlichen Switches auch das SNMP-Protokoll soweit unterstützen, um das Auslesen zu ermöglichen.
 Dies wurde überprüft und bei vereinzelten Switches musste die Konfiguration angepasst werden, da hier teilweise SNMP deaktiviert oder nur für spezielle Hosts zugelassen war.\\\\
 Im nächsten Schritt galt es zu überprüfen, ob die benötigten Informationen per SNMP überhaupt abfragbar sind. Problematisch hierbei ist vor allem, dass Hersteller zwar eigene MIBs bei SNMP verwenden, über diese lassen sich jedoch nicht die gleichen Informationen abfragen, wie über die proprietären Protokolle der Hersteller.
-Bei der Überprüfung der Zuordnung zwischen MAC-Adresse der angeschlossenen Ports wurde festgestellt, dass diese zwar möglich ist, aber eine sehr spezielle Vorgehensweise vorrausetzt.\footnote{vgl. Cisco (Hrsg.) (2005)}\\\\
+Bei der Überprüfung der Zuordnung zwischen MAC-Adresse der angeschlossenen Ports wurde festgestellt, dass diese zwar möglich ist, aber eine sehr spezielle Vorgehensweise vorrausetzt.\footnote{vgl. Cisco (2005)}\\\\
 Problematisch ist vorallem die genaue Zuordnung der Hosts an den korrekten Switch. So kann es sein, dass die MAC-Adresse eines Hosts sowohl auf einem Access-Switch als auch auf einem Distribution-Switch zu finden ist.
 Hierfür muss eine eindeutige Identifizierung stattfinden, welcher Switch welche Hierarchieebene angehört. Diese Informationen müssten manuell gepflegt werden oder anhand einer automatischen Hierarchieerkennung erhalten werden.\\\\
 Die Anforderung alle Hosts hinter einem Port zu finden, stellt kein Problem dar, da dies von allen Switches per SNMP unterstützt wird.\\\\
@@ -555,7 +555,7 @@ In Abbildung X ist der Start des Programms zu sehen. In diesem ist auch zu erken
 Zusätzlich werden fehlerhafte Einträge innerhalb der XML-Dateien einfach ignoriert.\\\\
 Die Weboberfläche des Systems wurde per PHP realisiert.
 Bei dieser kommen Cascading Style Sheets und Java Script zum Einsatz.
-Um die Zeit für die Implementierung zu veringern, wurde auf die freie CMS Tints zurückgegriffen und diese dementsprechend angepasst.\footnote{http://sourceforge.net/projects/tints-system/}
+Um die Zeit für die Implementierung zu veringern, wurde auf die freie CMS Tints zurückgegriffen und diese dementsprechend angepasst.\footnote{Tints, http://sourceforge.net/projects/tints-system/ - Aufruf der Seite: 07.02.2011}
 \\
 \begin{figure}[H]
 \centering
@@ -699,7 +699,7 @@ Im Vergleich dazu hat eine selbst entwickelte Lösung keinerlei Lizenzkosten und
 Trotzdem ist es sinnvoll zu kalkulieren, in welcher Höhe Kosten bei der eigenständigen Entwicklung entstehen.
 Da für eine detailierte Berechnung die Personalkosten eingeplant werden müssen, ist es notwendig zuerst erst ein Stundensatz zu definieren.
 Um einen Vergleich erstellen zu können, ist es ratsam die Kosten zu berechnen, wenn das System von einer externe Person und wenn es von einer internen Person erstellt wird.
-Vergleicht man die Zahlen für einen Software-Entwickler im externen Umfeld, so lässt sich ein Durchschnittswert von 65€/Stunde festlegen.\footnote{vgl. GULP-Stundesatz Kalkulator, http://www.gulp.de/cgi-gulp/trendneu.exe/MONEYFORMDLL?txtPosition=IT+Allgemein+&txtFachSchwer=Java+Oracle&lstvAndOr=und&resultsample=10 - Abgerufen - 07.02.2011}
+Vergleicht man die Zahlen für einen Software-Entwickler im externen Umfeld, so lässt sich ein Durchschnittswert von 65€/Stunde festlegen.\footnote{vgl. GULP-Stundesatz Kalkulator, http://www.gulp.de/cgi-gulp/trendneu.exe/MONEYFORMDLL?txtPosition=IT+Allgemein+\&txtFachSchwer=Java+Oracle\&lstvAndOr=und\&resultsample=10 - Abgerufen - 07.02.2011}
 Neben den Kosten spielt natürlich der Faktor Zeit ebenfalls eine wichtige Rolle. Für die Umsetzung des Projektes wurde in Kapitel X eine Annahme getroffen über die Zeit, die benötigt wird, das Projekt umzusetzen. Jedoch muss bei dieser Schätzung bedacht werden, dass hierbei, neben einer Einarbeitungszeit, gleichzeitig eine Bachelorarbeit geschrieben wird und die Erfahrung des Entwicklers nicht auf dem selben Level eines externen Spezialisten ist. Grob geschätzt ist also die Annahme von 50 Werktagen auf ca. die Hälfte reduzierbar. Bei einer Annahme von 30 Tagen (zu je 8 Stunden pro Tag) ergibt sich eine Stundenzahl von 240 für das Projekt.
 Verrechnet man diese Stundenzahl mit dem Stundenlohn, so erhält man 15.600€. Dieser Wert liegt deutlich über dem Wert einer neuen Lizenz. Daher ist von einer Umsetzung des Projektes von einem externen Entwickler abzuraten. Für die Umsetzung durch einen internen Entwickler liegen leider keine genauen Zahlenwerte vor, daher wird ein Beispielhafter Wert angenommen, wie er in jedem Unternehmen gültig sein könnte. Für einen Mitarbeiter, der mit allen Kosten (inkl. betrieblicher Anteil der Versicherungen) 5000€ pro Monat Kosten verursacht, lässt sich bei einer durchschnittlichen Zahl von 20 Werktagen pro Monat und einer 40 Stunden Woche, ein Stundenlohn wie folgt berechnen:\\
 \\
@@ -733,7 +733,7 @@ CiscoWorks LMS 4.0 -> September 2010\\
 \\
 Diese Daten ergeben einen Durschnittswert von einer Version in 2,5 Jahren.
 Setzt man diesen auf drei Jahre, ist dies dann auch ein realistischer Wert, wenn die beiden letzten Versionen im Bezug gesehen werden. Somit kann man von einem Kostenpunkt von fortlaufend von 8000/3=2667€ pro Jahr ausgehen. Mit diesen Werten lässt sich eine grobe Schätzung für die kommenden Jahre bewerkstelligen.
-Um ebenfalls der Inflation gerecht zu werden wird eine Inflation von 2\% angenommen, basierend auf der Inflation von 3,06\% der letzten 36 Jahre \footnote{vgl. Statistisches Bundesamt - Genesis-Datenbank} und der aktuellen Situation (vgl. stat. Bundesamt).
+Um ebenfalls der Inflation gerecht zu werden wird eine Inflation von 2\% angenommen, basierend auf der Inflation von 3,06\% der letzten 20 Jahre und der aktuellen Situation.\footnote{vgl. Statistisches Bundesamt (2011)}
 %https://www-genesis.destatis.de/genesis/online;jsessionid=EAB152D1233569D94D5BBAD6DD0E8733.tomcat_GO_1_1?operation=previous&levelindex=3&levelid=1297088550526&step=3
 Kosten die bei der Wahl der Updates für die nächsten fünf Jahre entstehen:\\
 \\
