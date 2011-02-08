@@ -270,7 +270,7 @@ Somit können die Anforderungen an die Benutzeroberfläche direkt besprochen wer
 
 \subsection{Entwurf}
 
-Beim Entwurfsprozess geht es um die Planung der Software-Lösung. Zur Planung von dieser werden unterschiedliche Sprachen zur Modellierung verwendet. Die wichtigste Sprache hierbei ist UML, welche unter anderem auch die Modellierung von Klassen und Objekten, sowie deren Beziehungen untereinander ermöglicht. Auf UML wird in Kapitel X detailliert eingegangen.\footnote{vgl. Pilone, D. (2003), S. 5}
+Beim Entwurfsprozess geht es um die Planung der Software-Lösung. Zur Planung von dieser werden unterschiedliche Sprachen zur Modellierung verwendet. Die wichtigste Sprache hierbei ist UML, welche unter anderem auch die Modellierung von Klassen und Objekten, sowie deren Beziehungen untereinander ermöglicht. Auf UML wird in Kapitel \ref{sec:uml} detailliert eingegangen.\footnote{vgl. Pilone, D. (2003), S. 5}
 Zum Entwurf gehören ebenfalls System- bzw. Designentscheidungen, die später in die Programmierung einfließen.
 
 \subsection{Programmierung}
@@ -326,13 +326,13 @@ Um beide unterschiedlichen Elemente in einer Gruppe zusammenzufassen, wird ein R
 Dieser wird im Systemkontext genannt und Bilder somit die Systemgrenze.
 Neben den normalen Assoziationen (z.B. Benutzer -> Drucken) besteht die Möglichkeit der Generalisierung.
 Das bedeutet, dass zwei spezifische Akteure oder Anwendungsfälle zu einem generellen zusammengefasst werden können.
-Ein Beispiel eines Usecase-Diagramms ist in Abbildung X zu sehen.\\
+Ein Beispiel eines Usecase-Diagramms ist in Abbildung \ref{fig:uml_usecase_ex} zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{uml_usecase_ex.png}
 \caption{Usecase-Diagramm}
-\label{fig:show_s1_s2_p1_n1}
+\label{fig:uml_usecase_ex}
 \end{figure}
 Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Beschreibung einzelner Klassen sowie deren Beziehungen untereinander.\footnote{vgl. Unhelkar, B. (2005), S. 48} Klassen dienen zur Beschreibung der Objekte, welche von diesen instanziert werden. Im Klassendiagramm wird eine Klasse als Rechteck dargestellt und neben dem Klassennamen enthält diese ein Bereich für die Attribute, sowie für die Methoden.
 Um die Sichtbarkeit der Attribute und Methoden darzustellen, werden verschiedene Symbole verwendet:\\
@@ -342,13 +342,13 @@ Um die Sichtbarkeit der Attribute und Methoden darzustellen, werden verschiedene
      - für private, nur innerhalb der Klasse selbst sichtbar\\
 \\
 Ähnlich wie bei einem Usecase-Diagramm bietet sich beim Klassendiagramm die Möglichkeit einer Generalisierung.
-Beispielsweise sind die Klassen \textit{PKW} und \textit{LKW} Unterklassen von der Klasse \textit{Fahrzeuge}. In Abbildung X ist ein Beispiel eines Klassendiagramms zu sehen.\\
+Beispielsweise sind die Klassen \textit{PKW} und \textit{LKW} Unterklassen von der Klasse \textit{Fahrzeuge}. In Abbildung \ref{fig:uml_class} ist ein Beispiel eines Klassendiagramms zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{uml_class.png}
 \caption{Klassendiagramm}
-\label{fig:show_s1_s2_p1_n1}
+\label{fig:uml_class}
 \end{figure}
 Ebenfalls relevant für die Umsetzung des Projektes sind die Aktivitätsdiagramme.
 Sie dienen dazu, Abläufe von Prozessen abzubilden.\footnote{Bremer, S./Oestereich, B. (2009), S. 335f.}
@@ -357,13 +357,13 @@ Den Start bzw. Endpunkt bilden jeweils ein gefüllter Kreis, wobei der Endpunkt 
 Je nach Entscheidungsfall verläuft der Pfad bei ‘Ja’ weiter in Flussrichtung nach unten, oder bei einer Abweichung zur Seite ab.
 Zusätzlich bietet sich die Möglichkeit, Aktivitäten parallel ablaufen zu lassen.
 Dies kann durch Aktivitäten, die zwischen zwei Balken liegen, symbolisiert werden.
-Im Folgenden ist in Abbildung X ein beispielhaftes Aktivitätsdiagramm zu sehen.\\
+Im Folgenden ist in Abbildung \ref{fig:uml_activity} ein beispielhaftes Aktivitätsdiagramm zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{uml_activity.png}
 \caption{Aktivitätsdiagramm}
-\label{fig:show_s1_s2_p1_n1}
+\label{fig:uml_activity}
 \end{figure}
 Für das bessere Verständnis der späteren Implementierung ist das Sequenzdiagramm ebenfalls von größerer Bedeutung.\footnote{Bremer, S./Oestereich, B. (2009), S. 361f.} 
 Es dient dazu, einen Überblick über die Lebensdauer und Interaktion zwischen den einzelnen Klassen bzw. deren Objekte zu erhalten.
@@ -377,13 +377,13 @@ Bei der asynchronen Kommunikation handelt es sich um einen Austausch, welcher es
 Hier muss der Sender weder warten bis der Empfänger online ist, noch muss er den Empfang der Email abwarten.
 Somit können Nachrichten gesendet werden, ohne dass für den Sender ein Ergebnis zur Laufzeit erwartet wird.
 Eine Nachricht wird im Sequenzdiagramm durch Pfeile dargestellt. Synchrone Nachrichten werden mit gefüllten Pfeilspitzen, asynchrone Nachrichten mit offenen Pfeilspitzen gekennzeichnet.
-In der nachfolgenden Abbildung ist ein beispielhaftes Sequenzdiagramm zu sehen.\\
+In der nachfolgenden Abbildung \ref{fig:uml_seq} ist ein beispielhaftes Sequenzdiagramm zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{uml_seq.png}
 \caption{Sequenzdiagramm}
-\label{fig:show_s1_s2_p1_n1}
+\label{fig:uml_seq}
 \end{figure}
 
 \section{Media Access Control}
@@ -492,9 +492,6 @@ TRAP\\
 Sofern beim SNMP-Agent z.B. gewisse Grenzwerte hinterlegt wurden, kann dieser sich bei einer Überschreitung mittels eines Trap-Paketes beim Manager melden, ohne dass dieser die Information explizit abgefragt hat.
 Um möglichst wenig Netzwerklast zu erzeugen, kommuniziert SNMP über das UDP Protokoll, da es eine verbindungslose Kommunikation ermöglicht.
 Der Agent erhält die Anfragen auf Port 161, während der Manager auf Port 162 die Trap-Meldungen empfängt.\footnote{vgl. Olbrich, A. (2003), S. 295}\\
-
-
-
 
 
 \section{Cisco Discovery Protokoll}
