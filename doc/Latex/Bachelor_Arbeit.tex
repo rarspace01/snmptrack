@@ -88,6 +88,7 @@
 \setlength{\footskip}{-10mm}
 \include{Deckblatt}
 \endgroup
+\include{Inhalt/Vorwort}
 \include{Inhalt/Abstract}
 \ohead{Seite \thepage}
 %\ofoot{\pagemark}
@@ -159,14 +160,17 @@
 %		Die Inhalte des Anhangs werden analog zu den Kapiteln inkludiert.
 %		Dies geschieht in der Datei Anhang.tex
 % --------------------------------------------------------------------------
-\ihead{\headmark}
 
-\begin{appendix}
+\ihead{Anhang}
+%\ihead{\headmark}
+
+%\begin{appendix}
 	\clearpage
 
 	\input{Inhalt/Anhang}
-\end{appendix}
-
+%\end{appendix}
+\clearpage
+\ihead{\headmark}
 
 % Index --------------------------------------------------------------------
 %		Zum Erstellen eines Index, die folgende Zeile auskommentieren.
