@@ -54,17 +54,18 @@ Damit das neue System allen Anforderungen gerecht wird, empfiehlt es sich zunäc
 Hierbei wird nicht nur auf die aktuelle Nutzung eingegangen, sondern auch diese kritisch hinterfragt, ob eventuelle Anforderungen bereits von anderen Systemen erfüllt werden.
 Durch Gespräche mit den zuständigen Mitarbeitern wurden diverse Anforderungen erörtert.\\\\
 Als wichtigster Punkt ist die Erkennung der Hosts, sowie der zugehörigen Ports an den Switches zu sehen.
-Diese ist notwendig um den Ort eines Hosts im Netzwerk festzustellen. Praktische Anwendung hat dies, wenn zum Beispiel ein Host aufgefunden werden muss, wenn der zugehörige Mietschein des Computers ausläuft und dieser zurückgegeben werden muss.
+Diese ist notwendig um den Ort eines Hosts im Netzwerk festzustellen. Praktische Anwendung hat dies, wenn zum Beispiel ein Host aufgefunden werden muss, der in der Inventurliste ist, aber nicht an dem ursprünglichen Ort.
 Hier ist es nicht selten der Fall, dass der Computer mit seinem dazugehörigen Besitzer bereits die damalige Abteilung verlassen hat und dieser somit nicht mehr auffindbar ist.
 Eine weiterere Anwendungsmöglichkeit ist, dass der Helpdesk wissen möchte, wenn es Probleme mit einem Computer gibt, ob die Netzwerk-Hardware bis zum Host einwandfrei funktioniert. Hierfür muss man nicht nur wissen, an welchem Ort der Host sich befindet, sondern auch die dazugehörigen Ports.
 Da die Ports als auch die Switches ausgelesen werden, kann man somit zeitnah eine Rückmeldung geben, dass der Switch, sowie dessen Port einwandfrei funktionieren, oder falls dies nicht der Fall ist, den Fehler besser lokalisieren. Somit ist selbst bei keinerlei Kenntnis des Hosts außer der DNS oder der IP, eine direkte Lokalisierung und Bewertung des Status möglich.\\\\
 Ein weiterer wichtiger Aspekt ist die Möglichkeit genau herauszufinden, welche Hosts hinter einem Port angeschlossen sind.
 In der Praxis ist dies wichtig, da es vorkommen kann, dass unerwünschte Netzwerkgeräte angeschlossen wurden.
-Normalerweise befinden sich im Unternehmen an einem Port eines Switches der untersten Ebene maximal zwei Hosts. Der Großteil der Ports hat nur einen Host zum Beispiel den Computer eines Mitarbeiters oder ein Netzwerkgerät.
+Normalerweise befinden sich im Unternehmen an einem Port eines Switches der untersten Ebene maximal zwei Hosts. Der Großteil der Ports hat nur einen Host. Zum Beispiel den Computer eines Mitarbeiters oder ein Netzwerkgerät.
 In einem Teil der Fälle ist dieser Computer nicht direkt an den Port des Switches angeschlossen, sondern wird über den Port eines VOIP-Telefons durchgeschleift, welches dann an den Switch angeschossen ist.
 In diesem Fall sind auf dem Port zwei Hosts zu sehen.
-Dies ist der Soll Zustand. Jedoch kann es vorkommen, das Mitarbeiter im Werk ohne Erlaubnis fremde Netzwerkgeräte anbringen, sei es ein Hub, ein eigener WLAN-Router oder andere Geräte. Da diese Geräte die Sicherheit des Netzwerkes beeinflussen, müssen diese identifiziert und gleichzeitig lokalisiert werden können um eine Entfernung zu ermöglichen.
-Hinzu kommt der Punkt einer möglichen Historie, wann welcher Host an welchem Port bzw. Switch angeschlossen war. Hierbei soll erkennbar sein, an welchem Port der Host war, jedoch ist es nicht notwendig zu wissen wie oft dieser dort angeschlossen war.
+Dies ist der Soll Zustand. Jedoch kann es vorkommen, dass Mitarbeiter im Werk ohne Erlaubnis fremde Netzwerkgeräte anbringen, sei es ein Hub, ein eigener WLAN-Router oder andere Geräte. Da diese Geräte die Sicherheit des Netzwerkes beeinflussen, müssen diese identifiziert und gleichzeitig lokalisiert werden können um eine Entfernung zu ermöglichen.
+Hinzu kommt der Punkt einer möglichen Historie, wann welcher Host an welchem Port bzw. Switch angeschlossen war.
+Hierbei soll erkennbar sein, an welchem Port der Host war. Jedoch ist es nicht notwendig zu wissen, wie oft dieser dort angeschlossen war.
 Daraus lassen sich zwei Regeln definieren. Erstens, sofern ein Host an ein Port angeschlossen wird, so entsteht ein Datensatz. Die zweite Regel besagt, dass wenn ein Host an einen Port angeschlossen wird, an dem er bereits zuvor angeschlossen war, so wird der alte Datensatz für diese Host-Port-Kombination nur aktualisiert. 
 In der nachfolgenden Abbildung \ref{network_ex2} wird dies durch die beiden Switches S1 und S2 dargestellt. Bei den angeschlossenen Hosts handelt es sich jeweils um das Notebook N1, das an jedem Port des jeweiligen Switches ein Datenbank-Eintrag erzeugt.\\
 
@@ -76,8 +77,10 @@ In der nachfolgenden Abbildung \ref{network_ex2} wird dies durch die beiden Swit
 \end{figure}
 
 
-Für das Auslesen der Switches soll das Netzwerkprotokoll SNMP verwendet werden, da eine Abfrage per Telnet die Switches stark belastet und daher es passieren kann, dass der Betrieb eingeschränkt wird. Hinzu kommt, dass ein Auslesen per Telnet sehr langsam ist und die Ausgabe selbst nicht standardisiert ist und somit sehr viele Einzelfälle behandelt werden müssten.\\\\
-Im Hinblick auf die Geschwindigkeit des Auslese-Prozesses wurde vorausgesetzt, dass das Sammeln der Daten mindestens vier Mal am Tag möglich sein muss und sofern möglich sollte eine Auslesezeit unter 60 Minuten angestrebt werden, da es sich hierbei um einen alten Wert handelt, welcher bei früheren Auslesevorgängen erreicht wurde.\\\\
+Für das Auslesen der Switches soll das Netzwerkprotokoll SNMP verwendet werden, da eine Abfrage per Telnet die Switches zu stark belastet.
+Mit der verwendenung von Telnet kann es passieren kann, dass der Betrieb der Switches eingeschränkt wird. Hinzu kommt, dass ein Auslesen per Telnet sehr langsam ist und die Ausgabe selbst nicht standardisiert ist und somit sehr viele Einzelfälle behandelt werden müssten.\\\\
+Im Hinblick auf die Geschwindigkeit des Auslese-Prozesses wurde vorausgesetzt, dass das Sammeln der Daten mindestens vier Mal am Tag möglich sein muss.
+Zusätzlich sollte eine Auslesezeit unter 60 Minuten angestrebt werden, um zeitnahe Ergebnisse zu erhalten.\\\\
 Eine weitere Anforderung die als optional angesehen wird, ist die Möglichkeit die Verbindungen zwischen den Switches und Routern zu erfassen. Das heißt, es soll eine Topologie anhand der Daten erstellt werden können.\\\\
 Zu den optionalen Anforderungen gehört die Möglichkeit einer Benutzerzuordnung zu den jeweiligen Hosts. Die Zuordnung soll über das bestehende Active Directory passieren und somit die Möglichkeit bieten den entsprechenden Nutzer bei Problemen direkt anrufen zu können.\\\\
 Kombiniert man diese Anforderungen, so bildet sich eine weitere Anwendungsmöglichkeit und zwar kann es in der Praxis vorkommen, dass ein Switch gewechselt und somit abgeschaltet werden muss.
@@ -85,7 +88,8 @@ Hierfür kann man nun im Voraus kontrollieren, welche Hosts an diesen angeschlos
 Neben den Anforderungen zu den Anwendungsmöglichkeiten wurden auch Anforderungen an das Programm selbst gestellt.
 Zu diesen gehört die Betriebssystemunabhängigkeit.
 Das Programm muss sowohl auf Windows-, als auch auf dem Linux-Betriebssystem funktionieren. Sofern Interpretersprachen oder ähnliches verwendet werden, darf keine Versionsabhängigkeit bestehen. Das beudeuten für das Programm, es muss z.B. sowohl unter Java 1.6.0.10 als auch unter 1.6.0.33 funktionieren.\\
-Als bestehende Datenbank wurde Oracle vorgegeben, da hierfür bereits Lizenzen existieren und dieses bereits auf den entsprechenden Servern läuft und kein weiteres DBMS installiert und gepflegt werden muss.\\
+Als bestehende Datenbank wurde Oracle vorgegeben, da hierfür bereits Lizenzen existieren und dieses bereits auf den entsprechenden Servern laufen.
+Aus diesem Grund muss dann zusätzlich kein weiteres DBMS installiert und gepflegt werden.\\
 
 \section{Anforderungsanalyse}
 \label{sec:anfanalyse}
