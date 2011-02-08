@@ -629,7 +629,7 @@ Im Nachfolgenden soll darauf eingegangen werden, welche Tests explizit durchgef�
 Zu Beginn des Projektes standen mehrere Tests an, welche diverse APIs überprüft haben. Diese dienten dazu, sicherzustellen, dass eine Kommunikation über die benötigten Schnittstellen erfolgreich ist. Darunter sind Tests gefallen, wie die Überprüfung von SNMP4J, aber auch die des Programmcodes zum Reverse-DNS-Lookup, Abfrage des Active Directory oder die  Überprüfung der Datenbank-Anbindung. Das Ergebnis der Überprüfungen hat dazu geführt, dass eventuell eine andere API verwendet werden musste, sofern ein Test nicht erfolgreich war oder spezielle Einstellungen gemacht werden mussten.\\\\
 Nachdem die APIs und Grundfunktionalitäten überprüft wurden, kam es zu den nächsten Tests. Diese dienten zur Entscheidungsfindung über die Nutzung von speziellen Algorithmen oder Design-Entscheidungen, wie sie in Kapitel \ref{sec:designent} angeführt wurden.
 Die erste Entscheidung, die getroffen werden musste, war die Wahl der Programmiersprache. Hier zu wurde ein Benchmark des SNMP Aufrufs durchgeführt und die Anzahl der maximalen  Abfragen pro Sekunde miteinander verglichen. Das Ergebnis war, dass die Programmiersprache als solche keinen Einfluss auf die Auslesegeschwindgikeit hat, da der Flaschenhals der Switch selbst darstellt. Der nächste Test der durchgeführt wurde, war die Überprüfung, ob eine Parallelisierung den gewünschten, zuvor prognostizierten Geschwindigkeitsvorteil erbringt. Das Ergebnis dieses Tests war, dass die gleichzeitige Ausführung des Programmcode antiproportional im Bezug auf Anzahl der verwendeten Threads und Laufzeit wirkt. Jedoch traten bei einer bestimmten Anzahl zunehmend Fehler aufgrund des Pufferüberlaufs auf. Dies führte dazu, dass die Anzahl der gleichzeitig aktiven Threads auf ein Maximum begrenzt wurde. Neben der Parallelisierung wurden auch die Auslesemethoden von SNMP selbst überprüft. So wurde getestet, ob eine Geschwindigkeitsverbesserung erreicht wird, wenn der SNMP-Bulk Modus, welcher in Version 2c spezifiziert wurde, verwendet wird.
-Das Ergbnis dieses Tests war eine dreifache\footnote{Vgl. Kapitel X} Leistungssteigerung, aber auch die Erkenntnis, dass per SNMP-Bulk nur eine begrenzte Anzahl von Tabelleneinträgen abfragbar ist. Diese Information war wiederum wichtig für die Implementierung des Ausleseskripts und hat zur Vermeidung von potentiellen Fehlern im Betrieb geführt. Ebenfalls überprüft wurde die Möglichkeit, mehrere Datensätze gesammelt an die Datenbank zu übertragen.
+Das Ergbnis dieses Tests war eine dreifache\footnote{vgl. Kapitel X} Leistungssteigerung, aber auch die Erkenntnis, dass per SNMP-Bulk nur eine begrenzte Anzahl von Tabelleneinträgen abfragbar ist. Diese Information war wiederum wichtig für die Implementierung des Ausleseskripts und hat zur Vermeidung von potentiellen Fehlern im Betrieb geführt. Ebenfalls überprüft wurde die Möglichkeit, mehrere Datensätze gesammelt an die Datenbank zu übertragen.
 Ziel war es, zu überprüfen, ob dies den Overhead der einzelnen Verbindungen reduziert und generell für einen Geschwindigkeitszuwachs sorgt. Aufgrund des Benchmark wurde festgestellt, dass dies der Fall ist, jedoch Probleme auftreten, da die Anzahl der gleichzeitig geöffneten Tabelleneinträge stark erhöht wird. Im Fall der einzelnen Abarbeitung und bei einer maximalen Anzahl aktiv arbeitender Switchthreads von N beläuft sich die maximale offene Tabelleneintragszahl auf N.
 \\ Bei einer gesammelten Übertragung beträgt die Anzahl der offenen Tabelleneinträge:\\
 N*M\\
@@ -714,19 +714,18 @@ Vergleicht man die Zahlen für einen Software-Entwickler im externen Umfeld, so 
 Neben den Kosten spielt natürlich der Faktor Zeit ebenfalls eine wichtige Rolle. Für die Umsetzung des Projektes wurde in Kapitel \ref{sec:timetable} eine Annahme getroffen über die Zeit, die benötigt wird, das Projekt umzusetzen. Jedoch muss bei dieser Schätzung bedacht werden, dass hierbei, neben einer Einarbeitungszeit, gleichzeitig eine Bachelorarbeit geschrieben wird und die Erfahrung des Entwicklers nicht auf dem selben Level eines externen Spezialisten ist. Grob geschätzt ist also die Annahme von 50 Werktagen auf ca. die Hälfte reduzierbar. Bei einer Annahme von 30 Tagen (zu je 8 Stunden pro Tag) ergibt sich eine Stundenzahl von 240 für das Projekt.
 Verrechnet man diese Stundenzahl mit dem Stundenlohn, so erhält man 15.600€. Dieser Wert liegt deutlich über dem Wert einer neuen Lizenz. Daher ist von einer Umsetzung des Projektes von einem externen Entwickler abzuraten. Für die Umsetzung durch einen internen Entwickler liegen leider keine genauen Zahlenwerte vor, daher wird ein Beispielhafter Wert angenommen, wie er in jedem Unternehmen gültig sein könnte. Für einen Mitarbeiter, der mit allen Kosten (inkl. betrieblicher Anteil der Versicherungen) 5000€ pro Monat Kosten verursacht, lässt sich bei einer durchschnittlichen Zahl von 20 Werktagen pro Monat und einer 40 Stunden Woche, ein Stundenlohn wie folgt berechnen:\\
 \\
-5000/(20*8)=31,25€\\
+\(\frac{5000\text{EUR}}{20*8h}=31,25\frac{\text{EUR}}{h}\) 
+\\
 \\
 Berechnet man nun die Kosten für das Projekt für einen internen Mitarbeiter, so lässt sich feststellen, dass die Kosten deutlich gesunken sind:\\
 \\
-31,25€*240=7500€\\
+\(31,25\frac{\text{EUR}}{h}=7500\text{EUR}\)
+\\
 \\
 Bei anderen Kosten für interne Mitarbeiter schwankt dieser Wert natürlich. Generell lässt sich jedoch feststellen, dass der Wert, welcher die Kosten für einen Mitarbeiter beschreibt nicht über einen Wert X liegen darf, der sich wie folgt bestimmen lässt:\\
 \\
-(X/(20*8))*250=8000\\
-(X/160)*250=8000\\
-X*(25/16)=8000\\
-X=8000/(25/16)\\
-X=5120\\
+\(\frac{X\text{EUR}}{20*8h}*250=8000\text{EUR}\)\\
+\(X=5120\)\\
 \\
 Somit lässt sich feststellen, dass ab einem Kostenpunkt von ca. 5120€ für einen Mitarbeiter pro Monat dieser die Kosten eines Updates der Cisco Software übersteigt.
 Jeder Wert unter diesem Grenzwert kann als unproblematisch angesehen werden.\\\\
@@ -743,24 +742,24 @@ CiscoWorks LMS 3.0 -> Juni 2007\\
 CiscoWorks LMS 4.0 -> September 2010\\
 \\
 Diese Daten ergeben einen Durschnittswert von einer Version in 2,5 Jahren.
-Setzt man diesen auf drei Jahre, ist dies dann auch ein realistischer Wert, wenn die beiden letzten Versionen im Bezug gesehen werden. Somit kann man von einem Kostenpunkt von fortlaufend von 8000/3=2667€ pro Jahr ausgehen. Mit diesen Werten lässt sich eine grobe Schätzung für die kommenden Jahre bewerkstelligen.
+Setzt man diesen auf drei Jahre, ist dies dann auch ein realistischer Wert, wenn die beiden letzten Versionen im Bezug gesehen werden. Somit kann man von einem Kostenpunkt von fortlaufend von \(\frac{8000}{3}=2667\text{EUR}\) pro Jahr ausgehen. Mit diesen Werten lässt sich eine grobe Schätzung für die kommenden Jahre bewerkstelligen.
 Um ebenfalls der Inflation gerecht zu werden wird eine Inflation von 2\% angenommen, basierend auf der Inflation von 3,06\% der letzten 20 Jahre und der aktuellen Situation.\footnote{vgl. Statistisches Bundesamt (2011)}
 %https://www-genesis.destatis.de/genesis/online;jsessionid=EAB152D1233569D94D5BBAD6DD0E8733.tomcat_GO_1_1?operation=previous&levelindex=3&levelid=1297088550526&step=3
-Kosten die bei der Wahl der Updates für die nächsten fünf Jahre entstehen:\\
+Kosten die bei der Wahl der Updates für die nächsten fünf Jahre entstehen:\footnote{Einheiten werden aus Gründen der Übersichtlikeit nachfolgend nur am Endergebnis angefügt}\\
 \\
-2667*(1,02)\^(1-1)+2667*(1,02)\^(2-1)+2667*(1,02)\^(3-1)+2667*(1,02)\^(4-1)+2667*(1,02)\^(5-1)=
-13879,18€\\
+\(2667*(1,02)^{1-1}+2667*(1,02)^{2-1}+2667*(1,02)^{3-1}+2667*(1,02)^{4-1}+2667*(1,02)^{5-1}=13879,18\text{EUR}\)\\
 \\
 Würde man sich für die Selbsterstellung der Software entscheiden muss man zum Einen die Entwicklungskosten von 240 Stunden und zum Anderen zusätzlich für jeden neuen nicht unterstützen Router eine Anpassungszeit von maximal sechs Stunden berechnen.
 Da im Netzwerk nur eine geringe Anzahl von unterschiedlichen Switches im Betrieb ist, ist die Anzahl der Anpassungen pro Jahr im Durchschnitt maximal auf zwei zu sehen.
 Die Inflation wird ebenfalls auf den Lohn angerechnet. Für die Kosten auf 5 Jahre gesehen ergibt sich somit:\\
 \\
-31,25*240+2*6*31,25*(1,02)\^(1-1)+2*6*31,25*(1,02)\^(2-1)+2*6*31,25*(1,02)\^(3-1)+2*6*31,25*(1,02)\^(4-1)+2*6*31,25*(1,02)\^(5-1)=9451,52€\\
+\(31,25*240+2*6*31,25*(1,02)^{1-1}+2*6*31,25*(1,02)^{2-1}+2*6*31,25*(1,02)^{3-1}+2*6*31,25*(1,02)^{4-1}+2*6*31,25*(1,02)^{5-1}=9451,52\text{EUR}\)
+\\
 \\
 Diese Zahl ist zwar höher als die Kosten für eine neue CiscoWorks Version, aber es besteht auch die Möglichkeit fremdartige Switches zu unterstützen.
 Beachtet man nun die realen Kosten, so kann man feststellen, dass für die initale Entwicklung keine Kosten entstanden sind, so lässt sich die Rechnung wie folgt aktualisieren:\\
 \\
-2*6*31,25*(1,02)\^(1-1)+2*6*31,25*(1,02)\^(2-1)+2*6*31,25*(1,02)\^(3-1)+2*6*31,25*(1,02)\^(4-1)+2*6*31,25*(1,02)\^(5-1)=1951,52€\\
+\(2*6*31,25*(1,02)^{1-1}+2*6*31,25*(1,02)^{2-1}+2*6*31,25*(1,02)^{3-1}+2*6*31,25*(1,02)^{4-1}+2*6*31,25*(1,02)^{5-1}=1951,52\text{EUR}\)
 \\
 \\
 Wie sich erkennen lässt, stellt dies nur ein Bruchteil der Kosten eines Updates wieder.
