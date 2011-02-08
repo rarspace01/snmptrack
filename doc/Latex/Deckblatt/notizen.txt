@@ -1,0 +1,11 @@
+Neben den alltäglichen Aufgaben der Buchhaltung bestand die Aufgabe darin, mit der Steuerabteilung, welche der Buchhaltung gleichgeordnet ist, ein Projekt durchzuführen.\\
+Hierbei sollte der Intrastat-Melde Prozess im Hause Pirelli untersucht und, sofern möglich, dieser optimiert werden.
+Die Ursache für diese Aufgabenstellung liegt darin begründet, dass der Melde-Prozess für keine der beteiligten Personen transparent genug ist und jeden Monat eine gewisse Anzahl von Fehler vorliegt, die vom Statistischen Bundesamt zurück gemeldet werden.\\
+Die Intrastat-Meldung von Waren, die in und aus der Europäische Union im/exportiert wurden, müssen von allen Unternehmen gemacht werden, die sich in der EU befinden und deren Warenwert einen Bestimmten Betrag, in Deutschland 400.000€, überschreitet.\\
+Da Pirelli sehr viele Mischungen und Reifen innerhalb des Konzerns transportiert, fallen hier auch eine beachtliche Menge an Bestellungen an.
+Diese werden heutzutage nicht mehr per handgeschriebenem Formular erfasst sondern elektronisch. Um die Intrastat relevanten Daten zu melden, kommt das im Unternehmen eingesetzte ERP-System SAP ERP zum Einsatz.\\
+Die Aufgabe wird also nicht nur den reinen organisatorischen Ablauf untersuchen sondern auch den technischen.
+Nachdem die Prozesse analysiert wurden sollen Maßnahmen ergriffen werden, um die Anzahl der Fehler zu reduzieren und den Prozess der Intrastat-Meldung nicht mehr als "Black-Box", sondern als transparenter Prozess für die Mitarbeiter darzulegen.\\
+
+
+

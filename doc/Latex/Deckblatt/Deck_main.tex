@@ -1,0 +1,92 @@
+% --------------------------------------------------------------------------
+% Formatvorlage für die Bacheloarbeit an der DHBW, angelehnt an eine Vorlage von Stefan Macke
+% --------------------------------------------------------------------------
+% 	Angelehnt an die Vorlage von Stefan Macke. 12.07.2007
+% 	Download unter http://blog.stefan-macke.com
+%
+% 	erstellt von Denis Hamann, 14.02.2011
+% 	Email: denis-hamann@arcor.de
+
+
+
+
+
+% Dokumentenkopf -----------------------------------------------------------
+% 	Diese Vorlage basiert auf "scrreprt" aus dem koma-script.
+%		Die Option draft sollte beim fertigen Dokument ausgeschaltet werden.
+% --------------------------------------------------------------------------
+\documentclass[
+	12pt,						% Schriftgre
+	DIV10,
+	german,					% fr Umlaute, Silbentrennung etc.
+	a4paper,					% Papierformat
+	oneside,					% einseitiges Dokument
+	titlepage,				% es wird eine Titelseite verwendet
+	halfparskip,			% Abstand zwischen Abstzen (halbe Zeile)
+	normalheadings,		% Gre der berschriften verkleinern
+	liststotoc,				% Verzeichnisse im Inhaltsverzeichnis auffhren %bibtotoc,				% Literaturverzeichnis im Inhaltsverzeichnis auffhren
+	idxtotoc,				% Index im Inhaltsverzeichnis auffhren
+	tablecaptionabove,	% Beschriftung von Tabellen oberhalb ausgeben
+	final						% Status des Dokuments (final/draft)
+]{scrreprt}
+
+
+% Umlaute ------------------------------------------------------------------
+% 		Umlaute/Sonderzeichen wie  direkt im Quelltext verwenden (CodePage).
+%		Erlaubt automatische Trennung von Worten mit Umlauten.
+% --------------------------------------------------------------------------
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+%\usepackage{ae} % "schneres" 
+\usepackage{textcomp} % Euro-Zeichen etc.
+
+% Meta-Informationen -------------------------------------------------------
+%		Informationen ber das Dokument, wie z.B. Titel, Autor, Matrikelnr. etc
+%		werden in der Datei _Meta.tex definiert und knnen danach global
+%		verwendet werden.
+% --------------------------------------------------------------------------
+\input{_Meta}
+
+% Bentigte Packages -------------------------------------------------------
+%		Weitere Packages, die bentigt werden, sind in die Datei Packages.tex
+%		"ausgelagert", um die Vorlage mglichst bersichtlich zu halten.
+% --------------------------------------------------------------------------
+\input{Packages}
+
+
+
+% Erstellung eines Index und Abkrzungsverzeichnisses aktivieren -----------
+\makeindex
+\makenomenclature
+
+
+% Kopf- und Fuzeilen, Seitenrnder etc. -----------------------------------
+\input{Seitenstil}
+
+% Eigene Definitionen fr Silbentrennung
+\include{Silbentrennung}
+
+% Das eigentliche Dokument -------------------------------------------------
+%		Der eigentliche Inhalt des Dokuments beginnt hier. Die einzelnen Seiten
+%		und Kapitel werden in eigene Dateien ausgelagert und hier nur inkludiert.
+% --------------------------------------------------------------------------
+\begin{document}
+
+% auch subsubsection nummerieren
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% keine Kopf-/Fuzeilen bei Deckblatt und Abstract
+\ofoot{}
+\ohead{}
+
+\begingroup 
+\setlength{\leftmargin}{-20mm}%
+\setlength{\rightmargin}{10mm}%
+\setlength{\topmargin}{-20mm}%
+\setlength{\footskip}{-10mm}
+\include{Deckblatt}
+\endgroup
+
+\end{document}
