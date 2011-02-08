@@ -1,12 +1,22 @@
-\chapter{Anhang}
+\chapter*{Anhang}
 \label{cha:anh}
+\addcontentsline{toc}{chapter}{Anhang}
 \captionsetup{list=false}
 
-Anhangsverzeichnis.\\\\
+
+
+
+%Anhangsverzeichnis.\\\\
+\listofappendix
+
+
 
 \clearpage
 
-\section*{Klassen des Ausleseprogrammes}
+%\section*{Klassen des Ausleseprogrammes}
+%\addcontentsline{anhang}{Klassen des Ausleseprogrammes}
+%\addappendix{Klassen des Ausleseprogrammes}
+\myappendix{Klassen des Ausleseprogrammes}
 \label{sec:anh:class}
 
 In den nachfolgenden Abbildungen sind die verschiedenen Klassen des Ausleseprogrammes zu sehen, auf die im Kapitel \ref{subsec:classdiagrams} eingegangen wird.\\\\
@@ -55,7 +65,7 @@ In den nachfolgenden Abbildungen sind die verschiedenen Klassen des Ausleseprogr
 
 \clearpage
 
-\section*{Konfiguration SNMP-Track}
+\myappendix{Konfiguration SNMP-Track}
 \label{sec:config}
 
 In Abbildung \ref{fig:config_xml} ist die Konfigurations-Datei des erstellten Ausleseprogramms (SNMP-Track) zu sehen.
@@ -82,7 +92,7 @@ Die beiden anderen Parameter stellen die Datenbanken dar, die für den Auslesepr
 Die Nagios-Datenbank dient als Quelle für die Switch-IPs und deren Hierachieebene.
 Die SNMP-Datenbank enthält die Daten des Ausleseprogrammes, welche per Webinterface dargestellt werden.
 
-\section*{Bilder der fertigen Implementierung}
+\myappendix{Bilder der fertigen Implementierung}
 \label{sec:impimgs}
 
 Um einen Überblick über die implementierte Lösung zu erhalten, sind im nachfolgenden Bilder der Oberfläche zu sehen.\\\\
@@ -102,7 +112,8 @@ Zusätzlich wird automatisch der Cursor auf die Suchmaske gesetzt, sodass direkt
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{overview.png}
+%\includegraphics[width=1.0\textwidth]{overview.png}
+\includegraphics[width=0.5\textwidth]{000.PNG}
 \caption[]{Weboberfläche - Übersicht}
 \label{fig:overview}
 \end{figure}
@@ -146,13 +157,17 @@ Dies ist vor allem beim Patchen von Verbindungen hilfreich.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{admin_panel.png}
+%\includegraphics[width=0.5\textwidth]{admin_panel.png}
+\includegraphics[width=0.5\textwidth]{000.PNG}
 \caption[]{Weboberfläche - Adminpanel}
 \label{fig:adminpanel}
 \end{figure}
 
 In der folgenden Abbildung \ref{fig:ausleseprogramm} ist das Ausleseprogramm zu sehen.
 Diese gibt den Start des Programms wieder, wie er in Kapitel \ref{subsec:acitvitydiagrams} beschrieben ist.
+Hierbei sind auch Meldungen über die ausgelesene Konfiguration zu finden.
+Zuerst werden die Performance Parameter (Threadanzahl, SNMP-Intervall) sowie das Debuglevel angezeigt.
+Im Anschluss wird überprüft ob die Datei switch.xml vorhanden ist und je nachdem werden die Daten aus diese oder dem Nagios-System ausgelesen.
 
 \begin{figure}[H]
 \centering
