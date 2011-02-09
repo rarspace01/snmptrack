@@ -1,29 +1,33 @@
-\select@language {german}
+\select@language {ngerman}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Chen Notation 1:N}}{3}{figure.10}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Chen Notation N:M}}{4}{figure.11}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Aufgel\IeC {\"o}ste Chen N:M Notation}}{4}{figure.14}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Keine Normalform angewendet}}{5}{figure.19}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces 1. Normalform}}{5}{figure.20}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces <BILDUSECASE>}}{12}{figure.41}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces <BILDclass>}}{12}{figure.42}
-\contentsline {figure}{\numberline {2.8}{\ignorespaces <BILDactivity>}}{13}{figure.43}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces <BILDseq>}}{14}{figure.44}
+\contentsline {figure}{\numberline {1}{\ignorespaces Chen Notation 1:N\relax }}{7}{figure.caption.33}
+\contentsline {figure}{\numberline {2}{\ignorespaces Chen Notation N:M\relax }}{8}{figure.caption.37}
+\contentsline {figure}{\numberline {3}{\ignorespaces Aufgel\IeC {\"o}ste Chen N:M Notation\relax }}{8}{figure.caption.39}
+\contentsline {figure}{\numberline {4}{\ignorespaces Keine Normalform\relax }}{9}{figure.caption.52}
+\contentsline {figure}{\numberline {5}{\ignorespaces 1. Normalform\relax }}{10}{figure.caption.53}
+\contentsline {figure}{\numberline {6}{\ignorespaces Usecase-Diagramm\relax }}{18}{figure.caption.86}
+\contentsline {figure}{\numberline {7}{\ignorespaces Klassendiagramm\relax }}{19}{figure.caption.88}
+\contentsline {figure}{\numberline {8}{\ignorespaces Aktivit\IeC {\"a}tsdiagramm\relax }}{20}{figure.caption.90}
+\contentsline {figure}{\numberline {9}{\ignorespaces Sequenzdiagramm\relax }}{21}{figure.caption.93}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Grafik mit S1+S2 sowie jeweils P1 und N1}}{21}{figure.55}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Usecasediagramm}}{25}{figure.61}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Codebeispiel}}{29}{figure.63}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Klassendiagramm}}{30}{figure.64}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Sequenzdiagramm}}{30}{figure.66}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Aktivit\IeC {\"a}tsdiagramm1}}{31}{figure.68}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Aktivit\IeC {\"a}tsdiagramm2}}{34}{figure.69}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces ERM}}{36}{figure.71}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Benchmark - Perl, Java}}{38}{figure.73}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Benchmark - Parallelisierung}}{39}{figure.74}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Benchmark - SNMP Bulk}}{40}{figure.75}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Benchmark - Oracle Transaktionen}}{41}{figure.76}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Zeitplan - Arbeitspakete}}{45}{figure.80}
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Zeitplan - Ganttdiagramm}}{46}{figure.81}
+\contentsline {figure}{\numberline {10}{\ignorespaces Netzwerkarchitektur PD\relax }}{30}{figure.caption.113}
+\contentsline {figure}{\numberline {11}{\ignorespaces Abbildung mit Switches, Ports und Host\relax }}{32}{figure.caption.115}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {12}{\ignorespaces Usecasediagramm\relax }}{39}{figure.caption.126}
+\contentsline {figure}{\numberline {13}{\ignorespaces Codebeispiel\relax }}{42}{figure.caption.128}
+\contentsline {figure}{\numberline {14}{\ignorespaces Sequenzdiagramm 1\relax }}{44}{figure.caption.130}
+\contentsline {figure}{\numberline {15}{\ignorespaces Sequenzdiagramm 2\relax }}{45}{figure.caption.131}
+\contentsline {figure}{\numberline {16}{\ignorespaces Aktivit\IeC {\"a}tsdiagramm 1\relax }}{46}{figure.caption.133}
+\contentsline {figure}{\numberline {17}{\ignorespaces Aktivit\IeC {\"a}tsdiagramm 2 - Teil 1\relax }}{49}{figure.caption.134}
+\contentsline {figure}{\numberline {18}{\ignorespaces Aktivit\IeC {\"a}tsdiagramm 2 - Teil 2\relax }}{51}{figure.caption.135}
+\contentsline {figure}{\numberline {19}{\ignorespaces ERM\relax }}{52}{figure.caption.137}
+\contentsline {figure}{\numberline {20}{\ignorespaces Benchmark - Vergleich zwischen Perl und Java\relax }}{55}{figure.caption.139}
+\contentsline {figure}{\numberline {21}{\ignorespaces Benchmark - Parallelisierung\relax }}{56}{figure.caption.140}
+\contentsline {figure}{\numberline {22}{\ignorespaces Benchmark - SNMP Bulk\relax }}{57}{figure.caption.141}
+\contentsline {figure}{\numberline {23}{\ignorespaces Benchmark - Oracle Transaktionen\relax }}{58}{figure.caption.142}
+\contentsline {figure}{\numberline {24}{\ignorespaces Zeitplan - Arbeitspakete\relax }}{63}{figure.caption.146}
+\contentsline {figure}{\numberline {25}{\ignorespaces Zeitplan - Ganttdiagramm\relax }}{63}{figure.caption.147}
+\contentsline {figure}{\numberline {26}{\ignorespaces Ausleseprogramm - Start\relax }}{65}{figure.caption.149}
+\contentsline {figure}{\numberline {27}{\ignorespaces Programm - Weboberfl\IeC {\"a}che\relax }}{66}{figure.caption.151}
 \addvspace {10\p@ }
