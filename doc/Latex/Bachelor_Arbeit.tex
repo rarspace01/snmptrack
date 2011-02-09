@@ -152,8 +152,7 @@
 %\bibliographystyle{natdin}		% DIN-Stil des Literaturverzeichnisses
 %\bibliographystyle{gerplain}
 
-\ihead{Quellen/Literaturverzeichnis}
-\include{Inhalt/bib}
+
 
 % Anhang -------------------------------------------------------------------
 %		Die Inhalte des Anhangs werden analog zu den Kapiteln inkludiert.
@@ -169,13 +168,16 @@
 	\input{Inhalt/Anhang}
 %\end{appendix}
 \clearpage
-\ihead{\headmark}
+
 
 % Index --------------------------------------------------------------------
 %		Zum Erstellen eines Index, die folgende Zeile auskommentieren.
 % --------------------------------------------------------------------------
 %\printindex		% Index hier einfgen
 
+\ihead{Quellen/Literaturverzeichnis}
+\include{Inhalt/bib}
+\ihead{\headmark}
 \include{Inhalt/Erklaerung}	% Selbstndigkeitserklrung 
 
 \end{document}
