@@ -11,8 +11,11 @@ echo "<div id=\"content\">";
 if($_SESSION['userlevel']==3)//Prüfe ob User == Admin
 {
 
+	if(isset($_GET['msg'])){
+	echo "Started Agent on Switch:".$_GET['msg'];
+	}
+	
 	if(isset($_GET['startagent'])){
-	echo "Started Agent on Switch:".$_GET['startagent'];
 	
 	if($_GET['startagent']==='all'){
 	$sEXEC="/usr/bin/java -jar /usr/local/usrtrack/snmptrack.jar /usr/local/usrtrack/";	
@@ -24,7 +27,7 @@ if($_SESSION['userlevel']==3)//Prüfe ob User == Admin
 	
 	exec($sEXEC)." <br/> ";
 	
-	echo ("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=admin.php\">");
+	echo ("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=admin.php?msg=".$_GET['startagent']."\">");
 	die;
 	}
 	
