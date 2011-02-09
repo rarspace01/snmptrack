@@ -3,109 +3,6 @@
 
 \section{Datenbanken}
 
-\subsection{Datenbankentwurf}
-\label{sec:erm}
-
-Unter dem Datenbankentwurf ist der Prozess zur Erstellung eines Schemas zu verstehen, welches die spätere Datenbank abbilden wird.
-Hierunter fallen unter anderem die Analyse der Anforderungen, aber auch die grafische Darstellung der Tabellen, in denen die Daten gespeichert werden.
-Der Entwurf der Datenbank vor der Implementierung ist essentiell, da im späteren Prozess Änderungen der Datenbankstruktur nicht nur die Datenbank selbst, sondern auch alle mit ihr verbundenen Applikationen betreffen werden.
-Um die Beziehungen zwischen den einzelnen Tabellen korrekt darstellen zu können, wird das Entity-Relationship-Modell\footnote{vgl. Chen, P. (1976), S. 10} verwendet.
-Durch dieses Modell lassen sich sogenannte ER-Diagramme zeichnen, z.B. nach der Chen Notation\footnote{vgl. Chen, P. (1976), S. 19}.
-Ein ER-Diagramm nach Chen stellt die Entitätstypen (Klassen), Attribute, sowie Beziehungen (Relationen/Kardinalitäten) dar.
-Im Folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation erläutert werden.\\\\
-Das nachfolgende Diagramm beschreibt folgenden Sachverhalt:
-
-\begin{itemize}
-\item Ein Angestellter leitet mehrere Projekte.
-\item Ein Projekt wird von einem Angestellten geleitet.
-\end{itemize}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.9\textwidth]{img_chen_001.png}
-\caption{Chen Notation 1:N}
-\label{chenpic1}
-\end{center}
-\end{figure}
-
-\begin{itemize}
-\item Ein Autor verfasst mehrere Bücher.
-\item Ein Buch wird von mehrere Autoren verfasst.
-\end{itemize}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.9\textwidth]{img_chen_002.png}
-\caption{Chen Notation N:M}
-\label{chenpic2}
-\end{center}
-\end{figure}
-
-\subsection{Kardinalitäten}
-
-Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten.\footnote{vgl. Burnus, H. (2007), S. 20}
-In Abbildung \ref{chenpic1} ist eine 1:n Kardinalität gegeben.
-Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.\footnote{vgl. Moos, A. (2004), S.37}\\\\
-In Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
-Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 angehören, einem Objekt der Relation 2 werden ebenfalls mehrere Objekten der Relation 1 zugewiesen.
-Diese n:m Kardinalitäten müssen bei einem Datenbankentwurf aufgelöst werden,\footnote{vgl. Pernul, G./Unland R. (2003), S. 177} da hier keine eindeutige Zuordnung möglich ist. Meistens lässt sich eine solche Kardinalität wie in Abbildung \ref{chenpic2} durch das Hinzufügen einer zusätzliche Tabelle, welche beide Objekte verknüpft, lösen.
-Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=1.0\textwidth=0.6]{chen_n_m_aufloesung.png}
-\caption{Aufgelöste Chen N:M Notation}
-\label{chenpic3}
-\end{center}
-\end{figure}
-
-\subsection{Normalisierung - Optimierung von Datenbanken}
-\label{secNormalisierung}
-%\cite{codd1}
-Wenn es bereits bestehende Datenbanken gibt, so muss geprüft werden, ob diese eine optimale Struktur aufweisen.
-Eine Optimierung der Struktur ergibt sich nicht nur, um eine bessere Übersichtlichkeit zu haben, sondern auch aus Gründen der Redundanz und der damit verbundenen Probleme.
-Durch eine nicht benötige Redundanz kommt es zu Integritäts- und Platzverlusten innerhalb der Datenbank.\footnote{vgl. King, T./Reese, G./Yarger, R. (2002), S. 137}
-Da ein Wert an mehreren Stellen in der Datenbank steht, kann es zu Problemen bei der Aktualisierung und Löschungen kommen, da alle Werte in der Datenbank geändert werden müssten und nicht nur ein Wert.\footnote{vgl. Eickler, A./Kemper, A. (2006), S. 174f.}
-Dies kann anhand der sogenannten Normalisierung verhindert werden, sodass eine Optimierung stattfindet.\footnote{vgl. Codd, E. (1970), S. 381}\footnote{vgl. Alpar, P. (2001), S. 33}
-Bei der Normalisierung wird überprüft, ob Tabellen gewisse Eigenschaften erfüllen und sofern dies nicht der Fall ist, wird versucht diese zu erreichen.
-Hierzu stehen bis zu fünf Stufen der Normalformen zur Verfügung.\footnote{vgl. Dietrich, M./Ussar M. (2007), S. 98}
-Diese fünf Normalformen lassen sich durch die folgenden Attribute beschreiben.\footnote{vgl. Burnus, H. (2007), S. 292-308}
-
-\begin{enumerate}
-\item Normalform: Alle Attribute besitzen einen atomaren Wertebereich
-\item Normalform: Jedes Nichtschlüsselattribut ist vom kompletten Schlüssel abhängig
-\item Normalform: Jedes Nichtschlüsselattribut ist von keinem Schlüsselkandidaten transitiv abhängig, dass heißt kein Attribut ist über ein anderes vom Hauptschlüssel abhängig
-\item Normalform: Es darf in einer Relation nicht mehrere, voneinander unabhängige, 1:n-Beziehungen zu einem Schlüsselwert geben
-\item Normalform: Es existieren nur noch Einzel-Abhängigkeiten
-\end{enumerate}
-
-
-In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitzt, dass heißt es enthält nur einen Wert und ist frei von Wiederholungen.\footnote{vgl. Schubert, M. (2007), S. 293} \footnote{vgl. Preiß, N. (2007), S. 71f.}
-
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[scale=1]{img_chen_003.png}
-\caption{Keine Normalform angewendet}
-\label{chenpic4}
-\end{center}
-\end{figure}
-
-In Abbildung \ref{chenpic4} ist eine Verletzung der 1. Normalform zu sehen. Um diese aufzuheben, müssen die einzelnen Werte, wie in Abbildung \ref{chenpic5} zu sehen, getrennt werden.
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[scale=1]{img_chen_004.png}
-\caption{1. Normalform}
-\label{chenpic5}
-\end{center}
-\end{figure}
-
-Wurde die Relation entsprechend angepasst, so ist die 1. Normalform erreicht und es kann nun geprüft werden,
-ob diese die Eigenschaften der 2. Normalform erfüllt.
-Um eine Normalform zu erfüllen, müssen auch alle vorhergehenden Normalformen erfüllt sein, dass heißt, erfüllt eine Tabelle die 3. Normalform, so erfüllt sie auch die 1. und 2. Normalform.
-
-
 \subsection{Datenbankmanagementsysteme}
 \label{sec:dbms}
 
@@ -122,7 +19,7 @@ Es gibt verschiedene Arten von DBMS:
 
 %BuchURL http://www.amazon.com/gp/product/354043187X
 Ein hierarchisches DBMS dient vor allem der schnellen Suche in großen Datenbanken.\footnote{vgl. Falkowski, B. (2002), S. 235}
-Der Nachteil liegt darin, dass nur eine sequentielle Abarbeitung möglich ist und somit die Art der Abfragen mehr oder weniger schon im Voraus bestimmt sein muss.\footnote{vgl. Heuer, A./Saake, G./Sattler, K. (2005), S. 242}
+Der Nachteil liegt darin, dass nur eine sequentielle Abarbeitung möglich ist und somit die Art der Abfragen bereits im Voraus bestimmt sein muss.\footnote{vgl. Heuer, A./Saake, G./Sattler, K. (2005), S. 242}
 Im Gegensatz hierzu stehen die relationalen Datenbanksysteme, welche heutzutage den höchsten Verbreitungsrad besitzen.\footnote{vgl. Singh, S. (2009), S. 35}
 Diese bieten eine flexible Auswertung der Daten und erlauben auch einen selektiven Zugriff.
 Abfragen werden meist durch die deklarative Abfragesprache SQL bewerkstelligt.
@@ -141,7 +38,7 @@ Im Anschluss soll auf die, in der Praxis verwendeten relationalen DBMS eingegang
 \end{itemize}
 
 Die Microsoft Jet Engine (Access) ist ein dateibasierendes DBMS, welches dem Benutzer eine einfache Möglichkeit bietet, Daten in einer Datenbank zu speichern und passende Oberflächen (Frontends) in der Datenbank zu integrieren.\footnote{vgl. Birnbam, D. (2003), S. 328}
-Bei diesem System, wie bei allen anderen dateibasierenden DBMS, steht meist die einfache Konfigurierbarkeit im Vordergrund. Die Datenbanken sind meist für einen Einzeluser-Betrieb ausgelegt und spielen hier auch ihre Stärken aus.
+Bei diesem System, wie bei allen anderen dateibasierenden DBMS, steht meist die einfache Konfigurierbarkeit im Vordergrund. Die dateibasierenden Datenbanken sind meist für einen Einzeluser-Betrieb ausgelegt und spielen hier auch ihre Stärken aus.
 Wird eine dateibasierende Datenbank von mehreren Usern benutzt, so zeigen sich die Nachteile einer solchen Datenbank.
 Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht, entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Daher nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.\footnote{vgl. Nicol, N./Albrecht, R. (2004), S. 963}
 Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, da sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.\\\\
@@ -160,13 +57,112 @@ Im Gegenzug zum MS-SQL Server bietet Oracle ein breiteres Spektrum an Funktional
 Dieses wiederum macht sich im höheren Preis bemerkbar.
 Weitere Vorteile der Oracle-Datenbank sind die weitgehende Betriebssystemunabhängigkeit, gute Dokumentation und der Support.
 
-MySQL ist der Open Source Pendant zu MS-SQL, welches im Internet eine sehr hohen Verbreitungsgrad aufweist.
-So wird dieses von Seiten wie Wikipedia\footnote{vgl. Gilmore, J. (2010), S. 484} oder
+MySQL ist der Open Source Pendant zu MS-SQL, welcher im Internet einen sehr hohen Verbreitungsgrad aufweist.
+So wird dieser von Seiten wie Wikipedia\footnote{vgl. Gilmore, J. (2010), S. 484} oder
 Youtube\footnote{vgl. Cronan, J./Matthews, M. (2009), S. 240} verwendet.
 Im Gegensatz zu MS-SQL verwendet MySQL das GPL Lizenzmodell, sodass die Datenbank für Privatanwender kostenlos ist und die Lizenzgebühren für Unternehmen einen Bruchteil der Kosten ausmachen, die für ein Microsoft System bezahlt werden müssten.\footnote{vgl. http://www.mindfactory.de/product\_info.php/info/p700694 - Aufruf der Seite: 06.02.2011}
 
 Eine weitere Datenbank stellt PostgreSQL dar, welches unter der PostgreSQL-Lizenz zur Verfügung gestellt wird und somit auch für kommerzielle Projekte ohne Kosten nutzbar ist.\footnote{vgl. PostgreSQL: Lizenz, http://www.postgresql.org/about/licence - Aufruf der Seite: 06.02.2011}\footnote{vgl. Eisentraut, P./Helmle, B. (2010), S. 277}
 
+
+\subsection{Datenbankentwurf}
+\label{sec:erm}
+
+Unter dem Datenbankentwurf ist der Prozess zur Erstellung eines Schemas zu verstehen, welches die spätere Datenbank abbilden wird.
+Hierunter fallen unter anderem die Analyse der Anforderungen, aber auch die grafische Darstellung der Tabellen, in denen die Daten gespeichert werden.
+Der Entwurf der Datenbank vor der Implementierung ist essentiell, da im späteren Prozess Änderungen der Datenbankstruktur nicht nur die Datenbank selbst, sondern auch alle mit ihr verbundenen Applikationen betreffen werden.
+Um die Beziehungen zwischen den einzelnen Tabellen korrekt darstellen zu können, wird das Entity-Relationship-Modell\footnote{vgl. Chen, P. (1976), S. 10} verwendet.
+Durch dieses Modell lassen sich sogenannte ER-Diagramme zeichnen, z.B. nach der Chen Notation\footnote{vgl. Chen, P. (1976), S. 19}.
+Ein ER-Diagramm nach Chen stellt die Entitätstypen (Klassen), Attribute, sowie Beziehungen (Relationen/Kardinalitäten) dar.
+Im folgenden Beispiel soll ein ER-Diagramm nach der Chen-Notation erläutert werden.
+Das in Abbildung \ref{chenpic1} zu sehende Diagramm beschreibt folgenden Sachverhalt:
+
+\begin{itemize}
+\item Ein Angestellter leitet mehrere Projekte.
+\item Ein Projekt wird von einem Angestellten geleitet.
+\end{itemize}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{img_chen_001.png}
+\caption{Chen Notation 1:N}
+\label{chenpic1}
+\end{center}
+\end{figure}
+
+\subsection{Kardinalitäten}
+
+Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten.\footnote{vgl. Burnus, H. (2007), S. 20}
+In Abbildung \ref{chenpic1} ist eine 1:n Kardinalität gegeben.
+Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.\footnote{vgl. Moos, A. (2004), S. 37}\\\\
+In Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{img_chen_002.png}
+\caption{Chen Notation N:M}
+\label{chenpic2}
+\end{center}
+\end{figure}
+
+Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 angehören, einem Objekt der Relation 2 werden ebenfalls mehrere Objekten der Relation 1 zugewiesen.
+Diese n:m Kardinalitäten müssen bei einem Datenbankentwurf aufgelöst werden,\footnote{vgl. Pernul, G./Unland R. (2003), S. 177} da hier keine eindeutige Zuordnung möglich ist. Meistens lässt sich eine solche Kardinalität wie in Abbildung \ref{chenpic2} durch das Hinzufügen einer zusätzliche Tabelle, welche beide Objekte verknüpft, lösen.
+Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\textwidth=0.6]{chen_n_m_aufloesung.png}
+\caption{Aufgelöste Chen N:M Notation}
+\label{chenpic3}
+\end{center}
+\end{figure}
+
+\subsection{Normalisierung - Optimierung von Datenbanken}
+\label{secNormalisierung}
+%\cite{codd1}
+Wenn es bereits bestehende Datenbanken gibt, so muss geprüft werden, ob diese eine optimale Struktur aufweisen.
+Eine Optimierung der Struktur wird nicht nur angestrebt, um eine bessere Übersichtlichkeit zu haben, sondern auch aus Gründen der Redundanz und der damit verbundenen Probleme.
+Durch eine unerwünschte Redundanz kommt es zu Integritäts- und Platzverlusten innerhalb der Datenbank.\footnote{vgl. King, T./Reese, G./Yarger, R. (2002), S. 137}
+Wenn ein Wert an mehreren Stellen in der Datenbank steht, kann es zu Problemen bei der Aktualisierung und Löschungen kommen, da alle Werte in der Datenbank geändert werden müssten und nicht nur ein Wert.\footnote{vgl. Eickler, A./Kemper, A. (2006), S. 174f.}
+Dies kann anhand der sogenannten Normalisierung verhindert werden, sodass eine Optimierung stattfindet.\footnote{vgl. Codd, E. (1970), S. 381; vgl. Alpar, P. (2001), S. 33}
+Bei der Normalisierung wird überprüft, ob Tabellen gewisse Eigenschaften erfüllen und sofern dies nicht der Fall ist, wird versucht diese zu erreichen.
+Hierzu stehen fünf Stufen der Normalformen zur Verfügung.\footnote{vgl. Dietrich, M./Ussar M. (2007), S. 98}
+Diese fünf Normalformen lassen sich durch die folgenden Attribute beschreiben.\footnote{vgl. Burnus, H. (2007), S. 292-308}
+
+\begin{enumerate}
+\item Normalform: Alle Attribute besitzen einen atomaren Wertebereich
+\item Normalform: Jedes Nichtschlüsselattribut ist vom kompletten Schlüssel abhängig
+\item Normalform: Jedes Nichtschlüsselattribut ist von keinem Schlüsselkandidaten transitiv abhängig, dass heißt kein Attribut ist über ein anderes vom Hauptschlüssel abhängig
+\item Normalform: Es darf in einer Relation nicht mehrere, voneinander unabhängige, 1:n-Beziehungen zu einem Schlüsselwert geben
+\item Normalform: Es existieren nur noch Einzel-Abhängigkeiten
+\end{enumerate}
+
+
+In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitzt, dass heißt es enthält nur einen Wert und ist frei von Wiederholungen.\footnote{vgl. Schubert, M. (2007), S. 293; vgl. Preiß, N. (2007), S. 71f.}
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1]{img_chen_003.png}
+\caption{Keine Normalform}
+\label{chenpic4}
+\end{center}
+\end{figure}
+
+In Abbildung \ref{chenpic4} ist eine Verletzung der 1. Normalform zu sehen. Um diese aufzuheben, müssen die einzelnen Werte, wie in Abbildung \ref{chenpic5} zu sehen, getrennt werden.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1]{img_chen_004.png}
+\caption{1. Normalform}
+\label{chenpic5}
+\end{center}
+\end{figure}
+
+Wurde die Relation entsprechend angepasst, so ist die 1. Normalform erreicht und es kann nun geprüft werden,
+ob diese die Eigenschaften der 2. Normalform erfüllt.
+Um eine Normalform zu erfüllen, müssen auch alle vorhergehenden Normalformen erfüllt sein, dass heißt, erfüllt eine Tabelle die 3. Normalform, so erfüllt sie auch die 1. und 2. Normalform.
+Die Anforderungen für die 2. bis 5. Normalform sind jeweils unterschiedlich unt der Literatur zu entnehmen.\footnote{vgl. Schubert, M. (2007), S. 293-307}
 
 \section{Webserver}
 \label{sec:websrv}
@@ -175,7 +171,7 @@ Ein Webserver dient zum Bereitstellen von statischen, sowie dynamischen HTML Sei
 Der Vorteil bei Webservern liegt darin, dass nur Informationen ausgetauscht werden, die der Nutzer auch angefordert hat.
 Weiterhin bietet es den Vorteil, diese zielgerichteten Informationen einer größeren Menge an Benutzern zur Verfügung zu stellen, ohne dass spezielle Vorkehrungen zur späteren Skalierung getroffen werden müssen.\\\\
 Um dynamische Webseiten erzeugen zu können, bedarf es einer Skriptsprache.
-Aktuell haben sich folgende Sprachen etabliert:\footnote{vgl. Tiobe Software, (2011)}
+Aktuell haben sich folgende dynamische Sprachen zur Erzeugung von Webseiten etabliert:\footnote{vgl. Tiobe Software, (2011)}
 
 \begin{itemize}
 \item ASP - Active Server Pages
@@ -185,7 +181,7 @@ Aktuell haben sich folgende Sprachen etabliert:\footnote{vgl. Tiobe Software, (2
 
 ASP ist eine Skriptsprache der Firma Microsoft und basiert grundlegend auf der Syntax von Visual Basic.
 JSP dient dem selben Zweck, wurde jedoch von Sun entwickelt und besitzt die Syntax von Java.
-PHP ist eine Skriptsprache, welche sich hauptsächlich an der C Syntax orientiert und speziell für das Erstellen von
+PHP ist eine Skriptsprache, welche sich hauptsächlich an der C-Syntax orientiert und speziell für das Erstellen von
 dynamischen Webseiten entwickelt wurde. Sie ist die am weitesten verbreitete Scriptsprache zum Erstellen von dynamischen Webseiten.\\\\
 Da alle der aufgeführten Skriptsprachen weitgehend Webserver-/Plattformunabhängig sind, kann man frei zwischen den meist benutzten Webserverprogrammen wählen, hierunter fallen unter anderem:
 
@@ -216,13 +212,13 @@ Zurzeit haben sich verschiedene Varianten etabliert:
 \end{itemize}
 
 Jedes etablierte DBMS bietet für Entwickler eine native Schnittstelle zum Ansprechen der Datenbank an.
-Diese wird meist in verschiedenen Programmiersprachen angeboten, unter anderem C/C++, PHP usw..
-Die native Bibliothek besitzt den Vorteil, dass sie den vollen Funktionsumfang, sowie den größten Datendurchsatz mit der Datenbank ermöglicht. \footnote{vgl. Wutka, M. (2001), S. 76}Im Gegensatz dazu, existieren keine einheitlichen Design Patterns für diese, wodruch die Verwendungen von verschiedenen DBMS erschwert wird.\\\\
+Diese wird meist in verschiedenen Programmiersprachen angeboten, unter anderem C,C++ und PHP.
+Die native Bibliothek besitzt den Vorteil, dass sie den vollen Funktionsumfang, sowie den größten Datendurchsatz mit der Datenbank ermöglicht.\footnote{vgl. Wutka, M. (2001), S. 76} Im Gegensatz dazu, existieren keine einheitlichen Design Patterns für diese, wodruch die Verwendungen von verschiedenen DBMS erschwert wird.\\\\
 Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht, ohne Veränderung des Quellcodes, das Datenbanksystem zu wechseln.\footnote{vgl. Taylor, A. (2007), S. 322}
 Hierzu muss lediglich der ODBC-Eintrag angepasst werden.
 Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit, alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom verwendeten DBMS.
 Neben der ODBC-Schnittstelle gibt es auch die JDBC-Schnittstelle bei Java.
-Zwar kann Java auch die ODBC-Schnittstelle über eine Treiber-Brücke nutzen, aber laut Oracle \footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html  - Aufruf der Seite: 06.02.2011} soll dies nur im experimentellen Gebrauch stattfinden.
+Zwar kann Java auch ODBC über eine Treiber-Brücke nutzen, aber laut Oracle\footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html  - Aufruf der Seite: 06.02.2011} soll dies nur im experimentellen Gebrauch stattfinden.
 Da der Einsatz eines nativen JDBC-Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind, ist die Verwendeung des nativen Treibers vorzuziehen.
 Zusätzlich gibt es noch ADO von Microsoft, welches auch als Schnittstelle für Webserver mit IIS bzw. ASP dient.\footnote{vgl. Roff, J. (2000), S. 3}
 Diese ähnelt in der Verwendung JDBC, da ebenfalls ein ODBC-Treiber angesteuert werden kann.
@@ -231,7 +227,7 @@ Der Verbindungsaufbau ist ähnlich einfach gestaltet und ermöglicht auch für W
 \section{Softwareentwicklung}
 \label{sec:softdev}
 
-\subsection{Allgemeines}
+\subsection{Allgemein}
 
 Unter der Softwarentwicklung ist die Herstellung und Entwicklung von Software, sowie die dazugehörige Planung und Modellierung dieser zu verstehen.
 Die Softwareentwicklung umfasst eine Vielzahl von Teilgebieten.
@@ -270,7 +266,7 @@ Somit können die Anforderungen an die Benutzeroberfläche direkt besprochen wer
 
 \subsection{Entwurf}
 
-Beim Entwurfsprozess geht es um die Planung der Software-Lösung. Zur Planung von dieser werden unterschiedliche Sprachen zur Modellierung verwendet. Die wichtigste Sprache hierbei ist UML, welche unter anderem auch die Modellierung von Klassen und Objekten, sowie deren Beziehungen untereinander ermöglicht. Auf UML wird in Kapitel \ref{sec:uml} detailliert eingegangen.\footnote{vgl. Pilone, D. (2003), S. 5}
+Beim Entwurfsprozess geht es um die Planung der Software-Lösung. Zur Planung von dieser werden unterschiedliche Sprachen zur Modellierung verwendet. Die wichtigste Sprache hierbei ist UML, welche unter anderem auch die Modellierung von Klassen und Objekten, sowie deren Beziehungen untereinander ermöglicht.\footnote{vgl. Pilone, D. (2003), S. 5} Auf UML wird in Kapitel \ref{sec:uml} detailliert eingegangen.
 Zum Entwurf gehören ebenfalls System- bzw. Designentscheidungen, die später in die Programmierung einfließen.
 
 \subsection{Programmierung}
@@ -281,7 +277,7 @@ Bei der Programmierung geht es letztendlich um die Umsetzung des zuvor entworfen
 
 Bei der Validierung  und Verifizierung geht es vor allem um Tests. Hierbei wird unterschieden zwischen Low-Level-Tests und High-Level-Tests.\footnote{vgl. Pol, M./Teunissen, R./Van, E. (2001), S. 16 f.}
 Unter Low-Level-Tests sind solche Test zu verstehen, die während der Implementierung an Teilen des Systems stattfinden. Bei High-Level-Tests wird das komplette System getestet. Einer der Low-Level-Tests ist der Modultest. Bei diesem werden einzelne Module im Programm getestet.  Diese Tests werden regelmäßig während der Entwicklung durchgeführt. Ein weiterer Low-Level-Test ist der Integrationstest. Bei diesem werden verschiedene Module in Kombination getestet. Für jede Verbindung zwischen zwei Komponenten wird ein Test erstellt, welcher überprüft, ob diese ordnungsgemäß nach der Spezifikation funktionieren. In kleineren Projekten findet der Integrationstest meist während der Implementierung durch die Programmierer statt.
-Der so genannte Systemtest ist ein High-Level-Test bei dem das gesamte Programm gegen die zuvor definierten Anforderungen gegen geprüft wird. Dieser Systemtest findet meist in einer Testumgebung statt und erhält meist simulierte Testdaten um die bestehende Produktivumgebung nicht weiter zu beeinträchtigen. Die simulierten Testdaten können trotz Allem den reellen Daten entsprechen, sollen jedoch verhindern, dass das System direkt in die Produktivumgebung einwirkt.
+Der so genannte Systemtest ist ein High-Level-Test bei dem das gesamte Programm gegen die zuvor definierten Anforderungen geprüft wird. Dieser Systemtest findet meist in einer Testumgebung statt und erhält meist simulierte Testdaten um die bestehende Produktivumgebung nicht weiter zu beeinträchtigen. Die simulierten Testdaten können trotz allem den reellen Daten entspreche. Dadurch soll verhindern werden, dass das Test-System sich direkt auf die Produktivumgebung auswirkt.
 Der letzte High-Level-Test dient der Abnahme und wird auch als Akzeptanztest bezeichnet. Bei diesem Test geht es um den Test der Software im produktiven Einsatz beim Kunden. Der Test selbst stellt ein Black-Box-Test dar und dient meist zu Rechnungsstellung bzw. Abnahme in Verbindung mit den Testprotokollen.\footnote{vgl. Desikan, S./ Ramesh, G. (2007), S. 74}
 
 \section{Unified Modeling Language}
@@ -293,15 +289,11 @@ UML enthält verschiedene Notationstechniken um visuelle Modelle von softwareint
 UML selbst ist auch von der ISO standardisiert und zählt heutzutage zu einer der bedeutendsten Modellierungssprachen bei der Softwareentwicklung. Durch die Sprache wird nicht nur eine grafische Notation festgehalten sondern ebenfalls die Begriffe und die jeweiligen Beziehungen zwischen diesen.
 Somit bilden die Diagramme nur eine Teil dessen ab, was unter der UML zu verstehen ist.
 Die UML wird seit 1997 weiterentwickelt und ist seitdem in mehrere Versionen erschienen.
-Die in der UML verwendeten Modelle lassen sich in verschiedene Kategorien unterteilen, die wie folgt lauten:\footnote{vgl. Gruhn, V./Pieper, D./Röttgers, C. (2006), S. 447+464}\\
-\\
--Struktur-Diagramme\\
--Verhaltens-Diagramme\\
-\\
-In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einordnen:\\
+Die in der UML verwendeten Modelle lassen sich in Struktur- und Verhaltens-Diagramme unterteilen.\footnote{vgl. Gruhn, V./Pieper, D./Röttgers, C. (2006), S. 447+464}\\
+In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einordnen:
 \begin{tabbing}
 -Strukturdiagramme:\\
-\hspace{10mm} \=* Klassendiagramm\\
+\hspace{5mm} \=* Klassendiagramm\\
 \> * Kompositionsstrukturdiagramm\\
 \> * Komponentendiagramm\\
 \> * Verteilungsdiagramm\\
@@ -319,11 +311,11 @@ In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einord
 \end{tabbing}    
 
 Im Folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche für die Umsetzung des Projekts selbst verwendet wurden.
-Das erste verwendete Diagramm, ist das Anwendungsfalldiagramm (im Folgenden als Usecase-Diagramm benannt).\footnote{vgl. Bremer, S./Oestereich, B. (2009), S. 245f.} 
+Das erste verwendete Diagramm, ist das Anwendungsfalldiagramm (im Folgenden als Usecase-Diagramm bezeichnet).\footnote{vgl. Bremer, S./Oestereich, B. (2009), S. 245f.} 
 Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als 'Strichmännchen' dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
 Anwendungsfälle hingegen werden als Ellipsen dargestellt und enthalten eine Beschreibung.\footnote{vgl. Cockburn, A. (2007), S. 161}
 Um beide unterschiedlichen Elemente in einer Gruppe zusammenzufassen, wird ein Rahmen um alle beteiligten Elemente gebildet.
-Dieser wird im Systemkontext genannt und Bilder somit die Systemgrenze.
+Dieser wird im Systemkontext genannt und bildet somit die Systemgrenze.
 Neben den normalen Assoziationen (z.B. Benutzer -> Drucken) besteht die Möglichkeit der Generalisierung.
 Das bedeutet, dass zwei spezifische Akteure oder Anwendungsfälle zu einem generellen zusammengefasst werden können.
 Ein Beispiel eines Usecase-Diagramms ist in Abbildung \ref{fig:uml_usecase_ex} zu sehen.\\
@@ -339,10 +331,10 @@ Um die Sichtbarkeit der Attribute und Methoden darzustellen, werden verschiedene
 
      + für public, unbeschränkter Zugriff\\
      \# für protected, Zugriff nur von der Klasse sowie von Unterklassen (geerbte Klassen)\\
-     - für private, nur innerhalb der Klasse selbst sichtbar\\
+     -  für private, nur innerhalb der Klasse selbst sichtbar\\
 \\
 Ähnlich wie bei einem Usecase-Diagramm bietet sich beim Klassendiagramm die Möglichkeit einer Generalisierung.
-Beispielsweise sind die Klassen \textit{PKW} und \textit{LKW} Unterklassen von der Klasse \textit{Fahrzeuge}. In Abbildung \ref{fig:uml_class} ist ein Beispiel eines Klassendiagramms zu sehen.\\
+Beispielsweise sind die Klassen \textit{PKW} und \textit{LKW} Unterklassen von der Klasse \textit{Fahrzeuge}. In Abbildung \ref{fig:uml_class} ist ein Beispiel eines verinfachten Klassendiagramms zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
@@ -370,7 +362,7 @@ Es dient dazu, einen Überblick über die Lebensdauer und Interaktion zwischen d
 Bei diesen wird nicht nur auf die bei den Klassendiagrammen gezeigte Beziehung, sondern auch auf den Nachrichtenaustausch zwischen den Objekten eingegangen.
 Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus folgenden Aktion, wird es notwendig, zu unterscheiden, welche Art von Kommunikation stattfindet.
 Hierbei gibt es die synchrone, als auch asynchrone Kommunikation.\footnote{vgl. Volkwein, G. (2007), S. 97}
-Bei der synchronen Kommunikation handelt es sich um einen Nachrichtenaustausch, bei dem das der Sender wartet, bis der Empfänger die Nachricht bearbeitet hat.
+Bei der synchronen Kommunikation handelt es sich um einen Nachrichtenaustausch, bei dem der Sender wartet, bis der Empfänger die Nachricht bearbeitet hat.
 Beispielsweise könnte ein Browser eine Webseite angefordert haben.
 Dieser muss nach dem Absenden seiner Anforderung abwarten bis er eine Antwort erhalten hat und kann erst im Anschluss die Webseite dem Benutzer darstellen.
 Bei der asynchronen Kommunikation handelt es sich um einen Austausch, welcher es nicht erfordert, dass ein Teilnehmer auf die Bestätigung des Anderen warten muss. Beispielsweise beim Versand einer Email.
@@ -389,15 +381,15 @@ In der nachfolgenden Abbildung \ref{fig:uml_seq} ist ein beispielhaftes Sequenzd
 \section{Media Access Control}
 \label{sec:mac}
 
-Bei der Media-Access-Controll-Adresse (MAC-Adresse) handelt es sich um eine Adresse eines Netzwerkadapters, die zur eindeutigen Identifizierung in einem Netzwerk dient.
-MAC-Adressen werden in einer Vielzahl von Netzwerk Protokollen verwendet.
-unter anderem wird sie im Ethernet-Protokoll (IEEE 802.3), aber auch vielen anderen Netzwerktechnologien genutzt die unter den IEEE 802 Gruppen zu finden sind.
 Das MAC-Protokoll steuert die Adressierung auf Hardwareebene, sowie die Zugriffsart.
 Im ISO/OSI-Modell ist das MAC-Protokoll auf Schicht 2, der Sicherungsschicht, angesiedelt.
 Somit hat das MAC-Protokoll zwei Aufgaben.
 Zum Einen die Adressierung eines Gerätes und zum Anderen, wie dieses Gerät auf das Medium zugreift.\footnote{vgl. Fitzgerald, J./Dennis A. (2009), S.119f.}
-Zur eindeutigen Adressierung der Netzwerkadapter  dient die sogenannte MAC-Adresse. Hierbei handelt es sich um einen 48-bit Wert, der einzigartig auf der ganzen Welt sein sollte.\footnote{vgl. Dooley, K. (2001), S.135} Durch die Änderbarkeit der MAC-Adresse kann es jedoch vorkommen, dass dies nicht immer gegeben ist.
-Die Wahrscheinlichkeit eine doppelte MAC-Adresse im Netzwerk zu haben, ist jedoch extrem gering und der Adressraum in naher Zukunft nicht erschöpft werden wird.\footnote{vgl. IEEE (2011)} Die ersten 24-bit kennzeichnen den Hersteller des Netzwerkadapters, die anschließenden 24-bit sind beliebig vom Hersteller vergebbar.
+Zur eindeutigen Adressierung der Netzwerkadapter  dient die sogenannte MAC-Adresse.
+Bei der Media-Access-Controll-Adresse (MAC-Adresse) handelt es sich um eine Adresse eines Netzwerkadapters, die zur eindeutigen Identifizierung in einem Netzwerk dient.
+MAC-Adressen werden in einer Vielzahl von Netzwerk Protokollen verwendet, unter anderem im Ethernet-Protokoll (IEEE 802.3), aber auch vielen anderen Netzwerktechnologien genutzt die unter den IEEE 802 Gruppen zu finden sind.
+Hierbei handelt es sich um einen 48-bit Wert, der einzigartig auf der ganzen Welt sein sollte.\footnote{vgl. Dooley, K. (2001), S.135} Durch die Änderbarkeit der MAC-Adresse kann es jedoch vorkommen, dass dies nicht immer gegeben ist.
+Die Wahrscheinlichkeit eine doppelte MAC-Adresse im Netzwerk zu haben, ist jedoch extrem gering und der Adressraum wird in naher Zukunft nicht erschöpft sein.\footnote{vgl. IEEE (2011)} Die ersten 24-bit kennzeichnen den Hersteller des Netzwerkadapters, die anschließenden 24-bit sind beliebig vom Hersteller vergebbar.
 Einige bestimmte MAC-Adressen können jedoch nicht reserviert werden, da es sich hierbei handelt um Broadcast-Adressen und Multicast-Adressen handelt.
 Eine MAC-Adresse kann wie folgt dargestellt werden:\\
 \\
@@ -408,11 +400,11 @@ Die Hersteller, welche sich jeweils hinter der Herstellerkennung verbergen, sind
 Das MAC-Protokoll regelt ebenfalls den Zugriff auf das Transportmedium. Hierbei wird in zwei verschiedene Zugriffsarten unterteilt. Zum Einen den kontrollierten Zugriff und zum Anderen der konkurrierende Zugriff.\\\\
 Beim kontrollierten Zugriff wird darauf geachtet, dass keine Kollision auftritt. Somit kommuniziert keines der Netzwerkgeräte gleichzeitig über einen Kanal, sondern es ist immer nur ein Gerät aktiv.\\\\
 Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen, jedoch gibt es bestimmte Regeln, wenn eine Kollision auftritt. In diesen wird geregelt, in welcher Art und Weise die Kollisionen behandelt werden.
-In der Praxis gibt es unter anderem das Protokoll Carrier sense multiple access with collision detection (CSMA/CD).
+In der Praxis gibt es unter anderem das Protokoll "Carrier Sense Multiple Access with Collision Detection" (CSMA/CD).
 Dieses stellt bei einer Kollision durch ein Stör-Signal sicher, dass alle beteiligten Geräte die Kollision ebenfalls erkennen.\footnote{vgl. Burke, M./Kowalk, W. (1994), S.157}
 Zusätzlich versendet das Gerät das Paket nach einiger Zeit wiederum erneut, bis dieses ankommt oder die Anzahl der maximalen Versuche überschritten wurde.
 Die Wartezeit steigt exponentiell anhand der Versuche.
-Hierzu wird eine Zufallszahl aus dem Bereich 0 und \(2^i-1\) und diese mit einem festen Intervall (z.B. 50µs) multipliziert gewählt.\footnote{vgl. IEEE 802.3}
+Hierzu wird eine Zufallszahl aus dem Bereich 0 und \(2^i-1\) gewählt und diese mit einem festen Intervall (z.B. 50µs) multipliziert.\footnote{vgl. IEEE 802.3}
 Wobei i für den i-ten Versuch steht.
 
 \section{Virtual Local Area Network}
@@ -421,22 +413,22 @@ Wobei i für den i-ten Versuch steht.
 Bei einem VLAN (Virtual Local Area Network) handelt es sich um ein logisches Netzwerk innerhalb eines physikalischen Netzwerkes.
 Dieses logische Netz beinhaltet meist nur einen gewissen Teil des physikalischen Netzwerkes.
 VLANs können über einen oder mehrere Switches ausgedehnt werden und müssen sich nicht auf einen speziellen Port beziehen.
-Um ein Netzwerk durch VLANs in mehrere Teilnetze zu unterteilen, gibt es den Ansatz Ports bzw. die einzelnen Datenpakete jeweils VLANs zuzuweisen.
+Um ein Netzwerk durch VLANs in mehrere Teilnetze zu unterteilen, gibt es den Ansatz Ports bzw. die einzelnen Datenpakete jeweils einem VLAN zuzuweisen.
 Durch diese Zuweisung findet eine logische Trennung statt, da nur die Geräte in einem VLAN untereinander kommunizieren können.
 VLANs können über verschiedene Arten realisiert werden.
 VLANs lassen sich in portbasierte VLANs und tagged VLANs unterschieden.
 Bei den portbasierten VLANs gehört ein Port je einem oder mehreren VLANs an.\footnote{vgl. Schreiner, R. (2009), S.131f.}
 Beim sogenannten tagged VLAN hingegen findet die VLAN-Zuordnung durch eine Kennzeichnung des Datenpaketes (im Ethernet-Frame) statt.
 %Dieses 'tagging' ist nach IEEE 802.1q spezifiziert.\footnote{Vgl. IEEE 802.1q}
-Das markieren der Datenpakete kann sowohl von VLAN fähigen Endgeräten als auch von Switches geschehen.
+Das Markieren der Datenpakete kann sowohl von VLAN fähigen Endgeräten als auch von Switches geschehen.
 Jedoch muss sichergestellt werden, dass Geräte ohne VLAN-Unterstützung keine markierten Pakete erhalten.\\\\
 Neben der Art der Zuweisung gibt es eine Unterscheidung zwischen statischen und dynamischen VLANs.\footnote{vgl. Cisco (2004), S. 292f.}
 Bei einem statischen VLAN ist ein Port immer einem VLAN zugeordnet.\\\\
 Das dynamische VLAN hingegen ist nicht portbasierend und wird je nach Inhalt der Datenpakete festgelegt.
-Die Zugehörigkeit zu einem VLAN kann auf Basis der Adressierung (MAC- oder IP-Adresse) geschehen oder aber auf Basis der Anwendung (TCP Port 80 - HTTP).
+Die Zugehörigkeit zu einem VLAN kann auf Basis der Adressierung (MAC- oder IP-Adresse) geschehen oder aber auf Basis der Anwendung (z.B. TCP Port 80 - HTTP).
 Dadurch ergibt sich z.B. die Möglichkeit ein mobiles Endgerät (Notebook, Handscanner), das per WLAN an unterschiedliche Accesspoints und somit auch an verschiedenen Ports angeschlossen wird, immer dem gleichen VLAN zuzuordnen.
 Die Gründe für die Verwendung eines VLANs lassen sich in drei Punkte aufteilen.
-Zuerst macht eine Verwendung wie oben bereits erwähnt Sinn, wenn eine flexible Zuordnung eines Endgerätes immer zum selben VLAN gemacht werden muss.\\
+Eine Verwendung wie oben bereits erwähnt ergibt Sinn, wenn eine flexible Zuordnung eines Endgerätes immer zum selben VLAN stattfinden muss.\\
 Ein weitere Grund für VLANs sind Performance-Aspekte. Neben der Priorisierung von speziellen Daten (z.B. VOIP), dient ein VLAN meist der Verkleinerung der Broadcast-Domänen.
 Durch die Verkleinerung der Domänen, wird ein Broadcast nicht über das gesamte Netzwerk hinweggeschickt.\\\\
 Neben diesen Aspekten spielt die Sicherheit ebenfalls eine wichtige Rolle.
