@@ -143,33 +143,42 @@ linktocpage % Seitenzahlen anstatt Text im Inhaltsverzeichnis verlinken
 
 \usepackage{caption}
 
-\usepackage{tocloft}
+%\usepackage{tocloft}
 %%code für appendix kram
-\newcommand{\listappendixname}{Anhangsverzeichnis}
-\newlistof{appendix}{app}{\listappendixname}
-\setcounter{appdepth}{2}    
-\renewcommand{\theappendix}{\Alph{appendix}}
-\renewcommand{\cftappendixpresnum}{Anhang\space}
-\setlength{\cftbeforeappendixskip}{\baselineskip}
-\setlength{\cftappendixnumwidth}{1in}
-\newlistentry[appendix]{subappendix}{app}{1}
-\renewcommand{\thesubappendix}{\theappendix.\arabic{subappendix}}
-\renewcommand{\cftsubappendixpresnum}{Appendix\space}
-\setlength{\cftsubappendixnumwidth}{1in}
-\setlength{\cftsubappendixindent}{0em}
+%\newcommand{\listappendixname}{Anhangsverzeichnis}
+%\newlistof{appendix}{app}{\listappendixname}
+%\setcounter{appdepth}{2}    
+%\renewcommand{\theappendix}{\Alph{appendix}}
+%\renewcommand{\cftappendixpresnum}{Anhang\space}
+%\setlength{\cftbeforeappendixskip}{\baselineskip}
+%\setlength{\cftappendixnumwidth}{1in}
+%\newlistentry[appendix]{subappendix}{app}{1}
+%\renewcommand{\thesubappendix}{\theappendix.\arabic{subappendix}}
+%\renewcommand{\cftsubappendixpresnum}{Appendix\space}
+%\setlength{\cftsubappendixnumwidth}{1in}
+%\setlength{\cftsubappendixindent}{0em}
 
-\newcommand{\myappendix}[1]{%
-  \refstepcounter{appendix}%
-  \section*{\theappendix\space #1}%
-  \addcontentsline{app}{appendix}{\protect\numberline{\theappendix}#1}%
-  \par
-}
+%\newcommand{\myappendix}[1]{%
+%  \refstepcounter{appendix}%
+%  \section*{\theappendix\space #1}%
+%  \addcontentsline{app}{appendix}{\protect\numberline{\theappendix}#1}%
+%  \par
+%}
 
-\newcommand{\subappendix}[1]{%
-  \refstepcounter{subappendix}%
-  \subsection*{\thesubappendix\space #1}%
-  \addcontentsline{app}{subappendix}{\protect\numberline{\thesubappendix}#1}%
-}
+%\newcommand{\subappendix}[1]{%
+%  \refstepcounter{subappendix}%
+%  \subsection*{\thesubappendix\space #1}%
+%  \addcontentsline{app}{subappendix}{\protect\numberline{\thesubappendix}#1}%
+%}
+
+\newcommand\listappendixname{Anhangsverzeichnis}
+\newcommand\appcaption[1]{%
+%\refstepcounter{appnumber}
+  \addcontentsline{app}{section}{#1}}
+\makeatletter
+\newcommand\listofappendices{%
+  \section*{\listappendixname}\@starttoc{app}}
+\makeatother
 
 % fr lange Tabellen
 \usepackage{longtable}
