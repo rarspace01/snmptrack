@@ -104,14 +104,14 @@
 \renewcommand*{\chapterheadstartvskip}{\vspace*{0pt}}
 
 \tableofcontents			% Inhaltsverzeichnis
-
+\clearpage
 
 % Abkrzungsverzeichnis ----------------------------------------------------
 %\input{Inhalt/Glossar}
 %\printnomenclature
 %\label{sec:Glossar}
 \include{Inhalt/Abkurz}
-
+\ihead{Abbildungsverzeichnis}
 %Hack für listoffigures
 \begingroup
 \renewcommand*{\addvspace}[1]{}
@@ -123,8 +123,10 @@
 
 % ...danach in normalen arabischen Ziffern ---------------------------------
 \clearpage
+\ihead{Glossar}
 \input{Inhalt/Glossar}
 \clearpage
+\ihead{\headmark}
 \pagenumbering{arabic}
 
 
@@ -137,7 +139,6 @@
 \include{Inhalt/Kapitel1}
 \include{Inhalt/Kapitel2}
 \include{Inhalt/Kapitel3}
-%\include{Inhalt/Fazit}
 
 \pagenumbering{Roman}
 \setcounter{page}{9}
