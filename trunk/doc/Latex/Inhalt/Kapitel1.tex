@@ -38,8 +38,8 @@ Im Anschluss soll auf die, in der Praxis verwendeten relationalen DBMS eingegang
 \end{itemize}
 
 Die Microsoft Jet Engine (Access) ist ein dateibasierendes DBMS, welches dem Benutzer eine einfache Möglichkeit bietet, Daten in einer Datenbank zu speichern und passende Oberflächen (Frontends) in der Datenbank zu integrieren.\footnote{vgl. Birnbam, D. (2003), S. 328}
-Bei diesem System, wie bei allen anderen dateibasierenden DBMS, steht meist die einfache Konfigurierbarkeit im Vordergrund. Die dateibasierenden Datenbanken sind meist für einen Einzeluser-Betrieb ausgelegt und spielen hier auch ihre Stärken aus.
-Wird eine dateibasierende Datenbank von mehreren Usern benutzt, so zeigen sich die Nachteile einer solchen Datenbank.
+Bei diesem System, wie bei allen anderen dateibasierenden DBMS, steht meist die einfache Konfigurierbarkeit im Vordergrund. Die dateibasierenden Datenbanken sind meist für einen Einzelbenutzer-Betrieb ausgelegt und spielen hier auch ihre Stärken aus.
+Wird eine dateibasierende Datenbank von mehreren Benutzern benutzt, so zeigen sich die Nachteile einer solchen Datenbank.
 Dadurch, dass Access für jeden Nutzer bei einer Abfrage die komplette Datenbank durchsucht, entsteht eine hohe Auslastung der Festplatte, sowie des Netzwerks. Daher nimmt Geschwindigkeit bei mehreren Anwendern exponentiell ab, da sich alle Benutzer die Bandbreite der Festplatte sowie des Netzwerkes teilen.\footnote{vgl. Nicol, N./Albrecht, R. (2004), S. 963}
 Auch beim Speichern müssen zusätzlich Datensätze gesperrt und organisiert werden, da sonst die Daten inkonsistent werden können, wenn mehrere Personen gleichzeitig einen Datensatz schreiben.\\\\
 MS-SQL ist ein relationales DBMS, welches von Microsoft erwerbbar
@@ -50,7 +50,7 @@ Hierdurch werden die Nachteile des dateibasierenden zu den Vorteilen des serverb
 Da der Server selbst die Abfragen verwaltet und zusätzlich Abfragen im Arbeitsspeicher ablegt, sowie dem Benutzer nur die Daten
 sendet, die er auch angefordert hat und nicht die komplette Datei, werden Zugriffszeiten
 und Netzwerk/Festplattenlast optimiert.\\\\
-Ein weiteres DBMS stellt der Datenbankserver 'Oracle Database' von Oracle dar.
+Ein weiteres DBMS stellt der Datenbankserver ''Oracle Database'' von Oracle dar.
 Die Lizenzstruktur ähnelt der von Microsoft.
 So gibt es auch hier kostenfreie und kostenpflichtige Varianten.
 Im Gegenzug zum MS-SQL Server bietet Oracle ein breiteres Spektrum an Funktionalitäten und eine größere Konfigurationsmöglichkeit.\footnote{vgl. Zehoo, E. (2010), S. 2}
@@ -60,9 +60,9 @@ Weitere Vorteile der Oracle-Datenbank sind die weitgehende Betriebssystemunabhä
 MySQL ist der Open Source Pendant zu MS-SQL, welcher im Internet einen sehr hohen Verbreitungsgrad aufweist.
 So wird dieser von Seiten wie Wikipedia\footnote{vgl. Gilmore, J. (2010), S. 484} oder
 Youtube\footnote{vgl. Cronan, J./Matthews, M. (2009), S. 240} verwendet.
-Im Gegensatz zu MS-SQL verwendet MySQL das GPL Lizenzmodell, sodass die Datenbank für Privatanwender kostenlos ist und die Lizenzgebühren für Unternehmen einen Bruchteil der Kosten ausmachen, die für ein Microsoft System bezahlt werden müssten.\footnote{vgl. http://www.mindfactory.de/product\_info.php/info/p700694 - Aufruf der Seite: 06.02.2011}
+Im Gegensatz zu MS-SQL verwendet MySQL das GPL Lizenzmodell, sodass die Datenbank für Privatanwender kostenlos ist und die Lizenzgebühren für Unternehmen einen Bruchteil der Kosten ausmachen, die für ein Microsoft System bezahlt werden müssten.\footnote{vgl. Mindfactory Preisliste, http://www.mindfactory.de/product\_info.php/info/p700694 - Aufruf der Seite: 06.02.2011}
 
-Eine weitere Datenbank stellt PostgreSQL dar, welches unter der PostgreSQL-Lizenz zur Verfügung gestellt wird und somit auch für kommerzielle Projekte ohne Kosten nutzbar ist.\footnote{vgl. PostgreSQL: Lizenz, http://www.postgresql.org/about/licence - Aufruf der Seite: 06.02.2011}\footnote{vgl. Eisentraut, P./Helmle, B. (2010), S. 277}
+Eine weitere Datenbank stellt PostgreSQL dar, welches unter der PostgreSQL-Lizenz zur Verfügung gestellt wird und somit auch für kommerzielle Projekte ohne Kosten nutzbar ist.\footnote{vgl. PostgreSQL: Lizenz, http://www.postgresql.org/about/licence - Aufruf der Seite: 06.02.2011; vgl. Eisentraut, P./Helmle, B. (2010), S. 277}
 
 
 \subsection{Datenbankentwurf}
@@ -90,12 +90,14 @@ Das in Abbildung \ref{chenpic1} zu sehende Diagramm beschreibt folgenden Sachver
 \end{center}
 \end{figure}
 
+\clearpage
+
 \subsection{Kardinalitäten}
 
 Kardinalitäten beschreiben den Grad einer Verbindung zwischen zwei Objekten.\footnote{vgl. Burnus, H. (2007), S. 20}
 In Abbildung \ref{chenpic1} ist eine 1:n Kardinalität gegeben.
-Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.\footnote{vgl. Moos, A. (2004), S. 37}\\\\
-In Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
+Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 zugeordnet werden, einem Objekt der Relation 2 jedoch nur ein Objekt der Relation 1.\footnote{vgl. Moos, A. (2004), S. 37}
+In Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.\\
 
 \begin{figure}[H]
 \begin{center}
@@ -107,7 +109,7 @@ In Abbildung \ref{chenpic2} ist eine n:m Kardinalität zu sehen.
 
 Diese sagt aus, dass einem Objekt der Relation 1, mehrere Objekte der Relation 2 angehören, einem Objekt der Relation 2 werden ebenfalls mehrere Objekten der Relation 1 zugewiesen.
 Diese n:m Kardinalitäten müssen bei einem Datenbankentwurf aufgelöst werden,\footnote{vgl. Pernul, G./Unland R. (2003), S. 177} da hier keine eindeutige Zuordnung möglich ist. Meistens lässt sich eine solche Kardinalität wie in Abbildung \ref{chenpic2} durch das Hinzufügen einer zusätzliche Tabelle, welche beide Objekte verknüpft, lösen.
-Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.
+Ein Beispiel ist in Abbildung \ref{chenpic3} zu sehen.\\
 
 \begin{figure}[H]
 \begin{center}
@@ -149,7 +151,7 @@ In der ersten Normalform wird untersucht, ob jedes Attribut atomare Werte besitz
 \end{center}
 \end{figure}
 
-In Abbildung \ref{chenpic4} ist eine Verletzung der 1. Normalform zu sehen. Um diese aufzuheben, müssen die einzelnen Werte, wie in Abbildung \ref{chenpic5} zu sehen, getrennt werden.
+In Abbildung \ref{chenpic4} ist eine Verletzung der 1. Normalform zu sehen. Um diese aufzuheben, müssen die einzelnen Werte, wie in Abbildung \ref{chenpic5} zu sehen, getrennt werden.\\
 
 \begin{figure}[H]
 \begin{center}
@@ -162,7 +164,7 @@ In Abbildung \ref{chenpic4} ist eine Verletzung der 1. Normalform zu sehen. Um d
 Wurde die Relation entsprechend angepasst, so ist die 1. Normalform erreicht und es kann nun geprüft werden,
 ob diese die Eigenschaften der 2. Normalform erfüllt.
 Um eine Normalform zu erfüllen, müssen auch alle vorhergehenden Normalformen erfüllt sein, dass heißt, erfüllt eine Tabelle die 3. Normalform, so erfüllt sie auch die 1. und 2. Normalform.
-Die Anforderungen für die 2. bis 5. Normalform sind jeweils unterschiedlich unt der Literatur zu entnehmen.\footnote{vgl. Schubert, M. (2007), S. 293-307}
+Die Anforderungen für die 2. bis 5. Normalform sind jeweils unterschiedlich und der Literatur zu entnehmen.\footnote{vgl. Schubert, M. (2007), S. 293-307}
 
 \section{Webserver}
 \label{sec:websrv}
@@ -182,7 +184,7 @@ Aktuell haben sich folgende dynamische Sprachen zur Erzeugung von Webseiten etab
 ASP ist eine Skriptsprache der Firma Microsoft und basiert grundlegend auf der Syntax von Visual Basic.
 JSP dient dem selben Zweck, wurde jedoch von Sun entwickelt und besitzt die Syntax von Java.
 PHP ist eine Skriptsprache, welche sich hauptsächlich an der C-Syntax orientiert und speziell für das Erstellen von
-dynamischen Webseiten entwickelt wurde. Sie ist die am weitesten verbreitete Scriptsprache zum Erstellen von dynamischen Webseiten.\\\\
+dynamischen Webseiten entwickelt wurde. Sie ist die am weitesten verbreitete Skriptsprache zum Erstellen von dynamischen Webseiten.\\\\
 Da alle der aufgeführten Skriptsprachen weitgehend Webserver-/Plattformunabhängig sind, kann man frei zwischen den meist benutzten Webserverprogrammen wählen, hierunter fallen unter anderem:
 
 
@@ -192,9 +194,9 @@ Da alle der aufgeführten Skriptsprachen weitgehend Webserver-/Plattformunabhän
 \end{itemize}
 
 Der Apache Webserver ist ein Open Source Webserver der Apache Foundation.\footnote{vgl. Apache Software Foundation (2010), S. 16}
-Er kann unter vielen verschiedenen Betriebssystemen eingesetzt werden und unterstützt durch seine Module alle verbreiteten Scriptsprachen, sowie Datenbanken.
+Er kann unter vielen verschiedenen Betriebssystemen eingesetzt werden und unterstützt durch seine Module alle verbreiteten Skriptsprachen, sowie Datenbanken.
 
-Der IIS Webserver von Microsoft läuft ausschließlich unter Windows, zudem ist es auch nur unter dem Serverbetriebssystem von Windows möglich, mehr als zehn Verbindungen gleichzeitig aufzubauen.\footnote{vgl. Microsoft: IIS 7.0: Übersicht über die verfügbaren Features in IIS 7.0, http://msdn.microsoft.com/de-de/library/cc753198\%28WS.10\%29.aspx - Aufruf der Seite: 06.02.2011}
+Der IIS Webserver von Microsoft läuft ausschließlich unter Windows, zudem ist es auch nur unter dem Serverbetriebssystem von Windows möglich, mehr als zehn Verbindungen gleichzeitig aufzubauen.\footnote{vgl. Microsoft: IIS 7.0: Übersicht über die verfügbaren Features in IIS 7.0,\\http://msdn.microsoft.com/de-de/library/cc753198\%28WS.10\%29.aspx - Aufruf der Seite: 06.02.2011}
 
 \section{Schnittstellen}
 \label{sec:schnittstellen}
@@ -213,12 +215,12 @@ Zurzeit haben sich verschiedene Varianten etabliert:
 
 Jedes etablierte DBMS bietet für Entwickler eine native Schnittstelle zum Ansprechen der Datenbank an.
 Diese wird meist in verschiedenen Programmiersprachen angeboten, unter anderem C,C++ und PHP.
-Die native Bibliothek besitzt den Vorteil, dass sie den vollen Funktionsumfang, sowie den größten Datendurchsatz mit der Datenbank ermöglicht.\footnote{vgl. Wutka, M. (2001), S. 76} Im Gegensatz dazu, existieren keine einheitlichen Design Patterns für diese, wodruch die Verwendungen von verschiedenen DBMS erschwert wird.\\\\
+Die native Bibliothek besitzt den Vorteil, dass sie den vollen Funktionsumfang, sowie den größten Datendurchsatz mit der Datenbank ermöglicht.\footnote{vgl. Wutka, M. (2001), S. 76} Im Gegensatz dazu, existieren keine einheitlichen Design Patterns für diese, wodurch die Verwendungen von verschiedenen DBMS erschwert wird.\\\\
 Aufgrund dessen hat sich in der Vergangenheit unter Windows die sogenannte Open Database Connectivity-Schnittstelle (ODBC) etabliert, welche es ermöglicht, ohne Veränderung des Quellcodes, das Datenbanksystem zu wechseln.\footnote{vgl. Taylor, A. (2007), S. 322}
 Hierzu muss lediglich der ODBC-Eintrag angepasst werden.
 Ein weiterer Vorteil, der sich durch die Schnittstelle ergibt, ist die Möglichkeit, alle Abfragen im standardisierten SQL absetzen zu können, unabhängig vom verwendeten DBMS.
 Neben der ODBC-Schnittstelle gibt es auch die JDBC-Schnittstelle bei Java.
-Zwar kann Java auch ODBC über eine Treiber-Brücke nutzen, aber laut Oracle\footnote{Vgl. Oracle: JDBC-ODBC Bridge Driver, http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html  - Aufruf der Seite: 06.02.2011} soll dies nur im experimentellen Gebrauch stattfinden.
+Zwar kann Java auch ODBC über eine Treiber-Brücke nutzen, aber laut Oracle\footnote{vgl. Oracle: JDBC-ODBC Bridge Driver,\\ http://download.oracle.com/javase/1.3/docs/guide/jdbc/getstart/bridge.doc.html  - Aufruf der Seite: 06.02.2011} soll dies nur im experimentellen Gebrauch stattfinden.
 Da der Einsatz eines nativen JDBC-Treibers verhindert, dass unerwünschten Zustände auftreten, welche z.B. bei einer JDBC-ODBC Anbindung möglich sind, ist die Verwendeung des nativen Treibers vorzuziehen.
 Zusätzlich gibt es noch ADO von Microsoft, welches auch als Schnittstelle für Webserver mit IIS bzw. ASP dient.\footnote{vgl. Roff, J. (2000), S. 3}
 Diese ähnelt in der Verwendung JDBC, da ebenfalls ein ODBC-Treiber angesteuert werden kann.
@@ -229,7 +231,7 @@ Der Verbindungsaufbau ist ähnlich einfach gestaltet und ermöglicht auch für W
 
 \subsection{Allgemein}
 
-Unter der Softwarentwicklung ist die Herstellung und Entwicklung von Software, sowie die dazugehörige Planung und Modellierung dieser zu verstehen.
+Unter der Softwareentwicklung ist die Herstellung und Entwicklung von Software, sowie die dazugehörige Planung und Modellierung dieser zu verstehen.
 Die Softwareentwicklung umfasst eine Vielzahl von Teilgebieten.
 Die Entwicklung einer komplexen Software wird anhand eines strukturierten Projektplans vorgenommen, welcher den Entwicklungsprozess inhaltlich und zeitlich abgrenzt.\footnote{vgl. Brandt-Pook, H./Kollmeier, R. (2008), S. 138}
 Die Software wird anhand von bestimmten Schritten fertiggestellt, welche miteinander eng verzahnt sind.
@@ -249,7 +251,7 @@ Im Folgenden soll auf die wichtigsten Kernprozesse bei der Umsetzung eines Syste
 \subsection{Planung}
 
 Zu Beginn einer Systementwicklung steht die Planung, in der die Anforderungen erhoben werden.\footnote{vgl. Schwabe, G./Streitz, N./Unland, R. (2001), S. 98}
-Hierbei handelt es sich um das Sammeln aller Anforderungen, die seitens des Kundens oder aufgrund von externen Einflüssen (z.B. Gesetze) gegeben sind.
+Hierbei handelt es sich um das Sammeln aller Anforderungen, die seitens des Kunden oder aufgrund von externen Einflüssen (z.B. Gesetze) gegeben sind.
 Währenddessen ist vor allem der Dialog mit dem Kunden, aber auch mit den späteren Benutzern sowie den fachlichen Experten notwendig.
 In dieser Phase wird neben dem Lastenheft (Anforderungsdefinition) auch das Pflichtenheft erstellt. Es erfolgt auch eine Aufwandseinschätzung, sowie die Wahl des Vorgehensmodells.\footnote{vgl. Kolbenschlag, W./Reiner, W./Teich, I (2007), S. 171}\\
 
@@ -289,30 +291,33 @@ UML enthält verschiedene Notationstechniken um visuelle Modelle von softwareint
 UML selbst ist auch von der ISO standardisiert und zählt heutzutage zu einer der bedeutendsten Modellierungssprachen bei der Softwareentwicklung. Durch die Sprache wird nicht nur eine grafische Notation festgehalten sondern ebenfalls die Begriffe und die jeweiligen Beziehungen zwischen diesen.
 Somit bilden die Diagramme nur eine Teil dessen ab, was unter der UML zu verstehen ist.
 Die UML wird seit 1997 weiterentwickelt und ist seitdem in mehrere Versionen erschienen.
-Die in der UML verwendeten Modelle lassen sich in Struktur- und Verhaltens-Diagramme unterteilen.\footnote{vgl. Gruhn, V./Pieper, D./Röttgers, C. (2006), S. 447+464}\\
+Die in der UML verwendeten Modelle lassen sich in Struktur- und Verhaltens-Diagramme unterteilen.\footnote{vgl. Gruhn, V./Pieper, D./Röttgers, C. (2006), S. 447,464}\\
 In diese Kategorien lassen sich wiederum die in UML verwendeten Diagramme einordnen:
-\begin{tabbing}
--Strukturdiagramme:\\
-\hspace{5mm} \=* Klassendiagramm\\
-\> * Kompositionsstrukturdiagramm\\
-\> * Komponentendiagramm\\
-\> * Verteilungsdiagramm\\
-\> * Objektdiagramm\\
-\> * Paketdiagramm\\
-\> * Profildiagramm\\
--Verhaltensdiagramme:\\
-\> * Aktivitätsdiagramm\\
-\> * Anwendungsfalldiagramm\\
-\> * Interaktionsübersichtsdiagramm\\
-\> * Kommunikationsdiagramm\\
-\> * Sequenzdiagramm\\
-\> * Zeitverlaufsdiagramm\\
-\> * Zustandsdiagramm
-\end{tabbing}    
+\clearpage
+Strukturdiagramme:
+\begin{itemize}
+\item Klassendiagramm
+\item Kompositionsstrukturdiagramm
+\item Komponentendiagramm
+\item Verteilungsdiagramm
+\item Objektdiagramm
+\item Paketdiagramm
+\item Profildiagramm\\
+\end{itemize}
+Verhaltensdiagramme:
+\begin{itemize}
+\item Aktivitätsdiagramm
+\item Anwendungsfalldiagramm
+\item Interaktionsübersichtsdiagramm
+\item Kommunikationsdiagramm
+\item Sequenzdiagramm
+\item Zeitverlaufsdiagramm
+\item Zustandsdiagramm\\
+\end{itemize}
 
 Im Folgenden soll nun auf die wichtigsten Diagramme eingegangen werden, welche für die Umsetzung des Projekts selbst verwendet wurden.
 Das erste verwendete Diagramm, ist das Anwendungsfalldiagramm (im Folgenden als Usecase-Diagramm bezeichnet).\footnote{vgl. Bremer, S./Oestereich, B. (2009), S. 245f.} 
-Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als 'Strichmännchen' dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
+Dieses dient dazu einen Überblick über die Funktionen des Systems, aber auch über die beteiligten Personen (Akteure) zu erhalten. Das Usecase-Diagramm stellt keine Beschreibung der Abläufe dar, sondern die Beziehung zwischen Akteur und den jeweiligen Funktionen, die in diesem Fall als Anwendungsfall bezeichnet werden. Akteure können im Diagramm Anwender, Administratoren, aber auch Systeme selbst darstellen, welche von extern auf das System zugreifen. Im Diagramm selbst werden diese als ''Strichmännchen'' dargestellt und haben jeweils einen Namen. In einem Usecase-Diagramm muss immer mindestens ein Akteur vorhanden sein.
 Anwendungsfälle hingegen werden als Ellipsen dargestellt und enthalten eine Beschreibung.\footnote{vgl. Cockburn, A. (2007), S. 161}
 Um beide unterschiedlichen Elemente in einer Gruppe zusammenzufassen, wird ein Rahmen um alle beteiligten Elemente gebildet.
 Dieser wird im Systemkontext genannt und bildet somit die Systemgrenze.
@@ -326,7 +331,7 @@ Ein Beispiel eines Usecase-Diagramms ist in Abbildung \ref{fig:uml_usecase_ex} z
 \caption{Usecase-Diagramm}
 \label{fig:uml_usecase_ex}
 \end{figure}
-Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Beschreibung einzelner Klassen sowie deren Beziehungen untereinander.\footnote{vgl. Unhelkar, B. (2005), S. 48} Klassen dienen zur Beschreibung der Objekte, welche von diesen instanziert werden. Im Klassendiagramm wird eine Klasse als Rechteck dargestellt und neben dem Klassennamen enthält diese ein Bereich für die Attribute, sowie für die Methoden.
+Ein weiteres wichtiges Diagramm stellt das Klassendiagramm dar. Es dient zur Beschreibung einzelner Klassen sowie deren Beziehungen untereinander.\footnote{vgl. Unhelkar, B. (2005), S. 48} Klassen dienen zur Beschreibung der Objekte, welche von diesen instanziiert werden. Im Klassendiagramm wird eine Klasse als Rechteck dargestellt und neben dem Klassennamen enthält diese ein Bereich für die Attribute, sowie für die Methoden.
 Um die Sichtbarkeit der Attribute und Methoden darzustellen, werden verschiedene Symbole verwendet:\\
 
      + für public, unbeschränkter Zugriff\\
@@ -334,7 +339,7 @@ Um die Sichtbarkeit der Attribute und Methoden darzustellen, werden verschiedene
      -  für private, nur innerhalb der Klasse selbst sichtbar\\
 \\
 Ähnlich wie bei einem Usecase-Diagramm bietet sich beim Klassendiagramm die Möglichkeit einer Generalisierung.
-Beispielsweise sind die Klassen \textit{PKW} und \textit{LKW} Unterklassen von der Klasse \textit{Fahrzeuge}. In Abbildung \ref{fig:uml_class} ist ein Beispiel eines verinfachten Klassendiagramms zu sehen.\\
+Beispielsweise sind die Klassen \textit{PKW} und \textit{LKW} Unterklassen von der Klasse \textit{Fahrzeuge}. In Abbildung \ref{fig:uml_class} ist ein Beispiel eines vereinfachten Klassendiagramms zu sehen.\\
 \\
 \begin{figure}[H]
 \centering
@@ -343,10 +348,10 @@ Beispielsweise sind die Klassen \textit{PKW} und \textit{LKW} Unterklassen von d
 \label{fig:uml_class}
 \end{figure}
 Ebenfalls relevant für die Umsetzung des Projektes sind die Aktivitätsdiagramme.
-Sie dienen dazu, Abläufe von Prozessen abzubilden.\footnote{Bremer, S./Oestereich, B. (2009), S. 335f.}
+Sie dienen dazu, Abläufe von Prozessen abzubilden.\footnote{vgl. Bremer, S./Oestereich, B. (2009), S. 335f.}
 Beim Aktivitätsdiagramm befinden sich die Elemente in abgerundeten Rechtecken, welche zusätzlich den Namen der Aktivität neben den Elementen enthalten.
 Den Start bzw. Endpunkt bilden jeweils ein gefüllter Kreis, wobei der Endpunkt nur teilweise gefüllt ist. Aktivitäten werden in abgerundeten Rechtecken aufgelistet und miteinander in Flussrichtung verbunden. Entscheidungsfälle werden durch eine Raute symbolisiert.
-Je nach Entscheidungsfall verläuft der Pfad bei ‘Ja’ weiter in Flussrichtung nach unten, oder bei einer Abweichung zur Seite ab.
+Je nach Entscheidungsfall verläuft der Pfad bei ''Ja'' weiter in Flussrichtung nach unten, oder bei einer Abweichung zur Seite ab.
 Zusätzlich bietet sich die Möglichkeit, Aktivitäten parallel ablaufen zu lassen.
 Dies kann durch Aktivitäten, die zwischen zwei Balken liegen, symbolisiert werden.
 Im Folgenden ist in Abbildung \ref{fig:uml_activity} ein beispielhaftes Aktivitätsdiagramm zu sehen.\\
@@ -357,7 +362,7 @@ Im Folgenden ist in Abbildung \ref{fig:uml_activity} ein beispielhaftes Aktivit�
 \caption{Aktivitätsdiagramm}
 \label{fig:uml_activity}
 \end{figure}
-Für das bessere Verständnis der späteren Implementierung ist das Sequenzdiagramm ebenfalls von größerer Bedeutung.\footnote{Bremer, S./Oestereich, B. (2009), S. 361f.} 
+Für das bessere Verständnis der späteren Implementierung ist das Sequenzdiagramm ebenfalls von größerer Bedeutung.\footnote{vgl. Bremer, S./Oestereich, B. (2009), S. 361f.} 
 Es dient dazu, einen Überblick über die Lebensdauer und Interaktion zwischen den einzelnen Klassen bzw. deren Objekte zu erhalten.
 Bei diesen wird nicht nur auf die bei den Klassendiagrammen gezeigte Beziehung, sondern auch auf den Nachrichtenaustausch zwischen den Objekten eingegangen.
 Bei einem Nachrichtenaufruf mit Antwort bzw. mit einer daraus folgenden Aktion, wird es notwendig, zu unterscheiden, welche Art von Kommunikation stattfindet.
@@ -396,7 +401,7 @@ Eine MAC-Adresse kann wie folgt dargestellt werden:\\
 01-23-45-67-89-ab oder 01:23:45:67:89:ab oder 0123.4567.89ab\\
 \\
 Anhand der Herstellerkennung lassen sich wiederum Rückschlüsse auf das Netzwerkgerät ziehen.
-Die Hersteller, welche sich jeweils hinter der Herstellerkennung verbergen, sind öffentlich bei der IEEE einsehbar, z.B. per Internet.\footnote{vgl. OUIs, http://standards.ieee.org/develop/regauth/oui/public.html - Aufruf der Seite: 07.02.2011}
+Die Hersteller, welche sich jeweils hinter der Herstellerkennung verbergen, sind öffentlich bei der IEEE einsehbar, z.B. per Internet.\footnote{vgl. IEEE OUIs, http://standards.ieee.org/develop/regauth/oui/public.html - Aufruf der Seite: 07.02.2011}
 Das MAC-Protokoll regelt ebenfalls den Zugriff auf das Transportmedium. Hierbei wird in zwei verschiedene Zugriffsarten unterteilt. Zum Einen den kontrollierten Zugriff und zum Anderen der konkurrierende Zugriff.\\\\
 Beim kontrollierten Zugriff wird darauf geachtet, dass keine Kollision auftritt. Somit kommuniziert keines der Netzwerkgeräte gleichzeitig über einen Kanal, sondern es ist immer nur ein Gerät aktiv.\\\\
 Beim konkurrierenden Zugriff hingegen darf jedes Gerät auf das Medium zugreifen, jedoch gibt es bestimmte Regeln, wenn eine Kollision auftritt. In diesen wird geregelt, in welcher Art und Weise die Kollisionen behandelt werden.
@@ -441,9 +446,9 @@ Diese Abfragen werden von einem zentralen Punkt aus durchgeführt, dem sogenannt
 Bei SNMP handelt es sich um ein Protokoll, welches sich auf der Schicht 7, die An"-wen"-dungs-Ebene, des ISO/OSI-Schichtenmodells, ansiedeln lässt.
 Entwickelt wurde das Protokoll von der IEFT und ist über diverse RFCs definiert.
 Durch die hohe Modularität funktioniert SNMP nicht nur über IP und sondern auch über IPX oder AppleTalk.
-Dies ist unteranderem auch ein Grund für die weite Verbreitung von SNMP, welches mittlerweile als Standard gilt.
+Dies ist unter anderem auch ein Grund für die weite Verbreitung von SNMP, welches mittlerweile als Standard gilt.
 Die Funktionsweise von SNMP ist einfach gehalten, um eine größtmögliche Portabilität zu erreichen.
-Zum Einen gibt es die sogennanten ‘Agenten’ die Daten zur Verfügung stellen. Zum Anderen gibt es die sogenannten Manager, welche die Daten abfragen.
+Zum Einen gibt es die sogenannten ''Agenten'' die Daten zur Verfügung stellen. Zum Anderen gibt es die sogenannten Manager, welche die Daten abfragen.
 Die Informationen der Agenten können von einem Manager über das SNMP-Protokoll abgefragt werden.
 Zusätzlich besteht die Möglichkeit, dass ein Agent eine Nachricht an einen Manager sendet, sofern ein vordefinierter Wert überschritten wurde.
 Neben dem Anfordern von Informationen kann der Manager auch Werte auf dem Agenten setzen.
@@ -452,45 +457,45 @@ Die Art der Werte wird über die sogenannte Management Information Base (MIB) de
 Diese MIBs sind teilweise über RFCs spezifiziert.\footnote{vgl. RFC 1213}
 Zusätzlich gibt es herstellerspezifische MIBs z.b. von Cisco , die in einem speziellen Punkt im Baum hinterlegt werden können. Diese MIBs werden unter dem  Object Identifier (OID) 1.3.6.1.4.1 (iso.org.dod.internet.private.enterprises) bei der IANA registriert.\\
 Bei der Kommunikation untereinander werden verschiedene Paket-Typen verwendet.\\
-\\
+\\\\
 GET\\
 
-Bei den GET-Paketen handelt es sich um jeweils unterschiedliche Arten der Anforderung die vom Manager an den Agent gesendet werden.
-Bei einem normalen GET-Paket wird ein einzelnes Attribut vom Agenten angefordert. Jedoch gibt es Abfragen, bei denen nicht im Voraus bekannt ist, wie viele Attribute abgefragt werden müssen. Beispielsweise der Status mehrerer Ports an einem Switch. Da dem SNMP-Manager jedoch keine Informationen vorliegen wie viele Ports der Switch hat, kann er nicht im Voraus die entsprechende Abfrage starten.\\
-\\
+Bei den GET-Paketen handelt es sich um die normalen Anforderung die vom Manager an den Agent gesendet werden.
+Bei einem normalen GET-Paket wird ein einzelnes Attribut vom Agenten angefordert. Jedoch gibt es Abfragen, bei denen nicht im Voraus bekannt ist, welche Attribute abgefragt werden müssen. Beispielsweise der Status mehrerer Ports an einem Switch. Da dem SNMP-Manager jedoch keine Informationen vorliegen wie viele Ports der Switch hat, kann er nicht im Voraus die entsprechende Abfrage starten.\\
+\\\\
 GETNEXT\\
 
-Um diese Problematik zu lösen gibt es den sogenannten GETNEXT-Befehl, der es ermöglicht anhand einer OID, die OID und den Wert des darauffolgenden Elementes zu erhalten.
+Um diese Problematik zu lösen gibt es den sogenannten GETNEXT-Befehl, der es ermöglicht anhand einer OID, die OID und den Wert des darauf folgenden Elementes zu erhalten.
 Die Abfrage von einer Anzahl von n Ports erzeugt n+1 Abfragen die vom Manager ausgehen.
 Bei einem 48 Port Switch müssten somit 49 Abfragen abgesetzt werden.
-Dies ist aber inefektiv, da der Manager nur eine Informationsmenge erhalten möchte aber dazu eine Vielzahl an Anfragen durchführen muss.
-\\
+Dies ist aber ineffektiv, da der Manager nur eine Informationsmenge erhalten möchte aber dazu eine Vielzahl an Anfragen durchführen muss.\\
+\\\\
+\clearpage
 GETBULK\\
 
-Aus diesem Grund wurde mit SNMP v2 der GETBULK Befehl eingeführt. Dieser ermöglicht es mehrere Werte mit einer Abfrage zu erhalten, die am Knoten im Baum hinterlegt sind.\\
-\\
+Aus diesem Grund wurde mit SNMP Version 2 der GETBULK Befehl eingeführt. Dieser ermöglicht es mehrere Werte mit einer Abfrage zu erhalten, die am Knoten im Baum hinterlegt sind.\\
+\\\\
 SET\\
 
 Das SET-Paket dient zum Setzen spezieller Werte.
-So kann zum Beispiel darüber der Status des Ports von einem Switch  geändert werden, oder es könnte eine Firewall konfiguriert werden.
-\\
-\\
+So kann zum Beispiel darüber der Status des Ports von einem Switch  geändert werden, oder es könnte eine Firewall konfiguriert werden.\\
+\\\\
 RESPONSE\\
 \\
-Auf diese bisher genannten Pakete antwortet der Agent mit einem RESPONSE Paket, welcher die benötigten Werte oder eine Fehlermeldung enthält.\\
-\\
+Auf die bisher genannten Pakete antwortet der Agent mit einem RESPONSE Paket, welcher die benötigten Werte oder eine Fehlermeldung enthält.\\
+\\\\
 TRAP\\
 \\
-Sofern beim SNMP-Agent z.B. gewisse Grenzwerte hinterlegt wurden, kann dieser sich bei einer Überschreitung mittels eines Trap-Paketes beim Manager melden, ohne dass dieser die Information explizit abgefragt hat.
+Sofern beim SNMP-Agent gewisse Grenzwerte hinterlegt wurden, kann dieser sich bei einer Überschreitung mittels eines Trap-Paketes beim Manager melden, ohne dass dieser die Information explizit abgefragt hat.
 Um möglichst wenig Netzwerklast zu erzeugen, kommuniziert SNMP über das UDP Protokoll, da es eine verbindungslose Kommunikation ermöglicht.
-Der Agent erhält die Anfragen auf Port 161, während der Manager auf Port 162 die Trap-Meldungen empfängt.\footnote{vgl. Olbrich, A. (2003), S. 295}\\
+Der Agent erhält Anfragen auf Port 161, während der Manager auf Port 162 die Trap-Meldungen empfängt.\footnote{vgl. Olbrich, A. (2003), S. 295}\\
 
 
 \section{Cisco Discovery Protokoll}
 \label{sec:cdp}
 
 Das Cisco Discovery Protokoll (CDP) von Cisco ist ein proprietäres Protokoll, welches dazu dient, dass sich Cisco-Geräten untereinander mit Informationen austauschen können.
-Die Cisco Geräte senden jeweils zur Multicast-Adresse\footnote{vgl. Dooley, K. (2001), S.136} “01-00-0c-cc-cc-cc”, um durch das Versenden eines einzigen Paketes alle Cisco Geräte im Netzwerk zu erfassen.
+Die Cisco Geräte senden jeweils zur Multicast-Adresse\footnote{vgl. Dooley, K. (2001), S. 136} “01-00-0c-cc-cc-cc”, um durch das Versenden eines einzigen Paketes alle Cisco Geräte im Netzwerk zu erfassen.
 Dies geschieht in einem Intervall von 60 Sekunden auf allen Netzwerk-Schnittstellen.
 Jedes der CDP-fähigen Geräte führt intern eine Tabelle mit Informationen über die Geräte, welche im Netzwerk gefunden wurden.
 Diese können per internen CDP oder per SNMP abgefragt werden.
