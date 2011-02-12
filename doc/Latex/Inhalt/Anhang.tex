@@ -74,7 +74,7 @@ In Abbildung \ref{fig:config_xml} ist die Konfigurations-Datei des erstellten Au
 Diese Datei dient zur Definition der jeweiligen Datenbanken und der Parameter für SNMP-Track.
 Der erste Eintrag legt die Anzahl der Threads fest. Dank einiger Optimierungen des Programms, kann dieser Wert auch über den in Kapitel \ref{sec:designent} empfohlenen Maximalwert gesetzt werden.
 Jedoch ist zu beachten, dass je nach CPU-Geschwindigkeit der Switches und der Leistung des Rechners der das Ausleseprogramm ausführt es zu Engpässen kommen kann.
-Der Maximalwert, der auf einem Server getestet wurde, war 128. Jedoch handelte es sich hierbei um einen Server mit einer Intel Xeon-CPU, die aus vier Cores zu je 2.8GHz besteht.\\\\
+Der Maximalwert, der auf einem Server getestet wurde, war 128. Jedoch handelte es sich hierbei um einen Server mit einer Intel Xeon-CPU, die aus vier Cores zu je 2,8GHz besteht.\\\\
 
 \begin{figure}[H]
 \centering
@@ -86,7 +86,7 @@ Der Maximalwert, der auf einem Server getestet wurde, war 128. Jedoch handelte e
 Der nächste Parameter legt den Debug-Level fest, der in Kapitel \ref{sec:implementation} näher beschrieben wurde.
 Er dient vor allem dazu, den Detailgrad der Meldungen zu steuern.
 Um die Auslesegeschwindigkeit und somit auch die Last auf den Switchs zu steuern, dient der Parameter 'SNMP Intervall'.
-Dieser gibt die Zeit in ms an, die zwischen zwei SNMP Abfragen liegen soll. Ein hoher Wert führt zu geringer Last auf den Switches und einer erhöhten Auslesedauern.
+Dieser gibt die Zeit in ms an, die zwischen zwei SNMP Abfragen liegen soll. Ein hoher Wert führt zu geringer Last auf den Switches und einer erhöhten Auslesedauer.
 Ein kleiner Wert hingegen erhöht die Last auf den Switches und reduziert die Auslesezeit.
 Empfehlungswerte sind hierbei stark Geräte abhängig. Neuere Cisco Switches können problemlos mit dem Wert von 20ms arbeiten, wohingegen ältere Switches, z.B. der Catalyst 3500XL bei diesem Wert sehr stark ausgelastet ist.
 Hier ist es hilfreich in den ersten Tagen des Einsatzes der Software die Last der Switches zu kontrollieren um den optimalen Wert zu finden.
@@ -98,7 +98,7 @@ Die SNMP-Datenbank enthält die Daten des Ausleseprogrammes, welche per Webinter
 \label{sec:impimgs}
 
 Um einen Überblick über die implementierte Lösung zu erhalten, sind im nachfolgenden Bilder der Oberfläche zu sehen.\\\\
-Die in Abbildung \ref{fig:login} zusehende Loginmaske, stellt sicher, dass nur berechtigte Personen auf die Daten der Switches zugreifne können.
+Die in Abbildung \ref{fig:login} zusehende Loginmaske, stellt sicher, dass nur berechtigte Personen auf die Daten der Switches zugreifen können.
 
 
 \begin{figure}[H]
@@ -110,7 +110,7 @@ Die in Abbildung \ref{fig:login} zusehende Loginmaske, stellt sicher, dass nur b
 
 Nach dem Einloggen wird dem Benutzer die in Abbildung \ref{fig:overview} sichtbare Übersicht präsentiert.
 Diese ermöglicht den direkten Zugriff auf die wichtigsten Funktionalitäten.
-Zusätzlich wird automatisch der Cursor auf die Suchmaske gesetzt, sodass direkt per Tastatur nach dem einloggen gesucht werden kann, ohne dass der Benutzer die Maus bewegen muss.
+Zusätzlich wird automatisch der Cursor auf die Suchmaske gesetzt, sodass direkt per Tastatur nach dem einloggen gesucht werden kann, ohne dass der Benutzer die Maus betätigen muss.
 
 \begin{figure}[H]
 \centering
