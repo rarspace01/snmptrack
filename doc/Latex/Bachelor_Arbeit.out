@@ -1,41 +1,53 @@
-\BOOKMARK [0][]{chapter*.3}{Abk\374rzungsverzeichnis}{}
-\BOOKMARK [0][]{chapter*.4}{Abbildungsverzeichnis}{}
-\BOOKMARK [0][]{chapter.5}{Einleitung}{}
-\BOOKMARK [0][]{chapter.6}{Theoretische Grundlagen}{}
-\BOOKMARK [1][]{section.7}{Datenbank Entwurf / ERM}{chapter.6}
-\BOOKMARK [1][]{section.12}{Kardinalit\344ten}{chapter.6}
-\BOOKMARK [1][]{section.15}{Normalisierung - Optimierung von Datenbanken}{chapter.6}
-\BOOKMARK [1][]{section.27}{DBMS}{chapter.6}
-\BOOKMARK [1][]{section.34}{Webserver}{chapter.6}
-\BOOKMARK [1][]{section.37}{Schnittstellen}{chapter.6}
-\BOOKMARK [1][]{section.39}{Softwareentwicklung}{chapter.6}
-\BOOKMARK [1][]{section.40}{UML}{chapter.6}
-\BOOKMARK [1][]{section.45}{MAC - Media Access Control}{chapter.6}
-\BOOKMARK [1][]{section.46}{VLAN - Virtual Local Area Network}{chapter.6}
-\BOOKMARK [1][]{section.47}{SNMP}{chapter.6}
-\BOOKMARK [1][]{section.51}{CDP - Cisco Discovery Protokoll}{chapter.6}
-\BOOKMARK [0][]{chapter.52}{Praktische Umsetzung}{}
-\BOOKMARK [1][]{section.53}{Situationsbeschreibung}{chapter.52}
-\BOOKMARK [1][]{section.54}{Anforderungsdefinition}{chapter.52}
-\BOOKMARK [1][]{section.56}{Anforderungsanalyse}{chapter.52}
-\BOOKMARK [1][]{section.57}{Betrachtung bereits existierender L\366sungen}{chapter.52}
-\BOOKMARK [1][]{section.58}{Entscheidung zur eigenen Herstellung}{chapter.52}
-\BOOKMARK [1][]{section.59}{Entwurf}{chapter.52}
-\BOOKMARK [2][]{subsection.60}{Usecases}{section.59}
-\BOOKMARK [2][]{subsection.62}{Klassendiagramme}{section.59}
-\BOOKMARK [2][]{subsection.65}{Sequenzdiagramme}{section.59}
-\BOOKMARK [2][]{subsection.67}{Aktivit\344tsdiagramme}{section.59}
-\BOOKMARK [2][]{subsection.70}{ERM}{section.59}
-\BOOKMARK [1][]{section.72}{Design Entscheidungen}{chapter.52}
-\BOOKMARK [1][]{section.77}{Auswahl der Hilfsmittel}{chapter.52}
-\BOOKMARK [1][]{section.78}{Schnittstellen}{chapter.52}
-\BOOKMARK [1][]{section.79}{Zeitplan}{chapter.52}
-\BOOKMARK [1][]{section.82}{Realisierung}{chapter.52}
-\BOOKMARK [1][]{section.83}{Probleme bei der Implementierung}{chapter.52}
-\BOOKMARK [1][]{section.84}{Tests}{chapter.52}
-\BOOKMARK [1][]{section.88}{Weitere Anwendungsfelder / Datamining}{chapter.52}
-\BOOKMARK [1][]{section.89}{Wirtschaftliche Betrachtung}{chapter.52}
-\BOOKMARK [0][]{chapter.90}{Fazit}{}
-\BOOKMARK [0][]{chapter*.91}{Literaturverzeichnis}{}
-\BOOKMARK [0][]{appendix.92}{Anleitung zur Fehlerbehebung}{}
-\BOOKMARK [0][]{appendix*.93}{Ehrenw\366rtliche Erkl\344rung}{}
+\BOOKMARK [0][]{chapter*.4}{Abk\374rzungsverzeichnis}{}
+\BOOKMARK [0][]{chapter*.5}{Abbildungsverzeichnis}{}
+\BOOKMARK [0][]{chapter*.6}{Glossar}{}
+\BOOKMARK [0][]{chapter.7}{Problemstellung und Zielsetzung der Arbeit}{}
+\BOOKMARK [1][]{section.8}{Zielsetzung}{chapter.7}
+\BOOKMARK [1][]{section.9}{Motivation}{chapter.7}
+\BOOKMARK [1][]{section.10}{Vorgehensweise}{chapter.7}
+\BOOKMARK [0][]{chapter.11}{Theoretische Grundlagen}{}
+\BOOKMARK [1][]{section.12}{Datenbanken}{chapter.11}
+\BOOKMARK [2][]{subsection.13}{Datenbankmanagementsysteme}{section.12}
+\BOOKMARK [2][]{subsection.29}{Datenbankentwurf}{section.12}
+\BOOKMARK [2][]{subsection.33}{Kardinalit\344ten}{section.12}
+\BOOKMARK [2][]{subsection.39}{Normalisierung - Optimierung von Datenbanken}{section.12}
+\BOOKMARK [1][]{section.54}{Webserver}{chapter.11}
+\BOOKMARK [1][]{section.58}{Schnittstellen}{chapter.11}
+\BOOKMARK [1][]{section.63}{Softwareentwicklung}{chapter.11}
+\BOOKMARK [2][]{subsection.64}{Allgemein}{section.63}
+\BOOKMARK [2][]{subsection.69}{Planung}{section.63}
+\BOOKMARK [2][]{subsection.72}{Analyse}{section.63}
+\BOOKMARK [2][]{subsection.74}{Entwurf}{section.63}
+\BOOKMARK [2][]{subsection.76}{Programmierung}{section.63}
+\BOOKMARK [2][]{subsection.77}{Validierung und Verifizierung}{section.63}
+\BOOKMARK [1][]{section.80}{Unified Modeling Language}{chapter.11}
+\BOOKMARK [1][]{section.93}{Media Access Control}{chapter.11}
+\BOOKMARK [1][]{section.100}{Virtual Local Area Network}{chapter.11}
+\BOOKMARK [1][]{section.103}{Simple Network Management Protocol}{chapter.11}
+\BOOKMARK [1][]{section.108}{Cisco Discovery Protokoll}{chapter.11}
+\BOOKMARK [0][]{chapter.110}{Analyse der jetzigen Situation der Pirelli Deutschland GbmH}{}
+\BOOKMARK [1][]{section.111}{Situationsbeschreibung}{chapter.110}
+\BOOKMARK [1][]{section.113}{Anforderungsdefinition}{chapter.110}
+\BOOKMARK [1][]{section.116}{Anforderungsanalyse}{chapter.110}
+\BOOKMARK [1][]{section.118}{Betrachtung bereits existierender L\366sungen}{chapter.110}
+\BOOKMARK [1][]{section.122}{Entscheidung zur eigenen Programmierung}{chapter.110}
+\BOOKMARK [0][]{chapter.123}{Entwurf und Implementierung}{}
+\BOOKMARK [1][]{section.124}{Entwurf}{chapter.123}
+\BOOKMARK [2][]{subsection.125}{Usecases}{section.124}
+\BOOKMARK [2][]{subsection.127}{Klassendiagramme}{section.124}
+\BOOKMARK [2][]{subsection.129}{Sequenzdiagramme}{section.124}
+\BOOKMARK [2][]{subsection.132}{Aktivit\344tsdiagramme}{section.124}
+\BOOKMARK [2][]{subsection.136}{Enitity Relationship Model}{section.124}
+\BOOKMARK [1][]{section.138}{Design Entscheidungen}{chapter.123}
+\BOOKMARK [1][]{section.144}{Auswahl der Hilfsmittel}{chapter.123}
+\BOOKMARK [1][]{section.145}{Schnittstellen}{chapter.123}
+\BOOKMARK [1][]{section.146}{Zeitplan}{chapter.123}
+\BOOKMARK [1][]{section.149}{Realisierung}{chapter.123}
+\BOOKMARK [1][]{section.153}{Probleme bei der Implementierung}{chapter.123}
+\BOOKMARK [1][]{section.154}{Tests}{chapter.123}
+\BOOKMARK [1][]{section.158}{Weitere Anwendungsfelder / Datamining}{chapter.123}
+\BOOKMARK [1][]{section.159}{Wirtschaftliche Betrachtung}{chapter.123}
+\BOOKMARK [0][]{chapter.164}{Fazit}{}
+\BOOKMARK [0][]{section*.165}{Anhang}{}
+\BOOKMARK [0][]{chapter*.183}{Quellen/Literaturverzeichnis}{}
+\BOOKMARK [0][]{chapter*.184}{Ehrenw\366rtliche Erkl\344rung}{}
