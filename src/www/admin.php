@@ -14,6 +14,11 @@ if($_SESSION['userlevel']==3)//Prüfe ob User == Admin
 	if(isset($_GET['msg'])){
 	echo "Started Agent on Switch:".$_GET['msg'];
 	}
+
+	if(isset($_GET['cleandb'])){
+	echo "Cleaned DB";
+	delOldData();
+	}
 	
 	if(isset($_GET['startagent'])){
 	
@@ -61,6 +66,12 @@ if($_SESSION['userlevel']==3)//Prüfe ob User == Admin
 	echo "<h1>Admin-Panel</h1>";
 	echo "<u><b>User</b></u><br/>";
 	echo "User <a href='admin.php?showuser=-1'>verwalten</a><br/>";
+	
+	echo "<br>";
+	echo "<u><b>DB</b></u><br/>";
+	echo "DB <a href='admin.php?cleandb=true'>aufr&auml;umen</a> Alte Eintr&auml;ge (>90 Tage) l&ouml;schen<br/>";
+
+	
 	echo "<br>";
 	echo "<u><b>Agent</b></u><br/>";
 	echo "Agent <a href='admin.php?startagent=all'>starten</a><br/>";
@@ -164,9 +175,9 @@ function showUseradd()
                 <label><b>Passwort:</b></label> <input class="text" type="password" maxlength="255" size="20" name="usrpwd" /><br/>
                 <label><b>Passwort wdh.:</b></label> <input class="text" type="password" maxlength="255" size="20" name="usrpwd2" /><br/>
                 <label><b>Level:</b></label> <select name="usrlvl">
-                <option value="1">Helpdesk</option>
-                <option value="2">Netzwerk</option>
-                <option value="3">Admin</option>
+                <option value="1">Helpdesk - 1</option>
+                <option value="2">Netzwerk - 2</option>
+                <option value="3">Admin - 3</option>
                 </select><br/>
                 <input type="submit" value="Hinzufügen" class="buttons"/> <br/>
             </form><br>
@@ -195,6 +206,36 @@ $usrpwd=sha1($usrpwd);
 
 $sSQL="INSERT INTO USRS (USRID,USRNAME,USRPWD,USRLVL) VALUES ('$usrid','".$usrname."','".$usrpwd."','".$usrlvl."')";
 
+$result=db_query($sSQL);
+
+}
+
+function delOldData()
+{
+//del old entries
+$tempdays=90;
+include_once 'db.inc.php';
+$ctime=time()-($tempdays*24*60*60);
+
+//work tables
+
+$sSQL="DELETE FROM \"st_hosts\" WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM \"st_ports\" WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM \"st_switchs\" WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM \"st_vlans\" WHERE stamptime<'".$ctime."'";
+$result=db_query($sSQL);
+
+//live tables
+$sSQL="DELETE FROM HOSTS_LIVE WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM PORTS_LIVE WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM SWITCHS_LIVE WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM VLANS_LIVE WHERE stamptime<'".$ctime."'";
 $result=db_query($sSQL);
 
 }
