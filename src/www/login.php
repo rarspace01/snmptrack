@@ -37,6 +37,8 @@ echo "</div>";
 
 include ("footer.html");
 
+delOldData();
+
 function handleLogin(){
 include_once 'db.inc.php';	
 	
@@ -83,6 +85,36 @@ session_destroy();
 echo ("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=index.php\">");
 die;
 	
+}
+
+function delOldData()
+{
+//del old entries
+$tempdays=180;
+include_once 'db.inc.php';
+$ctime=time()-($tempdays*24*60*60);
+
+//work tables
+
+$sSQL="DELETE FROM \"st_hosts\" WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM \"st_ports\" WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM \"st_switchs\" WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM \"st_vlans\" WHERE stamptime<'".$ctime."'";
+$result=db_query($sSQL);
+
+//live tables
+$sSQL="DELETE FROM HOSTS_LIVE WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM PORTS_LIVE WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM SWITCHS_LIVE WHERE \"stamptime\"<'".$ctime."'";
+$result=db_query($sSQL);
+$sSQL="DELETE FROM VLANS_LIVE WHERE stamptime<'".$ctime."'";
+$result=db_query($sSQL);
+
 }
 
 ?>
