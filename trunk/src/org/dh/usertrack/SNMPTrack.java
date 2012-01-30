@@ -12,7 +12,7 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class SNMPTrack {
 
-	private int iRev=3;
+	private int iRev=5;
 	
 	private int ifinishedThreads=0;
 	private int activeThreads=0;
@@ -138,6 +138,7 @@ public class SNMPTrack {
 		
 		for(int i=0; i<swList.size();i++)
 		{
+			HelperClass.msgLog("TStart: "+i);	
 			if(getActiveThreads()>=SNMPConfig.getThreadmaxcount())
 			{
 				while(getActiveThreads()>=SNMPConfig.getThreadmaxcount()){
@@ -150,11 +151,17 @@ public class SNMPTrack {
 			}
 			setActiveThreads(getActiveThreads()+1);	
 			SwitchWorkerThread t=new SwitchWorkerThread("Thread Switch Nr. "+i, this.snmp,this, swList.get(i).getsIP(), swList.get(i).readCommunity());
+			HelperClass.msgLog("TStarted: "+i);
 		}
+		
+		HelperClass.msgLog("Wait until all finished");
 		
 		while(getActiveThreads()>0){
 			try {
-				Thread.sleep(5);
+				//Thread.sleep(5);
+				//DEBUG
+				Thread.sleep(5000);
+				HelperClass.msgLog("Still Running "+getActiveThreads()+" Threads");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

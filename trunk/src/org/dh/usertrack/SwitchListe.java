@@ -76,16 +76,22 @@ public class SwitchListe {
 		//System.out.println(sPuffer);
 		
 		try {
-			Thread.sleep(9999);
+			Thread.sleep(999);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		}
-		
-		
-		
+		//
+		//remove ignored ones
+		for (int i=0; i<switchList.size(); i++){
+			if(SNMPTrackConfig.aIgnoredIPs.contains(switchList.get(i).getsIP())){
+				HelperClass.msgLog("Switch on Ignore List, removed: "+switchList.get(i).getsIP());
+				switchList.remove(i);
+				i=0;
+			}
+		}
 	}
 	
 	private void addsw(String sAdrr, String sReadc){
