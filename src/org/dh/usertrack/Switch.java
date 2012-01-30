@@ -60,6 +60,7 @@ public class Switch {
 	public void refresh(){
 	
 	HelperClass.msgLog("Start: "+sIP);
+	
 	lIP=HexToDec.ipToInt(sIP);
 	//HelperClass.msgLog("LIP: "+lIP);
 	
@@ -246,7 +247,10 @@ public class Switch {
 	//get all the macs of the coresponding vlans
 	
 	swVLANListe=getVLanList(swVLANs);
-	
+	if(SNMPConfig.getDebuglevel()>=3)
+	{
+	HelperClass.msgLog("["+sIP+"] VLANs gelesen.");
+	}
 	//add All Macs to the "Global" Maccache-List
 	
 	//normal
@@ -262,6 +266,11 @@ public class Switch {
 		swHostMAC.add(swPuffer.get(j));
 	}
 	swPuffer.clear();
+	
+	if(SNMPConfig.getDebuglevel()>=3)
+	{
+	HelperClass.msgLog("["+sIP+"] HostMACs ausgelesen.");
+	}
 	
 	//vor den VLAN spezfischen Sachen
 	
@@ -285,6 +294,11 @@ public class Switch {
 		}
 		swPuffer.clear();
 		
+	}
+	
+	if(SNMPConfig.getDebuglevel()>=3)
+	{
+	HelperClass.msgLog("["+sIP+"] MACs der Hosts in den VLANs ausgelesen.");
 	}
 	
 	if(swHostMAC.size()<1){
@@ -562,6 +576,11 @@ public class Switch {
 			} //wenn Mac Adresse vorhanden
 			
 		} //port
+		
+		if(SNMPConfig.getDebuglevel()>=3)
+		{
+		HelperClass.msgLog("["+sIP+"] Beginne DB saving.");
+		}
 		
 		//save in DB
 		DBComitterThread dbc=new DBComitterThread(sIP, sSQLList);

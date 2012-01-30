@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class SNMPTrackConfig {
 
@@ -24,6 +25,8 @@ public class SNMPTrackConfig {
 	public static String NagiosDB_DB="";
 	public static String NagiosDB_USR="";
 	public static String NagiosDB_PWD="";
+	
+	public static ArrayList<String> aIgnoredIPs=new ArrayList<String>();
 	
 	public static final int getThreadcount(){
 		
@@ -95,6 +98,9 @@ public class SNMPTrackConfig {
 					String sSTStart="<snmptrack";
 					String sSTEnde="\"/>";
 					
+					String sIGStart="<ignore";
+					String sIGEnde="\"/>";
+					
 					if(sLine.contains(sNStart)&&sLine.contains(sNEnde)){
 						String sXMLelement="ip";
 						NagiosDB_IP=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
@@ -115,6 +121,21 @@ public class SNMPTrackConfig {
 						SNMPtrackDB_USR=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
 						sXMLelement="pwd";
 						SNMPtrackDB_PWD=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
+					}
+					
+					if(sLine.contains(sIGStart)&&sLine.contains(sIGEnde)){
+						String sXMLelement="ips";
+						String siips="";
+						String[] asiip;
+						siips=sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length(), sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()+sLine.substring(sLine.indexOf(sXMLelement+"=\"")+(sXMLelement+"=\"").length()).indexOf("\""));
+						asiip=siips.split(";");
+						for(int i =0; i < asiip.length ; i++)
+						{
+							if(!aIgnoredIPs.contains(asiip[i])){
+								aIgnoredIPs.add(asiip[i]);
+								System.out.println("Ignored IPS: "+asiip[i]);
+							}
+						}
 					}
 					
 					if(sLine.contains(sTStart)&&sLine.contains(sTEnde1)){ 
