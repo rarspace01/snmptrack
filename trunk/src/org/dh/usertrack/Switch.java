@@ -267,6 +267,8 @@ public class Switch {
 	}
 	swPuffer.clear();
 	
+	// Kritische Sektion Anfang
+	
 	if(SNMPConfig.getDebuglevel()>=3)
 	{
 	HelperClass.msgLog("["+sIP+"] HostMACs ausgelesen.");
@@ -274,11 +276,19 @@ public class Switch {
 	
 	//vor den VLAN spezfischen Sachen
 	
+	if(SNMPConfig.getDebuglevel()>=3)
+	{
+	HelperClass.msgLog("["+sIP+"] VLAN List Count: "+swVLANListe.size());
+	}
+	
 	
 	//for vlans
 	for(int i=0;i<swVLANListe.size();i++)
 	{
-		
+		if(SNMPConfig.getDebuglevel()>=3)
+		{
+		HelperClass.msgLog("["+sIP+"] VLANList Entry: "+i);
+		}
 		//for hosts
 		swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
 		for(int j=0;j<swPuffer.size();j++){
@@ -300,6 +310,8 @@ public class Switch {
 	{
 	HelperClass.msgLog("["+sIP+"] MACs der Hosts in den VLANs ausgelesen.");
 	}
+	
+	// Kritische Sektion Ende
 	
 	if(swHostMAC.size()<1){
 		if(SNMPConfig.getDebuglevel()>=2)
