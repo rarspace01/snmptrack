@@ -281,328 +281,341 @@ public class Switch {
 	HelperClass.msgLog("["+sIP+"] VLAN List Count: "+swVLANListe.size());
 	}
 	
-	
-	//for vlans
-	for(int i=0;i<swVLANListe.size();i++)
-	{
+	if(swVLANListe.size()<2){
 		if(SNMPConfig.getDebuglevel()>=3)
 		{
-		HelperClass.msgLog("["+sIP+"] VLANList Entry: "+i);
+		HelperClass.msgLog("["+sIP+"] Intterupd call to few vlans");
 		}
-		//for hosts
-		swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
-		for(int j=0;j<swPuffer.size();j++){
-			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
-			swHostMAC.add(swPuffer.get(j));
-		}
-		swPuffer.clear();
-		//for vportids
-		swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.dot1dBasePortIfIndex, sIP, sReadcommunity+"@"+swVLANListe.get(i));
-		for(int j=0;j<swPuffer.size();j++){
-			//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
-			swVPort.add(swPuffer.get(j));
-		}
-		swPuffer.clear();
-		
-	}
-	
-	if(SNMPConfig.getDebuglevel()>=3)
-	{
-	HelperClass.msgLog("["+sIP+"] MACs der Hosts in den VLANs ausgelesen.");
-	}
-	
-	// Kritische Sektion Ende
-	
-	if(swHostMAC.size()<1){
-		if(SNMPConfig.getDebuglevel()>=2)
-		HelperClass.msgLog("["+sIP+"] Keine Hosts am Ger�t gefunden.");
-		
-	}
-	
-	//System.out.println("["+sIP+"]: swHostMAC Size:"+swHostMAC.size());
-	
-	//is needed for SQL summary
-	sSQL="";
-	
-	if(swMACs.size()<0){
-		HelperClass.msgLog("["+sIP+"] ERROR MAC Liste der Ports leer. Keine Ports auf dem Ger�t.");
 	}else{
-		for(int i=0;i<swMACs.size();i++){
-			if(swMACs.get(i).substring(swMACs.get(i).indexOf("!")+1).length()>0)
+	
+		//for vlans
+		for(int i=0;i<swVLANListe.size();i++)
+		{
+			if(SNMPConfig.getDebuglevel()>=3)
 			{
-				
-				Port p=new Port();
-				
-				
-				sPuffer=swMACs.get(i).substring(swMACs.get(i).indexOf("!")+1);
-				
-				p.sMAC=sPuffer;
-				p.SwitchIP=sIP;
-				p.PortID=Integer.parseInt(swMACs.get(i).substring(0,swMACs.get(i).indexOf("!")).replace(OIDL.ifPhysAddress+".", ""));
-				p.VPortID=getVPortID(swVPort, p.PortID);
-				
-				p.name=getOIDListEntry(swPortname,p.PortID).substring(getOIDListEntry(swPortname,p.PortID).indexOf("!")+1);
-				
-				//Pr�fen ob der Typ der Verbindung korrekt ist, Serielle Konsole etc ausschlie�en
-				if(getType(swType,p.PortID)==6&&!p.name.toLowerCase().contains("vl"))
+			HelperClass.msgLog("["+sIP+"] VLANList Entry: "+i);
+			}
+			//for hosts
+			swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.dot1dTpFdbPort, sIP, sReadcommunity+"@"+swVLANListe.get(i));
+			for(int j=0;j<swPuffer.size();j++){
+				//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
+				swHostMAC.add(swPuffer.get(j));
+			}
+			swPuffer.clear();
+			//for vportids
+			swPuffer=SNMPHandler.getOIDWalknonBulkSlow(snmp, snmpver, OIDL.dot1dBasePortIfIndex, sIP, sReadcommunity+"@"+swVLANListe.get(i));
+			for(int j=0;j<swPuffer.size();j++){
+				//System.out.println("R["+sIP+"]["+swVLANListe.get(i)+"]:"+swPuffer.get(j));
+				swVPort.add(swPuffer.get(j));
+			}
+			swPuffer.clear();
+			
+		}
+		
+		if(SNMPConfig.getDebuglevel()>=3)
+		{
+		HelperClass.msgLog("["+sIP+"] MACs der Hosts in den VLANs ausgelesen.");
+		}
+		
+		// Kritische Sektion Ende
+		
+		if(swHostMAC.size()<1){
+			if(SNMPConfig.getDebuglevel()>=2)
+			HelperClass.msgLog("["+sIP+"] Keine Hosts am Ger�t gefunden.");
+			
+		}
+		
+		//System.out.println("["+sIP+"]: swHostMAC Size:"+swHostMAC.size());
+		
+		//is needed for SQL summary
+		sSQL="";
+		
+		
+		if(swMACs.size()<0){
+			HelperClass.msgLog("["+sIP+"] ERROR MAC Liste der Ports leer. Keine Ports auf dem Ger�t.");
+		}else{
+			for(int i=0;i<swMACs.size();i++){
+				if(swMACs.get(i).substring(swMACs.get(i).indexOf("!")+1).length()>0)
 				{
 					
-				p.alias=getOIDListEntry(swPortalias,p.PortID).substring(getOIDListEntry(swPortalias,p.PortID).indexOf("!")+1);
-				p.vlan=getOIDListEntry(swVLANPorts,p.PortID).substring(getOIDListEntry(swVLANPorts,p.PortID).indexOf("!")+1);
-				
-				//get cstatus of port
-				
-				sPuffer=getOIDListEntry(swStatus, p.PortID).substring(getOIDListEntry(swStatus, p.PortID).indexOf("!")+1);
-				
-				if(sPuffer.contains("1"))
-				{
-					p.cstatus=true;
+					Port p=new Port();
 					
-					p.Speed=getOIDListEntry(swSpeed, p.PortID).substring(getOIDListEntry(swSpeed, p.PortID).indexOf("!")+1);
 					
-					if(p.Speed.length()>0){
-						if(Long.parseLong(p.Speed)>1000000){
-							p.Speed=""+(Long.parseLong(p.Speed)/1000000);
+					sPuffer=swMACs.get(i).substring(swMACs.get(i).indexOf("!")+1);
+					
+					p.sMAC=sPuffer;
+					p.SwitchIP=sIP;
+					p.PortID=Integer.parseInt(swMACs.get(i).substring(0,swMACs.get(i).indexOf("!")).replace(OIDL.ifPhysAddress+".", ""));
+					p.VPortID=getVPortID(swVPort, p.PortID);
+					
+					p.name=getOIDListEntry(swPortname,p.PortID).substring(getOIDListEntry(swPortname,p.PortID).indexOf("!")+1);
+					
+					//Pr�fen ob der Typ der Verbindung korrekt ist, Serielle Konsole etc ausschlie�en
+					if(getType(swType,p.PortID)==6&&!p.name.toLowerCase().contains("vl"))
+					{
+						
+					p.alias=getOIDListEntry(swPortalias,p.PortID).substring(getOIDListEntry(swPortalias,p.PortID).indexOf("!")+1);
+					p.vlan=getOIDListEntry(swVLANPorts,p.PortID).substring(getOIDListEntry(swVLANPorts,p.PortID).indexOf("!")+1);
+					
+					//get cstatus of port
+					
+					sPuffer=getOIDListEntry(swStatus, p.PortID).substring(getOIDListEntry(swStatus, p.PortID).indexOf("!")+1);
+					
+					if(sPuffer.contains("1"))
+					{
+						p.cstatus=true;
+						
+						p.Speed=getOIDListEntry(swSpeed, p.PortID).substring(getOIDListEntry(swSpeed, p.PortID).indexOf("!")+1);
+						
+						if(p.Speed.length()>0){
+							if(Long.parseLong(p.Speed)>1000000){
+								p.Speed=""+(Long.parseLong(p.Speed)/1000000);
+							}
 						}
+						
+						
+					}else{
+						p.cstatus=false;	
+						
+						p.Speed="0";
 					}
 					
-					
-				}else{
-					p.cstatus=false;	
-					
-					p.Speed="0";
-				}
-				
-					//Duplex Erkennung - nur fuer spezielle Cisco Switchs moeglich
-					
-					if(supportsCiscoDuplex)
-					{
-						sPuffer=getDuplexState(swDuplex,p.PortID).substring(sPuffer.indexOf("!")+1);
+						//Duplex Erkennung - nur fuer spezielle Cisco Switchs moeglich
 						
-						if(sPuffer.contains("2")&&p.cstatus)
+						if(supportsCiscoDuplex)
 						{
-						p.Duplex="HalfDuplex";
-						}else if(sPuffer.contains("1")&&p.cstatus)
-						{
-						p.Duplex="FullDuplex";
-						}else{
+							sPuffer=getDuplexState(swDuplex,p.PortID).substring(sPuffer.indexOf("!")+1);
+							
+							if(sPuffer.contains("2")&&p.cstatus)
+							{
+							p.Duplex="HalfDuplex";
+							}else if(sPuffer.contains("1")&&p.cstatus)
+							{
+							p.Duplex="FullDuplex";
+							}else{
+								p.Duplex="";
+							}
+							sPuffer="";
+						}else{//hier evtl andere Abfrage verwenden
 							p.Duplex="";
 						}
-						sPuffer="";
-					}else{//hier evtl andere Abfrage verwenden
-						p.Duplex="";
-					}
-					
-					//zur�cksetzung der Erkennungsvariablen
-					
-					p.isUplink=false;
-					p.hasCDPN=false;
-					p.UplinkIP="";
-										
-					//Pr�fe zuerst per STP
-					if(getSTPCount(swSTP, p.PortID)>0)
-					{
-						p.isUplink=true;	
-					}else if(isUplinkportCDP(swCDP,swCDPC,p.PortID)){
-						p.isUplink=true;
-					}
-				
-					if(p.isUplink)
-					{
-						p.UplinkIP=getUplinkCDPIP(swCDP, p.PortID);
-						if(p.UplinkIP.length()<1){
-						p.isUplink=false;	
+						
+						//zur�cksetzung der Erkennungsvariablen
+						
+						p.isUplink=false;
+						p.hasCDPN=false;
+						p.UplinkIP="";
+											
+						//Pr�fe zuerst per STP
+						if(getSTPCount(swSTP, p.PortID)>0)
+						{
+							p.isUplink=true;	
+						}else if(isUplinkportCDP(swCDP,swCDPC,p.PortID)){
+							p.isUplink=true;
 						}
-					}
 					
-					if(isCDP(swCDP, p.PortID)){
-						p.hasCDPN=true;
-					}
-					
-
-					//
-					
-					if(p.VPortID<0)
-					{
-						//pr�fe ob PortID bereits in VPortID existent
-						if(!isVportID(swVPort, p.PortID)){
-							p.VPortID=p.PortID;
+						if(p.isUplink)
+						{
+							p.UplinkIP=getUplinkCDPIP(swCDP, p.PortID);
+							if(p.UplinkIP.length()<1){
+							p.isUplink=false;	
+							}
 						}
-					}
-					
-					//save Port
-					//System.out.println(p.getDBString());
-					sSQLList.add(p.getDBString());
+						
+						if(isCDP(swCDP, p.PortID)){
+							p.hasCDPN=true;
+						}
+						
 
-					if(p.VPortID<0)
-					{
-						HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] ["+getCDPIP(swCDP, p.PortID)+"] no vportid");
-					}else{
-					
-					//wenn Uplink + CDP==Switch
-					if(p.isUplink&&p.cstatus)
-					{
-					
-						if(p.UplinkIP.length()>0){
+						//
 						
-						Host h=new Host();
-						h.MAC=getMACfromIP(swHostMacIps, p.UplinkIP);
-						h.IP=p.UplinkIP;
+						if(p.VPortID<0)
+						{
+							//pr�fe ob PortID bereits in VPortID existent
+							if(!isVportID(swVPort, p.PortID)){
+								p.VPortID=p.PortID;
+							}
+						}
 						
-						h.PortMAC=p.sMAC;
-						h.MAC=HexToDec.getADVfromSimple(h.MAC);
-						h.Duplex=p.Duplex;
-						h.Speed=p.Speed;
-						
-						sCDPPuffer=getCDPLport(swCDP, h.IP);
-						h.CDPDeviceIP=h.IP;
-						h.CDPDeviceID=getCDPID(swCDPDI, sCDPPuffer);
-						h.CDPDevicePort=getCDPPort(swCDPPort, sCDPPuffer);
-						h.CDPDeviceTyp=getCDPTyp(swCDPC, sCDPPuffer);
-						sCDPPuffer="";	
-					
-						h.hostname=DNSHelperClass.getHostname(h.IP);
-					
-						if(h.MAC.length()>0){
-						sSQLList.add(h.getDBString());
+						//save Port
+						//System.out.println(p.getDBString());
+						sSQLList.add(p.getDBString());
+
+						if(p.VPortID<0)
+						{
+							HelperClass.msgLog("["+sIP+"]["+sversion+"]["+smodel+"]["+p.PortID+"] ["+getCDPIP(swCDP, p.PortID)+"] no vportid");
 						}else{
-							HelperClass.msgLog("CDP ERROR ON SW: "+h.getDBString());
-						}
 						
+						//wenn Uplink + CDP==Switch
+						if(p.isUplink&&p.cstatus)
+						{
 						
-						}else{
-							HelperClass.msgLog("Uplink but no IP via CDP"+p.PortID);
-						}
+							if(p.UplinkIP.length()>0){
+							
+							Host h=new Host();
+							h.MAC=getMACfromIP(swHostMacIps, p.UplinkIP);
+							h.IP=p.UplinkIP;
+							
+							h.PortMAC=p.sMAC;
+							h.MAC=HexToDec.getADVfromSimple(h.MAC);
+							h.Duplex=p.Duplex;
+							h.Speed=p.Speed;
+							
+							sCDPPuffer=getCDPLport(swCDP, h.IP);
+							h.CDPDeviceIP=h.IP;
+							h.CDPDeviceID=getCDPID(swCDPDI, sCDPPuffer);
+							h.CDPDevicePort=getCDPPort(swCDPPort, sCDPPuffer);
+							h.CDPDeviceTyp=getCDPTyp(swCDPC, sCDPPuffer);
+							sCDPPuffer="";	
 						
+							h.hostname=DNSHelperClass.getHostname(h.IP);
 						
-						}
-						
-					//wenn kein Uplink und Interface up und kein Switch, dann erfasse Host
-					if(!p.isUplink&&p.cstatus==true&&!SNMPTrackHelper.isinList(p.UplinkIP)){
-//					if(p.cstatus==true&&!SNMPTrackHelper.isinList(p.UplinkIP)){
+							if(h.MAC.length()>0){
+							sSQLList.add(h.getDBString());
+							}else{
+								HelperClass.msgLog("CDP ERROR ON SW: "+h.getDBString());
+							}
+							
+							
+							}else{
+								HelperClass.msgLog("Uplink but no IP via CDP"+p.PortID);
+							}
+							
+							
+							}
+							
+						//wenn kein Uplink und Interface up und kein Switch, dann erfasse Host
+						if(!p.isUplink&&p.cstatus==true&&!SNMPTrackHelper.isinList(p.UplinkIP)){
+//						if(p.cstatus==true&&!SNMPTrackHelper.isinList(p.UplinkIP)){
 
-						//get Hosts on this port
-						ArrayList<String> alHosts=null;
+							//get Hosts on this port
+							ArrayList<String> alHosts=null;
+								
 							
-						
-						
-							alHosts=getHostsOfPort(swHostMAC,p.VPortID);	
 							
-							if(alHosts.size()>0)
-							{
-								for(int j=0; j<alHosts.size();j++)
+								alHosts=getHostsOfPort(swHostMAC,p.VPortID);	
+								
+								if(alHosts.size()>0)
 								{
-									if(alHosts.get(j).length()>0)
+									for(int j=0; j<alHosts.size();j++)
 									{
-										if(!HexToDec.getSimpleHex(p.sMAC).contains(alHosts.get(j)))
+										if(alHosts.get(j).length()>0)
 										{
-											Host h=new Host();
-											h.MAC=alHosts.get(j);
-											h.PortMAC=p.sMAC;
-											h.MAC=HexToDec.getADVfromSimple(h.MAC);
-											
-											if(isVMWareMAC(h.MAC)){
-												h.sVHOST="1";
-											}else if(isVBoxMAC(h.MAC)){
-												h.sVHOST="2";
-											}else if(isVPCMAC(h.MAC)){
-												h.sVHOST="3";
-											}else if(isVMMAC(h.MAC)){
-												h.sVHOST="4";
-											}
-											
-											h.IP=getIPfromMAC(swHostMacIps,h.MAC);
-											h.lIP=HexToDec.ipToInt(h.IP);
-											h.Duplex=p.Duplex;
-											h.Speed=p.Speed;
-		
-											//sofern IP erhalten, l�se DNS auf
-											if(h.IP.length()>0){
-											
-											if(p.hasCDPN){
+											if(!HexToDec.getSimpleHex(p.sMAC).contains(alHosts.get(j)))
+											{
+												Host h=new Host();
+												h.MAC=alHosts.get(j);
+												h.PortMAC=p.sMAC;
+												h.MAC=HexToDec.getADVfromSimple(h.MAC);
 												
-												sCDPPuffer=getCDPLport(swCDP, h.IP);
-												
-												
-												//Pr�fe ob HostIP in CDP IP(s)
-												if(sCDPPuffer.length()>0){
-													//wenn ja hole ID
-												h.CDPDeviceIP=h.IP;
-												
-												h.CDPDeviceID=getCDPID(swCDPDI, sCDPPuffer);
-												
-												h.CDPDevicePort=getCDPPort(swCDPPort, sCDPPuffer);
-												
-												h.CDPDeviceTyp=getCDPTyp(swCDPC, sCDPPuffer);
-
-												//ENDE
-												sCDPPuffer="";	
-													
+												if(isVMWareMAC(h.MAC)){
+													h.sVHOST="1";
+												}else if(isVBoxMAC(h.MAC)){
+													h.sVHOST="2";
+												}else if(isVPCMAC(h.MAC)){
+													h.sVHOST="3";
+												}else if(isVMMAC(h.MAC)){
+													h.sVHOST="4";
 												}
-											
-											}	
 												
-											h.hostname=DNSHelperClass.getHostname(h.IP);
-											
-											if(h.hostname.length()>0){
-												h.lastuser=LDAP.getUser(h.hostname);
+												h.IP=getIPfromMAC(swHostMacIps,h.MAC);
+												h.lIP=HexToDec.ipToInt(h.IP);
+												h.Duplex=p.Duplex;
+												h.Speed=p.Speed;
+			
+												//sofern IP erhalten, l�se DNS auf
+												if(h.IP.length()>0){
+												
+												if(p.hasCDPN){
+													
+													sCDPPuffer=getCDPLport(swCDP, h.IP);
+													
+													
+													//Pr�fe ob HostIP in CDP IP(s)
+													if(sCDPPuffer.length()>0){
+														//wenn ja hole ID
+													h.CDPDeviceIP=h.IP;
+													
+													h.CDPDeviceID=getCDPID(swCDPDI, sCDPPuffer);
+													
+													h.CDPDevicePort=getCDPPort(swCDPPort, sCDPPuffer);
+													
+													h.CDPDeviceTyp=getCDPTyp(swCDPC, sCDPPuffer);
+
+													//ENDE
+													sCDPPuffer="";	
+														
+													}
+												
+												}	
+													
+												h.hostname=DNSHelperClass.getHostname(h.IP);
+												
+												if(h.hostname.length()>0){
+													h.lastuser=LDAP.getUser(h.hostname);
+												}
+												
+												}
+												
+												//Frage CDP Sachen ab
+												
+												//save Host
+												sSQLList.add(h.getDBString());
 											}
-											
-											}
-											
-											//Frage CDP Sachen ab
-											
-											//save Host
-											sSQLList.add(h.getDBString());
 										}
 									}
 								}
+							}else if(!p.isUplink&&p.cstatus==true&&SNMPTrackHelper.isinList(p.UplinkIP)){
+								
+								HelperClass.msgLog("Bekannter Switch auf ["+sIP+"]["+sAlias+"]["+p.name+"]");
+								//wenn Port bekannter Switch
+//								Host h=new Host();
+//								h.MAC=alHosts.get(j);
+//								h.PortMAC=p.sMAC;
+//								h.MAC=HexToDec.getADVfromSimple(h.MAC);
+//								h.IP=p.UplinkIP;
+//								h.Duplex=p.Duplex;
+//								h.Speed=p.Speed;
+	//
+//								//sofern IP erhalten, l�se DNS auf
+//								if(h.IP.length()>0){
+//								h.hostname=DNSHelperClass.getHostname(h.IP);
+//								}
+//								
+//								//Frage CDP Sachen ab
+//								
+//								//save Host
+//								sSQLList.add(h.getDBString());
+								
 							}
-						}else if(!p.isUplink&&p.cstatus==true&&SNMPTrackHelper.isinList(p.UplinkIP)){
-							
-							HelperClass.msgLog("Bekannter Switch auf ["+sIP+"]["+sAlias+"]["+p.name+"]");
-							//wenn Port bekannter Switch
-//							Host h=new Host();
-//							h.MAC=alHosts.get(j);
-//							h.PortMAC=p.sMAC;
-//							h.MAC=HexToDec.getADVfromSimple(h.MAC);
-//							h.IP=p.UplinkIP;
-//							h.Duplex=p.Duplex;
-//							h.Speed=p.Speed;
-//
-//							//sofern IP erhalten, l�se DNS auf
-//							if(h.IP.length()>0){
-//							h.hostname=DNSHelperClass.getHostname(h.IP);
-//							}
-//							
-//							//Frage CDP Sachen ab
-//							
-//							//save Host
-//							sSQLList.add(h.getDBString());
-							
 						}
-					}
-	
-			} //wenn kein virtueller Port
+		
+				} //wenn kein virtueller Port
+					
+				} //wenn Mac Adresse vorhanden
 				
-			} //wenn Mac Adresse vorhanden
+			} //port
 			
-		} //port
+			if(SNMPConfig.getDebuglevel()>=3)
+			{
+			HelperClass.msgLog("["+sIP+"] Beginne DB saving.");
+			}
+			
+			//save in DB
+			DBComitterThread dbc=new DBComitterThread(sIP, sSQLList);
+			
+//			if(SNMPConfig.getDebuglevel()>=2)
+//			{
+			HelperClass.msgLog("[DEBUG] FIN:"+sIP);
+//			}
+			
+		} //wenn macliste leer
 		
-		if(SNMPConfig.getDebuglevel()>=3)
-		{
-		HelperClass.msgLog("["+sIP+"] Beginne DB saving.");
-		}
-		
-		//save in DB
-		DBComitterThread dbc=new DBComitterThread(sIP, sSQLList);
-		
-//		if(SNMPConfig.getDebuglevel()>=2)
-//		{
-		HelperClass.msgLog("[DEBUG] FIN:"+sIP);
-//		}
-		
-	} //wenn macliste leer
+	}
+	
+	
+	
+	
 	
 	}//IF abfrage ob SNMP geht
 	
