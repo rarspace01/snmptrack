@@ -12,7 +12,7 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 public class SNMPTrack {
 
-	private int iRev=6;
+	private int iRev=7;
 	
 	private int ifinishedThreads=0;
 	private int activeThreads=0;
